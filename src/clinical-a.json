@@ -1,0 +1,2878 @@
+[
+  {
+    "id": "C001",
+    "title": "尿不湿下面的包块",
+    "department": "儿科",
+    "age": 1,
+    "sex": "男",
+    "complaint": "呕吐八小时，腹胀四小时",
+    "history": [
+      "昨天下午起哭闹，夜间反复吐黄绿色液体",
+      "今天没有大便和放屁",
+      "母亲说第一次吃虾，既往无大病"
+    ],
+    "findings": [
+      "体温37.4℃，心率148次/分，嘴唇干",
+      "腹部膨隆，肠鸣音弱",
+      "右腹股沟包块紧、红、不能回纳"
+    ],
+    "dipGroup": "住院·腹股沟疝嵌顿手术（儿童）",
+    "budget": 9600,
+    "baseCost": 7800,
+    "critical": true,
+    "steps": [
+      {
+        "id": "C001-s1",
+        "title": "采集信息",
+        "text": "母亲把孩子放上诊床，孩子蜷起右腿。",
+        "options": [
+          {
+            "id": "C001-s1-a",
+            "label": "追问哭闹和既往包块",
+            "ap": 1,
+            "minutes": 6,
+            "cost": 0,
+            "result": "母亲说右大腿根的疙瘩一直会出来，昨晚没有回去。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C001-hernia-history"
+              ]
+            },
+            "next": "C001-s2"
+          },
+          {
+            "id": "C001-s1-b",
+            "label": "只问吃了什么",
+            "ap": 1,
+            "minutes": 4,
+            "cost": 0,
+            "result": "母亲重复说可能是虾吃坏了。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C001-small-omission"
+              ]
+            },
+            "next": "C001-s2"
+          },
+          {
+            "id": "C001-s1-c",
+            "label": "先止吐再慢慢询问",
+            "ap": 1,
+            "minutes": 25,
+            "cost": 45,
+            "result": "呕吐短暂减少，包块病史仍未问到。",
+            "effects": {
+              "stamina": -2,
+              "flags": [
+                "C001-delay"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 15,
+                  "reason": "先对症处理使嵌顿诊断延后",
+                  "norm": "急腹症应先明确病因",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C001-s2"
+          }
+        ]
+      },
+      {
+        "id": "C001-s2",
+        "title": "判断分流",
+        "text": "尿不湿右侧鼓起，孩子每次触碰都哭。",
+        "options": [
+          {
+            "id": "C001-s2-a",
+            "label": "脱掉尿不湿查腹股沟",
+            "ap": 1,
+            "minutes": 6,
+            "cost": 0,
+            "result": "看见红肿包块，触痛，不能回纳，按急诊外科分流。",
+            "effects": {
+              "stamina": -2,
+              "flags": [
+                "C001-mass-found"
+              ]
+            },
+            "next": "C001-s3"
+          },
+          {
+            "id": "C001-s2-b",
+            "label": "隔着尿不湿查腹部",
+            "ap": 1,
+            "minutes": 4,
+            "cost": 0,
+            "result": "只记下腹胀和肠鸣音弱，包块没有确认。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C001-small-omission"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "未暴露腹股沟区域可能漏诊嵌顿疝",
+                  "norm": "婴幼儿腹胀呕吐应检查腹股沟和阴囊",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C001-s3"
+          },
+          {
+            "id": "C001-s2-c",
+            "label": "先开腹部平片再看",
+            "ap": 1,
+            "minutes": 20,
+            "cost": 60,
+            "result": "片子提示小肠梗阻，包块仍未查清。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C001-film-first"
+              ]
+            },
+            "next": "C001-s3"
+          }
+        ]
+      },
+      {
+        "id": "C001-s3",
+        "title": "判断分流",
+        "text": "孩子的腹部继续膨隆，护士问是否联系外科。",
+        "options": [
+          {
+            "id": "C001-s3-a",
+            "label": "急查超声和血液检查",
+            "ap": 1,
+            "minutes": 25,
+            "cost": 300,
+            "result": "超声见右腹股沟肠管，血流减少，支持嵌顿疝。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C001-confirmed"
+              ]
+            },
+            "next": "C001-s4"
+          },
+          {
+            "id": "C001-s3-b",
+            "label": "只查血常规观察",
+            "ap": 1,
+            "minutes": 30,
+            "cost": 180,
+            "result": "白细胞升高，病因仍未明确。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C001-limited-workup"
+              ]
+            },
+            "next": "C001-s4"
+          },
+          {
+            "id": "C001-s3-c",
+            "label": "做全腹CT排除肠炎",
+            "ap": 1,
+            "minutes": 60,
+            "cost": 680,
+            "result": "孩子哭闹，检查途中再次呕吐，结果仍提示梗阻。",
+            "effects": {
+              "stamina": -2,
+              "flags": [
+                "C001-ct-delay"
+              ],
+              "hazards": [
+                {
+                  "type": "F",
+                  "weight": 8,
+                  "reason": "不必要的长时间检查延误外科处理",
+                  "norm": "可用超声和平片时应优先简便检查",
+                  "causal": false
+                }
+              ]
+            },
+            "next": "C001-s4"
+          }
+        ]
+      },
+      {
+        "id": "C001-s4",
+        "title": "处置、记录与交接",
+        "text": "护士问是否现在联系外科，母亲抱着孩子站在门边。",
+        "options": [
+          {
+            "id": "C001-s4-a",
+            "label": "禁食减压补液并请外科",
+            "ap": 1,
+            "minutes": 30,
+            "cost": 260,
+            "result": "胃管减压后联系外科急诊手术，交班写明包块持续时间。",
+            "effects": {
+              "stamina": -2,
+              "san": 2,
+              "emotion": 1,
+              "reputation": 1,
+              "mitigate": 1,
+              "flags": [
+                "C001-rescue"
+              ]
+            },
+            "next": "end"
+          },
+          {
+            "id": "C001-s4-b",
+            "label": "灌肠后留观",
+            "ap": 1,
+            "minutes": 20,
+            "cost": 30,
+            "result": "腹胀没有缓解，交班时母亲追问为什么还不请外科。",
+            "effects": {
+              "stamina": -2,
+              "emotion": -2,
+              "flags": [
+                "C001-enema"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "机械性梗阻未排除即灌肠",
+                  "norm": "嵌顿疝应禁食减压并及时外科处置",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "end"
+          },
+          {
+            "id": "C001-s4-c",
+            "label": "写记录后等到天亮",
+            "ap": 0,
+            "minutes": 5,
+            "cost": 0,
+            "result": "记录漏写包块持续时间，天亮前病情恶化。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C001-late-note"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "延迟急诊手术",
+                  "norm": "嵌顿疝应立即请外科会诊",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "end"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C002",
+    "title": "没问的那句话",
+    "department": "呼吸",
+    "age": 48,
+    "sex": "男",
+    "complaint": "发热、咳嗽三天",
+    "history": [
+      "淋雨后发热，咳黄痰，右胸咳痛",
+      "自服感冒药两天无效",
+      "吸烟二十年，妻子说他平时喝酒"
+    ],
+    "findings": [
+      "体温38.6℃，血氧96%",
+      "右下肺湿啰音",
+      "呼气有酒味，掌红"
+    ],
+    "dipGroup": "门诊·社区获得性肺炎（低危）",
+    "budget": 600,
+    "baseCost": 420,
+    "critical": false,
+    "steps": [
+      {
+        "id": "C002-s1",
+        "title": "采集信息",
+        "text": "候诊屏还有十一个号，男人一直没有脱外套。",
+        "options": [
+          {
+            "id": "C002-s1-a",
+            "label": "追问饮酒和用药",
+            "ap": 1,
+            "minutes": 5,
+            "cost": 0,
+            "result": "他说每天喝酒，中午也喝过。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C002-alcohol-known"
+              ]
+            },
+            "next": "C002-s2"
+          },
+          {
+            "id": "C002-s1-b",
+            "label": "只问咳嗽和痰",
+            "ap": 1,
+            "minutes": 3,
+            "cost": 0,
+            "result": "病程和痰色记下了，饮酒情况没有问。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C002-small-omission"
+              ]
+            },
+            "next": "C002-s2"
+          },
+          {
+            "id": "C002-s1-c",
+            "label": "按感冒快速开药",
+            "ap": 0,
+            "minutes": 3,
+            "cost": 0,
+            "result": "没有查体，也没有确认肺炎。",
+            "effects": {
+              "flags": [
+                "C002-quick"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 15,
+                  "reason": "跳过查体和影像",
+                  "norm": "发热咳嗽伴胸痛应评估肺部感染",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C002-s2"
+          }
+        ]
+      },
+      {
+        "id": "C002-s2",
+        "title": "判断分流",
+        "text": "他坐着喘气不重，妻子在门外等。",
+        "options": [
+          {
+            "id": "C002-s2-a",
+            "label": "全身查体并听肺",
+            "ap": 1,
+            "minutes": 6,
+            "cost": 0,
+            "result": "右下肺湿啰音，掌红，呼气有酒味。",
+            "effects": {
+              "stamina": -2,
+              "flags": [
+                "C002-alcohol-signs"
+              ]
+            },
+            "next": "C002-s3"
+          },
+          {
+            "id": "C002-s2-b",
+            "label": "只听右肺",
+            "ap": 1,
+            "minutes": 3,
+            "cost": 0,
+            "result": "听到右下肺湿啰音，未注意其他体征。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C002-small-omission"
+              ]
+            },
+            "next": "C002-s3"
+          },
+          {
+            "id": "C002-s2-c",
+            "label": "不查体直接开检查",
+            "ap": 1,
+            "minutes": 1,
+            "cost": 0,
+            "result": "检查单开出，但没有记录呼吸状态。",
+            "effects": {
+              "flags": [
+                "C002-no-exam"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 15,
+                  "reason": "缺少基本体征判断病情",
+                  "norm": "门诊抗菌药使用前应完成必要查体",
+                  "causal": false
+                }
+              ]
+            },
+            "next": "C002-s3"
+          }
+        ]
+      },
+      {
+        "id": "C002-s3",
+        "title": "判断分流",
+        "text": "胸片室在走廊尽头，妻子把病历本递过来。",
+        "options": [
+          {
+            "id": "C002-s3-a",
+            "label": "做胸片和血常规",
+            "ap": 1,
+            "minutes": 15,
+            "cost": 140,
+            "result": "胸片示右下叶片状浸润，血常规支持感染。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C002-pneumonia"
+              ]
+            },
+            "next": "C002-s4"
+          },
+          {
+            "id": "C002-s3-b",
+            "label": "只做胸片",
+            "ap": 1,
+            "minutes": 15,
+            "cost": 80,
+            "result": "胸片提示右下叶肺炎，病情低危。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C002-pneumonia"
+              ]
+            },
+            "next": "C002-s4"
+          },
+          {
+            "id": "C002-s3-c",
+            "label": "直接按咳嗽开药",
+            "ap": 0,
+            "minutes": 1,
+            "cost": 0,
+            "result": "没有影像证据，妻子问是否需要住院。",
+            "effects": {
+              "flags": [
+                "C002-no-workup"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 10,
+                  "reason": "未经评估即开抗菌药",
+                  "norm": "发热胸痛应完成必要检查",
+                  "causal": false
+                }
+              ]
+            },
+            "next": "C002-s4"
+          }
+        ]
+      },
+      {
+        "id": "C002-s4",
+        "title": "处置、记录与交接",
+        "text": "男人问能不能开一种便宜的药，妻子看着你。",
+        "options": [
+          {
+            "id": "C002-s4-a",
+            "label": "口服合适抗菌药并告知禁酒",
+            "ap": 1,
+            "minutes": 8,
+            "cost": 68,
+            "result": "开具门诊方案，写明用药期间及之后禁酒；妻子说他平时喝得多。",
+            "effects": {
+              "stamina": -1,
+              "san": 2,
+              "emotion": 2,
+              "reputation": 1,
+              "mitigate": 1,
+              "flags": [
+                "C002-safe-rx"
+              ]
+            },
+            "next": "end"
+          },
+          {
+            "id": "C002-s4-b",
+            "label": "静滴有饮酒相互作用风险的抗菌药",
+            "ap": 1,
+            "minutes": 30,
+            "cost": 420,
+            "result": "给药前未充分核对饮酒与药物相互作用风险，输液后患者出现面红心悸。",
+            "effects": {
+              "stamina": -2,
+              "emotion": -2,
+              "flags": [
+                "C002-cef-danger"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 30,
+                  "reason": "饮酒后使用有相互作用风险的药物",
+                  "norm": "用药前应核对饮酒史并告知禁酒",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "end"
+          },
+          {
+            "id": "C002-s4-c",
+            "label": "只给退热药三天后复诊",
+            "ap": 1,
+            "minutes": 4,
+            "cost": 20,
+            "result": "肺炎治疗被推迟，病历只写咳嗽和发热。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C002-small-omission",
+                "C002-delay"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 20,
+                  "reason": "肺炎风险未及时处理",
+                  "norm": "应按病情及时给予规范治疗",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "end"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C003",
+    "title": "凌晨一点的胃痛",
+    "department": "心血管",
+    "age": 67,
+    "sex": "男",
+    "complaint": "上腹痛三小时，恶心呕吐",
+    "history": [
+      "疼痛从胸前向背部放射，下午上楼时出汗",
+      "有糖尿病和高血压",
+      "家属以为是胃病"
+    ],
+    "findings": [
+      "血压86/54mmHg，心率52次/分",
+      "皮肤湿冷，肺部清",
+      "心电图可见下壁ST段抬高"
+    ],
+    "dipGroup": "住院·急性下壁心肌梗死，经皮冠状动脉介入",
+    "budget": 48000,
+    "baseCost": 42000,
+    "critical": true,
+    "steps": [
+      {
+        "id": "C003-s1",
+        "title": "采集信息",
+        "text": "凌晨一点，男人蜷在诊床上，女儿站在床尾。",
+        "options": [
+          {
+            "id": "C003-s1-a",
+            "label": "追问疼痛和出汗",
+            "ap": 1,
+            "minutes": 5,
+            "cost": 0,
+            "result": "女儿说下午上楼时已经胸闷出汗。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C003-exertional"
+              ]
+            },
+            "next": "C003-s2"
+          },
+          {
+            "id": "C003-s1-b",
+            "label": "只问胃病史",
+            "ap": 1,
+            "minutes": 3,
+            "cost": 0,
+            "result": "他称和以前胃痛一样，心脏危险信号没有展开。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C003-small-omission"
+              ]
+            },
+            "next": "C003-s2"
+          },
+          {
+            "id": "C003-s1-c",
+            "label": "先按胃痛止痛",
+            "ap": 1,
+            "minutes": 20,
+            "cost": 85,
+            "result": "疼痛暂时变轻，低血压未改善。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C003-gastric"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "未排除心肌梗死即按胃病处理",
+                  "norm": "老年上腹痛应先排除急性冠脉综合征",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C003-s2"
+          }
+        ]
+      },
+      {
+        "id": "C003-s2",
+        "title": "判断分流",
+        "text": "监护仪上的心率在五十上下跳动。",
+        "options": [
+          {
+            "id": "C003-s2-a",
+            "label": "立刻做十八导联心电图",
+            "ap": 1,
+            "minutes": 8,
+            "cost": 40,
+            "result": "心电图确认下壁ST段抬高并提示右室受累。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C003-ecg"
+              ]
+            },
+            "next": "C003-s3"
+          },
+          {
+            "id": "C003-s2-b",
+            "label": "查心肺腹和颈静脉",
+            "ap": 1,
+            "minutes": 5,
+            "cost": 0,
+            "result": "颈静脉充盈，肺部清，四肢凉，提示右室受累。",
+            "effects": {
+              "stamina": -2,
+              "flags": [
+                "C003-rv-signs"
+              ]
+            },
+            "next": "C003-s3"
+          },
+          {
+            "id": "C003-s2-c",
+            "label": "只查腹部并做腹超",
+            "ap": 1,
+            "minutes": 40,
+            "cost": 160,
+            "result": "腹部没有明确异常，心电图仍未做。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C003-no-ecg"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 30,
+                  "reason": "低血压心动过缓时漏做心电图",
+                  "norm": "胸腹痛患者应及时完成心电图",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C003-s3"
+          }
+        ]
+      },
+      {
+        "id": "C003-s3",
+        "title": "判断分流",
+        "text": "导管室电话无人接，护士问是否先补液。",
+        "options": [
+          {
+            "id": "C003-s3-a",
+            "label": "补液并给抗血小板药",
+            "ap": 1,
+            "minutes": 8,
+            "cost": 90,
+            "result": "低血压略回升，导管室准备接诊。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C003-stabilized"
+              ]
+            },
+            "next": "C003-s4"
+          },
+          {
+            "id": "C003-s3-b",
+            "label": "查心电图和肌钙蛋白",
+            "ap": 1,
+            "minutes": 20,
+            "cost": 180,
+            "result": "心电图见下壁ST段抬高，肌钙蛋白升高。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C003-confirmed"
+              ]
+            },
+            "next": "C003-s4"
+          },
+          {
+            "id": "C003-s3-c",
+            "label": "舌下含服硝酸甘油",
+            "ap": 1,
+            "minutes": 5,
+            "cost": 5,
+            "result": "血压降到70/44mmHg，出现头晕。",
+            "effects": {
+              "stamina": -1,
+              "damage": 1,
+              "flags": [
+                "C003-nitro"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "右室梗死合并低血压时扩张血管加重低血压",
+                  "norm": "低血压右室梗死应避免硝酸酯",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C003-s4"
+          }
+        ]
+      },
+      {
+        "id": "C003-s4",
+        "title": "处置、记录与交接",
+        "text": "再灌注处置还需落实，家属在门外等候。",
+        "options": [
+          {
+            "id": "C003-s4-a",
+            "label": "启动导管室并告知风险",
+            "ap": 1,
+            "minutes": 15,
+            "cost": 200,
+            "result": "直接送导管室行再灌注，记录低血压和右室受累。",
+            "effects": {
+              "stamina": -1,
+              "san": 2,
+              "emotion": 2,
+              "reputation": 1,
+              "mitigate": 1,
+              "flags": [
+                "C003-pci"
+              ]
+            },
+            "next": "end"
+          },
+          {
+            "id": "C003-s4-b",
+            "label": "收入CCU等白班决定",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 600,
+            "result": "病历漏写下午活动后出汗，白班接手时再灌注窗口已缩短。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C003-delay",
+                "C003-small-omission"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 30,
+                  "reason": "明确STEMI后延迟再灌注",
+                  "norm": "应及时行PCI或可行的再灌注治疗",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "end"
+          },
+          {
+            "id": "C003-s4-c",
+            "label": "请消化科先排除穿孔",
+            "ap": 1,
+            "minutes": 40,
+            "cost": 100,
+            "result": "消化科未发现穿孔，导管室等待期间心电图恶化。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C003-consult-delay"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 15,
+                  "reason": "以排除胃病为由延误再灌注",
+                  "norm": "心电图明确STEMI应优先再灌注",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "end"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C004",
+    "title": "转床单上的一行",
+    "department": "呼吸",
+    "age": 71,
+    "sex": "女",
+    "complaint": "转入病区后黑便、头晕",
+    "history": [
+      "肺部感染使用抗菌药",
+      "长期服用华法林",
+      "转床单写着近期牙龈出血"
+    ],
+    "findings": [
+      "血压94/60mmHg，皮肤有瘀斑",
+      "黑便，牙龈渗血",
+      "血红蛋白82g/L，INR8.6"
+    ],
+    "dipGroup": "住院·肺脓肿合并抗凝相关消化道出血",
+    "budget": 14500,
+    "baseCost": 11200,
+    "critical": true,
+    "steps": [
+      {
+        "id": "C004-s1",
+        "title": "采集信息",
+        "text": "晨交班后，转床单压在病历最下面。",
+        "options": [
+          {
+            "id": "C004-s1-a",
+            "label": "逐项核对全部用药",
+            "ap": 1,
+            "minutes": 8,
+            "cost": 0,
+            "result": "发现华法林与新加抗菌药可能相互影响。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C004-interaction"
+              ]
+            },
+            "next": "C004-s2"
+          },
+          {
+            "id": "C004-s1-b",
+            "label": "只看交班摘要",
+            "ap": 1,
+            "minutes": 1,
+            "cost": 0,
+            "result": "继续原方案，漏掉转床单上一行出血记录。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C004-small-omission",
+                "C004-not-reviewed"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "未核对全部医嘱导致相互作用漏诊",
+                  "norm": "交接班应逐项核对长期和临时医嘱",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C004-s2"
+          },
+          {
+            "id": "C004-s1-c",
+            "label": "先电话问原主管",
+            "ap": 0,
+            "minutes": 6,
+            "cost": 0,
+            "result": "对方说病人一直稳定，未提供最新出血情况。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C004-small-omission"
+              ]
+            },
+            "next": "C004-s2"
+          }
+        ]
+      },
+      {
+        "id": "C004-s2",
+        "title": "判断分流",
+        "text": "患者坐起时眼前发黑，床旁桶里有黑色便。",
+        "options": [
+          {
+            "id": "C004-s2-a",
+            "label": "问黑便和出血表现",
+            "ap": 1,
+            "minutes": 4,
+            "cost": 0,
+            "result": "她承认两天黑便、刷牙出血。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C004-bleed-known"
+              ]
+            },
+            "next": "C004-s3"
+          },
+          {
+            "id": "C004-s2-b",
+            "label": "查皮肤腹部和直肠",
+            "ap": 1,
+            "minutes": 8,
+            "cost": 0,
+            "result": "见前臂瘀斑，指套为柏油样便。",
+            "effects": {
+              "stamina": -2,
+              "flags": [
+                "C004-bleed-known"
+              ]
+            },
+            "next": "C004-s3"
+          },
+          {
+            "id": "C004-s2-c",
+            "label": "快速巡视维持原方案",
+            "ap": 0,
+            "minutes": 1,
+            "cost": 0,
+            "result": "没有追问黑便，也没有补记床单内容。",
+            "effects": {
+              "flags": [
+                "C004-small-omission",
+                "C004-quick"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 15,
+                  "reason": "活动性出血体征未评估",
+                  "norm": "抗凝患者查房应询问出血并完成查体",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C004-s3"
+          }
+        ]
+      },
+      {
+        "id": "C004-s3",
+        "title": "判断分流",
+        "text": "护士询问是否急查凝血和血常规，患者又排出黑便。",
+        "options": [
+          {
+            "id": "C004-s3-a",
+            "label": "急查INR和血常规",
+            "ap": 1,
+            "minutes": 30,
+            "cost": 160,
+            "result": "INR8.6，血红蛋白82，确认需要逆转抗凝。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C004-inr-high"
+              ]
+            },
+            "next": "C004-s4"
+          },
+          {
+            "id": "C004-s3-b",
+            "label": "只查大便隐血",
+            "ap": 1,
+            "minutes": 40,
+            "cost": 20,
+            "result": "隐血阳性，但没有及时知道凝血结果。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C004-small-omission"
+              ]
+            },
+            "next": "C004-s4"
+          },
+          {
+            "id": "C004-s3-c",
+            "label": "先做腹部CT",
+            "ap": 1,
+            "minutes": 60,
+            "cost": 520,
+            "result": "检查途中再次黑便，CT未回答出血程度。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C004-ct-delay"
+              ],
+              "hazards": [
+                {
+                  "type": "F",
+                  "weight": 8,
+                  "reason": "先做影像延误凝血评估",
+                  "norm": "消化道出血应优先查凝血和血常规",
+                  "causal": false
+                }
+              ]
+            },
+            "next": "C004-s4"
+          }
+        ]
+      },
+      {
+        "id": "C004-s4",
+        "title": "处置、记录与交接",
+        "text": "患者的家属把一张旧处方放到桌上，问还能不能继续吃药。",
+        "options": [
+          {
+            "id": "C004-s4-a",
+            "label": "停相关药并逆转抗凝",
+            "ap": 1,
+            "minutes": 15,
+            "cost": 1860,
+            "result": "停用华法林和相互作用药，按流程逆转并申请内镜；记录转床单上的出血提示。",
+            "effects": {
+              "stamina": -1,
+              "san": 2,
+              "emotion": 2,
+              "reputation": 1,
+              "mitigate": 1,
+              "flags": [
+                "C004-reversed"
+              ]
+            },
+            "next": "end"
+          },
+          {
+            "id": "C004-s4-b",
+            "label": "只补液观察黑便",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 40,
+            "result": "黑便增多，病历只写贫血，凝血评估与处理情况没有交接。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C004-small-omission",
+                "C004-continued"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 30,
+                  "reason": "活动性出血和高INR未逆转",
+                  "norm": "严重抗凝相关出血应立即逆转并处理病因",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "end"
+          },
+          {
+            "id": "C004-s4-c",
+            "label": "大剂量维生素K静推",
+            "ap": 0,
+            "minutes": 5,
+            "cost": 12,
+            "result": "给药后凝血指标逐渐变化，后续抗凝重启受到影响，给药记录不完整。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C004-overdose",
+                "C004-small-omission"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 10,
+                  "reason": "给药方式和剂量不当",
+                  "norm": "逆转抗凝应按院内流程核对制剂和给法",
+                  "causal": false
+                }
+              ]
+            },
+            "next": "end"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C005",
+    "title": "帆布包里的药板",
+    "department": "神经",
+    "age": 32,
+    "sex": "女",
+    "complaint": "头痛五天，今晨视物模糊",
+    "history": [
+      "头痛晨起重，咳嗽时加重并呕吐",
+      "近三个月服用复方口服避孕药",
+      "母亲陪同，患者不愿在母亲面前谈药"
+    ],
+    "findings": [
+      "双侧视乳头水肿",
+      "神经系统无明显偏瘫",
+      "头颅静脉成像提示静脉窦血栓"
+    ],
+    "dipGroup": "住院·颅内静脉窦血栓形成，抗凝治疗",
+    "budget": 16800,
+    "baseCost": 14500,
+    "critical": true,
+    "steps": [
+      {
+        "id": "C005-s1",
+        "title": "采集信息",
+        "text": "患者把帆布包抱在腿上，母亲替她回答。",
+        "options": [
+          {
+            "id": "C005-s1-a",
+            "label": "请母亲外出再问用药",
+            "ap": 1,
+            "minutes": 5,
+            "cost": 0,
+            "result": "她说出近期一直服用复方避孕药。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C005-ocp-known"
+              ]
+            },
+            "next": "C005-s2"
+          },
+          {
+            "id": "C005-s1-b",
+            "label": "只问头痛和呕吐",
+            "ap": 1,
+            "minutes": 5,
+            "cost": 0,
+            "result": "记下晨重和呕吐，未问帆布包内的药。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C005-small-omission"
+              ]
+            },
+            "next": "C005-s2"
+          },
+          {
+            "id": "C005-s1-c",
+            "label": "先按偏头痛拟回家方案",
+            "ap": 1,
+            "minutes": 3,
+            "cost": 0,
+            "result": "先写下偏头痛处方方案，视物模糊未评估，患者仍在诊室等候。",
+            "effects": {
+              "flags": [
+                "C005-migraine"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "颅内压增高警示症状被按偏头痛处理",
+                  "norm": "晨重呕吐和视物模糊应排查颅内病变",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C005-s2"
+          }
+        ]
+      },
+      {
+        "id": "C005-s2",
+        "title": "判断分流",
+        "text": "她看黑板时眯起眼，诊室门外传来母亲的声音。",
+        "options": [
+          {
+            "id": "C005-s2-a",
+            "label": "做眼底和神经查体",
+            "ap": 1,
+            "minutes": 8,
+            "cost": 0,
+            "result": "眼底见双侧视乳头水肿，转急诊影像评估。",
+            "effects": {
+              "stamina": -2,
+              "flags": [
+                "C005-papilledema"
+              ]
+            },
+            "next": "C005-s3"
+          },
+          {
+            "id": "C005-s2-b",
+            "label": "只做一般神经查体",
+            "ap": 1,
+            "minutes": 5,
+            "cost": 0,
+            "result": "没有局灶体征，眼底检查被省略。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C005-small-omission"
+              ]
+            },
+            "next": "C005-s3"
+          },
+          {
+            "id": "C005-s2-c",
+            "label": "只量血压不开查体",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "血压正常，仍无法解释视物模糊。",
+            "effects": {
+              "flags": [
+                "C005-no-neuro"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 15,
+                  "reason": "跳过神经查体导致颅压风险未识别",
+                  "norm": "头痛伴视力变化应完成神经和眼底检查",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C005-s3"
+          }
+        ]
+      },
+      {
+        "id": "C005-s3",
+        "title": "判断分流",
+        "text": "影像室说磁共振还要等，患者的呕吐加重。",
+        "options": [
+          {
+            "id": "C005-s3-a",
+            "label": "先做静脉成像检查",
+            "ap": 1,
+            "minutes": 45,
+            "cost": 720,
+            "result": "静脉成像显示上矢状窦和左横窦血栓。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C005-cvst-confirmed"
+              ]
+            },
+            "next": "C005-s4"
+          },
+          {
+            "id": "C005-s3-b",
+            "label": "先做头颅CT平扫",
+            "ap": 1,
+            "minutes": 30,
+            "cost": 260,
+            "result": "CT未见明显出血，随后仍需静脉成像。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C005-ct-done",
+                "C005-small-omission"
+              ]
+            },
+            "next": "C005-s4"
+          },
+          {
+            "id": "C005-s3-c",
+            "label": "不做影像只给止痛药",
+            "ap": 1,
+            "minutes": 2,
+            "cost": 0,
+            "result": "头痛暂缓，视物模糊持续。",
+            "effects": {
+              "flags": [
+                "C005-no-imaging"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 30,
+                  "reason": "未明确颅内病因便观察",
+                  "norm": "疑似颅内静脉窦血栓应尽快完成静脉成像",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C005-s4"
+          }
+        ]
+      },
+      {
+        "id": "C005-s4",
+        "title": "处置、记录与交接",
+        "text": "患者从帆布包里拿出几板药，母亲在门外敲门。",
+        "options": [
+          {
+            "id": "C005-s4-a",
+            "label": "收入院抗凝并记录药物",
+            "ap": 1,
+            "minutes": 15,
+            "cost": 600,
+            "result": "收入神经内科，完善静脉成像和抗凝评估，记录实际核实的用药与查体信息。",
+            "effects": {
+              "stamina": -1,
+              "san": 2,
+              "emotion": 2,
+              "reputation": 1,
+              "mitigate": 1,
+              "flags": [
+                "C005-anticoagulated"
+              ]
+            },
+            "next": "end"
+          },
+          {
+            "id": "C005-s4-b",
+            "label": "只给止痛药三天后复诊",
+            "ap": 1,
+            "minutes": 5,
+            "cost": 30,
+            "result": "病历漏写帆布包中的药，三天后视力进一步下降。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C005-small-omission",
+                "C005-delay"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 30,
+                  "reason": "确诊前后均未及时抗凝评估",
+                  "norm": "静脉窦血栓应及时住院处理",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "end"
+          },
+          {
+            "id": "C005-s4-c",
+            "label": "按偏头痛继续用药",
+            "ap": 0,
+            "minutes": 3,
+            "cost": 20,
+            "result": "短暂缓解后再发剧烈头痛，家属找不到完整病历。",
+            "effects": {
+              "damage": 1,
+              "flags": [
+                "C005-wrong-treatment"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "错误治疗掩盖颅内压增高",
+                  "norm": "明确危险性头痛后不得按偏头痛继续观察",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "end"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C006",
+    "title": "呼气里的酒味",
+    "department": "内分泌",
+    "age": 54,
+    "sex": "男",
+    "complaint": "昏睡，出汗，无法正常回答",
+    "history": [
+      "糖尿病，晚餐后自行加打长效胰岛素",
+      "家属说他最近吃得少",
+      "桌上有未开封的酒瓶"
+    ],
+    "findings": [
+      "床旁血糖2.1mmol/L",
+      "头皮有擦伤，瞳孔等大",
+      "补糖后短暂清醒，仍有复发风险"
+    ],
+    "dipGroup": "住院·长效胰岛素相关低血糖",
+    "budget": 3200,
+    "baseCost": 2500,
+    "critical": true,
+    "steps": [
+      {
+        "id": "C006-s1",
+        "title": "采集信息",
+        "text": "急诊门口有酒味，患者叫不醒，家属攥着药盒。",
+        "options": [
+          {
+            "id": "C006-s1-a",
+            "label": "测血糖并问胰岛素",
+            "ap": 1,
+            "minutes": 4,
+            "cost": 0,
+            "result": "血糖2.1，家属说患者加打过长效胰岛素。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C006-hypoglycemia"
+              ]
+            },
+            "next": "C006-s2"
+          },
+          {
+            "id": "C006-s1-b",
+            "label": "只问是否喝酒",
+            "ap": 1,
+            "minutes": 3,
+            "cost": 0,
+            "result": "家属说晚餐喝了一点，低血糖尚未确认。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C006-small-omission"
+              ]
+            },
+            "next": "C006-s2"
+          },
+          {
+            "id": "C006-s1-c",
+            "label": "按醉酒先观察",
+            "ap": 1,
+            "minutes": 5,
+            "cost": 0,
+            "result": "患者出汗加重，血糖检查被推迟。",
+            "effects": {
+              "flags": [
+                "C006-drunk"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "意识障碍未先排查低血糖",
+                  "norm": "昏迷患者应立即测血糖并评估气道",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C006-s2"
+          }
+        ]
+      },
+      {
+        "id": "C006-s2",
+        "title": "判断分流",
+        "text": "患者睁眼片刻，又把头偏向一侧。",
+        "options": [
+          {
+            "id": "C006-s2-a",
+            "label": "评估气道并静脉补糖",
+            "ap": 1,
+            "minutes": 8,
+            "cost": 60,
+            "result": "气道保持通畅，血糖回升到5.4。",
+            "effects": {
+              "stamina": -2,
+              "flags": [
+                "C006-glucose-given"
+              ]
+            },
+            "next": "C006-s3"
+          },
+          {
+            "id": "C006-s2-b",
+            "label": "口服含糖饮料",
+            "ap": 1,
+            "minutes": 3,
+            "cost": 8,
+            "result": "患者呛咳，护士及时吸出少量液体。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C006-oral-sugar"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 20,
+                  "reason": "意识不清时经口喂食有误吸风险",
+                  "norm": "意识障碍患者不应经口进食",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C006-s3"
+          },
+          {
+            "id": "C006-s2-c",
+            "label": "先做头颅CT",
+            "ap": 1,
+            "minutes": 35,
+            "cost": 260,
+            "result": "CT未见大出血，补糖仍被延迟。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C006-ct-first"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 15,
+                  "reason": "低血糖风险未处理即优先做影像",
+                  "norm": "可逆性低血糖应立即纠正",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C006-s3"
+          }
+        ]
+      },
+      {
+        "id": "C006-s3",
+        "title": "判断分流",
+        "text": "患者说头痛，头皮擦伤处有少量血迹。",
+        "options": [
+          {
+            "id": "C006-s3-a",
+            "label": "复测血糖并评估进食",
+            "ap": 1,
+            "minutes": 20,
+            "cost": 45,
+            "result": "此次血糖为3.0，仍需纠正并持续观察长效胰岛素影响。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C006-rebound"
+              ]
+            },
+            "next": "C006-s4"
+          },
+          {
+            "id": "C006-s3-b",
+            "label": "查电解质和胰岛素记录",
+            "ap": 1,
+            "minutes": 15,
+            "cost": 80,
+            "result": "记录显示晚餐后重复加打，需留观。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C006-dose-error"
+              ]
+            },
+            "next": "C006-s4"
+          },
+          {
+            "id": "C006-s3-c",
+            "label": "不复测就准备出院",
+            "ap": 0,
+            "minutes": 5,
+            "cost": 0,
+            "result": "未确认当前血糖与趋势，长效胰岛素药效仍在。",
+            "effects": {
+              "flags": [
+                "C006-discharge-risk"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "未观察长效胰岛素导致的复发低血糖",
+                  "norm": "长效胰岛素低血糖纠正后仍需留观复查",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C006-s4"
+          }
+        ]
+      },
+      {
+        "id": "C006-s4",
+        "title": "处置、记录与交接",
+        "text": "家属把药盒放在护士站，患者又开始冒冷汗。",
+        "options": [
+          {
+            "id": "C006-s4-a",
+            "label": "留观监测并处理头皮伤",
+            "ap": 1,
+            "minutes": 20,
+            "cost": 120,
+            "result": "持续监测血糖，头皮伤完成评估，交班写清加打胰岛素。",
+            "effects": {
+              "stamina": -1,
+              "san": 2,
+              "emotion": 2,
+              "reputation": 1,
+              "mitigate": 1,
+              "flags": [
+                "C006-observed"
+              ]
+            },
+            "next": "end"
+          },
+          {
+            "id": "C006-s4-b",
+            "label": "血糖正常即让家属带走",
+            "ap": 1,
+            "minutes": 5,
+            "cost": 0,
+            "result": "病历漏写头皮擦伤和长效药，回家后再次低血糖。",
+            "effects": {
+              "discharge": true,
+              "stamina": -1,
+              "flags": [
+                "C006-small-omission"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 30,
+                  "reason": "未留观即离院",
+                  "norm": "长效胰岛素相关低血糖需观察复测",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "end"
+          },
+          {
+            "id": "C006-s4-c",
+            "label": "只贴创可贴不复测",
+            "ap": 0,
+            "minutes": 3,
+            "cost": 5,
+            "result": "头皮伤处理了，交班没有血糖趋势。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C006-small-omission",
+                "C006-no-monitor"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 20,
+                  "reason": "未监测低血糖反跳",
+                  "norm": "纠正低血糖后应重复监测并查明原因",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "end"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C007",
+    "title": "第六天的红眼睛",
+    "department": "儿科",
+    "age": 4,
+    "sex": "女",
+    "complaint": "发热三天，皮疹两天",
+    "history": [
+      "家属把前几天服退热药的时间说成三天",
+      "眼红无分泌物，口唇干裂",
+      "手脚肿，穿鞋会哭"
+    ],
+    "findings": [
+      "实际发热第六天",
+      "双眼结膜充血，杨梅舌，多形性皮疹",
+      "手足硬肿，右颈淋巴结肿大"
+    ],
+    "dipGroup": "住院·川崎病，静脉注射免疫球蛋白治疗",
+    "budget": 18500,
+    "baseCost": 15200,
+    "critical": true,
+    "steps": [
+      {
+        "id": "C007-s1",
+        "title": "采集信息",
+        "text": "母亲说发热才三天，奶奶在门外等着。",
+        "options": [
+          {
+            "id": "C007-s1-a",
+            "label": "逐日追问发热时间",
+            "ap": 1,
+            "minutes": 4,
+            "cost": 0,
+            "result": "奶奶说退热药已经吃了三天，实际发热六天。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C007-day6"
+              ]
+            },
+            "next": "C007-s2"
+          },
+          {
+            "id": "C007-s1-b",
+            "label": "只问皮疹变化",
+            "ap": 1,
+            "minutes": 4,
+            "cost": 0,
+            "result": "记下皮疹和眼红，漏掉真实发热天数。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C007-small-omission"
+              ]
+            },
+            "next": "C007-s2"
+          },
+          {
+            "id": "C007-s1-c",
+            "label": "按猩红热换药",
+            "ap": 1,
+            "minutes": 3,
+            "cost": 0,
+            "result": "没有重新核对发热时间和其他系统表现。",
+            "effects": {
+              "flags": [
+                "C007-scarlet"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "持续发热伴多系统表现被按猩红热处理",
+                  "norm": "抗菌药无效时应重新评估诊断",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C007-s2"
+          }
+        ]
+      },
+      {
+        "id": "C007-s2",
+        "title": "判断分流",
+        "text": "孩子不愿脱鞋，手指一直抓着衣角。",
+        "options": [
+          {
+            "id": "C007-s2-a",
+            "label": "脱衣查手足和淋巴结",
+            "ap": 1,
+            "minutes": 8,
+            "cost": 0,
+            "result": "见手足硬肿、卡介苗处发红和右颈结节。",
+            "effects": {
+              "stamina": -2,
+              "flags": [
+                "C007-five-signs"
+              ]
+            },
+            "next": "C007-s3"
+          },
+          {
+            "id": "C007-s2-b",
+            "label": "只看咽部和皮疹",
+            "ap": 1,
+            "minutes": 3,
+            "cost": 0,
+            "result": "咽部充血，手足和淋巴结没有记录。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C007-small-omission"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 15,
+                  "reason": "未完成全身体检导致川崎病表现遗漏",
+                  "norm": "发热皮疹患儿应检查手足、眼、口腔和淋巴结",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C007-s3"
+          },
+          {
+            "id": "C007-s2-c",
+            "label": "先开退热药不查体",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 20,
+            "result": "孩子继续发热，诊断仍按普通感染。",
+            "effects": {
+              "flags": [
+                "C007-no-exam"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 20,
+                  "reason": "未查体即继续对症观察",
+                  "norm": "持续发热患儿应完整评估",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C007-s3"
+          }
+        ]
+      },
+      {
+        "id": "C007-s3",
+        "title": "判断分流",
+        "text": "护士拿来化验单，心超室说可以加急。",
+        "options": [
+          {
+            "id": "C007-s3-a",
+            "label": "查炎症指标和心脏超声",
+            "ap": 1,
+            "minutes": 60,
+            "cost": 500,
+            "result": "炎症指标升高，心超见冠状动脉扩张。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C007-coronary"
+              ]
+            },
+            "next": "C007-s4"
+          },
+          {
+            "id": "C007-s3-b",
+            "label": "只做咽拭子",
+            "ap": 1,
+            "minutes": 20,
+            "cost": 60,
+            "result": "链球菌快速检测阴性，仍需心脏评估。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C007-small-omission"
+              ]
+            },
+            "next": "C007-s4"
+          },
+          {
+            "id": "C007-s3-c",
+            "label": "不检查直接换抗生素",
+            "ap": 1,
+            "minutes": 2,
+            "cost": 0,
+            "result": "没有排除川崎病，病程继续推进。",
+            "effects": {
+              "flags": [
+                "C007-no-workup"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "持续发热六天未做必要检查",
+                  "norm": "疑似川崎病应评估炎症和冠脉",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C007-s4"
+          }
+        ]
+      },
+      {
+        "id": "C007-s4",
+        "title": "处置、记录与交接",
+        "text": "母亲问孩子能不能回家，孩子的脚背仍然肿着。",
+        "options": [
+          {
+            "id": "C007-s4-a",
+            "label": "收住院并启动规范治疗",
+            "ap": 1,
+            "minutes": 15,
+            "cost": 9800,
+            "result": "收入院，启动免疫球蛋白评估，交班区分已核实的发热天数、已完成与待完成的冠脉检查。",
+            "effects": {
+              "stamina": -1,
+              "san": 2,
+              "emotion": 2,
+              "reputation": 1,
+              "mitigate": 1,
+              "flags": [
+                "C007-ivig"
+              ]
+            },
+            "next": "end"
+          },
+          {
+            "id": "C007-s4-b",
+            "label": "继续口服药三天后复诊",
+            "ap": 1,
+            "minutes": 3,
+            "cost": 48,
+            "result": "记录漏写手足硬肿，三天后仍发热。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C007-small-omission",
+                "C007-delay"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "延误川崎病免疫治疗",
+                  "norm": "发热第六天伴冠脉改变应及时住院治疗",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "end"
+          },
+          {
+            "id": "C007-s4-c",
+            "label": "只用激素不做免疫球蛋白",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 260,
+            "result": "发热短暂下降，病历未记录冠脉扩张。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C007-steroid-only",
+                "C007-small-omission"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 15,
+                  "reason": "以单一激素替代主要治疗",
+                  "norm": "应按院内流程及时评估并给予规范治疗",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "end"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C008",
+    "title": "没签字的拒绝",
+    "department": "儿科",
+    "age": 0,
+    "sex": "男",
+    "complaint": "发热一天，抽搐一次",
+    "history": [
+      "七个月，近三天精神变差",
+      "诊所曾注射一次抗菌药",
+      "家属担心腰穿，不愿签字"
+    ],
+    "findings": [
+      "前囟饱满，反应差",
+      "体温39.1℃，血糖正常",
+      "脑膜刺激征可疑"
+    ],
+    "dipGroup": "住院·细菌性脑膜炎（婴儿）",
+    "budget": 26000,
+    "baseCost": 22000,
+    "critical": true,
+    "steps": [
+      {
+        "id": "C008-s1",
+        "title": "采集信息",
+        "text": "婴儿安静得反常，臀部贴着一块创可贴。",
+        "options": [
+          {
+            "id": "C008-s1-a",
+            "label": "评估气道血糖和循环",
+            "ap": 1,
+            "minutes": 6,
+            "cost": 60,
+            "result": "气道可维持，血糖6.2，建立静脉通路。",
+            "effects": {
+              "stamina": -2,
+              "flags": [
+                "C008-abc"
+              ]
+            },
+            "next": "C008-s2"
+          },
+          {
+            "id": "C008-s1-b",
+            "label": "追问病程和院外用药",
+            "ap": 1,
+            "minutes": 4,
+            "cost": 0,
+            "result": "家属说发热已三天，诊所打过一针。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C008-pretreated"
+              ]
+            },
+            "next": "C008-s2"
+          },
+          {
+            "id": "C008-s1-c",
+            "label": "按热性惊厥退热留观",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 30,
+            "result": "抽搐暂未再发，前囟饱满未处理。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C008-febrile-seizure"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "嗜睡和前囟饱满被当作单纯热性惊厥",
+                  "norm": "婴儿发热抽搐伴意识异常应排查颅内感染",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C008-s2"
+          }
+        ]
+      },
+      {
+        "id": "C008-s2",
+        "title": "判断分流",
+        "text": "家属说孩子今天只喝了两口奶，护士站灯光很白。",
+        "options": [
+          {
+            "id": "C008-s2-a",
+            "label": "查前囟意识和脑膜征",
+            "ap": 1,
+            "minutes": 6,
+            "cost": 0,
+            "result": "前囟饱满、反应差，按疑似脑膜炎分流。",
+            "effects": {
+              "stamina": -2,
+              "flags": [
+                "C008-meningitis-signs"
+              ]
+            },
+            "next": "C008-s3"
+          },
+          {
+            "id": "C008-s2-b",
+            "label": "只测体温和血氧",
+            "ap": 1,
+            "minutes": 2,
+            "cost": 0,
+            "result": "体温仍高，神经查体未完成。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C008-small-omission"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 15,
+                  "reason": "未完成神经查体",
+                  "norm": "疑似脑膜炎患儿应评估意识和颅压表现",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C008-s3"
+          },
+          {
+            "id": "C008-s2-c",
+            "label": "等天亮再做检查",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "孩子继续嗜睡，感染评估被延迟。",
+            "effects": {
+              "flags": [
+                "C008-wait"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 30,
+                  "reason": "延迟危重患儿检查和处置",
+                  "norm": "急危重患儿应立即评估和抢救",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C008-s3"
+          }
+        ]
+      },
+      {
+        "id": "C008-s3",
+        "title": "判断分流",
+        "text": "医生提出腰椎穿刺，父亲把笔放回桌上。",
+        "options": [
+          {
+            "id": "C008-s3-a",
+            "label": "解释腰穿并请上级同谈",
+            "ap": 1,
+            "minutes": 15,
+            "cost": 0,
+            "result": "家属理解风险，同意检查并签字。",
+            "effects": {
+              "stamina": -2,
+              "emotion": 2,
+              "flags": [
+                "C008-lp-consent"
+              ]
+            },
+            "next": "C008-s4"
+          },
+          {
+            "id": "C008-s3-b",
+            "label": "记录拒绝并签书面意见",
+            "ap": 1,
+            "minutes": 8,
+            "cost": 0,
+            "result": "家属暂拒腰穿，书面记录风险和替代方案。",
+            "effects": {
+              "stamina": -1,
+              "san": 2,
+              "reputation": 1,
+              "flags": [
+                "C008-refusal-signed"
+              ]
+            },
+            "next": "C008-s4"
+          },
+          {
+            "id": "C008-s3-c",
+            "label": "只写家属拒绝检查",
+            "ap": 0,
+            "minutes": 1,
+            "cost": 0,
+            "result": "没有记录谈话内容，也没有写明风险。",
+            "effects": {
+              "flags": [
+                "C008-small-omission",
+                "C008-refusal-unsigned"
+              ],
+              "hazards": [
+                {
+                  "type": "C",
+                  "weight": 15,
+                  "reason": "拒绝检查缺少书面风险告知",
+                  "norm": "应记录拒绝内容、风险和替代方案",
+                  "causal": false
+                }
+              ]
+            },
+            "next": "C008-s4"
+          }
+        ]
+      },
+      {
+        "id": "C008-s4",
+        "title": "处置、记录与交接",
+        "text": "腰穿与抗感染计划还需落实，婴儿的哭声突然变弱。",
+        "options": [
+          {
+            "id": "C008-s4-a",
+            "label": "立即经验性抗感染并监护",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 380,
+            "result": "先行经验性抗感染，监护交班写明腰穿是否完成和拒绝内容。",
+            "effects": {
+              "stamina": -1,
+              "san": 2,
+              "emotion": 2,
+              "reputation": 1,
+              "mitigate": 1,
+              "flags": [
+                "C008-antibiotic"
+              ]
+            },
+            "next": "end"
+          },
+          {
+            "id": "C008-s4-b",
+            "label": "坚持等脑脊液结果再用药",
+            "ap": 1,
+            "minutes": 120,
+            "cost": 0,
+            "result": "把抗感染推迟到取得脑脊液结果之后，孩子嗜睡加重；记录没有交代当前腰穿是否已获同意、是否完成。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C008-small-omission",
+                "C008-abx-delay"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "等待结果延迟经验性抗感染",
+                  "norm": "疑似细菌性脑膜炎应尽快用药",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "end"
+          },
+          {
+            "id": "C008-s4-c",
+            "label": "以腰穿未落实为由办理出院",
+            "ap": 1,
+            "minutes": 3,
+            "cost": 0,
+            "result": "未完成必要救治就安排离院，也未充分告知停止观察的风险。",
+            "effects": {
+              "discharge": true,
+              "flags": [
+                "C008-discharged"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 30,
+                  "reason": "危重患儿未治疗即离院",
+                  "norm": "家属拒绝检查不等于停止必要救治和告知",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "end"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C009",
+    "title": "同名的另一床",
+    "department": "消化",
+    "age": 63,
+    "sex": "男",
+    "complaint": "血红蛋白58，需要输血",
+    "history": [
+      "肝硬化和食管静脉曲张出血史",
+      "同病房另有一名同姓同名患者",
+      "患者自述血型记不清"
+    ],
+    "findings": [
+      "面色苍白，血压98/62mmHg",
+      "黑便仍在，心率112次/分",
+      "床头卡与腕带信息不一致"
+    ],
+    "dipGroup": "住院·肝硬化伴食管静脉曲张破裂出血，内镜治疗",
+    "budget": 21000,
+    "baseCost": 17500,
+    "critical": true,
+    "steps": [
+      {
+        "id": "C009-s1",
+        "title": "采集信息",
+        "text": "31床和33床的床头卡被风吹得翻起，输血申请单在桌上。",
+        "options": [
+          {
+            "id": "C009-s1-a",
+            "label": "完整填写身份和输血单",
+            "ap": 1,
+            "minutes": 8,
+            "cost": 0,
+            "result": "填写姓名、住院号并标注同名患者，评估输血指征。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C009-form-ok"
+              ]
+            },
+            "next": "C009-s2"
+          },
+          {
+            "id": "C009-s1-b",
+            "label": "只填床号和姓名",
+            "ap": 1,
+            "minutes": 3,
+            "cost": 0,
+            "result": "申请单缺少住院号，同名风险没有标记。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C009-small-omission",
+                "C009-form-incomplete"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 15,
+                  "reason": "身份信息不完整",
+                  "norm": "输血申请应使用多项身份识别信息",
+                  "causal": false
+                }
+              ]
+            },
+            "next": "C009-s2"
+          },
+          {
+            "id": "C009-s1-c",
+            "label": "口头告知稍后补签",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "家属同意输血，但书面同意尚未取得。",
+            "effects": {
+              "flags": [
+                "C009-no-consent"
+              ],
+              "hazards": [
+                {
+                  "type": "C",
+                  "weight": 15,
+                  "reason": "输血前缺少书面知情同意",
+                  "norm": "输血前应完成风险告知和书面同意",
+                  "causal": false
+                }
+              ]
+            },
+            "next": "C009-s2"
+          }
+        ]
+      },
+      {
+        "id": "C009-s2",
+        "title": "判断分流",
+        "text": "护士拿着采血管问，先去31床还是33床。",
+        "options": [
+          {
+            "id": "C009-s2-a",
+            "label": "两人核对腕带后采血",
+            "ap": 1,
+            "minutes": 6,
+            "cost": 0,
+            "result": "核对姓名、住院号、床头卡和腕带后采集31床标本。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C009-sample-ok"
+              ]
+            },
+            "next": "C009-s3"
+          },
+          {
+            "id": "C009-s2-b",
+            "label": "在门口喊姓名采血",
+            "ap": 1,
+            "minutes": 2,
+            "cost": 0,
+            "result": "两名患者都应声，标本身份无法确认，输注前仍可暂停核对。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C009-wrong-sample"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "以呼名作为唯一身份核对，造成标本身份风险",
+                  "norm": "采血应床旁核对至少两项身份信息",
+                  "causal": false
+                }
+              ]
+            },
+            "next": "C009-s3"
+          },
+          {
+            "id": "C009-s2-c",
+            "label": "只看床头卡采血",
+            "ap": 1,
+            "minutes": 3,
+            "cost": 0,
+            "result": "床头卡上的名字与另一床相同，腕带未核对。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C009-small-omission"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 10,
+                  "reason": "遗漏腕带核对",
+                  "norm": "床旁采血不能以床号作为唯一依据",
+                  "causal": false
+                }
+              ]
+            },
+            "next": "C009-s3"
+          }
+        ]
+      },
+      {
+        "id": "C009-s3",
+        "title": "判断分流",
+        "text": "输血科电话问是否已经完成31床的身份和血型核对。",
+        "options": [
+          {
+            "id": "C009-s3-a",
+            "label": "持单双方逐项核对取血",
+            "ap": 1,
+            "minutes": 12,
+            "cost": 1400,
+            "result": "双方逐项核对身份和血型后，确认无误才取血；若资料不一致则暂停。",
+            "effects": {
+              "stamina": -2,
+              "flags": [
+                "C009-blood-check"
+              ]
+            },
+            "next": "C009-s4"
+          },
+          {
+            "id": "C009-s3-b",
+            "label": "让护工凭床号取血",
+            "ap": 0,
+            "minutes": 3,
+            "cost": 1400,
+            "result": "护工按床号取血，输血科没有得到医护双方签字核对。",
+            "effects": {
+              "flags": [
+                "C009-porter"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 15,
+                  "reason": "取血环节缺少医护双方核对",
+                  "norm": "取血应由医护人员持单共同查对并签字",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C009-s4"
+          },
+          {
+            "id": "C009-s3-c",
+            "label": "先查另床患者再取血",
+            "ap": 1,
+            "minutes": 20,
+            "cost": 0,
+            "result": "回来后才继续身份核对，等待期间没有记录血液交接状态。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C009-small-omission",
+                "C009-blood-left"
+              ]
+            },
+            "next": "C009-s4"
+          }
+        ]
+      },
+      {
+        "id": "C009-s4",
+        "title": "处置、记录与交接",
+        "text": "护士拿着输血申请单站在床旁，患者问为什么要反复核对。",
+        "options": [
+          {
+            "id": "C009-s4-a",
+            "label": "两人带病历床旁核对输注",
+            "ap": 1,
+            "minutes": 8,
+            "cost": 0,
+            "result": "两人核对腕带、住院号、血型和血袋号后再决定是否输注，完整记录核对过程。",
+            "effects": {
+              "stamina": -1,
+              "san": 2,
+              "emotion": 2,
+              "reputation": 1,
+              "mitigate": 1,
+              "flags": [
+                "C009-mismatch-caught"
+              ]
+            },
+            "next": "end"
+          },
+          {
+            "id": "C009-s4-b",
+            "label": "护士单人核对后输注",
+            "ap": 1,
+            "minutes": 2,
+            "cost": 0,
+            "result": "单人核对后开始输注，患者出现寒战和低血压，立即停止输血并抢救；病历漏写第二核对人。",
+            "effects": {
+              "stamina": -1,
+              "damage": 2,
+              "flags": [
+                "C009-single-check"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "输血前未完成双人床旁核对",
+                  "norm": "输血前应两名医护人员共同核对",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "end"
+          },
+          {
+            "id": "C009-s4-c",
+            "label": "只核床号姓名就挂血",
+            "ap": 1,
+            "minutes": 2,
+            "cost": 0,
+            "result": "只核对床号和姓名就挂血，输注前仍未确认血型和血袋号；记录漏写同名风险。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C009-small-omission",
+                "C009-partial-check"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 20,
+                  "reason": "核对项目不全，留下身份混淆风险",
+                  "norm": "床旁核对应包含身份、血型和血袋信息",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "end"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C010",
+    "title": "夜班电话里的6点8",
+    "department": "肾内科",
+    "age": 59,
+    "sex": "女",
+    "complaint": "危急值血钾6.8mmol/L",
+    "history": [
+      "急性肾损伤，近十小时尿量很少",
+      "输液泵正在输入含钾液体",
+      "家属说她服过保健药"
+    ],
+    "findings": [
+      "心电图尖T波，PR间期延长",
+      "复查血钾6.7mmol/L",
+      "肌酐292μmol/L，少尿"
+    ],
+    "dipGroup": "住院·急性肾损伤合并重度高钾血症",
+    "budget": 4800,
+    "baseCost": 3600,
+    "critical": true,
+    "steps": [
+      {
+        "id": "C010-s1",
+        "title": "采集信息",
+        "text": "凌晨一点四十二分，检验科电话里的电流声很重。",
+        "options": [
+          {
+            "id": "C010-s1-a",
+            "label": "复述数值并记接报时间",
+            "ap": 1,
+            "minutes": 3,
+            "cost": 0,
+            "result": "复述床号、血钾6.8和接报时间，立即到床旁。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C010-readback"
+              ]
+            },
+            "next": "C010-s2"
+          },
+          {
+            "id": "C010-s1-b",
+            "label": "记下号码稍后回拨",
+            "ap": 0,
+            "minutes": 1,
+            "cost": 0,
+            "result": "手头医嘱处理完才回拨，病历漏写接报时间。",
+            "effects": {
+              "flags": [
+                "C010-small-omission",
+                "C010-delayed-call"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "危急值接报后未立即核实",
+                  "norm": "危急值应及时复述、记录并启动处置",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C010-s2"
+          },
+          {
+            "id": "C010-s1-c",
+            "label": "当作溶血等明早重抽",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "标本虽轻度溶血，患者少尿和高钾风险没有处理。",
+            "effects": {
+              "flags": [
+                "C010-small-omission",
+                "C010-assumed-hemolysis"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "以轻度溶血为由延误重度高钾处置",
+                  "norm": "危急值应结合临床立即复核和监护",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C010-s2"
+          }
+        ]
+      },
+      {
+        "id": "C010-s2",
+        "title": "判断分流",
+        "text": "患者手指轻颤，输液泵又响了一声。",
+        "options": [
+          {
+            "id": "C010-s2-a",
+            "label": "接监护做心电图和评估",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 60,
+            "result": "心电图见尖T波和PR延长，启动高钾急救流程。",
+            "effects": {
+              "stamina": -2,
+              "flags": [
+                "C010-ecg"
+              ]
+            },
+            "next": "C010-s3"
+          },
+          {
+            "id": "C010-s2-b",
+            "label": "问用药尿量和输液报警",
+            "ap": 1,
+            "minutes": 8,
+            "cost": 0,
+            "result": "家属拿出含钾保健药，护士确认输液泵曾报警。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C010-potassium-source"
+              ]
+            },
+            "next": "C010-s3"
+          },
+          {
+            "id": "C010-s2-c",
+            "label": "看血氧等复查结果",
+            "ap": 0,
+            "minutes": 5,
+            "cost": 0,
+            "result": "血氧正常，但没有做心电图，也没有停可疑输液。",
+            "effects": {
+              "flags": [
+                "C010-small-omission",
+                "C010-wait"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "重度高钾患者未及时心电监护",
+                  "norm": "高钾危急值应立即做心电图和持续监护",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C010-s3"
+          }
+        ]
+      },
+      {
+        "id": "C010-s3",
+        "title": "判断分流",
+        "text": "复查血气的机器亮着红灯，护士问是否暂停输液。",
+        "options": [
+          {
+            "id": "C010-s3-a",
+            "label": "复查血钾并停含钾来源",
+            "ap": 1,
+            "minutes": 8,
+            "cost": 45,
+            "result": "复查血钾6.7，暂停含钾液并核对相关药物。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C010-confirmed",
+                "C010-causes-stopped"
+              ]
+            },
+            "next": "C010-s4"
+          },
+          {
+            "id": "C010-s3-b",
+            "label": "先请肾内科急会诊",
+            "ap": 1,
+            "minutes": 15,
+            "cost": 180,
+            "result": "肾内科确认需要急救处理并评估血液净化。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C010-nephro-called"
+              ]
+            },
+            "next": "C010-s4"
+          },
+          {
+            "id": "C010-s3-c",
+            "label": "继续原补液等白班",
+            "ap": 0,
+            "minutes": 1,
+            "cost": 0,
+            "result": "含钾液继续输入，少尿没有改善。",
+            "effects": {
+              "flags": [
+                "C010-small-omission",
+                "C010-continued-fluid"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 30,
+                  "reason": "重度高钾和少尿时继续可疑补液",
+                  "norm": "应停用含钾来源并及时处理高钾",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C010-s4"
+          }
+        ]
+      },
+      {
+        "id": "C010-s4",
+        "title": "处置、记录与交接",
+        "text": "监护纸从机器里吐出，家属站在床尾等消息。",
+        "options": [
+          {
+            "id": "C010-s4-a",
+            "label": "按流程急救并完整交班",
+            "ap": 1,
+            "minutes": 25,
+            "cost": 200,
+            "result": "按流程完成心脏保护和降钾处理，交班逐项写明接报、复查、监护与会诊的实际完成情况。",
+            "effects": {
+              "stamina": -1,
+              "san": 2,
+              "emotion": 2,
+              "reputation": 1,
+              "mitigate": 1,
+              "flags": [
+                "C010-rescued"
+              ]
+            },
+            "next": "end"
+          },
+          {
+            "id": "C010-s4-b",
+            "label": "单用利尿剂等尿量恢复",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 30,
+            "result": "尿量没有恢复，记录漏掉了心电图异常。",
+            "effects": {
+              "stamina": -1,
+              "flags": [
+                "C010-small-omission",
+                "C010-diuretic-only"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "单一利尿剂不足以处理重度高钾",
+                  "norm": "应按流程保护心脏、转移并清除钾",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "end"
+          },
+          {
+            "id": "C010-s4-c",
+            "label": "认为误差而补钾",
+            "ap": 0,
+            "minutes": 6,
+            "cost": 20,
+            "result": "补钾后出现宽QRS，交班单只写化验可能误差。",
+            "effects": {
+              "stamina": -1,
+              "damage": 2,
+              "flags": [
+                "C010-small-omission",
+                "C010-potassium-given"
+              ],
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 30,
+                  "reason": "重度高钾时错误补钾加重心律失常",
+                  "norm": "高钾危急值时禁忌继续补钾",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "end"
+          }
+        ]
+      }
+    ]
+  }
+]

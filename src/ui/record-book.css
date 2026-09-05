@@ -1,0 +1,63 @@
+.record-book { display: grid; grid-template-columns: minmax(130px, 175px) minmax(0, 1fr); gap: 16px; width: 100%; min-width: 0; font-size: 14px; line-height: 1.65; }
+.record-book *, .record-book *::before, .record-book *::after { box-sizing: border-box; }
+.record-book button { font: inherit; letter-spacing: 0; }
+.record-book button:focus-visible { outline: 2px solid #c39d61; outline-offset: 3px; }
+.record-book__index, .record-book__folder { min-width: 0; }
+.record-book .record-book__index-heading { display: flex; justify-content: space-between; margin: 0 0 12px; font-size: 14px; color: #c7baa1; }
+.record-book__patients { display: grid; gap: 8px; max-height: 510px; overflow-y: auto; padding: 3px; }
+.record-book__patient { display: grid; width: 100%; gap: 3px; text-align: left; padding: 11px 12px; border: 1px solid #716d584d; border-radius: 3px 10px 10px 3px; background: #1c3431; color: #ded7c8; cursor: pointer; }
+.record-book__patient.is-selected { border-color: #cfb67f; background: #354a3c; box-shadow: inset 3px 0 #cfb67f; }
+.record-book__patient strong { font-size: 17px; font-weight: 600; }
+.record-book__patient small, .record-book__bed { font-size: 12px; color: #cabfa7; }
+.record-book__folder { padding: 10px 10px 7px; border-radius: 5px 12px 12px 5px; background: #5c6553; border: 1px solid #89917b; box-shadow: 0 10px 28px #0002; }
+.record-book__tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; padding: 0 4px; align-items: end; }
+.record-book__tabs button { min-width: 0; min-height: 45px; padding: 7px 3px; border: 1px solid #bdb9a1; border-bottom: 0; border-radius: 7px 7px 0 0; background: #c4c4ac; color: #444d40; cursor: pointer; font-size: 14px; }
+.record-book__tabs button[aria-selected="true"] { background: #f1ebd8; color: #243c35; padding-top: 12px; font-weight: 700; }
+.record-book__paper { min-height: 380px; max-height: min(61dvh, 650px); overflow-y: auto; overflow-wrap: anywhere; scrollbar-gutter: stable; padding: 24px clamp(16px, 3vw, 32px) 32px; background: linear-gradient(90deg, #dcd6c3 0, #f1ebd8 13px, #f4efdf 100%); color: #283c37; box-shadow: 2px 3px 0 #d1cbb8, 4px 5px 0 #9d9f87; border-radius: 2px; }
+.record-book__paper-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 17px; margin-bottom: 22px; border-bottom: 2px solid #667967; }
+.record-book__kicker { font-size: 12px; color: #657568; }
+.record-book__paper h3 { margin: 3px 0 0; font-family: "Songti SC", "STSong", serif; font-size: 26px; font-weight: 700; letter-spacing: .12em; color: #283c37; }
+.record-book__stamp { padding: 5px 9px; border: 1px solid #8d6455; color: #835b4d; font-size: 14px; white-space: nowrap; }
+.record-book__registration { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px 24px; margin: 0 0 25px; }
+.record-book__registration div { padding-bottom: 7px; border-bottom: 1px solid #b9bfac; }
+.record-book dt { font-size: 13px; color: #657568; }
+.record-book dd { margin: 3px 0 0; font-size: 16px; }
+.record-book__paper h4 { font-size: 14px; font-weight: 600; margin: 0 0 9px; color: #5c705f; }
+.record-book .record-book__paper p { font-size: 14px; line-height: 1.85; color: #35453c; }
+.record-book__complaint { margin: 0 0 22px; }
+.record-book .record-book__complaint p { margin: 0; font-size: 16px; }
+.record-book__notes { padding: 0; margin: 0; list-style: none; }
+.record-book__notes li { margin: 0 0 25px; padding-bottom: 23px; border-bottom: 1px solid #bec3af; }
+.record-book__note-meta { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; color: #5c705f; }
+.record-book .record-book__action { font-weight: 600; margin: 10px 0 5px; }
+.record-book .record-book__result { margin: 0; white-space: pre-wrap; }
+.record-book .record-book__empty { padding: 35px 0; text-align: center; color: #7c806c; }
+.record-book__fees { display: grid; gap: 0; margin: 18px 0; }
+.record-book__fees div { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; padding: 12px 0; border-bottom: 1px solid #bec3af; }
+.record-book__fees dt { font-size: 14px; }
+.record-book__fees dd { font-family: var(--mono, monospace); font-size: 20px; }
+.record-book__fees .record-book__paid { border-bottom: 2px solid #8d9a83; }
+.record-book .record-book__footnote { color: #657568; }
+.record-book__stay { border-left: 3px solid #829478; padding: 10px 13px; margin-top: 22px; background: #dfe2ce; }
+.record-book__stay.is-overdue { border-color: #a3734e; background: #e8dac1; }
+.record-book .record-book__stay p { margin: 3px 0 0; }
+.record-book__page-turn { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-top: 13px; color: #f1ebd8; font-size: 13px; }
+.record-book__page-turn button { min-height: 40px; background: transparent; border: 0; border-radius: 4px; padding: 6px 8px; color: #f1ebd8; cursor: pointer; }
+.record-book__page-turn button:disabled { opacity: .4; cursor: default; }
+.record-book--empty { display: block; padding: 30px 12px; }
+@media (max-width: 640px) {
+  .record-book { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .record-book__patients { grid-template-columns: repeat(2, minmax(0, 1fr)); max-height: 140px; }
+  .record-book__patient { padding: 8px 10px; }
+  .record-book__patient small { overflow-wrap: anywhere; }
+  .record-book__folder { padding: 7px 6px 5px; }
+  .record-book__paper { min-height: 310px; max-height: 57dvh; padding: 20px 16px 26px; }
+  .record-book__tabs { gap: 2px; padding: 0 2px; }
+  .record-book__tabs button { font-size: 14px; line-height: 1.45; }
+  .record-book__registration { gap: 14px 12px; }
+  .record-book__paper h3 { font-size: 23px; }
+}
+@media (max-height: 500px) and (min-width: 641px) {
+  .record-book__patients { max-height: 230px; }
+  .record-book__paper { min-height: 230px; max-height: 58dvh; }
+}

@@ -1,0 +1,21 @@
+.tyche-dice { width: min(100%, 280px); margin: 0 auto; }
+.tyche-dice__surface { position: relative; display: block; width: 100%; height: 240px; padding: 0; border: 0; border-radius: 28px; background: transparent; color: inherit; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
+.tyche-dice__surface:hover { background: rgba(193, 173, 111, 0.025); }
+.tyche-dice__surface:focus-visible { outline: 2px solid #c5af71; outline-offset: 3px; }
+.tyche-dice__surface.is-dragging { cursor: grabbing; }
+.tyche-dice__surface[aria-disabled="true"] { cursor: default; }
+.tyche-dice__surface canvas { position: relative; z-index: 1; width: 100%; height: 240px; object-fit: contain; pointer-events: none; }
+.tyche-dice__surface canvas[hidden] { display: none; }
+.tyche-dice__shadow { position: absolute; left: 28%; bottom: 28px; width: 44%; height: 18px; background: #020a0c; filter: blur(7px); border-radius: 50%; opacity: var(--dice-shadow-opacity, 0.35); transform: scale(var(--dice-shadow-scale, 1)); pointer-events: none; }
+.tyche-dice__hint { margin: 0 0 12px; text-align: center; color: var(--muted, #acb8ae); font-size: 0.7rem; letter-spacing: 0.04em; }
+.tyche-dice__fallback { position: absolute; inset: 48px 68px; display: grid; place-items: center; clip-path: polygon(50% 0, 94% 25%, 94% 75%, 50% 100%, 6% 75%, 6% 25%); background: linear-gradient(135deg, #34716a, #102d32); color: #f1e5bf; font: 700 42px monospace; box-shadow: inset 0 0 35px #c5af7138; }
+.tyche-dice__surface.is-rolling .tyche-dice__fallback { animation: tyche-fallback-toss 1.55s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes tyche-fallback-toss { 0% { transform: translate(-16px, 0) rotate(-340deg) scale(.88); } 28% { transform: translate(20px, -36px) rotate(-210deg); } 42% { transform: translate(13px, 4px) rotate(-140deg); } 56% { transform: translate(8px, -16px) rotate(-75deg); } 70% { transform: translate(4px, 3px) rotate(-28deg); } 83% { transform: translate(2px, -5px) rotate(-8deg); } 100% { transform: translate(0, 0) rotate(0); } }
+@media (prefers-reduced-motion: reduce) { .tyche-dice__surface.is-rolling .tyche-dice__fallback { animation: none; } }
+@media (orientation:landscape) and (max-height:560px) {
+  .roll-content .tyche-dice { position:absolute; left:0; top:8px; width:174px; margin:0; }
+  .roll-content .tyche-dice__surface,.roll-content .tyche-dice__surface canvas { height:165px; }
+  .roll-content .tyche-dice__hint { font-size:10px; margin:0; }
+  .roll-content .tyche-dice__shadow { bottom:14px; }
+  .roll-content .tyche-dice__fallback { inset:32px 43px; font-size:32px; }
+}

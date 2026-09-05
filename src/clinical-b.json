@@ -1,0 +1,2177 @@
+[
+  {
+    "id": "C011",
+    "title": "一针见效",
+    "department": "急诊／感染",
+    "age": 24,
+    "sex": "女",
+    "complaint": "发热咽痛三天要求打一针",
+    "history": [
+      "感冒灵无效",
+      "明早赶高铁，分诊否认过敏"
+    ],
+    "findings": [
+      "T38.6、HR104、SpO2 98%",
+      "扁桃体渗出；青霉素速发过敏"
+    ],
+    "dipGroup": "过敏性休克",
+    "budget": 16000,
+    "baseCost": 0,
+    "critical": true,
+    "steps": [
+      {
+        "id": "C011-s1",
+        "title": "信息",
+        "text": "过敏栏打着否认。",
+        "options": [
+          {
+            "id": "C011-s1-a",
+            "label": "追问旧药物反应",
+            "ap": 1,
+            "minutes": 5,
+            "cost": 0,
+            "result": "她想起童年风团。",
+            "effects": {
+              "flags": [
+                "C011_allergy"
+              ]
+            },
+            "next": "C011-s2"
+          },
+          {
+            "id": "C011-s1-b",
+            "label": "调阅旧急诊记录",
+            "ap": 1,
+            "minutes": 4,
+            "cost": 0,
+            "result": "记录写着青霉素皮疹。",
+            "effects": {
+              "flags": [
+                "C011_allergy"
+              ]
+            },
+            "next": "C011-s2"
+          },
+          {
+            "id": "C011-s1-c",
+            "label": "沿用分诊单开针",
+            "ap": 0,
+            "minutes": 1,
+            "cost": 0,
+            "result": "未复核过敏史，便把青霉素注射写入拟用方案。",
+            "effects": {
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "未复核过敏史",
+                  "norm": "接诊须复问过敏史",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C011-s2"
+          }
+        ]
+      },
+      {
+        "id": "C011-s2",
+        "title": "分流",
+        "text": "她把高铁票亮给你。",
+        "options": [
+          {
+            "id": "C011-s2-a",
+            "label": "改用非青霉素药",
+            "ap": 1,
+            "minutes": 5,
+            "cost": 46,
+            "result": "核对风险后改用口服方案，取消青霉素注射计划。",
+            "effects": {
+              "san": 2
+            },
+            "next": "C011-s3"
+          },
+          {
+            "id": "C011-s2-b",
+            "label": "皮试并足时观察",
+            "ap": 1,
+            "minutes": 23,
+            "cost": 12,
+            "result": "完成皮试及规定观察，出现阳性反应，暂缓给药。",
+            "effects": {},
+            "next": "C011-s3"
+          },
+          {
+            "id": "C011-s2-c",
+            "label": "五分钟阴性就注射",
+            "ap": 1,
+            "minutes": 8,
+            "cost": 80,
+            "result": "注射后她开始喘鸣，血压往下掉。",
+            "effects": {
+              "damage": 2,
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "皮试观察不足",
+                  "norm": "皮试须足时判读",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C011-s3"
+          }
+        ]
+      },
+      {
+        "id": "C011-s3",
+        "title": "处置",
+        "text": "诊室里只剩下一项处置决定。",
+        "options": [
+          {
+            "id": "C011-s3-a",
+            "label": "核实过敏风险并停青霉素",
+            "ap": 1,
+            "minutes": 2,
+            "cost": 0,
+            "result": "核实已知过敏史和本次实际检查结果，停止青霉素；若已有反应，立即转入救治。",
+            "effects": {},
+            "next": "C011-s4"
+          },
+          {
+            "id": "C011-s3-b",
+            "label": "不核实过敏风险仍注射",
+            "ap": 1,
+            "minutes": 6,
+            "cost": 68,
+            "result": "未核实过敏风险即注射，患者出现喘鸣和低血压，随即启动抢救。",
+            "effects": {
+              "damage": 2,
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 30,
+                  "reason": "未核实既往过敏史及本次反应仍给药",
+                  "norm": "给药前须核实过敏风险，出现反应须停止给药",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C011-s4"
+          },
+          {
+            "id": "C011-s3-c",
+            "label": "直接改头孢静滴",
+            "ap": 1,
+            "minutes": 5,
+            "cost": 68,
+            "result": "未经充分过敏风险评估改用头孢静滴，患者出现全身风团和喉部发紧，立即停药处置。",
+            "effects": {
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "过敏史明确后换用相关药物仍可能诱发反应",
+                  "norm": "换药仍须完成过敏风险评估",
+                  "causal": true
+                }
+              ],
+              "damage": 1
+            },
+            "next": "C011-s4"
+          }
+        ]
+      },
+      {
+        "id": "C011-s4",
+        "title": "记录交接",
+        "text": "记录单的时间栏空着。",
+        "options": [
+          {
+            "id": "C011-s4-a",
+            "label": "补记时间并标过敏",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "本次实际处置和已知信息完成交接。",
+            "effects": {
+              "emotion": 2
+            },
+            "next": "end"
+          },
+          {
+            "id": "C011-s4-b",
+            "label": "核实并登记本次药物反应",
+            "ap": 1,
+            "minutes": 8,
+            "cost": 0,
+            "result": "核实本次是否发生药物反应；已发生的按实际表现登记上报，未发生的不填作不良反应。",
+            "effects": {
+              "san": 2
+            },
+            "next": "end"
+          },
+          {
+            "id": "C011-s4-c",
+            "label": "留给白班补写",
+            "ap": 0,
+            "minutes": 0,
+            "cost": 0,
+            "result": "空白栏被合上。",
+            "effects": {
+              "hazards": [
+                {
+                  "type": "D",
+                  "weight": 12,
+                  "reason": "本次处置与过敏风险记录未补记",
+                  "norm": "处置后须及时记录实际用药、反应与救治情况",
+                  "causal": false
+                }
+              ]
+            },
+            "next": "end"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C012",
+    "title": "保守到第三天",
+    "department": "消化／老年内科",
+    "age": 76,
+    "sex": "男",
+    "complaint": "腹痛腹胀呕吐三天",
+    "history": [
+      "粘连性肠梗阻保守第三天",
+      "止痛后自称好转"
+    ],
+    "findings": [
+      "固定压痛、血性引流、乳酸4.2",
+      "闭袢梗阻绞窄，距坏死6至10小时"
+    ],
+    "dipGroup": "肠梗阻·非手术治疗",
+    "budget": 9500,
+    "baseCost": 4200,
+    "critical": true,
+    "steps": [
+      {
+        "id": "C012-s1",
+        "title": "信息",
+        "text": "交班写着同前，胃管液体变深。",
+        "options": [
+          {
+            "id": "C012-s1-a",
+            "label": "查腹并看引流",
+            "ap": 1,
+            "minutes": 8,
+            "cost": 0,
+            "result": "肌紧张和血性引流出现。",
+            "effects": {},
+            "next": "C012-s2"
+          },
+          {
+            "id": "C012-s1-b",
+            "label": "追问疼痛变化",
+            "ap": 1,
+            "minutes": 5,
+            "cost": 0,
+            "result": "后半夜开始持续痛。",
+            "effects": {},
+            "next": "C012-s2"
+          },
+          {
+            "id": "C012-s1-c",
+            "label": "再打一针止痛",
+            "ap": 1,
+            "minutes": 3,
+            "cost": 18,
+            "result": "止痛后仍持续痛，肌紧张加重。",
+            "effects": {
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 20,
+                  "reason": "强镇痛掩盖腹膜刺激并延误识别",
+                  "norm": "急腹症须保留连续查体",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C012-s2"
+          }
+        ]
+      },
+      {
+        "id": "C012-s2",
+        "title": "分流",
+        "text": "CT室还在排队。",
+        "options": [
+          {
+            "id": "C012-s2-a",
+            "label": "急查乳酸血气",
+            "ap": 1,
+            "minutes": 40,
+            "cost": 186,
+            "result": "灌注危险明确。",
+            "effects": {},
+            "next": "C012-s3"
+          },
+          {
+            "id": "C012-s2-b",
+            "label": "申请增强腹部CT",
+            "ap": 1,
+            "minutes": 55,
+            "cost": 780,
+            "result": "影像提示闭袢和强化减弱。",
+            "effects": {},
+            "next": "C012-s3"
+          },
+          {
+            "id": "C012-s2-c",
+            "label": "等下午再复查",
+            "ap": 1,
+            "minutes": 240,
+            "cost": 0,
+            "result": "等待期间腹膜刺激和循环状态变差。",
+            "effects": {
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "等待复查使绞窄进一步恶化",
+                  "norm": "恶化体征须立即升级评估",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C012-s3"
+          }
+        ]
+      },
+      {
+        "id": "C012-s3",
+        "title": "处置",
+        "text": "外科电话尚未接通，床旁仍在等决定。",
+        "options": [
+          {
+            "id": "C012-s3-a",
+            "label": "请普外科急会诊",
+            "ap": 1,
+            "minutes": 15,
+            "cost": 0,
+            "result": "确认急诊手术。",
+            "effects": {},
+            "next": "C012-s4"
+          },
+          {
+            "id": "C012-s3-b",
+            "label": "补液减压严密复评",
+            "ap": 1,
+            "minutes": 20,
+            "cost": 120,
+            "result": "实施补液和胃肠减压，持续复评并催办外科处置。",
+            "effects": {
+              "mitigate": 1
+            },
+            "next": "C012-s4"
+          },
+          {
+            "id": "C012-s3-c",
+            "label": "继续原保守方案",
+            "ap": 0,
+            "minutes": 5,
+            "cost": 0,
+            "result": "保守拖延后出现坏死穿孔，循环恶化。",
+            "effects": {
+              "damage": 2,
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 30,
+                  "reason": "继续保守导致绞窄进展和坏死穿孔",
+                  "norm": "出现绞窄证据须转外科路径",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C012-s4"
+          }
+        ]
+      },
+      {
+        "id": "C012-s4",
+        "title": "记录交接",
+        "text": "会诊单和交班本摊开。",
+        "options": [
+          {
+            "id": "C012-s4-a",
+            "label": "记录体征和外科处置进度",
+            "ap": 1,
+            "minutes": 12,
+            "cost": 0,
+            "result": "写明实际体征、会诊及手术安排的完成情况与待办事项。",
+            "effects": {
+              "san": 2
+            },
+            "next": "end"
+          },
+          {
+            "id": "C012-s4-b",
+            "label": "解释紧急转手术",
+            "ap": 1,
+            "minutes": 15,
+            "cost": 0,
+            "result": "家属听见风险。",
+            "effects": {
+              "emotion": 2
+            },
+            "next": "end"
+          },
+          {
+            "id": "C012-s4-c",
+            "label": "只写疼痛已缓解",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "病历写成疼痛已缓解，与持续疼痛和风险线索不符。",
+            "effects": {},
+            "next": "end"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C013",
+    "title": "两只袖带",
+    "department": "心血管／内科",
+    "age": 52,
+    "sex": "男",
+    "complaint": "背痛六小时",
+    "history": [
+      "突发撕裂样背痛",
+      "既往高血压"
+    ],
+    "findings": [
+      "右臂血压186/108，双臂不对称",
+      "Stanford B型主动脉夹层"
+    ],
+    "dipGroup": "主动脉夹层·非手术",
+    "budget": 28000,
+    "baseCost": 0,
+    "critical": true,
+    "steps": [
+      {
+        "id": "C013-s1",
+        "title": "信息",
+        "text": "两只袖带都在床边。",
+        "options": [
+          {
+            "id": "C013-s1-a",
+            "label": "双侧测压查脉搏",
+            "ap": 1,
+            "minutes": 6,
+            "cost": 12,
+            "result": "血压差显现。",
+            "effects": {},
+            "next": "C013-s2"
+          },
+          {
+            "id": "C013-s1-b",
+            "label": "追问撕裂痛起始",
+            "ap": 1,
+            "minutes": 5,
+            "cost": 0,
+            "result": "疼痛从胸后撕到背。",
+            "effects": {},
+            "next": "C013-s2"
+          },
+          {
+            "id": "C013-s1-c",
+            "label": "按普通背痛登记",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "警报变成肌肉痛。",
+            "effects": {
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "将撕裂样胸背痛误作肌肉痛",
+                  "norm": "胸背突发痛须排除大血管急症",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C013-s2"
+          }
+        ]
+      },
+      {
+        "id": "C013-s2",
+        "title": "分流",
+        "text": "影像室还有一台机器。",
+        "options": [
+          {
+            "id": "C013-s2-a",
+            "label": "启动主动脉急诊影像",
+            "ap": 1,
+            "minutes": 35,
+            "cost": 1800,
+            "result": "增强影像见夹层。",
+            "effects": {},
+            "next": "C013-s3"
+          },
+          {
+            "id": "C013-s2-b",
+            "label": "请血管团队会诊",
+            "ap": 1,
+            "minutes": 20,
+            "cost": 0,
+            "result": "会诊要求监护。",
+            "effects": {},
+            "next": "C013-s3"
+          },
+          {
+            "id": "C013-s2-c",
+            "label": "只做普通胸片",
+            "ap": 1,
+            "minutes": 30,
+            "cost": 90,
+            "result": "胸片没有排除夹层。",
+            "effects": {
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 20,
+                  "reason": "普通胸片不能排除主动脉夹层",
+                  "norm": "高危征象须升级影像评估",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C013-s3"
+          }
+        ]
+      },
+      {
+        "id": "C013-s3",
+        "title": "处置",
+        "text": "监护仪的数字跳动，下一项决定还没落笔。",
+        "options": [
+          {
+            "id": "C013-s3-a",
+            "label": "监护下控制压心率",
+            "ap": 1,
+            "minutes": 15,
+            "cost": 180,
+            "result": "剪切力被压低。",
+            "effects": {
+              "mitigate": 1
+            },
+            "next": "C013-s4"
+          },
+          {
+            "id": "C013-s3-b",
+            "label": "落实接收床位并安排转运",
+            "ap": 1,
+            "minutes": 25,
+            "cost": 600,
+            "result": "确认接收床位，安排医疗转运与途中监护。",
+            "effects": {},
+            "next": "C013-s4"
+          },
+          {
+            "id": "C013-s3-c",
+            "label": "降压后自行离院",
+            "ap": 1,
+            "minutes": 8,
+            "cost": 40,
+            "result": "数字下降，风险未消失。",
+            "effects": {
+              "discharge": true,
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 55,
+                  "reason": "未完成监护和转诊即自行离院",
+                  "norm": "疑似夹层须稳定并完成转诊交接",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C013-s4"
+          }
+        ]
+      },
+      {
+        "id": "C013-s4",
+        "title": "记录交接",
+        "text": "交班页还缺风险线索和患者去向，实际处置需要逐项核实。",
+        "options": [
+          {
+            "id": "C013-s4-a",
+            "label": "完整记录影像和血压",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "记录已完成的影像、血压评估及患者实际去向，未完成项目明确列出。",
+            "effects": {
+              "reputation": 1
+            },
+            "next": "end"
+          },
+          {
+            "id": "C013-s4-b",
+            "label": "向患者或家属说明转运风险",
+            "ap": 1,
+            "minutes": 8,
+            "cost": 0,
+            "result": "联系患者或家属，解释转运和自行离院风险，记录实际联系与告知情况。",
+            "effects": {
+              "emotion": 2
+            },
+            "next": "end"
+          },
+          {
+            "id": "C013-s4-c",
+            "label": "按普通背痛交班",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "差异没有跟病人走。",
+            "effects": {},
+            "next": "end"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C014",
+    "title": "第五天的血氧",
+    "department": "儿科",
+    "age": 4,
+    "sex": "女",
+    "complaint": "家属要求今日出院",
+    "history": [
+      "肺炎住院第五天",
+      "母亲已收好行李"
+    ],
+    "findings": [
+      "清醒SpO2 94%，RR38，鼻翼扇动",
+      "夜间SpO2 88至90%，感染未控"
+    ],
+    "dipGroup": "儿童社区获得性肺炎·中度",
+    "budget": 5800,
+    "baseCost": 5240,
+    "critical": true,
+    "steps": [
+      {
+        "id": "C014-s1",
+        "title": "信息",
+        "text": "孩子玩着勺，鼻翼在动。",
+        "options": [
+          {
+            "id": "C014-s1-a",
+            "label": "复测静息睡眠血氧",
+            "ap": 1,
+            "minutes": 30,
+            "cost": 20,
+            "result": "睡眠时掉到88%。",
+            "effects": {},
+            "next": "C014-s2"
+          },
+          {
+            "id": "C014-s1-b",
+            "label": "查呼吸功和进食",
+            "ap": 1,
+            "minutes": 8,
+            "cost": 0,
+            "result": "呼吸频快，进食未恢复。",
+            "effects": {},
+            "next": "C014-s2"
+          },
+          {
+            "id": "C014-s1-c",
+            "label": "看能玩就拟定出院",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "夜间低氧没有被发现。",
+            "effects": {
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 20,
+                  "reason": "未复测睡眠氧合导致低氧未被识别",
+                  "norm": "儿科出院须确认全时段稳定氧合",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C014-s2"
+          }
+        ]
+      },
+      {
+        "id": "C014-s2",
+        "title": "分流",
+        "text": "家属说家离医院不远。",
+        "options": [
+          {
+            "id": "C014-s2-a",
+            "label": "继续住院监测氧合",
+            "ap": 1,
+            "minutes": 20,
+            "cost": 1600,
+            "result": "夜间监护保留。",
+            "effects": {},
+            "next": "C014-s3"
+          },
+          {
+            "id": "C014-s2-b",
+            "label": "复查胸片炎症指标",
+            "ap": 1,
+            "minutes": 45,
+            "cost": 160,
+            "result": "实变仍在。",
+            "effects": {},
+            "next": "C014-s3"
+          },
+          {
+            "id": "C014-s2-c",
+            "label": "只按白天血氧拟定出院",
+            "ap": 1,
+            "minutes": 5,
+            "cost": 0,
+            "result": "夜间低氧持续，出院判断被提前。",
+            "effects": {
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 20,
+                  "reason": "忽略夜间低氧提前作出院判断",
+                  "norm": "出院须满足连续氧合条件",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C014-s3"
+          }
+        ]
+      },
+      {
+        "id": "C014-s3",
+        "title": "处置",
+        "text": "孩子的呼吸声比玩勺声更响。",
+        "options": [
+          {
+            "id": "C014-s3-a",
+            "label": "氧疗并调整方案",
+            "ap": 1,
+            "minutes": 25,
+            "cost": 420,
+            "result": "氧合改善，继续观察。",
+            "effects": {
+              "san": 2
+            },
+            "next": "C014-s4"
+          },
+          {
+            "id": "C014-s3-b",
+            "label": "请上级床旁评估",
+            "ap": 1,
+            "minutes": 15,
+            "cost": 0,
+            "result": "确认暂不出院。",
+            "effects": {
+              "mitigate": 1
+            },
+            "next": "C014-s4"
+          },
+          {
+            "id": "C014-s3-c",
+            "label": "让家属签字离院",
+            "ap": 1,
+            "minutes": 5,
+            "cost": 0,
+            "result": "离院后低氧加重，家属被迫再次呼叫急救。",
+            "effects": {
+              "discharge": true,
+              "damage": 2,
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 55,
+                  "reason": "已知低氧仍离院导致氧合恶化",
+                  "norm": "低氧患儿须稳定后方可离院",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C014-s4"
+          }
+        ]
+      },
+      {
+        "id": "C014-s4",
+        "title": "记录交接",
+        "text": "交班页需要补全氧合记录和患者实际去向。",
+        "options": [
+          {
+            "id": "C014-s4-a",
+            "label": "记录夜间血氧复评",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "交班写清已测血氧、处置和实际去向；若已离院，注明追踪与急救联系情况。",
+            "effects": {
+              "reputation": 1
+            },
+            "next": "end"
+          },
+          {
+            "id": "C014-s4-b",
+            "label": "联系家属说明持续观察需要",
+            "ap": 1,
+            "minutes": 12,
+            "cost": 0,
+            "result": "向家属解释低氧风险与继续观察的必要，已离院则说明立即返院评估的要求。",
+            "effects": {
+              "emotion": 2
+            },
+            "next": "end"
+          },
+          {
+            "id": "C014-s4-c",
+            "label": "只写家属要求出院",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "孩子的血氧没有留下。",
+            "effects": {},
+            "next": "end"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C015",
+    "title": "特殊使用级",
+    "department": "呼吸／感染",
+    "age": 58,
+    "sex": "男",
+    "complaint": "发热咳嗽咳痰四天",
+    "history": [
+      "社区肺炎无耐药风险"
+    ],
+    "findings": [
+      "社区肺炎无耐药风险"
+    ],
+    "dipGroup": "社区获得性肺炎·不伴并发症",
+    "budget": 6200,
+    "baseCost": 1800,
+    "critical": false,
+    "steps": [
+      {
+        "id": "C015-s1",
+        "title": "信息",
+        "text": "患者把胸片袋压在胸口，咳嗽时右侧胸壁疼痛。",
+        "options": [
+          {
+            "id": "C015-s1-a",
+            "label": "核对耐药风险与过敏史",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "核对近期住院、耐药菌史和药物过敏史。",
+            "effects": {
+              "flags": [
+                "good"
+              ]
+            },
+            "next": "C015-s2"
+          },
+          {
+            "id": "C015-s1-b",
+            "label": "复核胸片和既往处方",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "复看片子与既往处方，核实已有诊断依据。",
+            "effects": {
+              "flags": [
+                "good"
+              ]
+            },
+            "next": "C015-s2"
+          },
+          {
+            "id": "C015-s1-c",
+            "label": "不分层就拟用特殊级抗菌药",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "未经风险分层，把特殊级抗菌药列入拟用方案。",
+            "effects": {
+              "hazards": [
+                {
+                  "type": "F",
+                  "weight": 15,
+                  "reason": "资源投入与病情分层不匹配",
+                  "norm": "用药强度须与风险分层相符",
+                  "causal": false
+                }
+              ]
+            },
+            "next": "C015-s2"
+          }
+        ]
+      },
+      {
+        "id": "C015-s2",
+        "title": "分流",
+        "text": "社区肺炎的药物选择还需核对耐药风险与病情分层。",
+        "options": [
+          {
+            "id": "C015-s2-a",
+            "label": "给予标准抗菌治疗",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 248,
+            "result": "核对病情与禁忌后，实施与当前风险分层相符的标准抗菌治疗。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "C015-s3"
+          },
+          {
+            "id": "C015-s2-b",
+            "label": "留取培养并请感染科评估",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 248,
+            "result": "留取培养标本，请感染科共同评估用药指征。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "C015-s3"
+          },
+          {
+            "id": "C015-s2-c",
+            "label": "无新增指征仍首选特殊级药",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "没有新的耐药风险证据，拟用方案仍把特殊级药列为首选。",
+            "effects": {
+              "hazards": [
+                {
+                  "type": "F",
+                  "weight": 15,
+                  "reason": "资源投入与病情分层不匹配",
+                  "norm": "用药强度须与风险分层相符",
+                  "causal": false
+                }
+              ]
+            },
+            "next": "C015-s3"
+          }
+        ]
+      },
+      {
+        "id": "C015-s3",
+        "title": "处置",
+        "text": "氧饱和度暂时稳定，发热和咳痰仍在。",
+        "options": [
+          {
+            "id": "C015-s3-a",
+            "label": "实施补液和对症支持",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 248,
+            "result": "按当前需要实施补液及对症支持，继续观察症状。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "C015-s4"
+          },
+          {
+            "id": "C015-s3-b",
+            "label": "监测生命征并复评用药",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 248,
+            "result": "实施监测，核对抗菌药适应证和反应，明确后续复评节点。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "C015-s4"
+          },
+          {
+            "id": "C015-s3-c",
+            "label": "无新增指征再拟加备用药",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "在拟用方案中叠加备用抗菌药，却未补充相应指征。",
+            "effects": {
+              "hazards": [
+                {
+                  "type": "F",
+                  "weight": 15,
+                  "reason": "资源投入与病情分层不匹配",
+                  "norm": "用药强度须与风险分层相符",
+                  "causal": false
+                }
+              ]
+            },
+            "next": "C015-s4"
+          }
+        ]
+      },
+      {
+        "id": "C015-s4",
+        "title": "记录交接",
+        "text": "医嘱单最后一栏等着用药依据与复评安排。",
+        "options": [
+          {
+            "id": "C015-s4-a",
+            "label": "记录用药依据与复评安排",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "记录实际用药、分层依据、疗程与复评节点。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "end"
+          },
+          {
+            "id": "C015-s4-b",
+            "label": "说明疗效、费用和复诊信号",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "向患者说明现有方案的疗效预期、费用与复诊信号。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "end"
+          },
+          {
+            "id": "C015-s4-c",
+            "label": "只写感染不写用药依据",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "记录只写感染，用药依据和复评节点没有交接。",
+            "effects": {
+              "hazards": [
+                {
+                  "type": "D",
+                  "weight": 12,
+                  "reason": "简记遗漏本次用药依据和复评节点",
+                  "norm": "用药记录须客观完整可追溯",
+                  "causal": false
+                }
+              ]
+            },
+            "next": "end"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C016",
+    "title": "第六个小时",
+    "department": "急诊／内科",
+    "age": 31,
+    "sex": "男",
+    "complaint": "恶心呕吐三小时",
+    "history": [
+      "对乙酰氨基酚急性过量六小时"
+    ],
+    "findings": [
+      "对乙酰氨基酚急性过量六小时"
+    ],
+    "dipGroup": "药物中毒·不伴肝损伤",
+    "budget": 5800,
+    "baseCost": 900,
+    "critical": true,
+    "steps": [
+      {
+        "id": "C016-s1",
+        "title": "信息",
+        "text": "患者带来用药包装，室友站在床尾等待询问。",
+        "options": [
+          {
+            "id": "C016-s1-a",
+            "label": "单独询问药物暴露",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "单独询问药物名称与暴露时间，核实现有病史。",
+            "effects": {
+              "flags": [
+                "good"
+              ]
+            },
+            "next": "C016-s2"
+          },
+          {
+            "id": "C016-s1-b",
+            "label": "核对包装和陪同者记录",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "核对药品包装与室友提供的时间记录。",
+            "effects": {
+              "flags": [
+                "good"
+              ]
+            },
+            "next": "C016-s2"
+          },
+          {
+            "id": "C016-s1-c",
+            "label": "不追问暴露就按胃肠炎登记",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "药物暴露没有补充评估，病历仍按胃肠炎登记。",
+            "effects": {
+              "flags": [
+                "bad"
+              ]
+            },
+            "next": "C016-s2"
+          }
+        ]
+      },
+      {
+        "id": "C016-s2",
+        "title": "分流",
+        "text": "现有病史提示药物过量，解毒评估与必要检查需要及时衔接。",
+        "options": [
+          {
+            "id": "C016-s2-a",
+            "label": "抽血查药物浓度及肝功能",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 232,
+            "result": "采血检查药物浓度、肝功能与凝血，提交急查。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "C016-s3"
+          },
+          {
+            "id": "C016-s2-b",
+            "label": "启动解毒留观并连续监测",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 232,
+            "result": "启动解毒观察流程，持续监测生命征并安排复查。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "C016-s3"
+          },
+          {
+            "id": "C016-s2-c",
+            "label": "等化验全部回齐再决定",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "等待所有结果期间解毒评估被延迟，肝损伤风险上升。",
+            "effects": {
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "等待决定使解毒窗口继续流失",
+                  "norm": "明确过量须及时启动解毒评估",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C016-s3"
+          }
+        ]
+      },
+      {
+        "id": "C016-s3",
+        "title": "处置",
+        "text": "患者把手机扣在床头，治疗、留观与安全评估需要落实。",
+        "options": [
+          {
+            "id": "C016-s3-a",
+            "label": "启动解毒治疗",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 232,
+            "result": "按中毒处置流程启动解毒治疗，安排持续观察。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "C016-s4"
+          },
+          {
+            "id": "C016-s3-b",
+            "label": "监测复查并并行安全评估",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 232,
+            "result": "继续中毒监测与必要复查，安排并行心理安全评估和后续支持。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "C016-s4"
+          },
+          {
+            "id": "C016-s3-c",
+            "label": "停止留观并让室友带走",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "患者在未完成治疗和观察时离院，随后意识和肝功能恶化，需要紧急救治。",
+            "effects": {
+              "discharge": true,
+              "damage": 2,
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 55,
+                  "reason": "中毒患者未完成解毒和安全观察即离院",
+                  "norm": "高风险中毒须完成解毒与观察交接",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C016-s4"
+          }
+        ]
+      },
+      {
+        "id": "C016-s4",
+        "title": "记录交接",
+        "text": "交班页等待药物暴露、实际处置和患者去向。",
+        "options": [
+          {
+            "id": "C016-s4-a",
+            "label": "交接暴露与实际处置",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "记录已核实的暴露信息、已完成治疗、复查计划及实际去向。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "end"
+          },
+          {
+            "id": "C016-s4-b",
+            "label": "联系患者及室友说明观察要求",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "联系患者与室友，解释持续观察和及时求助的要求，记录实际联系情况。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "end"
+          },
+          {
+            "id": "C016-s4-c",
+            "label": "只写呕吐不交接暴露",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "交班页只写呕吐，药物暴露和继续观察要求没有留下。",
+            "effects": {
+              "hazards": [
+                {
+                  "type": "D",
+                  "weight": 12,
+                  "reason": "简记遗漏中毒暴露时间和观察交接",
+                  "norm": "中毒记录须完整交接可追溯",
+                  "causal": false
+                }
+              ]
+            },
+            "next": "end"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C017",
+    "title": "第三天的体温",
+    "department": "胃肠外科",
+    "age": 63,
+    "sex": "男",
+    "complaint": "结肠术后第三天发热",
+    "history": [
+      "吻合口漏、盆腔脓肿并早期脓毒症"
+    ],
+    "findings": [
+      "吻合口漏、盆腔脓肿并早期脓毒症"
+    ],
+    "dipGroup": "结直肠术后并发症",
+    "budget": 18000,
+    "baseCost": 12600,
+    "critical": true,
+    "steps": [
+      {
+        "id": "C017-s1",
+        "title": "信息",
+        "text": "患者术后第三天发热，切口干燥，腹部引流液浑浊。",
+        "options": [
+          {
+            "id": "C017-s1-a",
+            "label": "查腹部切口与引流",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "检查腹部压痛、切口和引流液变化。",
+            "effects": {
+              "flags": [
+                "good"
+              ]
+            },
+            "next": "C017-s2"
+          },
+          {
+            "id": "C017-s1-b",
+            "label": "复核氧合记录并查肺部",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "核对已有氧合记录，检查呼吸状态与肺部体征。",
+            "effects": {
+              "flags": [
+                "good"
+              ]
+            },
+            "next": "C017-s2"
+          },
+          {
+            "id": "C017-s1-c",
+            "label": "只按肺部感染登记",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "未评估腹部与引流异常，腹腔感染风险没有展开。",
+            "effects": {
+              "flags": [
+                "bad"
+              ]
+            },
+            "next": "C017-s2"
+          }
+        ]
+      },
+      {
+        "id": "C017-s2",
+        "title": "分流",
+        "text": "感染风险尚未充分评估，腹盆腔影像与感染检查需要决定。",
+        "options": [
+          {
+            "id": "C017-s2-a",
+            "label": "急查增强腹盆腔CT",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 720,
+            "result": "完成增强腹盆腔CT，影像支持吻合口漏和盆腔感染。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "C017-s3"
+          },
+          {
+            "id": "C017-s2-b",
+            "label": "查培养与乳酸并持续复评",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 720,
+            "result": "留取培养、检查乳酸，等待结果期间持续复评。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "C017-s3"
+          },
+          {
+            "id": "C017-s2-c",
+            "label": "等退热后再决定检查",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "等待期间血压下降、灌注恶化，需要紧急循环支持。",
+            "effects": {
+              "damage": 2,
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "术后感染疑虑仍等待导致灌注恶化",
+                  "norm": "脓毒症风险须及时复评",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C017-s3"
+          }
+        ]
+      },
+      {
+        "id": "C017-s3",
+        "title": "处置",
+        "text": "床旁仍在等待感染源处置安排，患者呼吸急促。",
+        "options": [
+          {
+            "id": "C017-s3-a",
+            "label": "补液抗感染并请外科处理",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 720,
+            "result": "实施补液和抗感染，请外科评估并落实感染源控制。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "C017-s4"
+          },
+          {
+            "id": "C017-s3-b",
+            "label": "床旁超声并持续监护复评",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 720,
+            "result": "实施床旁超声与持续监护，根据变化催办外科处置。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "C017-s4"
+          },
+          {
+            "id": "C017-s3-c",
+            "label": "只给退热药不处理感染源",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "仅退热后腹腔感染继续扩散，出现循环衰竭，需要紧急抢救。",
+            "effects": {
+              "damage": 2,
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 30,
+                  "reason": "疑似吻合口漏只退热未控制感染源",
+                  "norm": "术后腹腔感染须尽快控制感染源",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C017-s4"
+          }
+        ]
+      },
+      {
+        "id": "C017-s4",
+        "title": "记录交接",
+        "text": "交班页需要写明氧合、引流和已完成的感染源处置。",
+        "options": [
+          {
+            "id": "C017-s4-a",
+            "label": "交接引流和处置进度",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "记录氧合、引流、实际处置和未完成事项的复评时点。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "end"
+          },
+          {
+            "id": "C017-s4-b",
+            "label": "说明感染源处置的必要",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "向患者或家属解释腹腔感染风险及可能需要再次处理的原因。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "end"
+          },
+          {
+            "id": "C017-s4-c",
+            "label": "只写术后发热",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "病程只写术后发热，引流变化与升级处置需求未交接。",
+            "effects": {
+              "hazards": [
+                {
+                  "type": "D",
+                  "weight": 12,
+                  "reason": "简记遗漏引流、氧合和升级处置",
+                  "norm": "危重交班须记录关键风险",
+                  "causal": false
+                }
+              ]
+            },
+            "next": "end"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C018",
+    "title": "那张进口药清单",
+    "department": "风湿免疫科",
+    "age": 39,
+    "sex": "女",
+    "complaint": "要求今天用进口药",
+    "history": [
+      "狼疮性肾炎活动，感染筛查未完成"
+    ],
+    "findings": [
+      "狼疮性肾炎活动，感染筛查未完成"
+    ],
+    "dipGroup": "系统性红斑狼疮活动伴肾炎",
+    "budget": 12000,
+    "baseCost": 4200,
+    "critical": true,
+    "steps": [
+      {
+        "id": "C018-s1",
+        "title": "信息",
+        "text": "患者把进口药清单放在肾功能报告上，泡沫尿比前几天多。",
+        "options": [
+          {
+            "id": "C018-s1-a",
+            "label": "复核尿检和免疫指标记录",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "核对已有蛋白尿、血尿、补体和抗体结果。",
+            "effects": {
+              "flags": [
+                "good"
+              ]
+            },
+            "next": "C018-s2"
+          },
+          {
+            "id": "C018-s1-b",
+            "label": "询问感染史和既往用药",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "询问近期感染、既往用药与治疗反应。",
+            "effects": {
+              "flags": [
+                "good"
+              ]
+            },
+            "next": "C018-s2"
+          },
+          {
+            "id": "C018-s1-c",
+            "label": "未评估就拟强化免疫",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "未完成风险评估，便把强化免疫列入拟用方案。",
+            "effects": {
+              "flags": [
+                "bad"
+              ]
+            },
+            "next": "C018-s2"
+          }
+        ]
+      },
+      {
+        "id": "C018-s2",
+        "title": "分流",
+        "text": "肾功能与尿检异常，感染风险及治疗依据需要进一步核实。",
+        "options": [
+          {
+            "id": "C018-s2-a",
+            "label": "完成感染筛查并请专科评估",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 480,
+            "result": "实施感染筛查，请肾脏专科评估免疫治疗依据。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "C018-s3"
+          },
+          {
+            "id": "C018-s2-b",
+            "label": "复查尿检与肾功能趋势",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 480,
+            "result": "复查尿蛋白、尿沉渣和肾功能，核实当前变化。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "C018-s3"
+          },
+          {
+            "id": "C018-s2-c",
+            "label": "推迟感染筛查核对",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "未核实感染筛查是否完成便推迟评估，风险仍未澄清。",
+            "effects": {
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 20,
+                  "reason": "跳过感染筛查使免疫治疗风险未被识别",
+                  "norm": "强化免疫前须完成感染筛查",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C018-s3"
+          }
+        ]
+      },
+      {
+        "id": "C018-s3",
+        "title": "处置",
+        "text": "患者说尿量少了，当前免疫治疗计划需要复核。",
+        "options": [
+          {
+            "id": "C018-s3-a",
+            "label": "按分层实施治疗并复评",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 480,
+            "result": "核实风险分层与禁忌后实施相应治疗，安排复评。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "C018-s4"
+          },
+          {
+            "id": "C018-s3-b",
+            "label": "留院监测尿量和肾功能",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 480,
+            "result": "实施留院监测与肾功能复查，持续关注感染信号。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "C018-s4"
+          },
+          {
+            "id": "C018-s3-c",
+            "label": "不核实感染风险就强化免疫",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "未充分核实感染风险即强化免疫，随后出现感染和急性肾功能恶化，需要升级救治。",
+            "effects": {
+              "damage": 2,
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "未充分核实感染风险即强化免疫，随后感染和肾功能恶化",
+                  "norm": "强化免疫前须排查感染风险",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C018-s4"
+          }
+        ]
+      },
+      {
+        "id": "C018-s4",
+        "title": "记录交接",
+        "text": "药物清单旁仍缺临床依据与复评安排。",
+        "options": [
+          {
+            "id": "C018-s4-a",
+            "label": "记录治疗依据与待核事项",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "记录实际治疗依据、筛查完成情况与支付待核项。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "end"
+          },
+          {
+            "id": "C018-s4-b",
+            "label": "说明分层方案与复评要求",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "向患者解释治疗分层、现有不确定信息与复评要求。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "end"
+          },
+          {
+            "id": "C018-s4-c",
+            "label": "只抄药名不记依据",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "只记录药品名称，适应证、筛查与支付核对情况缺失。",
+            "effects": {
+              "hazards": [
+                {
+                  "type": "D",
+                  "weight": 12,
+                  "reason": "简记遗漏适应证、筛查和支付核对",
+                  "norm": "高风险用药须记录临床依据",
+                  "causal": false
+                }
+              ]
+            },
+            "next": "end"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C019",
+    "title": "三个人的同一扇门",
+    "department": "急诊医学",
+    "age": 36,
+    "sex": "女",
+    "complaint": "一家三口头疼",
+    "history": [
+      "炉火共同暴露，疑一氧化碳中毒"
+    ],
+    "findings": [
+      "炉火共同暴露，疑一氧化碳中毒"
+    ],
+    "dipGroup": "一氧化碳中毒",
+    "budget": 3600,
+    "baseCost": 0,
+    "critical": true,
+    "steps": [
+      {
+        "id": "C019-s1",
+        "title": "信息",
+        "text": "患者与父母已离开炉火房间，三人一起到达急诊。",
+        "options": [
+          {
+            "id": "C019-s1-a",
+            "label": "分别询问三人的暴露史",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "分别核实患者及父母的暴露时间和症状，记录到各自病历。",
+            "effects": {
+              "flags": [
+                "good"
+              ]
+            },
+            "next": "C019-s2"
+          },
+          {
+            "id": "C019-s1-b",
+            "label": "查阅现场与转送记录",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "核对现有现场和转送信息，确认三人已离开暴露环境。",
+            "effects": {
+              "flags": [
+                "good"
+              ]
+            },
+            "next": "C019-s2"
+          },
+          {
+            "id": "C019-s1-c",
+            "label": "不评估就等普通头痛叫号",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "把患者与父母一起留在普通候诊队列，未完成中毒分级评估。",
+            "effects": {
+              "flags": [
+                "bad"
+              ]
+            },
+            "next": "C019-s2"
+          }
+        ]
+      },
+      {
+        "id": "C019-s2",
+        "title": "分流",
+        "text": "三人均有共同暴露史，患者仍诉头痛恶心。",
+        "options": [
+          {
+            "id": "C019-s2-a",
+            "label": "给患者吸氧并启动中毒评估",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 144,
+            "result": "为本例患者给氧并启动中毒评估，父母另行逐人分流。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "C019-s3"
+          },
+          {
+            "id": "C019-s2-b",
+            "label": "抽血检查并逐人分流",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 144,
+            "result": "为本例患者抽血检查并完成分级评估，安排父母各自评估。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "C019-s3"
+          },
+          {
+            "id": "C019-s2-c",
+            "label": "继续候诊不启动中毒处置",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "患者在未获及时中毒处置时意识转差，需紧急救治；三人的转归分别记录。",
+            "effects": {
+              "damage": 2,
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 25,
+                  "reason": "该患者未获及时中毒评估和处置，随后出现意识恶化",
+                  "norm": "共同暴露患者脱离现场后仍须逐人评估和及时处置",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C019-s3"
+          }
+        ]
+      },
+      {
+        "id": "C019-s3",
+        "title": "处置",
+        "text": "父亲反应较慢，患者仍能应答，三人的处置需要分别落实。",
+        "options": [
+          {
+            "id": "C019-s3-a",
+            "label": "安排患者吸氧与持续监护",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 144,
+            "result": "为本例患者落实吸氧和持续监护，同时提醒团队处理父亲的意识变化。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "C019-s4"
+          },
+          {
+            "id": "C019-s3-b",
+            "label": "复查患者血液指标和神经状态",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 144,
+            "result": "为本例患者复查血液指标及神经状态，独立记录其变化。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "C019-s4"
+          },
+          {
+            "id": "C019-s3-c",
+            "label": "只顾父母而遗漏患者",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "只跟进父母情况，漏掉本例患者头痛和恶心加重，直到复查时才发现。",
+            "effects": {
+              "hazards": [
+                {
+                  "type": "R",
+                  "weight": 30,
+                  "reason": "遗漏该患者使其症状恶化后才获处置",
+                  "norm": "共同暴露须逐人持续复评",
+                  "causal": true
+                }
+              ]
+            },
+            "next": "C019-s4"
+          }
+        ]
+      },
+      {
+        "id": "C019-s4",
+        "title": "记录交接",
+        "text": "三张腕带靠在一起，各人的记录与去向需要分开填写。",
+        "options": [
+          {
+            "id": "C019-s4-a",
+            "label": "逐人交接暴露与转归",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "逐人记录暴露、实际处置和转归，本例患者的记录单独填写。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "end"
+          },
+          {
+            "id": "C019-s4-b",
+            "label": "说明观察要求和现场风险",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "向患者或家属说明继续观察要求、不要返回危险现场及相关联系安排。",
+            "effects": {
+              "damage": 0
+            },
+            "next": "end"
+          },
+          {
+            "id": "C019-s4-c",
+            "label": "三人只留一句头痛",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "三人被写进同一句头痛，各自暴露、处置和转归没有分开。",
+            "effects": {
+              "hazards": [
+                {
+                  "type": "D",
+                  "weight": 12,
+                  "reason": "简记未逐人记录暴露和转归",
+                  "norm": "群体暴露须逐名建立交接记录",
+                  "causal": false
+                }
+              ]
+            },
+            "next": "end"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C020",
+    "title": "最后一张床位记录",
+    "department": "综合内科",
+    "age": 74,
+    "sex": "男",
+    "complaint": "夜班发现住院患者无反应",
+    "history": [
+      "死亡后证据保全、沟通、尸检告知与讨论"
+    ],
+    "findings": [
+      "死亡后证据保全、沟通、尸检告知与讨论"
+    ],
+    "dipGroup": "住院·死亡病例处置",
+    "budget": 2400,
+    "baseCost": 0,
+    "critical": false,
+    "steps": [
+      {
+        "id": "C020-s1",
+        "title": "信息",
+        "text": "交班确认患者已在你接手前死亡，床位记录与抢救资料等待核对。",
+        "options": [
+          {
+            "id": "C020-s1-a",
+            "label": "核对死亡时间与交接信息",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "核对已记录的死亡时间和交接经过，区分接手前事件与本班善后事项。",
+            "effects": {
+              "flags": [
+                "good"
+              ]
+            },
+            "next": "C020-s2"
+          },
+          {
+            "id": "C020-s1-b",
+            "label": "复核既有抢救与监护记录",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "查阅既有抢救、监护和医嘱记录，列出需要向原班核实的疑点。",
+            "effects": {
+              "flags": [
+                "good"
+              ]
+            },
+            "next": "C020-s2"
+          },
+          {
+            "id": "C020-s1-c",
+            "label": "不核实就照抄交班摘要",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "直接沿用摘要，未核实死亡时间及记录来源，留下善后信息缺口。",
+            "effects": {
+              "flags": [
+                "C020_gap"
+              ]
+            },
+            "next": "C020-s2"
+          }
+        ]
+      },
+      {
+        "id": "C020-s2",
+        "title": "分流",
+        "text": "遗留的监护记录、医嘱和交接单需要妥善保存。",
+        "options": [
+          {
+            "id": "C020-s2-a",
+            "label": "登记并保全现有资料",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "登记现有病历、监护与相关资料，记录保管和移交情况。",
+            "effects": {},
+            "next": "C020-s3"
+          },
+          {
+            "id": "C020-s2-b",
+            "label": "联系原班核实记录缺项",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "联系原当班人员核实记录缺项，区分已确认与待确认事实。",
+            "effects": {},
+            "next": "C020-s3"
+          },
+          {
+            "id": "C020-s2-c",
+            "label": "把资料整理留到以后",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "未及时登记资料与保管状态，后续核对缺少清晰的移交线索。",
+            "effects": {
+              "flags": [
+                "C020_gap"
+              ]
+            },
+            "next": "C020-s3"
+          }
+        ]
+      },
+      {
+        "id": "C020-s3",
+        "title": "处置",
+        "text": "家属来到谈话室，询问已知经过和后续安排。",
+        "options": [
+          {
+            "id": "C020-s3-a",
+            "label": "向家属说明已知经过与安排",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "说明已有记录能够确认的经过及后续安排，对尚未核实之处如实说明。",
+            "effects": {},
+            "next": "C020-s4"
+          },
+          {
+            "id": "C020-s3-b",
+            "label": "说明死因核查与讨论安排",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "说明死因核查、相关检查告知和讨论安排，记录家属意见。",
+            "effects": {},
+            "next": "C020-s4"
+          },
+          {
+            "id": "C020-s3-c",
+            "label": "只说人已去世便结束谈话",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "未交代可核实的经过和后续联系安排，家属的问题没有记录。",
+            "effects": {
+              "flags": [
+                "C020_gap"
+              ]
+            },
+            "next": "C020-s4"
+          }
+        ]
+      },
+      {
+        "id": "C020-s4",
+        "title": "记录交接",
+        "text": "交班本最后一页等待善后事项和责任人的签名。",
+        "options": [
+          {
+            "id": "C020-s4-a",
+            "label": "完整交接善后事项",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "记录本班核实、保全、沟通及未完成事项，写明后续联系对象。",
+            "effects": {},
+            "next": "end"
+          },
+          {
+            "id": "C020-s4-b",
+            "label": "与家属确认后续联系人",
+            "ap": 1,
+            "minutes": 10,
+            "cost": 0,
+            "result": "向家属确认后续联系人和沟通安排，记录尚待答复的问题。",
+            "effects": {},
+            "next": "end"
+          },
+          {
+            "id": "C020-s4-c",
+            "label": "仅写已告知家属",
+            "ap": 0,
+            "minutes": 2,
+            "cost": 0,
+            "result": "只写已告知家属，缺少具体谈话内容、资料状态和后续安排。",
+            "effects": {
+              "flags": [
+                "C020_gap"
+              ]
+            },
+            "next": "end"
+          }
+        ]
+      }
+    ]
+  }
+]

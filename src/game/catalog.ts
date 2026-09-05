@@ -1,0 +1,158 @@
+import a from "../clinical-a.json";
+import b from "../clinical-b.json";
+import type { ClinicalCase, Talent, Debuff } from "./types";
+export const CASES: ClinicalCase[] = [...a, ...b] as ClinicalCase[];
+export const TALENTS: Talent[] = [
+  {
+    id: "T04",
+    name: "复盘",
+    family: "临床",
+    benefit: "观察力检定 +1",
+    price: "每天行动值 −1",
+  },
+  {
+    id: "T06",
+    name: "三联记录",
+    family: "文书",
+    benefit: "新增文书隐患 −30%",
+    price: "每次处置多耗时 1 分钟",
+  },
+  {
+    id: "T10",
+    name: "抄规范",
+    family: "文书",
+    benefit: "新增临床隐患 −15%",
+    price: "每天情绪 −3",
+  },
+  {
+    id: "T11",
+    name: "好说话",
+    family: "关系",
+    benefit: "安抚 +2",
+    price: "初始声望 −10",
+  },
+  {
+    id: "T14",
+    name: "主任的人",
+    family: "关系",
+    benefit: "说服 +2；主任关系 +1",
+    price: "同事关系 −1",
+  },
+  {
+    id: "T16",
+    name: "长跑",
+    family: "身体",
+    benefit: "体力上限 +20",
+    price: "剧情带来的精神、情绪恢复减半",
+  },
+  {
+    id: "T17",
+    name: "夜行",
+    family: "身体",
+    benefit: "夜班体力消耗 −30%；夜班后行动值不减",
+    price: "体力上限 −15",
+  },
+  {
+    id: "T18",
+    name: "二十分钟",
+    family: "身体",
+    benefit: "午睡恢复 15 体力",
+    price: "午睡消耗 2 行动值",
+  },
+  {
+    id: "T19",
+    name: "胃口",
+    family: "身体",
+    benefit: "每天情绪 +2",
+    price: "每天伙食多付 ¥60",
+  },
+  {
+    id: "T23",
+    name: "活下来",
+    family: "命运",
+    benefit: "首次归零由上限 −30 代替",
+    price: "触发后 SAN −10，抑郁 +10",
+  },
+  {
+    id: "T24",
+    name: "应急金",
+    family: "命运",
+    benefit: "开局余额 +¥5,000",
+    price: "借贷日利率 +1%",
+  },
+  {
+    id: "T26",
+    name: "多开一项",
+    family: "灰色",
+    benefit: "临床隐患 −40%",
+    price: "费用 +20%；费用隐患 +60%",
+  },
+];
+export const DEBUFFS: Debuff[] = [
+  {
+    id: "B01",
+    name: "失眠",
+    text: "睡眠恢复至体力上限的 70%；情绪达到 60 后解除。",
+  },
+  { id: "B02", name: "手抖", text: "察觉 −2；每次临床处置额外消耗 1 体力。" },
+  { id: "B03", name: "胃痛", text: "每天行动值 −1；付费休养可解除。" },
+  {
+    id: "B04",
+    name: "咖啡耐受",
+    text: "每杯咖啡只恢复 5 体力；不喝咖啡的一夜可解除。",
+  },
+  { id: "B05", name: "耳鸣", text: "察觉 −1；SAN 达到 70 后解除。" },
+  {
+    id: "B06",
+    name: "幻听",
+    text: "每起夜间急诊额外消耗 3 SAN；SAN 达到 70 后解除。",
+  },
+  { id: "B07", name: "分神", text: "日终检定 −1；完整休息一夜后解除。" },
+  {
+    id: "B08",
+    name: "反复确认",
+    text: "每次处置耗时 +15%；文书隐患 −10%。",
+    permanent: true,
+  },
+  {
+    id: "B09",
+    name: "催婚电话",
+    text: "每天情绪 −5；一次完整的家庭谈话可解除。",
+  },
+  { id: "B10", name: "群消息", text: "事件造成的情绪损失 +50%。" },
+  { id: "B11", name: "录音焦虑", text: "安抚检定取两次掷骰中的较小值。" },
+  {
+    id: "B12",
+    name: "麻木",
+    text: "患者好转不再恢复情绪；每天抑郁 +2。",
+    permanent: true,
+  },
+  { id: "B13", name: "主任盯上", text: "说服 −2；主任关系达到 4 后解除。" },
+  {
+    id: "B14",
+    name: "医务科挂号",
+    text: "新增沟通隐患 +20%；声望达到 70 后解除。",
+  },
+  {
+    id: "B15",
+    name: "护士长记账",
+    text: "每次咖啡或透支扣 1 声望；护士长关系达到 4 后解除。",
+  },
+  { id: "B16", name: "同事疏远", text: "日终检定 −1；同事关系达到 3 后解除。" },
+  { id: "B17", name: "账单日", text: "借贷日利率 +1%；还清借贷后解除。" },
+  { id: "B18", name: "借钱", text: "获得 ¥2,000，记入私人借款；家人关系 −1。" },
+  { id: "B19", name: "罚单", text: "余额 −¥500。" },
+  { id: "B20", name: "防御处置", text: "临床隐患 −20%；处置费用 +15%。" },
+  { id: "B21", name: "回避", text: "说服 −1；每次付费休养后解除。" },
+  {
+    id: "B22",
+    name: "抄近路",
+    text: "无临床隐患的处置耗时 +20%；其他处置耗时 −20%。",
+  },
+  {
+    id: "B23",
+    name: "迟记",
+    text: "每次临床处置有 20% 概率增加 10 文书隐患。",
+  },
+  { id: "B24", name: "数钱", text: "超预算的个人扣款 +20%。", permanent: true },
+];

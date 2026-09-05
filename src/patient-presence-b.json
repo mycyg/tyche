@@ -1,0 +1,12 @@
+[
+{"caseId":"C011","name":"林妍","familyRole":"本人","familyName":"林","entranceLine":"医生，我明早还要赶车，能不能快一点？","bedsideLine":"我小时候好像起过疹子，但我以为那不算。","overdueLine":"我是不是等太久了？喉咙越来越紧。","dischargeConcern":"明天的面试我还能赶上吗？","appearance":"二十四岁女性，通勤外套，手里攥着分诊单，眼神焦急。"},
+{"caseId":"C012","name":"周守成","familyRole":"本人","familyName":"周","entranceLine":"昨晚那针很管用，我现在好多了。","bedsideLine":"以前是一阵一阵，后半夜变成一直疼，就在右下边。","overdueLine":"肚子像被撑住了，胃管里的东西也不一样。","dischargeConcern":"我儿子在外地，别因为我把他叫回来。","appearance":"七十六岁男性，半卧在床，鼻翼贴着胃管固定胶，手护着右下腹。"},
+{"caseId":"C013","name":"韩峻","familyRole":"本人","familyName":"韩","entranceLine":"背像被撕开一样，坐着也不缓解。","bedsideLine":"两边胳膊，一边好像更麻。","overdueLine":"眼前发黑了一下，背痛又顶上来了。","dischargeConcern":"我要去哪家医院？别让我一个人走。","appearance":"五十二岁男性，身体前倾，额头有汗，左腕袖口比右侧松。"},
+{"caseId":"C014","name":"唐果","familyRole":"患儿","familyName":"唐","entranceLine":"妈妈说回家，我想带勺子走。","bedsideLine":"我不困，就是喘得快。","overdueLine":"夜里醒了好几次，胸口闷。","dischargeConcern":"妈妈，我今天真的能回家吗？","appearance":"四岁女孩，抱着塑料勺，鼻翼轻动，床尾放着拉好的小行李。"},
+{"caseId":"C015","name":"赵衡","familyRole":"本人","familyName":"赵","entranceLine":"医生，给我最强的药，别拖。","bedsideLine":"我咳得不算厉害，就是右边胸口疼。","overdueLine":"走几步就喘，热也没有完全退。","dischargeConcern":"这药贵不贵？我不想反复住院。","appearance":"五十八岁男性，病号服坐在床边，手里夹着门诊胸片袋。"},
+{"caseId":"C016","name":"许舟","familyRole":"本人","familyName":"许","entranceLine":"我只是恶心，室友有点紧张。","bedsideLine":"我记得吃过药，具体几片……不想说。","overdueLine":"头开始发沉，胃里又翻上来了。","dischargeConcern":"我能不能先回去睡一觉？","appearance":"三十一岁男性，背包放在膝上，手机屏幕朝下，脸色发白。"},
+{"caseId":"C017","name":"蒋砚","familyRole":"本人","familyName":"蒋","entranceLine":"手术后发热很常见吧？","bedsideLine":"肚子里有一点扯着疼，引流袋颜色变了。","overdueLine":"冷得发抖，呼吸也越来越费劲。","dischargeConcern":"如果要再处理，家里人需要知道什么？","appearance":"六十三岁男性，半坐在床上，鼻导管挂在耳后，腹部敷料平整。"},
+{"caseId":"C018","name":"沈岚","familyRole":"本人","familyName":"沈","entranceLine":"我带了进口药清单，今天能不能就用？","bedsideLine":"最近尿里泡沫多，腰也酸，钱不是最重要的。","overdueLine":"尿量比刚才少，身上开始发冷。","dischargeConcern":"如果不马上用那种药，会不会耽误肾脏？","appearance":"三十九岁女性，深色针织外套，文件夹里夹着一张进口药清单。"},
+{"caseId":"C019","name":"许宁","familyRole":"女儿","familyName":"许","entranceLine":"我们三个人都头疼，炉子在屋里。","bedsideLine":"爸爸刚才还在说话，现在叫他反应很慢。","overdueLine":"妈妈也开始恶心，外面还有邻居一样难受。","dischargeConcern":"我们还能回那间屋子拿东西吗？","appearance":"三十六岁女性，抱着塑料水壶，衣服沾着炉灰，频频回头看父母。"},
+{"caseId":"C020","name":"周启明","familyRole":"家属妻子","familyName":"周","entranceLine":"他下午就说过胸闷，最后是谁看过他？","bedsideLine":"床边的水没动，输液泵还停在报警那里。","overdueLine":"请把你们已经确认的和还不知道的分开告诉我。","dischargeConcern":"遗体什么时候能移放？如果有异议，尸检要怎么申请？","appearance":"五十多岁女性，站在床旁门口，手机握在胸前，神情克制而发紧。"}
+]
