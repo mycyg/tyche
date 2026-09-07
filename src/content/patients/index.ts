@@ -117,6 +117,24 @@ function parseTraps(source: PresetSource): { label: string; hazard: HazardInput[
     return { label, hazard };
   }).filter(trap => trap.hazard.length);
 }
+/** A concealed fact and a gap left by the previous shift are closed by different
+ * actions. The label states what the doctor does, never what is hidden. */
+function gapClosure(source: PresetSource, investigation: string): { label: string; result: string; pending: string } {
+  const handover = /交接|交班|换班|接班|下一班|原科|转入前|产院|上次|未复查|未去|中断|预约/.test(source.hidden)
+    || /交接|交班|复查|随访/.test(source.traps);
+  const dueBy = source.severity >= 3 ? '两小时内' : source.severity === 2 ? '本班内' : source.severity === 1 ? '今天之内' : '次日晨';
+  if (handover) return {
+    label: '逐项追问交接与既往记录里没有写明的用药和检查',
+    result: `你把交接单、原始医嘱和既往记录逐项对了一遍，问清了没有写进来的部分，并把要补做的项目写进医嘱：${investigation}；复查时点定在${dueBy}，由接班的主管医师复核。`,
+    pending: '尚未逐项核对交接与既往记录里没有写明的用药和检查，也没有写明要补做哪些复查、在什么时点由谁复核。',
+  };
+  return {
+    label: '单独向患者本人追问尚未说明的经过',
+    result: `你请其他人暂时回避，单独问了患者本人，把他此前没有说出来的经过记进病历，并写明接下来要核对的项目：${investigation}；复查时点定在${dueBy}。`,
+    pending: '尚未单独追问患者本人此前没有说出来的经过，本次风险的来源仍未核实。',
+  };
+}
+
 function option(id: string, label: string, ap: number, minutes: number, cost: number, result: string, effects: Effects, next: string, when?: Option['when']): Option {
   return { id, label, ap, minutes, cost, result, effects, next, ...(when ? { when } : {}) };
 }
@@ -141,6 +159,7 @@ function build(source: PresetSource): CasePreset {
   const echoMinutes = total - times.reduce((a, b) => a + b, 0);
   const make = (node: string, action: string, label: string, ap: number, minutes: number, cost: number, result: string, effects: Effects, next: string, when?: Option['when']) => option(f(`${node}:${action}`), label, ap, minutes, cost, result, effects, next === PRESET_END ? next : f(next), when);
   const finding = hasHidden ? hiddenFact : `现有记录与复核结果一致。接下来需要${management}。`;
+  const closure = gapClosure(source, investigation);
   const checkFinding = hasHidden && ['history', 'observe'].includes(investigationOperation(source.id)) ? assessedClues(source) ?? finding : finding;
   const scenes: Scene[] = [
     { id: f('entry'), title: source.title, text: prose(source.presentation, true), options: [
@@ -157,6 +176,9 @@ function build(source: PresetSource): CasePreset {
       make('decision', 'tailored', management, 1, times[2], fees.manage, `你依据已核实的情况安排处置。接下来，你需要${followup}。`, { care: true, stamina: -3, stability: source.severity >= 2 ? 8 : 5, flags: [f('treated'), f('pending')] }, 'communication', hasHidden ? { all: [f('revealed')] } : undefined),
       make('decision', 'second-look', `补做核对：${investigation}`, 1, times[1] + 3, fees.assess, checkFinding, { stamina: -3, flags: [f('revealed'), f('second-look')] }, 'decision', { none: [f('revealed')] }),
       make('decision', 'consult', '请专科共同评估后安排处置', 2, times[2] + 6, fees.manage + fees.assess, `${finding} 会诊团队与你共同确认处置限制和交接事项。`, { care: true, stamina: -4, stability: 7, flags: [f('revealed'), f('treated'), f('pending'), f('consulted')] }, 'communication'),
+      // Closing the hidden card costs the shift clock and the doctor's own reserves,
+      // not another action point or another billed item.
+      ...(hasHidden ? [make('decision', 'close-gap', closure.label, 0, times[1] + times[3], 0, `${closure.result}\n${checkFinding}`, { stamina: -4, san: -1, flags: [f('revealed'), f('second-look')] }, 'decision', { none: [f('revealed')] })] : []),
       ...traps.map((trap, index) => {
         const hurts = trap.hazard.some(h => h.type === 'R' && h.causal);
         return make('decision', `trap-${index + 1}`, trap.label, 0, 3, trap.hazard.some(h => h.type === 'F') ? fees.assess + 200 : 0,
@@ -192,7 +214,7 @@ function build(source: PresetSource): CasePreset {
   for (const scene of scenes) for (const o of scene.options) {
     const part = o.id.slice(base.length + 1);
     if (!o.mechanics) {
-      const operation = part === 'entry:history' ? entryCopy.operation : part === 'investigate:verbal' ? 'history'
+      const operation = part === 'entry:history' ? entryCopy.operation : part === 'investigate:verbal' || part === 'decision:close-gap' ? 'history'
         : part === 'investigate:targeted' || part === 'decision:second-look' ? investigationOperation(source.id)
         : part.startsWith('investigate:') || part === 'decision:second-look' ? 'exam'
         : part.includes('consult') ? 'consult'
@@ -233,6 +255,15 @@ function build(source: PresetSource): CasePreset {
     hiddenFact, hasHidden, hazards, scenes:scenes.map(scene=>projectInvestigationCopy(scene,source.id)), entry: f('entry'),
     safeRoute: ['entry:history', 'investigate:targeted', 'decision:tailored', 'communication:explain', 'handoff:complete', 'echo:closed'].map(f),
     echoFlags: { success: f('success'), pending: f('pending'), resolved: f('resolved') },
+    riskClosure: {
+      requires: [...(hasHidden ? [f('revealed')] : []), f('treated'), f('informed'), f('handoff')],
+      pending: [
+        ...(hasHidden ? [closure.pending] : []),
+        `尚未按本次病情安排处置：${management}。`,
+        '尚未向患者说明风险与可选安排，也没有记下本人的决定。',
+        `尚未把复查项目、时点与负责人写进交接：${followup}。`,
+      ],
+    },
   };
 }
 export const CASE_PRESETS: CasePreset[] = (presetData as PresetSource[]).map(build);
