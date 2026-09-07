@@ -8,7 +8,7 @@
 | 2 | `data-modal="confirm\|roll\|debuff\|funding\|collapse\|recovery\|panel"` | `Modal` 组件（现在只接收 `title`） | 资金缺口与体力归零两个弹窗只靠「是否存在 `.choice.danger`」区分 | 体力归零弹窗一旦加一个 danger 选项，就会被当成资金缺口处理 |
 | 3 | `data-option-id={o.id}` | `.dialogue-option`、确认弹窗的「就这样做」、`.debuff-card`、`.choices .choice`、鉴定庭三项 | 驱动器在读屏时给按钮打自己的 `data-autoplay="opt-N"` 再按序号点 | 读屏与点击之间发生一次 Preact 重绘，序号与按钮就可能对不上；日志里也无法把选择还原成引擎里的 option id |
 | 4 | `data-card-id`、`data-card-kind` | `.rpg-dialogue` 根节点与 `.rpg-menu-row` | 待办行与打开的卡片只能用标题文字对应 | 前往待办失败时说不清失败的是哪张卡；同名标题无法区分 |
-| 5 | `data-ending-id`、`data-ending-category`、`data-story-id` | `.ending-page` 与 `.ending-page.ending-page-story` 两种结局页 | 用正则从 `.ending-intro .eyebrow` 的 `X31 / 类别 · …` 里取编号 | 眉题格式一变就取不到结局编号，只能回落到读 `localStorage` 的存档；`?preview-ending=END-07` 这条开发路由的眉题是 `END-07 / 结局预览`，正则取不到，定向回归只能靠 URL 自己记着是哪一个 |
+| 5 | `data-ending-id`、`data-ending-category`、`data-story-id` | `.ending-page` 与 `.ending-page.ending-page-story` 两种结局页 | 用正则从 `.ending-intro .eyebrow` 取编号 | 已经踩到一次：编号从 `X25` 换成 `END-28` 之后，原来的正则一个都取不到，八局的结局编号全部靠读 `localStorage` 存档才拿到。编号格式再动一次，同样的事会再发生一遍 |
 | 6 | `data-roll-state="idle\|rolling\|settled"`、`data-roll-face` | `.roll-content` | 靠按钮文字「掷二十面骰／直接看点数／接受结果 →／继续与第二拨家属沟通 →／使用 1 次重掷」判断 | 文案一改，「接受结果」可能匹配到「使用 1 次重掷」，等于替玩家花掉一次重掷 |
 | 7 | 骰子上的可点区域与主按钮的可访问名区分开（`data-action="throw-dice"` 对 `data-action="commit-roll"`） | `Dice` 的 `.tyche-dice__surface` 与 `.primary.full` | 骰面按钮的 `aria-label` 是「投掷二十面骰，拖动松手，或按回车键」，与主按钮「掷二十面骰」在非精确匹配下同时命中 | 已实际踩到：`getByRole('button',{name:'掷二十面骰'})` 触发 strict mode 冲突，只能改成精确匹配 |
 | 8 | `data-walking="true\|false"` 或 `data-destination` | `.world-stage` | 点完待办行后等 `.rpg-dialogue / .bedside-view / .rpg-map-menu / dialog[open]` 出现，超时 45 秒才判定失败 | 路线不可达与「还在走」无法区分，每次失败都要白等 45 秒；也无法确认是寻路问题还是交互距离问题 |

@@ -215,7 +215,9 @@ function probeScreen(): Snapshot {
     const eyebrow = text(ending.querySelector(".ending-intro .eyebrow"));
     const snapshot = build("ending", text(ending.querySelector("h1")), ending, []);
     snapshot.ending = {
-      id: (eyebrow.match(/[A-Z]\d+/) ?? [""])[0],
+      // Endings are numbered END-28 since the forty story endings landed; the
+      // older X25 form is still matched so an older build reads the same.
+      id: (eyebrow.match(/END-\d+|[A-Z]\d+/) ?? [""])[0],
       title: text(ending.querySelector("h1")),
     };
     return snapshot;
