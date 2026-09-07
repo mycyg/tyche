@@ -41,7 +41,20 @@ export const RULES = {
   deferredPatient:{R:10,D:10,hiddenSeedChance:.3},
   weeklyOverspend:{notice:3000,interview:8000,emotion:10,reputation:5},
   audit:{weightMax:2,weightPerPoint:.08,echoThresholds:[3,6,9],echoAp:[1,2,3],echoDelayMin:1,echoDelayMax:3},
-  events:{echoDailyCaps:[0,0,0,1,1,1,1,2,2,2,2,3,3,3]},
+  // randomSlots：每（天 × 阶段）可抽的随机事件条数，逐日 D1…D14。
+  // 来源 docs/design/01_核心机制与数值.md §7 选择密度（D1–D3 每日 6–10 次、
+  // D4–D8 9–13 次、D9–D11 11–16 次、D12–D14 14–18 次，含病例选择），
+  // 事件槽约占其中一半，另一半留给病例图谱与回响。夜班槽只在 §7 的夜班日
+  // （D3/6/9/12/14）非零，其余日为 0。
+  events:{echoDailyCaps:[0,0,0,1,1,1,1,2,2,2,2,3,3,3],
+    randomSlots:{
+      交班:[1,1,1,1,1,1,1,1,1,1,1,2,2,2],
+      查房:[1,1,1,1,1,1,1,1,1,1,2,2,2,2],
+      门诊:[1,1,1,1,1,1,1,1,1,1,1,2,2,2],
+      结算:[1,1,1,1,1,1,2,2,2,2,2,3,3,3],
+      夜班:[0,0,2,0,0,2,0,0,2,0,0,3,0,3],
+      日终:[1,1,1,1,1,1,1,1,1,1,1,2,2,2],
+    }},
   family:{deathChance:.3,bereavementSan:20,bereavementDepression:15},
   butterfly:{handoffAp:1,bridgeLoan:10000,loanDays:7,nonpaymentRoll:8,cooperationExitEmotion:5,deadlineExtensionDays:1,paperDeadline:11,permissionDc:12,unconditionalOfferChance:.4,liaisonOfferDay:9,liaisonDailyAp:1,liaisonDailyMinutes:10,liaisonMissEmotion:2,peerExamPreludeStart:3,peerExamPreludeEnd:12,peerExamPreludeChance:.25},
   handoverTranscription:{start:2,end:13,chance:.35,carefulAp:1,carefulMinutes:8,memoryMinutes:2,memoryEmotion:2,dc:12},

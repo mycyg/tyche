@@ -296,3 +296,48 @@ describe('authored encounter director',()=>{
     throw new Error('No seeded eligible arrest scene');
   });
 });
+
+describe('the pressure curve and the night beat',()=>{
+  it('offers more random slots late in the rotation than at the start',()=>{
+    const morning=RULES.events.randomSlots['交班'],settlement=RULES.events.randomSlots['结算'];
+    expect(morning[13]).toBeGreaterThan(morning[0]);
+    expect(settlement[13]).toBeGreaterThan(settlement[0]);
+    for(const phase of ['交班','查房','门诊','结算','日终'] as const){
+      const row=RULES.events.randomSlots[phase];
+      expect(row,phase).toHaveLength(RULES.days);
+      for(let i=1;i<row.length;i++)expect(row[i],`${phase} D${i+1}`).toBeGreaterThanOrEqual(row[i-1]);
+    }
+    for(let day=1;day<=RULES.days;day++)
+      expect(RULES.events.randomSlots['夜班'][day-1]>0,`D${day}`).toBe(RULES.nightDays.includes(day as never));
+  });
+  it('builds no night card on a day without a night shift, and several on a night day',()=>{
+    const off=initialized();off.day=5;off.nightBudget=0;
+    expect(buildAuthoredEvents(off,'夜班').cards.filter(c=>(c as Partial<Card>).kind==='night')).toEqual([]);
+    const duty=initialized();duty.day=6;duty.nightBudget=200;
+    expect(eligibleAuthoredEvents(duty,'夜班').filter(x=>x.event.weight>0).length).toBeGreaterThanOrEqual(4);
+  });
+  it('keeps a due echo and a random event in the same phase instead of trading one for the other',()=>{
+    const r=initialized();r.day=12;
+    const before=buildAuthoredEvents({...r,authored:{...r.authored,scheduled:[]}},'结算').cards.length;
+    expect(before).toBeGreaterThan(1);
+  });
+  it('makes the exported log raise the end-of-run detention check',()=>{
+    const build=(candidate:boolean)=>{
+      const r=startRun('arrest-candidate-3','程医生',[]) as AuthoredRun;r.day=13;
+      r.authored=buildAuthoredEvents(r,'日终').patch.authored;
+      r.authored!.activeFacts['药代-4统方']={day:9,source:'export'};
+      if(candidate)r.authored!.activeFacts['药代-刑拘候选']={day:12,source:'E-150'};
+      return authoredQualifiers(r,'结算');
+    };
+    expect(build(false)).not.toContain('局末判定命中');
+    expect(build(true)).toContain('局末判定命中');
+    expect(build(false)).toContain('或 D13 结算');
+  });
+  it('lets the next representative rung follow an offer of grey income',()=>{
+    const r=initialized();r.day=9;r.authored.drugStage=1;r.authored.drugNextDay=13;
+    r.authored.activeFacts['药代-1餐叙']={day:6,source:'dinner'};
+    expect(eligibleAuthoredEvents(r,'结算').some(x=>x.event.id==='E-134')).toBe(false);
+    r.authored.activeFacts['gray-income-offered']={day:9,source:'funding-break'};
+    expect(eligibleAuthoredEvents(r,'结算').some(x=>x.event.id==='E-134')).toBe(true);
+  });
+});

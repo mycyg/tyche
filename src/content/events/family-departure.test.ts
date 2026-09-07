@@ -34,7 +34,7 @@ describe('dated obligations and actual delivery',()=>{
   const chain=startButterfly('BTF-002','errand',{actorId:'li'});
   chain.facts.push({id:'errand-receipt',type:'time_help_completed',scope:chain.scope,subjects:chain.subjects,sourceChoiceId:'receipt',day:2,knownBy:['player','li']});
   const view=butterflyResolutionView(chain,{day:3,cash:100,ap:1,facts:[],actorAvailable:true});
-  expect(view.id).toBe('BTF-002:R01');expect(view.text).toContain('没有转款');
+  expect(view.id).toBe('BTF-002:R01');expect(view.text).toContain('没有涉及转款');
  });
  it('requires an inquiry into this transaction, after the transaction',()=>{
   const r=startRun('scoped-inquiry','程医生',[]),s=r.authored!;

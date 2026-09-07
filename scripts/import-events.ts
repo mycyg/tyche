@@ -22,11 +22,22 @@ const events = readdirSync(join(root, '13_事件库')).filter(f => /^0[1-8]_/.te
     if (!/^\| E-\d{3} \|/.test(line)) return [];
     const [id, title, trigger, weight, prose, options, followup] = cells(line);
     if (!followup) throw new Error(`${path}:${index + 1}: incomplete row`);
+    const category = Number(file.slice(0, 2));
+    const parsed = options.split(/<br\s*\/?>/).map((s, i) => {
+      const [label, ...clauses] = s.replace(/^[①②③④⑤]\s*/, '').split('→');
+      return { id: `${id}-${String.fromCharCode(97 + i)}`, label: label.trim(), consequence: clauses.join('→').trim() };
+    });
+    // Scope is stated on the row so the runtime never infers it from consequence
+    // text. A bed number written into the prose always names one bound patient.
+    const consequences = parsed.map(o => o.consequence).join('');
+    // E-144 and E-195 spread one consequence over three named beds; the run
+    // charges that to the transfer or the dataset, not to a single patient.
+    const scope = ['E-144', 'E-195'].includes(id) ? 'project'
+      : /(?:床\s*\d+|\d+\s*床)/.test(prose) && !['E-200', 'E-202'].includes(id) ? 'patient'
+      : ['E-052', 'E-053', 'E-054'].includes(id) || category === 1 || /（[^）]*(?:床|病人|患者)/.test(consequences) ? 'patient'
+      : [5, 6, 7].includes(category) ? 'project' : 'personal';
     return [{ id, title, trigger, weight: weight === '—' ? 0 : Number(weight), text: prose,
-      options: options.split(/<br\s*\/?>/).map((s, i) => {
-        const [label, ...clauses] = s.replace(/^[①②③④⑤]\s*/, '').split('→');
-        return { id: `${id}-${String.fromCharCode(97 + i)}`, label: label.trim(), consequence: clauses.join('→').trim() };
-      }), followup, category: Number(file.slice(0, 2)), source: { path, line: index + 1, sha256: digest(line) } }];
+      options: parsed, followup, category, scope, source: { path, line: index + 1, sha256: digest(line) } }];
   });
 });
 if (events.length !== 212 || events.some((e, i) => e.id !== `E-${String(i + 1).padStart(3, '0')}`)) throw new Error('Expected consecutive E-001…E-212');

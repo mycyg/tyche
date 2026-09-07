@@ -218,3 +218,119 @@ describe('authored butterfly branches', () => {
     expect(startButterfly('BTF-002', 'new-run', { actorId: 'ye' }).facts).toHaveLength(0);
   });
 });
+
+describe('compiled promises that the 2026-09-06 review found dropped', () => {
+  it('gives a reduced hazard its own relief entry for both minus signs', () => {
+    expect(EVENT_BY_ID['E-211'].options[0].effects.hazardRelief).toEqual({ R: 10 });
+    expect(EVENT_BY_ID['E-211'].options[1].effects.hazardRelief).toEqual({ D: 5 });
+    expect(EVENT_BY_ID['E-208'].options[1].effects.hazardRelief).toEqual({ D: 5 });
+  });
+  it('books tomorrow’s forced leave even without an explicit zero-action note', () => {
+    for (const id of ['E-203-b', 'E-203-c']) {
+      const option = EVENT_BY_ID['E-203'].options.find(o => o.id === id)!;
+      expect(option.modifiers.some(m => m.kind === 'leave' && m.days === 1), id).toBe(true);
+    }
+  });
+  it('settles this patient’s unpaid excess once and keeps the daily six hundred', () => {
+    const card = eventToCard(EVENT_BY_ID['E-171'], { instanceId: 'excess', scope: { kind: 'patient', id: 'bed-9' }, patientId: 'bed-9', patientName: '费女士', bed: 9, day: 6, phase: '结算' },
+      context({ cash: 2000, facts: { 'patient-budget-unpaid': 3000, 'patient-budget-excess': 5000 } }));
+    expect(card.options[0].effects.cash).toBe(-2000);
+    expect(card.options[0].deferred[0].effects).toEqual({ bill: 600 });
+    const paid = eventToCard(EVENT_BY_ID['E-171'], { instanceId: 'settled', scope: { kind: 'patient', id: 'bed-9' }, patientId: 'bed-9', bed: 9, day: 6, phase: '结算' },
+      context({ cash: 9000, facts: { 'patient-budget-unpaid': 0, 'patient-budget-excess': 5000 } }));
+    expect(paid.options[0].effects.cash).toBe(-0);
+  });
+  it('sends “写入 X 或 Y” to the option that actually happened', () => {
+    const options = EVENT_BY_ID['E-205'].options;
+    expect(options[0].effects.flags).toContain('被接走');
+    expect(options[2].effects.flags).toContain('家人到访');
+    expect(options[2].effects.flags).not.toContain('被接走');
+    const first = contextualOptions(EVENT_BY_ID['E-207'], context({ facts: {} }));
+    expect(first[0].effects.flags).toEqual(['卖车']);
+    const second = contextualOptions(EVENT_BY_ID['E-207'], context({ facts: { 卖车: { day: 4 } } }));
+    expect(second[0].effects.flags).toEqual(['卖表']);
+  });
+  it('keeps a followup write whose recorded name ends in “候选”, and scopes a failed one', () => {
+    for (const option of EVENT_BY_ID['E-150'].options) expect(option.effects.flags).toContain('药代-刑拘候选');
+    const explain = EVENT_BY_ID['E-006'].options[0];
+    expect(explain.check!.failure.flags).toContain('质疑-2网传');
+    expect(explain.effects.flags).not.toContain('质疑-2网传');
+  });
+  it('reduces cash pressure on the day the insurance money actually arrives', () => {
+    for (const id of [1, 2]) {
+      const delayed = EVENT_BY_ID['E-124'].options[id].deferred[0];
+      expect(delayed.effects.cash).toBe(30000);
+      expect(delayed.effects.cashPressure).toBe(-15);
+    }
+  });
+  it('puts both walkout scenes and all three breakdown scenes in one group each', () => {
+    expect(EVENT_BY_ID['E-203'].exclusiveGroup).toBe('情绪归零');
+    expect(EVENT_BY_ID['E-204'].exclusiveGroup).toBe('情绪归零');
+    for (const id of ['E-200', 'E-201', 'E-202']) expect(EVENT_BY_ID[id].exclusiveGroup, id).toBe('SAN归零');
+    const seen = { 'E-203': 4 };
+    expect(eventEligible(EVENT_BY_ID['E-204'], context({ phase: '夜班', seen }))).toBe(false);
+  });
+  it('measures the nurse’s loan by another ten thousand of debt, not by the calendar', () => {
+    expect(EVENT_BY_ID['E-206'].repeatEvery).toEqual({ resource: 'debt', amount: 10000 });
+    const again = (debt: number, times: number) => eventEligible(EVENT_BY_ID['E-206'], context({ day: 9, debt, seen: { 'E-206': 7 }, facts: { 'event-count:E-206': times }, qualifiers: ['结算阶段'] }));
+    expect(again(35000, 1)).toBe(false);
+    expect(again(41000, 1)).toBe(true);
+    expect(again(41000, 2)).toBe(false);
+  });
+  it('binds a written bed number to a real patient and records the tape on that patient', () => {
+    expect(EVENT_BY_ID['E-065'].scopeKind).toBe('patient');
+    expect(EVENT_BY_ID['E-211'].scopeKind).toBe('patient');
+    const card = eventToCard(EVENT_BY_ID['E-065'], { instanceId: 'reminder', scope: { kind: 'patient', id: 'ward-8' }, patientId: 'ward-8', patientName: '柳先生', bed: 8, day: 3, phase: '交班' });
+    expect(card.text).toContain('8 床');
+    expect(card.text).not.toContain('6 床');
+    expect(card.scope).toEqual({ kind: 'patient', id: 'ward-8' });
+    expect(card.options[1].check!.failure.flags).toContain('录音在手');
+  });
+  it('reads both relative-day clauses instead of ignoring them', () => {
+    const wedding = (day: number) => eventEligible(EVENT_BY_ID['E-106'], context({ day, facts: { '家庭-婚事': { day: 2 } }, qualifiers: ['结算阶段'] }));
+    expect(wedding(9)).toBe(true);
+    expect(wedding(8)).toBe(false);
+    const cover = (day: number) => eventEligible(EVENT_BY_ID['E-210'], context({ day, phase: '交班', facts: { 人情债: { day: 5 } }, qualifiers: ['写入 人情债', '同事需要'] }));
+    expect(cover(7)).toBe(false);
+    expect(cover(8)).toBe(true);
+  });
+  it('offers only the two real ways to pack up, each leaving its own record', () => {
+    expect(EVENT_BY_ID['E-209'].options).toHaveLength(2);
+    expect(EVENT_BY_ID['E-209'].options[0].effects.flags).toContain('离职-带走白大褂');
+    expect(EVENT_BY_ID['E-209'].options[1].effects.flags).toContain('离职-留下白大褂');
+    expect(JSON.stringify(EVENT_BY_ID['E-209'].options)).not.toContain('`');
+  });
+  it('treats “或 D13 结算” as an alternative to the end-of-run check', () => {
+    const arrest = (qualifiers: string[]) => eventEligible(EVENT_BY_ID['E-208'], context({ day: 13, facts: { 统方: { day: 9 } }, qualifiers }));
+    expect(arrest(['写入 统方 或 回扣', '或 D13 结算'])).toBe(true);
+    expect(arrest(['写入 统方 或 回扣', '局末判定命中'])).toBe(true);
+    expect(arrest(['局末判定命中', '或 D13 结算'])).toBe(false);
+  });
+  it('opens the department talk on the published notice as well as on the overspend', () => {
+    const talk = (facts: EventContext['facts'], overspend: number) => eventEligible(EVENT_BY_ID['E-160'], context({ day: 7, facts, overspend, qualifiers: [] }));
+    expect(talk({}, 2000)).toBe(false);
+    expect(talk({ 'DIP-首通报': { day: 7 } }, 2000)).toBe(true);
+    expect(talk({}, 9000)).toBe(true);
+  });
+  it('names the hospital order system without the leftover spaces around it', () => {
+    expect(EVENT_BY_ID['E-150'].text).toContain('调走了院内医嘱系统的导出日志');
+    expect(EVENT_BY_ID['E-150'].text).not.toMatch(/\s院内医嘱系统\s/);
+  });
+  it('warns before a silent roll and keeps design shorthand out of the warning', () => {
+    expect(EVENT_BY_ID['E-096'].options[1].hint).toContain('掷一次骰子');
+    for (const event of AUTHORED_EVENTS) for (const option of event.options) {
+      expect(option.hint ?? '', option.id).not.toMatch(/按 0\d|§|权重|D\d+ 结算|`/);
+      if (option.check || option.chanceCheck) expect(option.hint, option.id).toBeTruthy();
+    }
+  });
+  it('states each event’s scope in the source row instead of guessing from the consequence', () => {
+    for (const event of AUTHORED_EVENTS) expect(['patient', 'personal', 'project'], event.id).toContain(event.scopeKind);
+    expect(AUTHORED_EVENTS.filter(e => /(?:床\s*\d+|\d+\s*床)/.test(e.text) && e.scopeKind !== 'patient').map(e => e.id)).toEqual(['E-200', 'E-202']);
+  });
+  it('keeps the night pool stocked and never builds a night beat on a day without one', () => {
+    const night = AUTHORED_EVENTS.filter(e => e.phases.includes('夜班') && e.weight > 0);
+    expect(night.length).toBeGreaterThanOrEqual(15);
+    expect(night.filter(e => e.category === 1).length).toBeGreaterThanOrEqual(13);
+    expect(eventEligible(EVENT_BY_ID['E-014'], context({ day: 4, phase: '夜班', night: false }))).toBe(true);
+  });
+});
