@@ -5,6 +5,7 @@ import {
   act,
   availableOptions,
   currentCard,
+  resignationAvailable,
   reward,
   startRun,
   upgrade,
@@ -963,6 +964,7 @@ export function App() {
     [replacement, setReplacement] = useState<Run | null>(null);
   const [notice, setNotice] = useState("");
   const [utility,setUtility]=useState<'coffee'|'nap'|null>(null);
+  const [resigning,setResigning]=useState(false);
   const [encounter, setEncounter] = useState<string | null>(null);
   const [bedside,setBedside]=useState<string|null>(null);
   const [recordPatient,setRecordPatient]=useState<string|undefined>();
@@ -1161,7 +1163,7 @@ export function App() {
           {talking && <RpgScene r={r} onSelect={setSelected} close={closeEncounter} records={()=>openRecords(activeCard?.patientId)} />}
           {welcome && <Dialogue actor="nurse" title="第一班 · 带教" text="“先看右上角的当班待办，点一项就能走过去。走近人物或病床，按 E，也可以点右下角的交互键。接诊前先翻床头病历夹；没查过的，别当成正常。排班和状态不明白，就翻值班手册。”"><div class="dialogue-result"><button class="dialogue-next" onClick={()=>observeGuide('welcome-seen')}>开始值班 ▸</button><button class="text-button" onClick={()=>commit({...ref.current,guide:reduceGuide(guide,{type:'skip'})})}>我熟悉操作，跳过指引</button></div></Dialogue>}
           {ambient && <Dialogue actor={ambient.actor} title={ambient.title} text={ambient.text} close={()=>setAmbient(null)}><div class="dialogue-result"><button class="dialogue-next" onClick={()=>setAmbient(null)}>结束交谈 ▸</button></div></Dialogue>}
-          {r.phase === 'feedback' && r.feedback && <Dialogue actor={feedbackCard?.actor} speechActor={feedbackVoiceActor(r)} patient={r.patients.find(p=>p.uid===feedbackCard?.patientId)} title={r.feedback.title} text={r.feedback.text}><div class="dialogue-result"><div class="delta-list">{r.feedback.changes.map((t,i)=><span key={i}>{t}</span>)}</div><button class="dialogue-next" onClick={continueFeedback}>{r.feedback.next === 'check' ? '结束本日 · 掷骰' : r.feedback.next === 'day' ? r.day === 14 ? '参加医疗纠纷复核 ▸' : '迎接下一天 ▸' : '继续 ▸'}</button></div></Dialogue>}
+          {r.phase === 'feedback' && r.feedback && <Dialogue actor={feedbackCard?.actor} speechActor={feedbackVoiceActor(r)} patient={r.patients.find(p=>p.uid===feedbackCard?.patientId)} title={r.feedback.title} text={r.feedback.text}><div class="dialogue-result"><div class="delta-list">{r.feedback.changes.map((t,i)=><span key={i}>{t}</span>)}</div><button class="dialogue-next" onClick={continueFeedback}>{r.feedback.next === 'check' ? '结束本日 · 掷骰' : r.feedback.next === 'day' ? r.day === 14 ? '参加医疗纠纷复核 ▸' : '迎接下一天 ▸' : '继续 ▸'}</button>{resignationAvailable(r) && <button class="text-button" onClick={()=>setResigning(true)}>提桶跑路</button>}</div></Dialogue>}
         </WorldStage>
       )}
       {warning && (
@@ -1178,6 +1180,11 @@ export function App() {
         </div>
       )}
       {game&&r&&utility&&<RecoveryPrompt r={r} action={utility} close={()=>setUtility(null)} confirm={()=>{const action=utility;setUtility(null);dispatch({type:action});}}/>}
+      {game&&r&&resigning&&<Modal title="提桶跑路" close={()=>setResigning(false)}>
+        <p class="feedback-text">你现在就去更衣室收拾东西，轮转到今天为止。已经发生的诊疗、费用和记录都留在原处，之后仍会有人来核对。</p>
+        <p class="small muted">确认后进入离职场景，本局不再继续。</p>
+        <div class="modal-actions"><button class="secondary" onClick={()=>setResigning(false)}>再想一下</button><button class="primary danger" disabled={!resignationAvailable(r)} onClick={()=>{setResigning(false);dispatch({type:'resign'});}}>确认离职</button></div>
+      </Modal>}
       {chosen && r && (
         <Modal title="确认这次选择" close={() => setSelected(null)}>
           <p class="confirm-choice">{chosen.label}</p>
@@ -1291,39 +1298,6 @@ export function App() {
               onClick={() => dispatch({ type: "fund", method: "stop" })}
             >
               <b>不再垫付，终止轮转</b>
-            </button>
-          </div>
-        </Modal>
-      )}
-      {game && r.phase === "collapse" && (
-        <Modal title="你得先坐下来">
-          <p class="feedback-text">
-            姜蓉扶住你，把凳子拉到身后。「别站着了。」
-          </p>
-          <p class="small muted">
-            你的体力第一次降到零。体力上限减少 20 点，当前体力恢复到上限的一半；再次归零就会结束轮转。
-          </p>
-          <div class="choices">
-            <button
-              class="choice"
-              onClick={() => dispatch({ type: "collapse", method: "help" })}
-            >
-              <b>请同事接一会班</b>
-              <small>同事关系 −1</small>
-            </button>
-            <button
-              class="choice"
-              onClick={() => dispatch({ type: "collapse", method: "report" })}
-            >
-              <b>向科室报告身体状况</b>
-              <small>声望 −15</small>
-            </button>
-            <button
-              class="choice"
-              onClick={() => dispatch({ type: "collapse", method: "clinic" })}
-            >
-              <b>自付 ¥600，去做评估</b>
-              <small>解除胃痛</small>
             </button>
           </div>
         </Modal>

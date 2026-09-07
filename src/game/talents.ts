@@ -302,7 +302,8 @@ export function talentNormQuote(s:TalentContext,patientId:string,norm:string|und
 }
 
 /** Call once, after the underlying action completed, with a unique committed ID. */
-export function talentAfterAction(s:TalentContext,action:{id:string;operation:TalentOperation;patientId?:string;proactive?:boolean;correctCare?:boolean;nightEmergency?:boolean}):TalentHookResult&{patientTrust:number;complaintDelta:number} {
+/** B06's per-incident SAN cost is charged by nightClinicalCharge; it is not an action hook. */
+export function talentAfterAction(s:TalentContext,action:{id:string;operation:TalentOperation;patientId?:string;proactive?:boolean;correctCare?:boolean}):TalentHookResult&{patientTrust:number;complaintDelta:number} {
   const r={...result(s),patientTrust:0,complaintDelta:0};if(!once(r,`action:${action.id}`))return r;
   if(action.operation==='full-exam'&&action.patientId&&has(s,'T12')){r.patientTrust=3;r.complaintDelta=-1;}
   if(action.operation==='consult'){
@@ -310,7 +311,6 @@ export function talentAfterAction(s:TalentContext,action:{id:string;operation:Ta
     if(action.proactive){r.memory.proactiveConsults++;if(r.memory.proactiveConsults>=3)r.removeDebuffs.push('B21');}
   }
   if(action.correctCare){r.memory.correctCare++;if(r.memory.correctCare>=3)r.removeDebuffs.push('B22');}
-  if(action.nightEmergency&&has(s,'B06'))r.effects.san=-3;
   return r;
 }
 export function talentCoffee(s:TalentContext,cupsAlready:number):{allowed:boolean;stamina:number;reputation:number} {

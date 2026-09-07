@@ -546,7 +546,7 @@ function runReferences(r:Record<string,unknown>):boolean {
   }
   if(isRecord(r.pendingCheck)){
     const p=r.pendingCheck,rollValue=r.roll;if(!isRecord(rollValue)||p.day!==r.day||p.kind!==rollValue.kind||(rollValue.revision??0)!==p.rerolls)return false;
-    if(r.phase!=='roll'&&!(['funding','collapse'].includes(r.phase as string)&&r.pendingResume==='roll'))return false;
+    if(r.phase!=='roll'&&!(r.phase==='funding'&&r.pendingResume==='roll'))return false;
     if(p.kind==='choice'){
       const card=(r.queue as Record<string,unknown>[])[r.cursor as number];if(!card||card.id!==p.cardId||rollValue.id!==p.optionId||(p.context as Record<string,unknown>).patientId!==card.patientId)return false;
       // Abilities are deterministic projections of saved talent/actor state and
@@ -613,7 +613,6 @@ function isRun(x: unknown): x is Run {
       "roll",
       "debuff",
       "funding",
-      "collapse",
       "tribunal",
       "ending",
     ].includes(String(x.phase))
@@ -761,6 +760,17 @@ export function emptySave(): Save {
     settings: { sound: true, music: true, voice: true, musicVolume: .4, voiceVolume: .85, soundVolume: .5, visualInterference: true, motion: true, largeText: false },
   };
 }
+/** Saves from the published build could stop in a "collapse" panel. That
+ * panel no longer exists: resume the recorded phase and let the engine's
+ * acute-event interruption handle the zero vital on the next action. */
+export function migrateLegacyCollapse(run:Record<string,unknown>):void {
+  if(run.phase!=='collapse')return;
+  const resume=member(resumePhases)(run.pendingResume)?run.pendingResume:'play';
+  run.phase=resume==='feedback'&&!isRecord(run.feedback)?'play':resume==='roll'&&!isRecord(run.roll)?'play':resume;
+  delete run.pendingResume;
+  if(run.phase!=='roll'){delete run.roll;delete run.pendingCheck;}
+  if(run.phase!=='feedback')delete run.feedback;
+}
 export function encode(save: Save): string {
   const payload = JSON.stringify(save);
   return JSON.stringify({ tyche: 1, checksum: hash(payload), payload });
@@ -776,6 +786,7 @@ export function decode(text: string): Save {
   )
     throw new Error("存档校验失败，文件可能不完整。");
   const s = JSON.parse(envelope.payload);
+  if(isRecord(s)&&isRecord(s.run))migrateLegacyCollapse(s.run);
   if (
     !isRecord(s) ||
     s.schema !== 1 ||
@@ -784,7 +795,7 @@ export function decode(text: string): Save {
     s.meta.schema !== 1 ||
     !finiteRecord(s.meta, ["xp", "runs", "cashRank"]) ||
     !['insight'].every(k=>optional(s.meta as Record<string,unknown>,k,count))||
-    !['attendingUnlocked','fourthSlot','rerollToken','trapArchive'].every(k=>optional(s.meta as Record<string,unknown>,k,isBool))||
+    !['attendingUnlocked','fourthSlot','rerollToken'].every(k=>optional(s.meta as Record<string,unknown>,k,isBool))||
     !optional(s.meta,'usedTalents',v=>distinctStrings(v)&&v.every(member(TALENTS.map(t=>t.id))))||!optional(s.meta,'seedHistory',seedHistory)||
     !optional(s.meta,'archiveTraps',v=>distinctStrings(v)&&v.every(id=>validArchiveTrap(id,true)))||
     !optional(s.meta,'entities',v=>distinctStrings(v)&&v.every(id=>ENTITY_BY_ID.has(id)))||

@@ -225,7 +225,7 @@ export interface Feedback {
   title: string;
   text: string;
   changes: string[];
-  next: "play" | "check" | "day" | "ending";
+  next: "play" | "check" | "day";
 }
 export interface Ending {
   annexIds?: string[];
@@ -248,7 +248,6 @@ export interface Meta {
   attendingUnlocked?:boolean;
   fourthSlot?:boolean;
   rerollToken?:boolean;
-  trapArchive?:boolean;
   archiveTraps?:string[];
   seedHistory?:{runId:string;caseId:string;trapId:string}[];
   schema: 1;
@@ -281,6 +280,8 @@ export interface Run {
   name: string;
   day: number;
   difficulty: "rotation" | "attending";
+  /** "collapse" is a legacy save marker only: no code path enters it, and
+   * storage migrates it to the recorded resume phase on load. */
   phase:
     | "play"
     | "feedback"
@@ -343,8 +344,10 @@ export type Action =
   | { type: "borrow" }
   | { type: "coffee" }
   | { type: "nap" }
-  | { type: "fund"; method: "credit" | "family" | "asset" | "stop" }
+  | { type: "fund"; method: "credit" | "family" | "asset" | "gray" | "stop" }
+  /** Legacy action kept for old callers; the engine rejects it. */
   | { type: "collapse"; method: "help" | "report" | "clinic" }
+  | { type: "resign" }
   | { type: "testify"; response: "facts" | "admit" | "silent" };
 export interface Talent {
   id: string;
