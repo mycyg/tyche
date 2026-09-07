@@ -1,6 +1,6 @@
 import {readFileSync,readdirSync,lstatSync}from 'node:fs';
 import {join,posix}from 'node:path';
-import {MUSIC_SCENES}from '../src/shared/audio-assets';
+import {MUSIC_SCENES,MUSIC_OGG_SCENES}from '../src/shared/audio-assets';
 
 export interface PublicAsset {fileName:string;source:Buffer;}
 /** Build a new allowlisted bundle. Never remove source recordings or manifests. */
@@ -29,7 +29,10 @@ export function publishedAssets(publicRoot:string):PublicAsset[]{
     if(!raw||typeof raw!=='object'||!('file'in raw)||typeof raw.file!=='string'||!/^[a-zA-Z0-9_-]+\.mp3$/.test(raw.file))throw new Error(`Invalid voice file for ${id}`);
     add(`audio/voice/${raw.file}`);
   }
-  for(const scene of MUSIC_SCENES)add(`audio/music/${scene}.mp3`);
+  for(const scene of MUSIC_SCENES){
+    add(`audio/music/${scene}.mp3`);
+    if(MUSIC_OGG_SCENES.has(scene))add(`audio/music/${scene}.ogg`);
+  }
   const total=[...assets.values()].reduce((sum,bytes)=>sum+bytes.byteLength,0);
   if(total>900*1024*1024)throw new Error(`Release assets exceed 900 MiB: ${total}`);
   return[...assets].map(([fileName,source])=>({fileName,source}));
