@@ -80,9 +80,9 @@ test("刷新后掷骰点数不变", async ({ page }, info) => {
   expect(await page.locator("dialog[open]").getAttribute("aria-label")).toBe(
     label,
   );
-  await roll.getByRole("button", { name: "掷二十面骰" }).click();
+  await roll.getByRole("button", { name: "掷二十面骰", exact: true }).click();
   await page.waitForTimeout(600);
-  const reveal = roll.getByRole("button", { name: "直接看点数" });
+  const reveal = roll.getByRole("button", { name: "直接看点数", exact: true });
   if (await reveal.count()) await reveal.click();
   await expect(page.locator(".roll-result b")).toHaveText(face, {
     timeout: 25_000,

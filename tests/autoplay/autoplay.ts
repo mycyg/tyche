@@ -51,6 +51,8 @@ export interface Snapshot {
 
 export interface JournalEntry {
   step: number;
+  /** Seconds since the run started. */
+  t: number;
   day: number;
   phase: Phase;
   title: string;
@@ -96,6 +98,13 @@ export interface RunOptions {
   stopWhen?: (s: Snapshot) => boolean;
   /** Write journal.json when the run finishes. */
   writeJournal?: boolean;
+  /**
+   * Play with the reduced-motion setting the game already supports. The dice
+   * settle in 40 ms instead of 1550 ms and the ward stops animating, which
+   * keeps a fourteen-day rotation inside the time budget. Walking speed,
+   * choices and checks are unaffected.
+   */
+  reduceMotion?: boolean;
 }
 
 /* ------------------------------------------------------------------ probe */
@@ -168,7 +177,10 @@ function probeScreen(): Snapshot {
       view,
     };
   };
-  const dialog = document.querySelector("dialog[open]");
+  // Preact runs the effect that calls showModal() a frame after the element is
+  // in the tree, so a dialog without `open` is still the surface on top.
+  const dialog =
+    document.querySelector("dialog[open]") ?? document.querySelector("dialog");
   if (dialog) {
     const title = dialog.getAttribute("aria-label") ?? "";
     const buttons = [...dialog.querySelectorAll("button")].filter(
@@ -339,6 +351,7 @@ export async function playRun(
     stallLimit = 14,
     stopWhen,
     writeJournal = true,
+    reduceMotion = true,
   } = options;
   mkdirSync(outDir, { recursive: true });
   const policy = makePolicy(policyName, seed);
@@ -383,6 +396,7 @@ export async function playRun(
       /* a closed page cannot be photographed */
     }
   }
+  if (reduceMotion) await page.emulateMedia({ reducedMotion: "reduce" });
   report.talents = await startRun(page, seed, talents);
 
   let step = 0;
@@ -395,9 +409,17 @@ export async function playRun(
     snapshot.options.find(
       (o) => o.index === policy.pick(kind, snapshot.options, snapshot.view),
     ) ?? snapshot.options[0];
+  const flush = () => {
+    if (writeJournal)
+      writeFileSync(
+        resolve(outDir, "journal.json"),
+        JSON.stringify(report, null, 2),
+      );
+  };
   const note = (snapshot: Snapshot, action: string) => {
     report.journal.push({
       step,
+      t: Number(((Date.now() - started) / 1000).toFixed(1)),
       day: snapshot.view.day,
       phase: snapshot.phase,
       title: snapshot.title,
@@ -408,6 +430,8 @@ export async function playRun(
         snapshot.view.vitals.map((v) => [v.label, v.now]),
       ),
     });
+    // Flushed as the run goes, so a killed run still leaves a readable journal.
+    if (report.journal.length % 25 === 0) flush();
   };
 
   while (Date.now() < deadline) {
@@ -486,7 +510,7 @@ export async function playRun(
       const commit = s.actions.find((a) => /就这样做/.test(a.text));
       note(s, "确认");
       if (commit) await click(page, mark(commit.index, "act-"));
-      else await click(page, "dialog[open] .modal-actions .primary");
+      else await click(page, "dialog .modal-actions .primary");
       continue;
     }
     if (s.phase === "recovery") {
@@ -631,17 +655,33 @@ export async function playRun(
   const savedDay = (save as { run?: { day?: number } })?.run?.day;
   if (typeof savedDay === "number") report.endDay = savedDay;
   await shoot(`final-${report.ending?.id ?? "unfinished"}`);
-  if (writeJournal)
-    writeFileSync(
-      resolve(outDir, "journal.json"),
-      JSON.stringify(report, null, 2),
-    );
+  flush();
   return report;
 }
 
+/** A cheap fingerprint of one patch of the map, used to see the camera move. */
+function sampleWorld(): number {
+  const canvas = document.querySelector(
+    "canvas.world-canvas",
+  ) as HTMLCanvasElement | null;
+  const ctx = canvas?.getContext("2d");
+  if (!canvas || !ctx || canvas.width < 96 || canvas.height < 96) return -1;
+  const x = Math.floor(canvas.width / 2) - 40;
+  const y = Math.floor(canvas.height / 2) - 40;
+  const data = ctx.getImageData(x, y, 80, 80).data;
+  let sum = 0;
+  for (let i = 0; i < data.length; i += 12)
+    sum = (sum * 31 + data[i] * (i + 1)) % 1_000_000_007;
+  return sum;
+}
+
+const ARRIVED =
+  ".rpg-dialogue, .bedside-view, .rpg-map-menu, dialog, .tribunal-page, .ending-page";
+
 /**
- * Waits for the walk to end: any surface other than the bare map means the
- * doctor arrived somewhere. Returns false when the route led nowhere.
+ * Waits for the walk to end. Any surface other than the bare map means the
+ * doctor arrived somewhere; a map that stops moving means the route led
+ * nowhere. Returns false in that second case.
  */
 async function settle(page: Page, timeout = 45_000): Promise<boolean> {
   // The list closes itself on the click; wait for that before watching for a
@@ -649,13 +689,21 @@ async function settle(page: Page, timeout = 45_000): Promise<boolean> {
   await page
     .waitForSelector(".rpg-map-menu", { state: "detached", timeout: 5_000 })
     .catch(() => {});
-  try {
-    await page.waitForSelector(
-      ".rpg-dialogue, .bedside-view, .rpg-map-menu, dialog[open], .tribunal-page, .ending-page",
-      { timeout },
-    );
-    return true;
-  } catch {
-    return false;
+  const deadline = Date.now() + timeout;
+  await wait(page, 500);
+  let last = -2;
+  let still = 0;
+  while (Date.now() < deadline) {
+    if (await page.locator(ARRIVED).count()) return true;
+    const now = await page.evaluate(sampleWorld).catch(() => -1);
+    if (now === last) still += 1;
+    else {
+      still = 0;
+      last = now;
+    }
+    // Six identical frames in a row: the camera is parked, nobody is walking.
+    if (still >= 6) return (await page.locator(ARRIVED).count()) > 0;
+    await wait(page, 260);
   }
+  return (await page.locator(ARRIVED).count()) > 0;
 }

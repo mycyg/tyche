@@ -136,19 +136,23 @@ export function makePolicy(name: PolicyName, seed: string): Policy {
     };
   return {
     name,
-    // Below a third of the stamina bar the careful doctor buys a coffee first.
-    wantsCoffee: (view) => stamina(view) < 0.35 && view.cash > 0,
+    // Below two fifths of the stamina bar the careful doctor buys a coffee.
+    wantsCoffee: (view) => stamina(view) < 0.4 && view.cash > 0,
     pick(kind, options, view) {
       const pool = survivable(usable(options));
       if (!pool.length) return 0;
       if (kind === "quest") return pool[0].index;
       if (kind === "tribunal") return pool[0].index;
+      const tired = stamina(view) < 0.3;
       return best(pool, (o) => {
         let value = 0;
         for (const word of CAREFUL_WORDS) if (o.text.includes(word)) value += 6;
         for (const word of CAREFUL_AVOID) if (o.text.includes(word)) value -= 4;
-        // Do not go into overdraft while a cheaper option is on the table.
-        if (apCost(o) > view.ap) value -= 5;
+        // Working past the action budget costs stamina and lowers every cap,
+        // so a careful doctor takes the cheaper way through instead.
+        const cost = apCost(o);
+        if (cost > view.ap) value -= 25 + (cost - view.ap) * 5;
+        if (tired) value -= cost * 4;
         value -= personalCost(o) / 2000;
         return value;
       });
