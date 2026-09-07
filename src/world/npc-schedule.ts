@@ -15,6 +15,8 @@ export interface NpcStop {
   facing?: number;
   /** The leg arriving here uses the pushing or mopping frames, not walking. */
   haul?: boolean;
+  /** The patient is back in bed here, so the bed sprite takes over again. */
+  bed?: boolean;
 }
 export interface NpcDefinition {
   id: string;
@@ -191,8 +193,8 @@ export function ambulatoryRoutes(r: Run, occupants: Occupant[], night: boolean):
     const spots = wardSpots(patient.bed), slot = bedSlot(patient.bed);
     const bedside = spots[slot], window = { x: spots[slot % 2 ? 1 : 0].x, y: 78 };
     people.push({ id: `ambulatory:${patient.uid}`, patientId: patient.uid, walk: { atlas: PATIENT, row }, speed: 28, offset: seed % 12000,
-      stops: [stop(bedside, 9000, { facing: slot < 2 ? 2 : 0 }), stop(window, 5200, { facing: 2 }),
-        stop({ x: spots[slot < 2 ? 2 : 0].x, y: 132 }, 4200, { facing: slot % 2 ? 3 : 1 }), stop(bedside, 7000, { facing: 0 })] });
+      stops: [stop(bedside, 9000, { facing: slot < 2 ? 2 : 0, bed: true }), stop(window, 5200, { facing: 2 }),
+        stop({ x: spots[slot < 2 ? 2 : 0].x, y: 132 }, 4200, { facing: slot % 2 ? 3 : 1 }), stop(bedside, 7000, { facing: 0, bed: true })] });
   }
   return people;
 }

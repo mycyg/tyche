@@ -25,6 +25,8 @@ function run(over: Partial<Run> = {}): Run {
     debuffPicks: 0, streak: 0, ...over } as Run;
 }
 const occupant = (p: Patient): Occupant => ({ patient: p, place: BED_PLACES.find(b => b.bed === p.bed) ?? BED_PLACES[0] });
+const facts = (...keys: string[]): Run['facts'] =>
+  Object.fromEntries(keys.map(key => [key, { day: 1, source: 'test', sequence: 1 }]));
 
 function everyStop(definitions: NpcDefinition[], visit: (point: Point, id: string) => void) {
   for (const def of definitions) for (const stop of def.stops) visit(stop, def.id);
@@ -42,7 +44,7 @@ describe('ward npc routes', () => {
   it('keeps every scheduled stop walkable and reachable from the one before it', () => {
     const patients = [patient(), patient({ uid: 'p2', bed: 9, preset: { age: 71, sex: '女' } as Patient['preset'] })];
     const occupants = patients.map(occupant);
-    const state = run({ patients, facts: { '家庭-车祸-ICU中': 1, '伴侣-矛盾': 1, '飞检-进驻': 1, '医闹升级': 1 } as Run['facts'] });
+    const state = run({ patients, facts: facts('家庭-车祸-ICU中', '伴侣-矛盾', '飞检-进驻', '医闹升级') });
     for (const night of [false, true]) {
       const cast = [...staffRoutes(night), ...backgroundRoutes(night, 4), ...companionRoutes(state, occupants),
         ...conflictRoutes(state), ...familyRoutes(state)];
@@ -99,7 +101,7 @@ describe('companions and patients out of bed', () => {
   it('raises a phone only where a recording exists', () => {
     const p = patient({ uid: 'rec' });
     const quiet = companionRoutes(run({ patients: [p] }), [occupant(p)]);
-    const recorded = companionRoutes(run({ patients: [p], facts: { 'clinical:rec:recording-exists': 1 } as Run['facts'] }), [occupant(p)]);
+    const recorded = companionRoutes(run({ patients: [p], facts: facts('clinical:rec:recording-exists') }), [occupant(p)]);
     const groups = (list: NpcDefinition[]) => list.flatMap(d => d.stops.map(s => s.action?.group));
     if (quiet.length) {
       expect(groups(quiet)).not.toContain(1);
@@ -142,34 +144,34 @@ describe('family and conflict attendance', () => {
   });
 
   it('reads the visit from the facts of this run', () => {
-    expect(familyRoutes(run({ facts: { '家庭-车祸-ICU中': 1 } as Run['facts'] })).map(d => d.id)).toContain('family-mother');
-    expect(familyRoutes(run({ facts: { '伴侣-矛盾': 1 } as Run['facts'] })).map(d => d.id)).toContain('family-partner');
-    const bereaved = familyRoutes(run({ facts: { '家庭-婚事': 1, 'father-deceased': 1 } as Run['facts'] }));
+    expect(familyRoutes(run({ facts: facts('家庭-车祸-ICU中') })).map(d => d.id)).toContain('family-mother');
+    expect(familyRoutes(run({ facts: facts('伴侣-矛盾') })).map(d => d.id)).toContain('family-partner');
+    const bereaved = familyRoutes(run({ facts: facts('家庭-婚事', 'father-deceased') }));
     expect(bereaved.map(d => d.id)).not.toContain('family-father');
   });
 
   it('stops the visits once the relationship has broken', () => {
-    const broken = run({ relations: { chief: 0, nurse: 0, peer: 0, family: -4 }, facts: { '家庭-车祸-ICU中': 1, '伴侣-矛盾': 1 } as Run['facts'] });
+    const broken = run({ relations: { chief: 0, nurse: 0, peer: 0, family: -4 }, facts: facts('家庭-车祸-ICU中', '伴侣-矛盾') });
     expect(familyVisitsStopped(broken)).toBe(true);
     expect(familyRoutes(broken)).toHaveLength(0);
   });
 
   it('follows the partner setting, and keeps the written partner by default', () => {
     expect(partnerRow(run())).toBe(3);
-    expect(partnerRow(run({ facts: { '伴侣-男': 1 } as Run['facts'] }))).toBe(2);
+    expect(partnerRow(run({ facts: facts('伴侣-男') }))).toBe(2);
   });
 
   it('sends security and the inspector only on their own events', () => {
     const p = patient({ uid: 'd1' });
-    const escalated = run({ patients: [p], facts: { 'clinical:d1:unrest_escalated': 1 } as Run['facts'] });
+    const escalated = run({ patients: [p], facts: facts('clinical:d1:unrest_escalated') });
     expect(conflictRoutes(escalated).map(d => d.id)).toContain('security');
     expect(conflictRoutes(escalated).map(d => d.id)).toContain('conflict-relative');
-    expect(conflictRoutes(run({ facts: { '飞检-进驻': 1 } as Run['facts'] })).map(d => d.id)).toEqual(['investigator']);
+    expect(conflictRoutes(run({ facts: facts('飞检-进驻') })).map(d => d.id)).toEqual(['investigator']);
   });
 
   it('takes the disputing relative away with the patient', () => {
     const p = patient({ uid: 'd2' });
-    const state = run({ patients: [p], facts: { 'clinical:d2:recording-exists': 1 } as Run['facts'] });
+    const state = run({ patients: [p], facts: facts('clinical:d2:recording-exists') });
     expect(conflictRoutes(state).map(d => d.id)).toContain('conflict-relative');
     expect(conflictRoutes({ ...state, patients: [{ ...p, active: false }] }).map(d => d.id)).not.toContain('conflict-relative');
   });

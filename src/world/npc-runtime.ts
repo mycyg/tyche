@@ -135,6 +135,11 @@ export function actorAction(actor: NpcActor): NpcAction | undefined {
   }
   return stop.action;
 }
+/** True while an ambulatory patient is back on the mattress, so the bed art
+ * takes over and the two are never drawn at once. */
+export function restingInBed(actor: NpcActor): boolean {
+  return actor.state === 'dwell' && !!actor.def.stops[Math.min(actor.index, actor.def.stops.length - 1)].bed;
+}
 /** Alternates the two frames of the current pose. */
 export function actorStep(actor: NpcActor): number {
   const period = actor.state === 'walk' && !actor.hauling ? WALK_FRAME_MS : ACTION_FRAME_MS;
