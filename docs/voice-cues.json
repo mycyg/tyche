@@ -56616,6 +56616,15 @@
     ]
   },
   {
+    "id": "v-85b5542b4a1e7714",
+    "text": "情绪 加二",
+    "displayText": "情绪 +2",
+    "speaker": "narrator",
+    "sources": [
+      "voice:E-151:E-151-c"
+    ]
+  },
+  {
     "id": "v-85c8b2831a69a72e",
     "text": "发生在白天",
     "displayText": "发生在白天",
@@ -141251,15 +141260,6 @@
     ]
   },
   {
-    "id": "v-5330a47d7a4de097",
-    "text": "D十四 结算余额 减五百元",
-    "displayText": "D14 结算余额 −¥500",
-    "speaker": "narrator",
-    "sources": [
-      "voice:E-091:E-091-b"
-    ]
-  },
-  {
     "id": "v-5330d0709d391cd3",
     "text": "替护士长否认家属的全部陈述",
     "displayText": "替护士长否认家属的全部陈述",
@@ -144060,6 +144060,15 @@
     "speaker": "narrator",
     "sources": [
       "src/content/events/player-dialogue.ts"
+    ]
+  },
+  {
+    "id": "v-a25f46f7af81ef08",
+    "text": "情绪 减五；主任关系 减一",
+    "displayText": "情绪 −5；主任关系 −1",
+    "speaker": "narrator",
+    "sources": [
+      "voice:E-169:E-169-c"
     ]
   },
   {
@@ -221077,6 +221086,15 @@
     ]
   },
   {
+    "id": "v-45f409cc05975b48",
+    "text": "现金压力 加十；情绪 减十；抑郁 加五",
+    "displayText": "现金压力 +10；情绪 −10；抑郁 +5",
+    "speaker": "narrator",
+    "sources": [
+      "voice:E-112:E-112-b"
+    ]
+  },
+  {
     "id": "v-46296230556e1ad8",
     "text": "胸片左下肺见片状实变，伴支气管充气征。",
     "displayText": "胸片左下肺见片状实变，伴支气管充气征。",
@@ -226452,6 +226470,15 @@
     "sources": [
       "preset:C-098:investigate",
       "C-098:P-114"
+    ]
+  },
+  {
+    "id": "v-9a9649b80e3cd35a",
+    "text": "你把白大褂留在更衣柜里，柜门没有上锁。",
+    "displayText": "你把白大褂留在更衣柜里，柜门没有上锁。",
+    "speaker": "narrator",
+    "sources": [
+      "离职-留下白大褂"
     ]
   },
   {
@@ -242739,6 +242766,28 @@
     ]
   },
   {
+    "id": "v-bba13b70c70041f9",
+    "text": "这一项要掷一次骰子，没有通过会另有代价。",
+    "displayText": "这一项要掷一次骰子，没有通过会另有代价。",
+    "speaker": "narrator",
+    "sources": [
+      "voice:E-060:E-060-c",
+      "voice:E-065:E-065-b",
+      "voice:E-096:E-096-b",
+      "voice:E-154:E-154-a",
+      "voice:E-155:E-155-a",
+      "voice:E-156:E-156-a",
+      "voice:E-158:E-158-c",
+      "voice:E-163:E-163-a",
+      "voice:E-163:E-163-b",
+      "voice:E-171:E-171-b",
+      "voice:E-176:E-176-b",
+      "voice:E-185:E-185-b",
+      "voice:E-191:E-191-c",
+      "voice-excess:E-171-b"
+    ]
+  },
+  {
     "id": "v-bbca41f40ddeb456",
     "text": "你按预约去院外咨询，今天已为此留出时间。",
     "displayText": "你按预约去院外咨询，今天已为此留出时间。",
@@ -245962,6 +246011,15 @@
       "voice:E-074:E-074-b",
       "E-074",
       "src/content/events/narrative.ts"
+    ]
+  },
+  {
+    "id": "v-dc6fa6556ae80d13",
+    "text": "警察来医院调走了院内医嘱系统的导出日志。",
+    "displayText": "警察来医院调走了院内医嘱系统的导出日志。",
+    "speaker": "narrator",
+    "sources": [
+      "voice:E-150"
     ]
   },
   {
@@ -260420,15 +260478,6 @@
     ]
   },
   {
-    "id": "v-11711716e314310a",
-    "text": "警察来医院调走了 院内医嘱系统 的导出日志。",
-    "displayText": "警察来医院调走了 院内医嘱系统 的导出日志。",
-    "speaker": "narrator",
-    "sources": [
-      "voice:E-150"
-    ]
-  },
-  {
     "id": "v-1172b8959b09ca87",
     "text": "当前陈述无胸痛和晕厥，心电图有偶发室性早搏。",
     "displayText": "当前陈述无胸痛和晕厥，心电图有偶发室性早搏。",
@@ -261071,6 +261120,15 @@
       "voice:E-017:E-017-b",
       "E-017",
       "src/content/events/narrative.ts"
+    ]
+  },
+  {
+    "id": "v-2e06cd8b59bb3baf",
+    "text": "你把白大褂带走了，个人物品已经从更衣柜清空。",
+    "displayText": "你把白大褂带走了，个人物品已经从更衣柜清空。",
+    "speaker": "narrator",
+    "sources": [
+      "离职-带走白大褂"
     ]
   },
   {
@@ -309886,6 +309944,15 @@
     ]
   },
   {
+    "id": "v-7c2ef06255db1014",
+    "text": "家人来医院看过你，你当天仍留在岗位上，工作没有交出去。",
+    "displayText": "家人来医院看过你，你当天仍留在岗位上，工作没有交出去。",
+    "speaker": "narrator",
+    "sources": [
+      "家人到访"
+    ]
+  },
+  {
     "id": "v-7ca7f162cd04dad8",
     "text": "你按主任要求写成病种结构变化，没有说明真实的用量原因。",
     "displayText": "你按主任要求写成病种结构变化，没有说明真实的用量原因。",
@@ -311280,15 +311347,6 @@
       "C011:o_hypoxic",
       "C011:patient-copy",
       "C011:observation-copy"
-    ]
-  },
-  {
-    "id": "v-be332aa2f6fd8c06",
-    "text": "情绪 加二；药代次日再来，下一次药代事件权重 ×一点五",
-    "displayText": "情绪 +2；药代次日再来，下一次药代事件权重 ×1.5",
-    "speaker": "narrator",
-    "sources": [
-      "voice:E-151:E-151-c"
     ]
   },
   {
@@ -329048,15 +329106,6 @@
     ]
   },
   {
-    "id": "v-9bbcbf481c437c57",
-    "text": "D十四 结算余额 减一千五百元；情绪 减五；主任关系 减一",
-    "displayText": "D14 结算余额 −¥1,500；情绪 −5；主任关系 −1",
-    "speaker": "narrator",
-    "sources": [
-      "voice:E-169:E-169-c"
-    ]
-  },
-  {
     "id": "v-9db99b5f4a995ff7",
     "text": "你核对了处置后的变化，确认接下来要确认本人选择，记录费用。",
     "displayText": "你核对了处置后的变化，确认接下来要确认本人选择，记录费用。",
@@ -336615,6 +336664,15 @@
       "preset:C-051:voice-P-212:entry:team:P-212",
       "preset:C-051:voice-P-219:entry:team:P-219",
       "preset:C-051:voice-P-221:entry:team:P-221"
+    ]
+  },
+  {
+    "id": "v-a07f259bfd8ce558",
+    "text": "你卖掉了自己的手表，这笔钱已经用于还款或开支，车辆没有出售。",
+    "displayText": "你卖掉了自己的手表，这笔钱已经用于还款或开支，车辆没有出售。",
+    "speaker": "narrator",
+    "sources": [
+      "卖表"
     ]
   },
   {
@@ -358838,15 +358896,6 @@
       "preset:C-138:entry:team",
       "preset:C-138:voice-P-005:entry:team:P-005",
       "preset:C-138:voice-P-009:entry:team:P-009"
-    ]
-  },
-  {
-    "id": "v-76d216809ebcd805",
-    "text": "现金压力 加十；情绪 减十；抑郁 加五；D十四 结算负债 加六千八百元",
-    "displayText": "现金压力 +10；情绪 −10；抑郁 +5；D14 结算负债 +¥6,800",
-    "speaker": "narrator",
-    "sources": [
-      "voice:E-112:E-112-b"
     ]
   },
   {
@@ -383852,6 +383901,15 @@
     ]
   },
   {
+    "id": "v-f3e508a485ef5aec",
+    "text": "药代请你顺手从院内医嘱系统导出上个月科室各医生这个药的用量，公司考核用，别人都这么弄。",
+    "displayText": "药代请你顺手从院内医嘱系统导出上个月科室各医生这个药的用量，公司考核用，别人都这么弄。",
+    "speaker": "narrator",
+    "sources": [
+      "voice:E-137"
+    ]
+  },
+  {
     "id": "v-fb053c120a261848",
     "text": "你需要再次核对患者的处置与记录，安排超声及相关实验评估，并写明后续指标复查与避孕讨论。",
     "displayText": "你需要再次核对患者的处置与记录，安排超声及相关实验评估，并写明后续指标复查与避孕讨论。",
@@ -385251,15 +385309,6 @@
     "speaker": "narrator",
     "sources": [
       "preset:C-155:voice-P-002:communication:explain:P-002"
-    ]
-  },
-  {
-    "id": "v-c8e7525b59cf13c0",
-    "text": "药代请你顺手从 院内医嘱系统 导出上个月科室各医生这个药的用量，公司考核用，别人都这么弄。",
-    "displayText": "药代请你顺手从 院内医嘱系统 导出上个月科室各医生这个药的用量，公司考核用，别人都这么弄。",
-    "speaker": "narrator",
-    "sources": [
-      "voice:E-137"
     ]
   },
   {

@@ -30,8 +30,8 @@ interface Trace {
 interface Witness {run:number;action:number;day:number;branch?:string;via?:SourceExitWitness;}
 interface BranchTrace {run:number;prefixActions:number;rootHash:string;actions:Action[];finalHash:string;error?:string;failedAttempt?:Action;}
 interface Manifest {schema:1;sourceHash:string;traceFiles:string[];branchFiles?:string[];complete:boolean;}
-// This source row is a conditional ending, not a third button. Keep its own
-// coverage target: removing it from the action count must not omit its behavior.
+// This source row is a conditional ending, not a third button. It is no longer
+// compiled as an option, so it carries its own coverage target here.
 const CONDITIONAL_EVENT_ROWS:Record<string,{eventId:string;endingId:string}>={'E-209-c':{eventId:'E-209',endingId:'X32'}};
 export function witnessedEventConditions(r:Run):string[]{
  if(r.phase!=='ending')return [];
@@ -45,6 +45,7 @@ export function coverageUniverse():string[]{
   ...CASE_PRESETS.flatMap(p=>p.scenes.flatMap(n=>[`preset-node:${n.id}`,...n.options.map(o=>`preset-choice:${o.id}`)])),
   ...PATIENT_ENTITIES.map(p=>`patient:${p.id}`),
   ...AUTHORED_EVENTS.flatMap(e=>[`event:${e.id}`,...e.options.map(o=>`${o.id in CONDITIONAL_EVENT_ROWS?'event-condition':'event-choice'}:${o.id}`)]),
+  ...Object.keys(CONDITIONAL_EVENT_ROWS).map(id=>`event-condition:${id}`),
   ...BUTTERFLY_NODES.flatMap(n=>[`butterfly-node:${n.id}`,...n.options.map(o=>`butterfly-choice:${o.id}`)]),
   ...BUTTERFLY_RESOLUTIONS.map(r=>`butterfly-ending:${r.id}`),
   ...BUTTERFLY_MERGES.flatMap(m=>[`merge:${m.id}`,...m.options.map(o=>`merge-choice:${o.id}`)]),
