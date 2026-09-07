@@ -116,3 +116,25 @@ describe('source-map composition', () => {
     expect(ctx.drawImage.mock.calls[0].slice(5)).toEqual([copy.x, copy.y, copy.w, copy.h]);
   });
 });
+
+import { routeTo, findPath as findPathDirect, SPAWN as SPAWN_POINT, WORLD as WORLD_SIZE } from './navigation';
+describe('routeTo', () => {
+  it('ends beside a target that is boxed in by an obstacle instead of returning nothing', () => {
+    const target = { x: 640, y: 273 };
+    // A frame of walls with the target inside: the target's own cell is floor, but nothing leads to it.
+    const box = [
+      { x: target.x - 60, y: target.y - 60, w: 120, h: 16 }, { x: target.x - 60, y: target.y + 44, w: 120, h: 16 },
+      { x: target.x - 60, y: target.y - 60, w: 16, h: 120 }, { x: target.x + 44, y: target.y - 60, w: 16, h: 120 },
+    ];
+    expect(findPathDirect(SPAWN_POINT, target, box)).toEqual([]);
+    const path = routeTo(SPAWN_POINT, target, box);
+    expect(path.length).toBeGreaterThan(0);
+    const end = path[path.length - 1];
+    expect(Math.hypot(end.x - target.x, end.y - target.y)).toBeLessThan(110);
+    expect(end.x).toBeGreaterThanOrEqual(0); expect(end.x).toBeLessThan(WORLD_SIZE.width);
+  });
+  it('returns the direct route when one exists', () => {
+    const direct = findPathDirect(SPAWN_POINT, { x: 556, y: 426 });
+    expect(routeTo(SPAWN_POINT, { x: 556, y: 426 })).toEqual(direct);
+  });
+});
