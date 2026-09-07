@@ -10,28 +10,53 @@
   ],
   "finished": true,
   "stuck": null,
-  "endDay": 3,
+  "endDay": 9,
   "ending": {
-    "id": "X20",
-    "title": "抢救室"
+    "id": "X25",
+    "title": "解除劳动合同"
   },
-  "steps": 487,
-  "minutes": 15.77,
+  "steps": 323,
+  "minutes": 4.06,
   "pageErrors": [],
   "consoleErrors": [],
-  "navigationFailures": [],
+  "navigationFailures": [
+    {
+      "day": 1,
+      "task": "接诊",
+      "moved": false
+    }
+  ],
   "shots": [
-    "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche-wt-qa/docs/autoplay/autoplay-alpha-careful-autoplay-desktop/day-01-map.jpg",
-    "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche-wt-qa/docs/autoplay/autoplay-alpha-careful-autoplay-desktop/day-01-debuff.jpg",
-    "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche-wt-qa/docs/autoplay/autoplay-alpha-careful-autoplay-desktop/day-02-map.jpg",
-    "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche-wt-qa/docs/autoplay/autoplay-alpha-careful-autoplay-desktop/day-02-debuff.jpg",
-    "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche-wt-qa/docs/autoplay/autoplay-alpha-careful-autoplay-desktop/day-03-map.jpg",
-    "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche-wt-qa/docs/autoplay/autoplay-alpha-careful-autoplay-desktop/ending-X20.jpg",
-    "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche-wt-qa/docs/autoplay/autoplay-alpha-careful-autoplay-desktop/final-X20.jpg"
+    "day-01-map.jpg",
+    "nav-day-01-step-28.jpg",
+    "day-01-debuff.jpg",
+    "day-02-map.jpg",
+    "day-02-debuff.jpg",
+    "day-03-map.jpg",
+    "day-03-debuff.jpg",
+    "day-04-map.jpg",
+    "day-04-debuff.jpg",
+    "day-05-map.jpg",
+    "day-05-funding.jpg",
+    "day-05-debuff.jpg",
+    "day-06-map.jpg",
+    "day-06-funding.jpg",
+    "day-06-debuff.jpg",
+    "day-07-map.jpg",
+    "day-07-funding.jpg",
+    "day-07-debuff.jpg",
+    "day-08-map.jpg",
+    "day-08-funding.jpg",
+    "day-08-debuff.jpg",
+    "day-09-map.jpg",
+    "day-09-funding.jpg",
+    "ending-X25.jpg",
+    "final-X25.jpg"
   ],
   "journal": [
     {
       "step": 1,
+      "t": 1.3,
       "day": 1,
       "phase": "talk",
       "title": "第一班 · 带教",
@@ -46,6 +71,7 @@
     },
     {
       "step": 2,
+      "t": 1.3,
       "day": 1,
       "phase": "map",
       "title": "南屏医院 · 住院部",
@@ -60,6 +86,7 @@
     },
     {
       "step": 3,
+      "t": 1.4,
       "day": 1,
       "phase": "quests",
       "title": "当班待办",
@@ -74,6 +101,7 @@
     },
     {
       "step": 4,
+      "t": 6.1,
       "day": 1,
       "phase": "encounter",
       "title": "濮老先生 · 5 床 · 床旁随访",
@@ -88,20 +116,7 @@
     },
     {
       "step": 5,
-      "day": 1,
-      "phase": "encounter",
-      "title": "濮老先生 · 5 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 10,
-      "cash": 1800,
-      "vitals": {
-        "体力": 100,
-        "精神": 100,
-        "情绪": 100
-      }
-    },
-    {
-      "step": 6,
+      "t": 6.1,
       "day": 1,
       "phase": "confirm",
       "title": "确认这次选择",
@@ -115,7 +130,8 @@
       }
     },
     {
-      "step": 7,
+      "step": 6,
+      "t": 6.2,
       "day": 1,
       "phase": "talk",
       "title": "5 床 · 床旁随访",
@@ -129,7 +145,8 @@
       }
     },
     {
-      "step": 8,
+      "step": 7,
+      "t": 6.2,
       "day": 1,
       "phase": "map",
       "title": "A病房",
@@ -143,7 +160,8 @@
       }
     },
     {
-      "step": 9,
+      "step": 8,
+      "t": 6.3,
       "day": 1,
       "phase": "quests",
       "title": "当班待办",
@@ -157,35 +175,23 @@
       }
     },
     {
+      "step": 9,
+      "t": 7.4,
+      "day": 1,
+      "phase": "encounter",
+      "title": "靖奶奶 · 6 床 · 床旁随访",
+      "action": "床旁监测、复核并解释后续安排",
+      "ap": 9,
+      "cash": 1800,
+      "vitals": {
+        "体力": 97,
+        "精神": 100,
+        "情绪": 100
+      }
+    },
+    {
       "step": 10,
-      "day": 1,
-      "phase": "encounter",
-      "title": "靖奶奶 · 6 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 9,
-      "cash": 1800,
-      "vitals": {
-        "体力": 97,
-        "精神": 100,
-        "情绪": 100
-      }
-    },
-    {
-      "step": 11,
-      "day": 1,
-      "phase": "encounter",
-      "title": "靖奶奶 · 6 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 9,
-      "cash": 1800,
-      "vitals": {
-        "体力": 97,
-        "精神": 100,
-        "情绪": 100
-      }
-    },
-    {
-      "step": 12,
+      "t": 7.4,
       "day": 1,
       "phase": "confirm",
       "title": "确认这次选择",
@@ -199,7 +205,8 @@
       }
     },
     {
-      "step": 13,
+      "step": 11,
+      "t": 7.5,
       "day": 1,
       "phase": "talk",
       "title": "6 床 · 床旁随访",
@@ -213,7 +220,8 @@
       }
     },
     {
-      "step": 14,
+      "step": 12,
+      "t": 7.5,
       "day": 1,
       "phase": "map",
       "title": "A病房",
@@ -227,7 +235,8 @@
       }
     },
     {
-      "step": 15,
+      "step": 13,
+      "t": 7.6,
       "day": 1,
       "phase": "quests",
       "title": "当班待办",
@@ -241,7 +250,8 @@
       }
     },
     {
-      "step": 16,
+      "step": 14,
+      "t": 9.2,
       "day": 1,
       "phase": "encounter",
       "title": "佘爷爷 · 7 床 · 床旁随访",
@@ -255,21 +265,8 @@
       }
     },
     {
-      "step": 17,
-      "day": 1,
-      "phase": "encounter",
-      "title": "佘爷爷 · 7 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 8,
-      "cash": 1800,
-      "vitals": {
-        "体力": 94,
-        "精神": 100,
-        "情绪": 100
-      }
-    },
-    {
-      "step": 18,
+      "step": 15,
+      "t": 9.3,
       "day": 1,
       "phase": "confirm",
       "title": "确认这次选择",
@@ -283,7 +280,8 @@
       }
     },
     {
-      "step": 19,
+      "step": 16,
+      "t": 9.3,
       "day": 1,
       "phase": "talk",
       "title": "7 床 · 床旁随访",
@@ -297,7 +295,8 @@
       }
     },
     {
-      "step": 20,
+      "step": 17,
+      "t": 9.4,
       "day": 1,
       "phase": "map",
       "title": "A病房",
@@ -311,7 +310,8 @@
       }
     },
     {
-      "step": 21,
+      "step": 18,
+      "t": 9.4,
       "day": 1,
       "phase": "quests",
       "title": "当班待办",
@@ -325,7 +325,8 @@
       }
     },
     {
-      "step": 22,
+      "step": 19,
+      "t": 10.5,
       "day": 1,
       "phase": "encounter",
       "title": "单阿婆 · 8 床 · 床旁随访",
@@ -339,21 +340,8 @@
       }
     },
     {
-      "step": 23,
-      "day": 1,
-      "phase": "encounter",
-      "title": "单阿婆 · 8 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 7,
-      "cash": 1800,
-      "vitals": {
-        "体力": 91,
-        "精神": 100,
-        "情绪": 100
-      }
-    },
-    {
-      "step": 24,
+      "step": 20,
+      "t": 10.6,
       "day": 1,
       "phase": "confirm",
       "title": "确认这次选择",
@@ -367,7 +355,8 @@
       }
     },
     {
-      "step": 25,
+      "step": 21,
+      "t": 10.6,
       "day": 1,
       "phase": "talk",
       "title": "8 床 · 床旁随访",
@@ -381,7 +370,8 @@
       }
     },
     {
-      "step": 26,
+      "step": 22,
+      "t": 10.7,
       "day": 1,
       "phase": "map",
       "title": "A病房",
@@ -395,7 +385,8 @@
       }
     },
     {
-      "step": 27,
+      "step": 23,
+      "t": 10.7,
       "day": 1,
       "phase": "quests",
       "title": "当班待办",
@@ -409,7 +400,8 @@
       }
     },
     {
-      "step": 28,
+      "step": 24,
+      "t": 19.3,
       "day": 1,
       "phase": "encounter",
       "title": "巩姐 · 9 床 · 床旁随访",
@@ -423,21 +415,8 @@
       }
     },
     {
-      "step": 29,
-      "day": 1,
-      "phase": "encounter",
-      "title": "巩姐 · 9 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 6,
-      "cash": 1800,
-      "vitals": {
-        "体力": 88,
-        "精神": 100,
-        "情绪": 100
-      }
-    },
-    {
-      "step": 30,
+      "step": 25,
+      "t": 19.3,
       "day": 1,
       "phase": "confirm",
       "title": "确认这次选择",
@@ -451,7 +430,8 @@
       }
     },
     {
-      "step": 31,
+      "step": 26,
+      "t": 19.4,
       "day": 1,
       "phase": "talk",
       "title": "9 床 · 床旁随访",
@@ -465,7 +445,8 @@
       }
     },
     {
-      "step": 32,
+      "step": 27,
+      "t": 19.5,
       "day": 1,
       "phase": "map",
       "title": "B病房",
@@ -479,7 +460,8 @@
       }
     },
     {
-      "step": 33,
+      "step": 28,
+      "t": 19.5,
       "day": 1,
       "phase": "quests",
       "title": "当班待办",
@@ -493,7 +475,23 @@
       }
     },
     {
-      "step": 34,
+      "step": 29,
+      "t": 27.2,
+      "day": 1,
+      "phase": "map",
+      "title": "留观室",
+      "action": "打开当班待办",
+      "ap": 5,
+      "cash": 1800,
+      "vitals": {
+        "体力": 85,
+        "精神": 100,
+        "情绪": 100
+      }
+    },
+    {
+      "step": 30,
+      "t": 35.8,
       "day": 1,
       "phase": "encounter",
       "title": "韩峻 · 接诊",
@@ -507,21 +505,8 @@
       }
     },
     {
-      "step": 35,
-      "day": 1,
-      "phase": "encounter",
-      "title": "韩峻 · 接诊",
-      "action": "查看医保购药记录",
-      "ap": 5,
-      "cash": 1800,
-      "vitals": {
-        "体力": 85,
-        "精神": 100,
-        "情绪": 100
-      }
-    },
-    {
-      "step": 36,
+      "step": 31,
+      "t": 35.8,
       "day": 1,
       "phase": "confirm",
       "title": "确认这次选择",
@@ -535,11 +520,87 @@
       }
     },
     {
-      "step": 37,
+      "step": 32,
+      "t": 35.9,
       "day": 1,
       "phase": "talk",
       "title": "接诊",
       "action": "继续 ▸",
+      "ap": 4,
+      "cash": 1800,
+      "vitals": {
+        "体力": 85,
+        "精神": 100,
+        "情绪": 100
+      }
+    },
+    {
+      "step": 33,
+      "t": 35.9,
+      "day": 1,
+      "phase": "encounter",
+      "title": "韩峻 · 接诊",
+      "action": "翻看与这次处置有关的规范",
+      "ap": 4,
+      "cash": 1800,
+      "vitals": {
+        "体力": 85,
+        "精神": 100,
+        "情绪": 100
+      }
+    },
+    {
+      "step": 34,
+      "t": 35.9,
+      "day": 1,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 4,
+      "cash": 1800,
+      "vitals": {
+        "体力": 85,
+        "精神": 100,
+        "情绪": 100
+      }
+    },
+    {
+      "step": 35,
+      "t": 36,
+      "day": 1,
+      "phase": "talk",
+      "title": "接诊",
+      "action": "继续 ▸",
+      "ap": 4,
+      "cash": 1800,
+      "vitals": {
+        "体力": 85,
+        "精神": 100,
+        "情绪": 100
+      }
+    },
+    {
+      "step": 36,
+      "t": 36.1,
+      "day": 1,
+      "phase": "encounter",
+      "title": "韩峻 · 接诊",
+      "action": "测双侧上肢血压，触双侧脉搏",
+      "ap": 4,
+      "cash": 1800,
+      "vitals": {
+        "体力": 85,
+        "精神": 100,
+        "情绪": 100
+      }
+    },
+    {
+      "step": 37,
+      "t": 36.1,
+      "day": 1,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
       "ap": 4,
       "cash": 1800,
       "vitals": {
@@ -550,160 +611,52 @@
     },
     {
       "step": 38,
+      "t": 36.2,
       "day": 1,
-      "phase": "encounter",
-      "title": "韩峻 · 接诊",
-      "action": "翻看与这次处置有关的规范",
-      "ap": 4,
+      "phase": "talk",
+      "title": "接诊",
+      "action": "继续 ▸",
+      "ap": 3,
       "cash": 1800,
       "vitals": {
-        "体力": 85,
+        "体力": 84,
         "精神": 100,
         "情绪": 100
       }
     },
     {
       "step": 39,
+      "t": 36.2,
       "day": 1,
       "phase": "encounter",
-      "title": "韩峻 · 接诊",
-      "action": "翻看与这次处置有关的规范",
-      "ap": 4,
+      "title": "韩峻 · 初步检查",
+      "action": "床旁超声看主动脉根部与心包",
+      "ap": 3,
       "cash": 1800,
       "vitals": {
-        "体力": 85,
+        "体力": 84,
         "精神": 100,
         "情绪": 100
       }
     },
     {
       "step": 40,
+      "t": 36.2,
       "day": 1,
       "phase": "confirm",
       "title": "确认这次选择",
       "action": "确认",
-      "ap": 4,
+      "ap": 3,
       "cash": 1800,
       "vitals": {
-        "体力": 85,
+        "体力": 84,
         "精神": 100,
         "情绪": 100
       }
     },
     {
       "step": 41,
-      "day": 1,
-      "phase": "talk",
-      "title": "接诊",
-      "action": "继续 ▸",
-      "ap": 4,
-      "cash": 1800,
-      "vitals": {
-        "体力": 85,
-        "精神": 100,
-        "情绪": 100
-      }
-    },
-    {
-      "step": 42,
-      "day": 1,
-      "phase": "encounter",
-      "title": "韩峻 · 接诊",
-      "action": "测双侧上肢血压，触双侧脉搏",
-      "ap": 4,
-      "cash": 1800,
-      "vitals": {
-        "体力": 85,
-        "精神": 100,
-        "情绪": 100
-      }
-    },
-    {
-      "step": 43,
-      "day": 1,
-      "phase": "encounter",
-      "title": "韩峻 · 接诊",
-      "action": "测双侧上肢血压，触双侧脉搏",
-      "ap": 4,
-      "cash": 1800,
-      "vitals": {
-        "体力": 85,
-        "精神": 100,
-        "情绪": 100
-      }
-    },
-    {
-      "step": 44,
-      "day": 1,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 4,
-      "cash": 1800,
-      "vitals": {
-        "体力": 85,
-        "精神": 100,
-        "情绪": 100
-      }
-    },
-    {
-      "step": 45,
-      "day": 1,
-      "phase": "talk",
-      "title": "接诊",
-      "action": "继续 ▸",
-      "ap": 3,
-      "cash": 1800,
-      "vitals": {
-        "体力": 84,
-        "精神": 100,
-        "情绪": 100
-      }
-    },
-    {
-      "step": 46,
-      "day": 1,
-      "phase": "encounter",
-      "title": "韩峻 · 初步检查",
-      "action": "床旁超声看主动脉根部与心包",
-      "ap": 3,
-      "cash": 1800,
-      "vitals": {
-        "体力": 84,
-        "精神": 100,
-        "情绪": 100
-      }
-    },
-    {
-      "step": 47,
-      "day": 1,
-      "phase": "encounter",
-      "title": "韩峻 · 初步检查",
-      "action": "床旁超声看主动脉根部与心包",
-      "ap": 3,
-      "cash": 1800,
-      "vitals": {
-        "体力": 84,
-        "精神": 100,
-        "情绪": 100
-      }
-    },
-    {
-      "step": 48,
-      "day": 1,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 3,
-      "cash": 1800,
-      "vitals": {
-        "体力": 84,
-        "精神": 100,
-        "情绪": 100
-      }
-    },
-    {
-      "step": 49,
+      "t": 36.3,
       "day": 1,
       "phase": "roll",
       "title": "能否识别并核实眼前的细节",
@@ -717,21 +670,8 @@
       }
     },
     {
-      "step": 50,
-      "day": 1,
-      "phase": "roll",
-      "title": "能否识别并核实眼前的细节",
-      "action": "直接看点数",
-      "ap": 3,
-      "cash": 1800,
-      "vitals": {
-        "体力": 84,
-        "精神": 100,
-        "情绪": 100
-      }
-    },
-    {
-      "step": 51,
+      "step": 42,
+      "t": 37.5,
       "day": 1,
       "phase": "roll",
       "title": "能否识别并核实眼前的细节",
@@ -745,7 +685,8 @@
       }
     },
     {
-      "step": 52,
+      "step": 43,
+      "t": 37.5,
       "day": 1,
       "phase": "talk",
       "title": "初步检查",
@@ -759,7 +700,8 @@
       }
     },
     {
-      "step": 53,
+      "step": 44,
+      "t": 37.6,
       "day": 1,
       "phase": "encounter",
       "title": "韩峻 · 判读",
@@ -768,100 +710,242 @@
       "cash": 1800,
       "vitals": {
         "体力": 82,
+        "精神": 100,
+        "情绪": 100
+      }
+    },
+    {
+      "step": 45,
+      "t": 37.6,
+      "day": 1,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 2,
+      "cash": 1800,
+      "vitals": {
+        "体力": 82,
+        "精神": 100,
+        "情绪": 100
+      }
+    },
+    {
+      "step": 46,
+      "t": 37.7,
+      "day": 1,
+      "phase": "talk",
+      "title": "判读",
+      "action": "继续 ▸",
+      "ap": 1,
+      "cash": 1800,
+      "vitals": {
+        "体力": 81,
+        "精神": 100,
+        "情绪": 100
+      }
+    },
+    {
+      "step": 47,
+      "t": 37.7,
+      "day": 1,
+      "phase": "encounter",
+      "title": "韩峻 · 判读",
+      "action": "排除夹层前不用抗栓，急查主动脉 CTA",
+      "ap": 1,
+      "cash": 1800,
+      "vitals": {
+        "体力": 81,
+        "精神": 100,
+        "情绪": 100
+      }
+    },
+    {
+      "step": 48,
+      "t": 37.8,
+      "day": 1,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 1,
+      "cash": 1800,
+      "vitals": {
+        "体力": 81,
+        "精神": 100,
+        "情绪": 100
+      }
+    },
+    {
+      "step": 49,
+      "t": 37.8,
+      "day": 1,
+      "phase": "talk",
+      "title": "判读",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 1800,
+      "vitals": {
+        "体力": 80,
+        "精神": 100,
+        "情绪": 100
+      }
+    },
+    {
+      "step": 50,
+      "t": 37.9,
+      "day": 1,
+      "phase": "encounter",
+      "title": "韩峻 · CTA 回报与控制",
+      "action": "今天先不处理，留给明天",
+      "ap": 0,
+      "cash": 1800,
+      "vitals": {
+        "体力": 80,
+        "精神": 100,
+        "情绪": 100
+      }
+    },
+    {
+      "step": 51,
+      "t": 37.9,
+      "day": 1,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 1800,
+      "vitals": {
+        "体力": 80,
+        "精神": 100,
+        "情绪": 100
+      }
+    },
+    {
+      "step": 52,
+      "t": 38,
+      "day": 1,
+      "phase": "talk",
+      "title": "留待明天的患者",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 1800,
+      "vitals": {
+        "体力": 80,
+        "精神": 100,
+        "情绪": 100
+      }
+    },
+    {
+      "step": 53,
+      "t": 38.2,
+      "day": 1,
+      "phase": "map",
+      "title": "留观室",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 1800,
+      "vitals": {
+        "体力": 80,
         "精神": 100,
         "情绪": 100
       }
     },
     {
       "step": 54,
+      "t": 38.2,
       "day": 1,
-      "phase": "encounter",
-      "title": "韩峻 · 判读",
-      "action": "按急性冠脉综合征给阿司匹林＋氯吡格雷负荷",
-      "ap": 2,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 灯还亮着",
+      "ap": 0,
       "cash": 1800,
       "vitals": {
-        "体力": 82,
+        "体力": 80,
         "精神": 100,
         "情绪": 100
       }
     },
     {
       "step": 55,
+      "t": 47.6,
       "day": 1,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 2,
+      "phase": "encounter",
+      "title": "灯还亮着",
+      "action": "向科室申请明天停诊休息一天",
+      "ap": 0,
       "cash": 1800,
       "vitals": {
-        "体力": 82,
+        "体力": 80,
         "精神": 100,
         "情绪": 100
       }
     },
     {
       "step": 56,
+      "t": 47.6,
       "day": 1,
-      "phase": "talk",
-      "title": "判读",
-      "action": "继续 ▸",
-      "ap": 1,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
       "cash": 1800,
       "vitals": {
-        "体力": 81,
+        "体力": 80,
         "精神": 100,
         "情绪": 100
       }
     },
     {
       "step": 57,
+      "t": 47.7,
       "day": 1,
-      "phase": "encounter",
-      "title": "韩峻 · 判读",
-      "action": "排除夹层前不用抗栓，急查主动脉 CTA",
-      "ap": 1,
+      "phase": "talk",
+      "title": "灯还亮着",
+      "action": "继续 ▸",
+      "ap": 0,
       "cash": 1800,
       "vitals": {
-        "体力": 81,
+        "体力": 80,
         "精神": 100,
         "情绪": 100
       }
     },
     {
       "step": 58,
+      "t": 47.7,
       "day": 1,
       "phase": "encounter",
-      "title": "韩峻 · 判读",
-      "action": "排除夹层前不用抗栓，急查主动脉 CTA",
-      "ap": 1,
+      "title": "灯还亮着",
+      "action": "吃饭，放下手机睡觉",
+      "ap": 0,
       "cash": 1800,
       "vitals": {
-        "体力": 81,
+        "体力": 80,
         "精神": 100,
         "情绪": 100
       }
     },
     {
       "step": 59,
+      "t": 47.7,
       "day": 1,
       "phase": "confirm",
       "title": "确认这次选择",
       "action": "确认",
-      "ap": 1,
+      "ap": 0,
       "cash": 1800,
       "vitals": {
-        "体力": 81,
+        "体力": 80,
         "精神": 100,
         "情绪": 100
       }
     },
     {
       "step": 60,
+      "t": 47.8,
       "day": 1,
       "phase": "talk",
-      "title": "判读",
-      "action": "继续 ▸",
+      "title": "灯还亮着",
+      "action": "结束本日 · 掷骰",
       "ap": 0,
       "cash": 1800,
       "vitals": {
@@ -872,5974 +956,3941 @@
     },
     {
       "step": 61,
-      "day": 1,
-      "phase": "encounter",
-      "title": "韩峻 · CTA 回报与控制",
-      "action": "吗啡 3 mg 静脉镇痛",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 80,
-        "精神": 100,
-        "情绪": 100
-      }
-    },
-    {
-      "step": 62,
-      "day": 1,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 80,
-        "精神": 100,
-        "情绪": 100
-      }
-    },
-    {
-      "step": 63,
-      "day": 1,
-      "phase": "talk",
-      "title": "CTA 回报与控制",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 74,
-        "精神": 98,
-        "情绪": 98
-      }
-    },
-    {
-      "step": 64,
-      "day": 1,
-      "phase": "encounter",
-      "title": "韩峻 · CTA 回报与控制",
-      "action": "硝普钠单用降压",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 74,
-        "精神": 98,
-        "情绪": 98
-      }
-    },
-    {
-      "step": 65,
-      "day": 1,
-      "phase": "encounter",
-      "title": "韩峻 · CTA 回报与控制",
-      "action": "硝普钠单用降压",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 74,
-        "精神": 98,
-        "情绪": 98
-      }
-    },
-    {
-      "step": 66,
-      "day": 1,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 74,
-        "精神": 98,
-        "情绪": 98
-      }
-    },
-    {
-      "step": 67,
-      "day": 1,
-      "phase": "talk",
-      "title": "CTA 回报与控制",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 68,
-        "精神": 96,
-        "情绪": 96
-      }
-    },
-    {
-      "step": 68,
-      "day": 1,
-      "phase": "encounter",
-      "title": "韩峻 · 转诊",
-      "action": "告知病情，让家属自驾送上级医院",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 68,
-        "精神": 96,
-        "情绪": 96
-      }
-    },
-    {
-      "step": 69,
-      "day": 1,
-      "phase": "encounter",
-      "title": "韩峻 · 转诊",
-      "action": "告知病情，让家属自驾送上级医院",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 68,
-        "精神": 96,
-        "情绪": 96
-      }
-    },
-    {
-      "step": 70,
-      "day": 1,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 68,
-        "精神": 96,
-        "情绪": 96
-      }
-    },
-    {
-      "step": 71,
-      "day": 1,
-      "phase": "talk",
-      "title": "转诊",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 63,
-        "精神": 94,
-        "情绪": 94
-      }
-    },
-    {
-      "step": 72,
-      "day": 1,
-      "phase": "map",
-      "title": "留观室",
-      "action": "打开当班待办",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 63,
-        "精神": 94,
-        "情绪": 94
-      }
-    },
-    {
-      "step": 73,
-      "day": 1,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 灯还亮着",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 63,
-        "精神": 94,
-        "情绪": 94
-      }
-    },
-    {
-      "step": 74,
-      "day": 1,
-      "phase": "encounter",
-      "title": "灯还亮着",
-      "action": "核查当天记录，写补充说明",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 63,
-        "精神": 94,
-        "情绪": 94
-      }
-    },
-    {
-      "step": 75,
-      "day": 1,
-      "phase": "encounter",
-      "title": "灯还亮着",
-      "action": "核查当天记录，写补充说明",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 63,
-        "精神": 94,
-        "情绪": 94
-      }
-    },
-    {
-      "step": 76,
-      "day": 1,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 63,
-        "精神": 94,
-        "情绪": 94
-      }
-    },
-    {
-      "step": 77,
-      "day": 1,
-      "phase": "talk",
-      "title": "灯还亮着",
-      "action": "结束本日 · 掷骰",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 53,
-        "精神": 90,
-        "情绪": 87
-      }
-    },
-    {
-      "step": 78,
-      "day": 1,
-      "phase": "map",
-      "title": "值班室",
-      "action": "打开当班待办",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 53,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 79,
+      "t": 48,
       "day": 1,
       "phase": "roll",
       "title": "日终 · 扛住这一夜",
       "action": "掷二十面骰",
       "ap": 0,
-      "cash": 1800,
+      "cash": 1760,
       "vitals": {
-        "体力": 53,
-        "精神": 90,
-        "情绪": 84
+        "体力": 80,
+        "精神": 100,
+        "情绪": 97
       }
     },
     {
-      "step": 80,
-      "day": 1,
-      "phase": "roll",
-      "title": "日终 · 扛住这一夜",
-      "action": "直接看点数",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 53,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 81,
+      "step": 62,
+      "t": 49,
       "day": 1,
       "phase": "roll",
       "title": "日终 · 扛住这一夜",
       "action": "接受结果 →",
       "ap": 0,
-      "cash": 1800,
+      "cash": 1760,
       "vitals": {
-        "体力": 53,
-        "精神": 90,
-        "情绪": 84
+        "体力": 80,
+        "精神": 100,
+        "情绪": 97
       }
     },
     {
-      "step": 82,
+      "step": 63,
+      "t": 49,
       "day": 1,
       "phase": "debuff",
       "title": "夜里留下的东西",
       "action": "医务科挂号",
       "ap": 0,
-      "cash": 1800,
+      "cash": 1760,
       "vitals": {
-        "体力": 53,
-        "精神": 90,
-        "情绪": 84
+        "体力": 80,
+        "精神": 100,
+        "情绪": 97
       }
     },
     {
-      "step": 83,
+      "step": 64,
+      "t": 49.1,
       "day": 1,
       "phase": "talk",
       "title": "天亮了",
       "action": "迎接下一天 ▸",
       "ap": 0,
-      "cash": 1800,
+      "cash": 1760,
       "vitals": {
-        "体力": 53,
-        "精神": 90,
-        "情绪": 84
+        "体力": 80,
+        "精神": 100,
+        "情绪": 97
       }
     },
     {
-      "step": 84,
+      "step": 65,
+      "t": 49.2,
       "day": 2,
       "phase": "map",
       "title": "值班室",
       "action": "打开当班待办",
-      "ap": 10,
-      "cash": 1800,
-      "vitals": {
-        "体力": 90,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 85,
-      "day": 2,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 漏项",
-      "ap": 10,
-      "cash": 1800,
-      "vitals": {
-        "体力": 90,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 86,
-      "day": 2,
-      "phase": "encounter",
-      "title": "靖奶奶 · 漏项",
-      "action": "问值班护士，昨晚到底怎么处理的",
-      "ap": 10,
-      "cash": 1800,
-      "vitals": {
-        "体力": 90,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 87,
-      "day": 2,
-      "phase": "encounter",
-      "title": "靖奶奶 · 漏项",
-      "action": "问值班护士，昨晚到底怎么处理的",
-      "ap": 10,
-      "cash": 1800,
-      "vitals": {
-        "体力": 90,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 88,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 10,
-      "cash": 1800,
-      "vitals": {
-        "体力": 90,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 89,
-      "day": 2,
-      "phase": "roll",
-      "title": "向值班护士核实",
-      "action": "掷二十面骰",
-      "ap": 10,
-      "cash": 1800,
-      "vitals": {
-        "体力": 90,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 90,
-      "day": 2,
-      "phase": "roll",
-      "title": "向值班护士核实",
-      "action": "直接看点数",
-      "ap": 10,
-      "cash": 1800,
-      "vitals": {
-        "体力": 90,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 91,
-      "day": 2,
-      "phase": "roll",
-      "title": "向值班护士核实",
-      "action": "接受结果 →",
-      "ap": 10,
-      "cash": 1800,
-      "vitals": {
-        "体力": 90,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 92,
-      "day": 2,
-      "phase": "talk",
-      "title": "漏项",
-      "action": "继续 ▸",
-      "ap": 10,
-      "cash": 1800,
-      "vitals": {
-        "体力": 90,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 93,
-      "day": 2,
-      "phase": "map",
-      "title": "A病房",
-      "action": "打开当班待办",
-      "ap": 10,
-      "cash": 1800,
-      "vitals": {
-        "体力": 90,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 94,
-      "day": 2,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 5 床 · 床旁随访",
-      "ap": 10,
-      "cash": 1800,
-      "vitals": {
-        "体力": 90,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 95,
-      "day": 2,
-      "phase": "encounter",
-      "title": "濮老先生 · 5 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 10,
-      "cash": 1800,
-      "vitals": {
-        "体力": 90,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 96,
-      "day": 2,
-      "phase": "encounter",
-      "title": "濮老先生 · 5 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 10,
-      "cash": 1800,
-      "vitals": {
-        "体力": 90,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 97,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 10,
-      "cash": 1800,
-      "vitals": {
-        "体力": 90,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 98,
-      "day": 2,
-      "phase": "talk",
-      "title": "5 床 · 床旁随访",
-      "action": "继续 ▸",
-      "ap": 9,
-      "cash": 1800,
-      "vitals": {
-        "体力": 87,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 99,
-      "day": 2,
-      "phase": "map",
-      "title": "A病房",
-      "action": "打开当班待办",
-      "ap": 9,
-      "cash": 1800,
-      "vitals": {
-        "体力": 87,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 100,
-      "day": 2,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 6 床 · 床旁随访",
-      "ap": 9,
-      "cash": 1800,
-      "vitals": {
-        "体力": 87,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 101,
-      "day": 2,
-      "phase": "encounter",
-      "title": "靖奶奶 · 6 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 9,
-      "cash": 1800,
-      "vitals": {
-        "体力": 87,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 102,
-      "day": 2,
-      "phase": "encounter",
-      "title": "靖奶奶 · 6 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 9,
-      "cash": 1800,
-      "vitals": {
-        "体力": 87,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 103,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 9,
-      "cash": 1800,
-      "vitals": {
-        "体力": 87,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 104,
-      "day": 2,
-      "phase": "talk",
-      "title": "6 床 · 床旁随访",
-      "action": "继续 ▸",
-      "ap": 8,
-      "cash": 1800,
-      "vitals": {
-        "体力": 84,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 105,
-      "day": 2,
-      "phase": "map",
-      "title": "A病房",
-      "action": "打开当班待办",
-      "ap": 8,
-      "cash": 1800,
-      "vitals": {
-        "体力": 84,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 106,
-      "day": 2,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 7 床 · 床旁随访",
-      "ap": 8,
-      "cash": 1800,
-      "vitals": {
-        "体力": 84,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 107,
-      "day": 2,
-      "phase": "encounter",
-      "title": "佘爷爷 · 7 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 8,
-      "cash": 1800,
-      "vitals": {
-        "体力": 84,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 108,
-      "day": 2,
-      "phase": "encounter",
-      "title": "佘爷爷 · 7 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 8,
-      "cash": 1800,
-      "vitals": {
-        "体力": 84,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 109,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 8,
-      "cash": 1800,
-      "vitals": {
-        "体力": 84,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 110,
-      "day": 2,
-      "phase": "talk",
-      "title": "7 床 · 床旁随访",
-      "action": "继续 ▸",
-      "ap": 7,
-      "cash": 1800,
-      "vitals": {
-        "体力": 81,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 111,
-      "day": 2,
-      "phase": "map",
-      "title": "A病房",
-      "action": "打开当班待办",
-      "ap": 7,
-      "cash": 1800,
-      "vitals": {
-        "体力": 81,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 112,
-      "day": 2,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 8 床 · 床旁随访",
-      "ap": 7,
-      "cash": 1800,
-      "vitals": {
-        "体力": 81,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 113,
-      "day": 2,
-      "phase": "encounter",
-      "title": "单阿婆 · 8 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 7,
-      "cash": 1800,
-      "vitals": {
-        "体力": 81,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 114,
-      "day": 2,
-      "phase": "encounter",
-      "title": "单阿婆 · 8 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 7,
-      "cash": 1800,
-      "vitals": {
-        "体力": 81,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 115,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 7,
-      "cash": 1800,
-      "vitals": {
-        "体力": 81,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 116,
-      "day": 2,
-      "phase": "talk",
-      "title": "8 床 · 床旁随访",
-      "action": "继续 ▸",
-      "ap": 6,
-      "cash": 1800,
-      "vitals": {
-        "体力": 78,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 117,
-      "day": 2,
-      "phase": "map",
-      "title": "A病房",
-      "action": "打开当班待办",
-      "ap": 6,
-      "cash": 1800,
-      "vitals": {
-        "体力": 78,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 118,
-      "day": 2,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 9 床 · 床旁随访",
-      "ap": 6,
-      "cash": 1800,
-      "vitals": {
-        "体力": 78,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 119,
-      "day": 2,
-      "phase": "encounter",
-      "title": "巩姐 · 9 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 6,
-      "cash": 1800,
-      "vitals": {
-        "体力": 78,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 120,
-      "day": 2,
-      "phase": "encounter",
-      "title": "巩姐 · 9 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 6,
-      "cash": 1800,
-      "vitals": {
-        "体力": 78,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 121,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 6,
-      "cash": 1800,
-      "vitals": {
-        "体力": 78,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 122,
-      "day": 2,
-      "phase": "talk",
-      "title": "9 床 · 床旁随访",
-      "action": "继续 ▸",
-      "ap": 5,
-      "cash": 1800,
-      "vitals": {
-        "体力": 75,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 123,
-      "day": 2,
-      "phase": "map",
-      "title": "B病房",
-      "action": "打开当班待办",
-      "ap": 5,
-      "cash": 1800,
-      "vitals": {
-        "体力": 75,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 124,
-      "day": 2,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 接手核对",
-      "ap": 5,
-      "cash": 1800,
-      "vitals": {
-        "体力": 75,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 125,
-      "day": 2,
-      "phase": "encounter",
-      "title": "沈岚 · 接手核对",
-      "action": "读入院记录与既往检验",
-      "ap": 5,
-      "cash": 1800,
-      "vitals": {
-        "体力": 75,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 126,
-      "day": 2,
-      "phase": "encounter",
-      "title": "沈岚 · 接手核对",
-      "action": "读入院记录与既往检验",
-      "ap": 5,
-      "cash": 1800,
-      "vitals": {
-        "体力": 75,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 127,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 5,
-      "cash": 1800,
-      "vitals": {
-        "体力": 75,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 128,
-      "day": 2,
-      "phase": "talk",
-      "title": "接手核对",
-      "action": "继续 ▸",
-      "ap": 4,
-      "cash": 1800,
-      "vitals": {
-        "体力": 74,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 129,
-      "day": 2,
-      "phase": "encounter",
-      "title": "沈岚 · 追问与查体",
-      "action": "翻看与这次处置有关的规范",
-      "ap": 4,
-      "cash": 1800,
-      "vitals": {
-        "体力": 74,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 130,
-      "day": 2,
-      "phase": "encounter",
-      "title": "沈岚 · 追问与查体",
-      "action": "翻看与这次处置有关的规范",
-      "ap": 4,
-      "cash": 1800,
-      "vitals": {
-        "体力": 74,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 131,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 4,
-      "cash": 1800,
-      "vitals": {
-        "体力": 74,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 132,
-      "day": 2,
-      "phase": "talk",
-      "title": "追问与查体",
-      "action": "继续 ▸",
-      "ap": 4,
-      "cash": 1800,
-      "vitals": {
-        "体力": 74,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 133,
-      "day": 2,
-      "phase": "encounter",
-      "title": "沈岚 · 追问与查体",
-      "action": "逐项询问近 7 日全部用药",
-      "ap": 4,
-      "cash": 1800,
-      "vitals": {
-        "体力": 74,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 134,
-      "day": 2,
-      "phase": "encounter",
-      "title": "沈岚 · 追问与查体",
-      "action": "逐项询问近 7 日全部用药",
-      "ap": 4,
-      "cash": 1800,
-      "vitals": {
-        "体力": 74,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 135,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 4,
-      "cash": 1800,
-      "vitals": {
-        "体力": 74,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 136,
-      "day": 2,
-      "phase": "roll",
-      "title": "能否问清这段病史",
-      "action": "掷二十面骰",
-      "ap": 4,
-      "cash": 1800,
-      "vitals": {
-        "体力": 74,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 137,
-      "day": 2,
-      "phase": "roll",
-      "title": "能否问清这段病史",
-      "action": "直接看点数",
-      "ap": 4,
-      "cash": 1800,
-      "vitals": {
-        "体力": 74,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 138,
-      "day": 2,
-      "phase": "roll",
-      "title": "能否问清这段病史",
-      "action": "接受结果 →",
-      "ap": 4,
-      "cash": 1800,
-      "vitals": {
-        "体力": 74,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 139,
-      "day": 2,
-      "phase": "talk",
-      "title": "追问与查体",
-      "action": "继续 ▸",
-      "ap": 3,
-      "cash": 1800,
-      "vitals": {
-        "体力": 73,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 140,
-      "day": 2,
-      "phase": "encounter",
-      "title": "沈岚 · 检查与会诊",
-      "action": "请肾内科会诊并讨论肾活检指征",
-      "ap": 3,
-      "cash": 1800,
-      "vitals": {
-        "体力": 73,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 141,
-      "day": 2,
-      "phase": "encounter",
-      "title": "沈岚 · 检查与会诊",
-      "action": "请肾内科会诊并讨论肾活检指征",
-      "ap": 3,
-      "cash": 1800,
-      "vitals": {
-        "体力": 73,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 142,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 3,
-      "cash": 1800,
-      "vitals": {
-        "体力": 73,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 143,
-      "day": 2,
-      "phase": "talk",
-      "title": "检查与会诊",
-      "action": "继续 ▸",
-      "ap": 2,
-      "cash": 1800,
-      "vitals": {
-        "体力": 72,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 144,
-      "day": 2,
-      "phase": "encounter",
-      "title": "沈岚 · 检查与会诊",
-      "action": "查肾功能、尿检、补体、抗 dsDNA、感染筛查",
-      "ap": 2,
-      "cash": 1800,
-      "vitals": {
-        "体力": 72,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 145,
-      "day": 2,
-      "phase": "encounter",
-      "title": "沈岚 · 检查与会诊",
-      "action": "查肾功能、尿检、补体、抗 dsDNA、感染筛查",
-      "ap": 2,
-      "cash": 1800,
-      "vitals": {
-        "体力": 72,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 146,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 2,
-      "cash": 1800,
-      "vitals": {
-        "体力": 72,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 147,
-      "day": 2,
-      "phase": "talk",
-      "title": "检查与会诊",
-      "action": "继续 ▸",
-      "ap": 1,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 148,
-      "day": 2,
-      "phase": "encounter",
-      "title": "沈岚 · 方案选择",
-      "action": "按折页建议开进口药",
-      "ap": 1,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 149,
-      "day": 2,
-      "phase": "encounter",
-      "title": "沈岚 · 方案选择",
-      "action": "按折页建议开进口药",
-      "ap": 1,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 150,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 1,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 151,
-      "day": 2,
-      "phase": "talk",
-      "title": "方案选择",
-      "action": "继续 ▸",
       "ap": 0,
-      "cash": 1800,
+      "cash": 1760,
       "vitals": {
-        "体力": 71,
-        "精神": 90,
-        "情绪": 84
+        "体力": 100,
+        "精神": 100,
+        "情绪": 97
       }
     },
     {
-      "step": 152,
-      "day": 2,
-      "phase": "encounter",
-      "title": "沈岚 · 自费与费用沟通",
-      "action": "说「进口药贵但肯定更好」，让患者签字",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 153,
-      "day": 2,
-      "phase": "encounter",
-      "title": "沈岚 · 自费与费用沟通",
-      "action": "说「进口药贵但肯定更好」，让患者签字",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 154,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 90,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 155,
-      "day": 2,
-      "phase": "talk",
-      "title": "自费与费用沟通",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 90,
-        "情绪": 79
-      }
-    },
-    {
-      "step": 156,
-      "day": 2,
-      "phase": "encounter",
-      "title": "沈岚 · 自费与费用沟通",
-      "action": "先开药，费用到出院结算再解释",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 90,
-        "情绪": 79
-      }
-    },
-    {
-      "step": 157,
-      "day": 2,
-      "phase": "encounter",
-      "title": "沈岚 · 自费与费用沟通",
-      "action": "先开药，费用到出院结算再解释",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 90,
-        "情绪": 79
-      }
-    },
-    {
-      "step": 158,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 90,
-        "情绪": 79
-      }
-    },
-    {
-      "step": 159,
-      "day": 2,
-      "phase": "talk",
-      "title": "自费与费用沟通",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 90,
-        "情绪": 79
-      }
-    },
-    {
-      "step": 160,
-      "day": 2,
-      "phase": "encounter",
-      "title": "沈岚 · 回扣质疑与合规处置",
-      "action": "当面指认药代收回扣，要求其承认",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 90,
-        "情绪": 79
-      }
-    },
-    {
-      "step": 161,
-      "day": 2,
-      "phase": "encounter",
-      "title": "沈岚 · 回扣质疑与合规处置",
-      "action": "当面指认药代收回扣，要求其承认",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 90,
-        "情绪": 79
-      }
-    },
-    {
-      "step": 162,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 90,
-        "情绪": 79
-      }
-    },
-    {
-      "step": 163,
-      "day": 2,
-      "phase": "talk",
-      "title": "回扣质疑与合规处置",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 85,
-        "情绪": 79
-      }
-    },
-    {
-      "step": 164,
-      "day": 2,
-      "phase": "encounter",
-      "title": "沈岚 · 病程与交班",
-      "action": "记录药物核对、检查依据、费用告知、患者选择与线索流转",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 85,
-        "情绪": 79
-      }
-    },
-    {
-      "step": 165,
-      "day": 2,
-      "phase": "encounter",
-      "title": "沈岚 · 病程与交班",
-      "action": "记录药物核对、检查依据、费用告知、患者选择与线索流转",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 85,
-        "情绪": 79
-      }
-    },
-    {
-      "step": 166,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 85,
-        "情绪": 79
-      }
-    },
-    {
-      "step": 167,
-      "day": 2,
-      "phase": "roll",
-      "title": "能否把这次处置和沟通完整记入文书",
-      "action": "掷二十面骰",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 85,
-        "情绪": 79
-      }
-    },
-    {
-      "step": 168,
-      "day": 2,
-      "phase": "roll",
-      "title": "能否把这次处置和沟通完整记入文书",
-      "action": "直接看点数",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 85,
-        "情绪": 79
-      }
-    },
-    {
-      "step": 169,
-      "day": 2,
-      "phase": "roll",
-      "title": "能否把这次处置和沟通完整记入文书",
-      "action": "接受结果 →",
-      "ap": 0,
-      "cash": 1800,
-      "vitals": {
-        "体力": 71,
-        "精神": 85,
-        "情绪": 79
-      }
-    },
-    {
-      "step": 170,
-      "day": 2,
-      "phase": "talk",
-      "title": "病程与交班",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 171,
-      "day": 2,
-      "phase": "map",
-      "title": "B病房",
-      "action": "打开当班待办",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 172,
+      "step": 66,
+      "t": 49.2,
       "day": 2,
       "phase": "quests",
       "title": "当班待办",
       "action": "前往 先把方案说清楚",
       "ap": 0,
-      "cash": 1840,
+      "cash": 1760,
       "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 84
+        "体力": 100,
+        "精神": 100,
+        "情绪": 97
       }
     },
     {
-      "step": 173,
+      "step": 67,
+      "t": 53.8,
       "day": 2,
       "phase": "encounter",
       "title": "濮老先生 · 先把方案说清楚",
       "action": "翻看与这次处置有关的规范",
       "ap": 0,
-      "cash": 1840,
+      "cash": 1760,
       "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 84
+        "体力": 100,
+        "精神": 100,
+        "情绪": 97
       }
     },
     {
-      "step": 174,
-      "day": 2,
-      "phase": "encounter",
-      "title": "濮老先生 · 先把方案说清楚",
-      "action": "翻看与这次处置有关的规范",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 175,
+      "step": 68,
+      "t": 53.8,
       "day": 2,
       "phase": "confirm",
       "title": "确认这次选择",
       "action": "确认",
       "ap": 0,
-      "cash": 1840,
+      "cash": 1760,
       "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 84
+        "体力": 100,
+        "精神": 100,
+        "情绪": 97
       }
     },
     {
-      "step": 176,
+      "step": 69,
+      "t": 53.9,
       "day": 2,
       "phase": "talk",
       "title": "先把方案说清楚",
       "action": "继续 ▸",
       "ap": 0,
-      "cash": 1840,
+      "cash": 1760,
       "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 84
+        "体力": 100,
+        "精神": 100,
+        "情绪": 97
       }
     },
     {
-      "step": 177,
+      "step": 70,
+      "t": 54,
       "day": 2,
       "phase": "encounter",
       "title": "濮老先生 · 先把方案说清楚",
       "action": "继续工作，暂不回应",
       "ap": 0,
-      "cash": 1840,
+      "cash": 1760,
       "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 84
+        "体力": 100,
+        "精神": 100,
+        "情绪": 97
       }
     },
     {
-      "step": 178,
-      "day": 2,
-      "phase": "encounter",
-      "title": "濮老先生 · 先把方案说清楚",
-      "action": "继续工作，暂不回应",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 84
-      }
-    },
-    {
-      "step": 179,
+      "step": 71,
+      "t": 54,
       "day": 2,
       "phase": "confirm",
       "title": "确认这次选择",
       "action": "确认",
       "ap": 0,
-      "cash": 1840,
+      "cash": 1760,
       "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 84
+        "体力": 100,
+        "精神": 100,
+        "情绪": 97
       }
     },
     {
-      "step": 180,
+      "step": 72,
+      "t": 54.1,
       "day": 2,
       "phase": "talk",
       "title": "先把方案说清楚",
       "action": "继续 ▸",
       "ap": 0,
-      "cash": 1840,
+      "cash": 1760,
       "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 79
+        "体力": 100,
+        "精神": 100,
+        "情绪": 92
       }
     },
     {
-      "step": 181,
-      "day": 2,
-      "phase": "encounter",
-      "title": "濮老先生 · 拍照",
-      "action": "请家属别拍病历和其他人，解释隐私问题",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 79
-      }
-    },
-    {
-      "step": 182,
-      "day": 2,
-      "phase": "encounter",
-      "title": "濮老先生 · 拍照",
-      "action": "请家属别拍病历和其他人，解释隐私问题",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 79
-      }
-    },
-    {
-      "step": 183,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 79
-      }
-    },
-    {
-      "step": 184,
-      "day": 2,
-      "phase": "roll",
-      "title": "制止并解释",
-      "action": "掷二十面骰",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 79
-      }
-    },
-    {
-      "step": 185,
-      "day": 2,
-      "phase": "roll",
-      "title": "制止并解释",
-      "action": "直接看点数",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 79
-      }
-    },
-    {
-      "step": 186,
-      "day": 2,
-      "phase": "roll",
-      "title": "制止并解释",
-      "action": "接受结果 →",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 79
-      }
-    },
-    {
-      "step": 187,
-      "day": 2,
-      "phase": "talk",
-      "title": "拍照",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 74
-      }
-    },
-    {
-      "step": 188,
+      "step": 73,
+      "t": 54.1,
       "day": 2,
       "phase": "map",
       "title": "A病房",
       "action": "打开当班待办",
       "ap": 0,
-      "cash": 1840,
+      "cash": 1760,
       "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 74
+        "体力": 100,
+        "精神": 100,
+        "情绪": 92
       }
     },
     {
-      "step": 189,
+      "step": 74,
+      "t": 54.1,
       "day": 2,
       "phase": "quests",
       "title": "当班待办",
-      "action": "前往 只肯喝粥的一个月",
+      "action": "前往 转发",
       "ap": 0,
-      "cash": 1840,
+      "cash": 1760,
       "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 74
+        "体力": 100,
+        "精神": 100,
+        "情绪": 92
       }
     },
     {
-      "step": 190,
+      "step": 75,
+      "t": 56.6,
       "day": 2,
       "phase": "encounter",
-      "title": "丁爷爷 · 只肯喝粥的一个月",
-      "action": "记录体重趋势",
+      "title": "转发",
+      "action": "回句“知道了”，不继续争",
       "ap": 0,
-      "cash": 1840,
+      "cash": 1760,
       "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 74
+        "体力": 100,
+        "精神": 100,
+        "情绪": 92
       }
     },
     {
-      "step": 191,
-      "day": 2,
-      "phase": "encounter",
-      "title": "丁爷爷 · 只肯喝粥的一个月",
-      "action": "记录体重趋势",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 74
-      }
-    },
-    {
-      "step": 192,
+      "step": 76,
+      "t": 56.6,
       "day": 2,
       "phase": "confirm",
       "title": "确认这次选择",
       "action": "确认",
       "ap": 0,
-      "cash": 1840,
+      "cash": 1760,
       "vitals": {
-        "体力": 65,
-        "精神": 88,
-        "情绪": 74
+        "体力": 100,
+        "精神": 100,
+        "情绪": 92
       }
     },
     {
-      "step": 193,
+      "step": 77,
+      "t": 56.7,
       "day": 2,
       "phase": "talk",
-      "title": "只肯喝粥的一个月",
+      "title": "转发",
       "action": "继续 ▸",
       "ap": 0,
-      "cash": 1840,
+      "cash": 1760,
       "vitals": {
-        "体力": 63,
-        "精神": 88,
-        "情绪": 69
+        "体力": 100,
+        "精神": 98,
+        "情绪": 89
       }
     },
     {
-      "step": 194,
-      "day": 2,
-      "phase": "encounter",
-      "title": "丁爷爷 · 丁爷爷 · 正在录音",
-      "action": "核对记录，继续处理这位患者",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 63,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 195,
-      "day": 2,
-      "phase": "encounter",
-      "title": "丁爷爷 · 丁爷爷 · 正在录音",
-      "action": "核对记录，继续处理这位患者",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 63,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 196,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 63,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 197,
-      "day": 2,
-      "phase": "talk",
-      "title": "丁爷爷 · 正在录音",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 63,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 198,
-      "day": 2,
-      "phase": "encounter",
-      "title": "丁爷爷 · 只肯喝粥的一个月 · 关键核对",
-      "action": "核对贫血与进食",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 63,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 199,
-      "day": 2,
-      "phase": "encounter",
-      "title": "丁爷爷 · 只肯喝粥的一个月 · 关键核对",
-      "action": "核对贫血与进食",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 63,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 200,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 63,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 201,
-      "day": 2,
-      "phase": "talk",
-      "title": "只肯喝粥的一个月 · 关键核对",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 61,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 202,
-      "day": 2,
-      "phase": "encounter",
-      "title": "丁爷爷 · 只肯喝粥的一个月 · 处置决定",
-      "action": "翻看与这次处置有关的规范",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 61,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 203,
-      "day": 2,
-      "phase": "encounter",
-      "title": "丁爷爷 · 只肯喝粥的一个月 · 处置决定",
-      "action": "翻看与这次处置有关的规范",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 61,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 204,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 61,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 205,
-      "day": 2,
-      "phase": "talk",
-      "title": "只肯喝粥的一个月 · 处置决定",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 61,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 206,
-      "day": 2,
-      "phase": "encounter",
-      "title": "丁爷爷 · 只肯喝粥的一个月 · 处置决定",
-      "action": "只开营养补品而不查贫血原因",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 61,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 207,
-      "day": 2,
-      "phase": "encounter",
-      "title": "丁爷爷 · 只肯喝粥的一个月 · 处置决定",
-      "action": "只开营养补品而不查贫血原因",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 61,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 208,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 61,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 209,
-      "day": 2,
-      "phase": "talk",
-      "title": "只肯喝粥的一个月 · 处置决定",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 60,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 210,
-      "day": 2,
-      "phase": "encounter",
-      "title": "丁爷爷 · 只肯喝粥的一个月 · 再次评估",
-      "action": "维持当前安排，留给下一班再评估",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 60,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 211,
-      "day": 2,
-      "phase": "encounter",
-      "title": "丁爷爷 · 只肯喝粥的一个月 · 再次评估",
-      "action": "维持当前安排，留给下一班再评估",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 60,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 212,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 60,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 213,
-      "day": 2,
-      "phase": "talk",
-      "title": "只肯喝粥的一个月 · 再次评估",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 60,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 214,
-      "day": 2,
-      "phase": "encounter",
-      "title": "丁爷爷 · 只肯喝粥的一个月 · 患者的决定",
-      "action": "尊重拒绝，签具体拒绝记录并落实替代支持",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 60,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 215,
-      "day": 2,
-      "phase": "encounter",
-      "title": "丁爷爷 · 只肯喝粥的一个月 · 患者的决定",
-      "action": "尊重拒绝，签具体拒绝记录并落实替代支持",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 60,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 216,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 60,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 217,
-      "day": 2,
-      "phase": "talk",
-      "title": "只肯喝粥的一个月 · 患者的决定",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 218,
-      "day": 2,
-      "phase": "encounter",
-      "title": "丁爷爷 · 只肯喝粥的一个月 · 交接",
-      "action": "请同事复核交班，自己补齐已发生的记录",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 219,
-      "day": 2,
-      "phase": "encounter",
-      "title": "丁爷爷 · 只肯喝粥的一个月 · 交接",
-      "action": "请同事复核交班，自己补齐已发生的记录",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 220,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 221,
-      "day": 2,
-      "phase": "talk",
-      "title": "只肯喝粥的一个月 · 交接",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 222,
-      "day": 2,
-      "phase": "encounter",
-      "title": "丁爷爷 · 只肯喝粥的一个月 · 复评结果",
-      "action": "暂不处理回访，结束本次接诊",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 223,
-      "day": 2,
-      "phase": "encounter",
-      "title": "丁爷爷 · 只肯喝粥的一个月 · 复评结果",
-      "action": "暂不处理回访，结束本次接诊",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 224,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1840,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 225,
-      "day": 2,
-      "phase": "talk",
-      "title": "只肯喝粥的一个月 · 复评结果",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1880,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 226,
-      "day": 2,
-      "phase": "encounter",
-      "title": "丁爷爷 · 丁爷爷 · 提出投诉",
-      "action": "核对记录，继续处理这位患者",
-      "ap": 0,
-      "cash": 1880,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 227,
-      "day": 2,
-      "phase": "encounter",
-      "title": "丁爷爷 · 丁爷爷 · 提出投诉",
-      "action": "核对记录，继续处理这位患者",
-      "ap": 0,
-      "cash": 1880,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 228,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1880,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 229,
-      "day": 2,
-      "phase": "talk",
-      "title": "丁爷爷 · 提出投诉",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1880,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 230,
-      "day": 2,
-      "phase": "encounter",
-      "title": "丁爷爷 · 指名要药",
-      "action": "开进口药，增加的费用记入患者账单",
-      "ap": 0,
-      "cash": 1880,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 231,
-      "day": 2,
-      "phase": "encounter",
-      "title": "丁爷爷 · 指名要药",
-      "action": "开进口药，增加的费用记入患者账单",
-      "ap": 0,
-      "cash": 1880,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 232,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1880,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 233,
-      "day": 2,
-      "phase": "talk",
-      "title": "指名要药",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1761,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 234,
+      "step": 78,
+      "t": 56.7,
       "day": 2,
       "phase": "map",
       "title": "南屏医院 · 住院部",
       "action": "打开当班待办",
       "ap": 0,
-      "cash": 1761,
+      "cash": 1760,
       "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
+        "体力": 100,
+        "精神": 98,
+        "情绪": 89
       }
     },
     {
-      "step": 235,
+      "step": 79,
+      "t": 56.8,
       "day": 2,
       "phase": "quests",
       "title": "当班待办",
-      "action": "前往 加号",
+      "action": "前往 今天由别人接班",
       "ap": 0,
-      "cash": 1761,
+      "cash": 1760,
       "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
+        "体力": 100,
+        "精神": 98,
+        "情绪": 89
       }
     },
     {
-      "step": 236,
+      "step": 80,
+      "t": 64,
+      "day": 2,
+      "phase": "menu",
+      "title": "日终 · 休息与结算",
+      "action": "今天由别人接班",
+      "ap": 0,
+      "cash": 1760,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 89
+      }
+    },
+    {
+      "step": 81,
+      "t": 64.6,
       "day": 2,
       "phase": "encounter",
-      "title": "加号",
-      "action": "今天不加号了，请老人另约",
+      "title": "今天由别人接班",
+      "action": "向科室申请明天停诊休息一天",
       "ap": 0,
-      "cash": 1761,
+      "cash": 1760,
       "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
+        "体力": 100,
+        "精神": 98,
+        "情绪": 89
       }
     },
     {
-      "step": 237,
-      "day": 2,
-      "phase": "encounter",
-      "title": "加号",
-      "action": "今天不加号了，请老人另约",
-      "ap": 0,
-      "cash": 1761,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
-      }
-    },
-    {
-      "step": 238,
+      "step": 82,
+      "t": 64.6,
       "day": 2,
       "phase": "confirm",
       "title": "确认这次选择",
       "action": "确认",
       "ap": 0,
-      "cash": 1761,
+      "cash": 1760,
       "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 69
+        "体力": 100,
+        "精神": 98,
+        "情绪": 89
       }
     },
     {
-      "step": 239,
+      "step": 83,
+      "t": 64.7,
       "day": 2,
       "phase": "talk",
-      "title": "加号",
+      "title": "今天由别人接班",
       "action": "继续 ▸",
       "ap": 0,
-      "cash": 1761,
+      "cash": 1760,
       "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 64
+        "体力": 100,
+        "精神": 98,
+        "情绪": 89
       }
     },
     {
-      "step": 240,
-      "day": 2,
-      "phase": "map",
-      "title": "南屏医院 · 住院部",
-      "action": "打开当班待办",
-      "ap": 0,
-      "cash": 1761,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 64
-      }
-    },
-    {
-      "step": 241,
-      "day": 2,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 停药",
-      "ap": 0,
-      "cash": 1761,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 64
-      }
-    },
-    {
-      "step": 242,
+      "step": 84,
+      "t": 64.7,
       "day": 2,
       "phase": "encounter",
-      "title": "停药",
-      "action": "请母亲盯着他吃药",
+      "title": "今天由别人接班",
+      "action": "接受休息与复评安排",
       "ap": 0,
-      "cash": 1761,
+      "cash": 1760,
       "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 64
+        "体力": 100,
+        "精神": 98,
+        "情绪": 89
       }
     },
     {
-      "step": 243,
-      "day": 2,
-      "phase": "encounter",
-      "title": "停药",
-      "action": "请母亲盯着他吃药",
-      "ap": 0,
-      "cash": 1761,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 64
-      }
-    },
-    {
-      "step": 244,
+      "step": 85,
+      "t": 64.8,
       "day": 2,
       "phase": "confirm",
       "title": "确认这次选择",
       "action": "确认",
       "ap": 0,
-      "cash": 1761,
+      "cash": 1760,
       "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 64
+        "体力": 100,
+        "精神": 98,
+        "情绪": 89
       }
     },
     {
-      "step": 245,
-      "day": 2,
-      "phase": "roll",
-      "title": "让母亲盯着吃",
-      "action": "掷二十面骰",
-      "ap": 0,
-      "cash": 1761,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 64
-      }
-    },
-    {
-      "step": 246,
-      "day": 2,
-      "phase": "roll",
-      "title": "让母亲盯着吃",
-      "action": "直接看点数",
-      "ap": 0,
-      "cash": 1761,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 64
-      }
-    },
-    {
-      "step": 247,
-      "day": 2,
-      "phase": "roll",
-      "title": "让母亲盯着吃",
-      "action": "接受结果 →",
-      "ap": 0,
-      "cash": 1761,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 64
-      }
-    },
-    {
-      "step": 248,
+      "step": 86,
+      "t": 64.8,
       "day": 2,
       "phase": "talk",
-      "title": "停药",
-      "action": "继续 ▸",
+      "title": "今天由别人接班",
+      "action": "结束本日 · 掷骰",
       "ap": 0,
-      "cash": 1761,
+      "cash": 1760,
       "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 59
+        "体力": 100,
+        "精神": 100,
+        "情绪": 99
       }
     },
     {
-      "step": 249,
+      "step": 87,
+      "t": 64.9,
       "day": 2,
       "phase": "map",
-      "title": "南屏医院 · 住院部",
+      "title": "值班室",
       "action": "打开当班待办",
       "ap": 0,
-      "cash": 1761,
+      "cash": 1760,
       "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 59
+        "体力": 100,
+        "精神": 100,
+        "情绪": 99
       }
     },
     {
-      "step": 250,
-      "day": 2,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 深夜要看的病历",
-      "ap": 0,
-      "cash": 1761,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 59
-      }
-    },
-    {
-      "step": 251,
-      "day": 2,
-      "phase": "encounter",
-      "title": "濮老先生 · 深夜要看的病历",
-      "action": "核对身份后让家属查看",
-      "ap": 0,
-      "cash": 1761,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 59
-      }
-    },
-    {
-      "step": 252,
-      "day": 2,
-      "phase": "encounter",
-      "title": "濮老先生 · 深夜要看的病历",
-      "action": "核对身份后让家属查看",
-      "ap": 0,
-      "cash": 1761,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 59
-      }
-    },
-    {
-      "step": 253,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1761,
-      "vitals": {
-        "体力": 57,
-        "精神": 88,
-        "情绪": 59
-      }
-    },
-    {
-      "step": 254,
-      "day": 2,
-      "phase": "talk",
-      "title": "深夜要看的病历",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1861,
-      "vitals": {
-        "体力": 49,
-        "精神": 86,
-        "情绪": 64
-      }
-    },
-    {
-      "step": 255,
-      "day": 2,
-      "phase": "map",
-      "title": "A病房",
-      "action": "打开当班待办",
-      "ap": 0,
-      "cash": 1861,
-      "vitals": {
-        "体力": 49,
-        "精神": 86,
-        "情绪": 64
-      }
-    },
-    {
-      "step": 256,
+      "step": 88,
+      "t": 64.9,
       "day": 2,
       "phase": "quests",
       "title": "当班待办",
       "action": "前往 房东",
       "ap": 0,
-      "cash": 1861,
+      "cash": 1760,
       "vitals": {
-        "体力": 49,
-        "精神": 86,
-        "情绪": 64
+        "体力": 100,
+        "精神": 100,
+        "情绪": 99
       }
     },
     {
-      "step": 257,
-      "day": 2,
-      "phase": "menu",
-      "title": "日终 · 休息与结算",
-      "action": "房东",
-      "ap": 0,
-      "cash": 1861,
-      "vitals": {
-        "体力": 49,
-        "精神": 86,
-        "情绪": 64
-      }
-    },
-    {
-      "step": 258,
+      "step": 89,
+      "t": 65.5,
       "day": 2,
       "phase": "encounter",
       "title": "房东",
       "action": "跟房东谈谈，能不能少涨点",
       "ap": 0,
-      "cash": 1861,
+      "cash": 1760,
       "vitals": {
-        "体力": 49,
-        "精神": 86,
-        "情绪": 64
+        "体力": 100,
+        "精神": 100,
+        "情绪": 99
       }
     },
     {
-      "step": 259,
-      "day": 2,
-      "phase": "encounter",
-      "title": "房东",
-      "action": "跟房东谈谈，能不能少涨点",
-      "ap": 0,
-      "cash": 1861,
-      "vitals": {
-        "体力": 49,
-        "精神": 86,
-        "情绪": 64
-      }
-    },
-    {
-      "step": 260,
+      "step": 90,
+      "t": 65.5,
       "day": 2,
       "phase": "confirm",
       "title": "确认这次选择",
       "action": "确认",
       "ap": 0,
-      "cash": 1861,
+      "cash": 1760,
       "vitals": {
-        "体力": 49,
-        "精神": 86,
-        "情绪": 64
+        "体力": 100,
+        "精神": 100,
+        "情绪": 99
       }
     },
     {
-      "step": 261,
+      "step": 91,
+      "t": 65.6,
       "day": 2,
       "phase": "roll",
       "title": "谈",
       "action": "掷二十面骰",
       "ap": 0,
-      "cash": 1861,
+      "cash": 1760,
       "vitals": {
-        "体力": 49,
-        "精神": 86,
-        "情绪": 64
+        "体力": 100,
+        "精神": 100,
+        "情绪": 99
       }
     },
     {
-      "step": 262,
-      "day": 2,
-      "phase": "roll",
-      "title": "谈",
-      "action": "直接看点数",
-      "ap": 0,
-      "cash": 1861,
-      "vitals": {
-        "体力": 49,
-        "精神": 86,
-        "情绪": 64
-      }
-    },
-    {
-      "step": 263,
+      "step": 92,
+      "t": 66.7,
       "day": 2,
       "phase": "roll",
       "title": "谈",
       "action": "接受结果 →",
       "ap": 0,
-      "cash": 1861,
+      "cash": 1760,
       "vitals": {
-        "体力": 49,
-        "精神": 86,
-        "情绪": 64
+        "体力": 100,
+        "精神": 100,
+        "情绪": 99
       }
     },
     {
-      "step": 264,
+      "step": 93,
+      "t": 66.7,
       "day": 2,
       "phase": "talk",
       "title": "房东",
       "action": "继续 ▸",
       "ap": 0,
-      "cash": 1861,
+      "cash": 1760,
       "vitals": {
-        "体力": 49,
-        "精神": 86,
-        "情绪": 64
+        "体力": 100,
+        "精神": 100,
+        "情绪": 99
       }
     },
     {
-      "step": 265,
-      "day": 2,
-      "phase": "map",
-      "title": "值班室",
-      "action": "打开当班待办",
-      "ap": 0,
-      "cash": 1861,
-      "vitals": {
-        "体力": 49,
-        "精神": 86,
-        "情绪": 64
-      }
-    },
-    {
-      "step": 266,
-      "day": 2,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 灯还亮着",
-      "ap": 0,
-      "cash": 1861,
-      "vitals": {
-        "体力": 49,
-        "精神": 86,
-        "情绪": 64
-      }
-    },
-    {
-      "step": 267,
-      "day": 2,
-      "phase": "encounter",
-      "title": "灯还亮着",
-      "action": "核查当天记录，写补充说明",
-      "ap": 0,
-      "cash": 1861,
-      "vitals": {
-        "体力": 49,
-        "精神": 86,
-        "情绪": 64
-      }
-    },
-    {
-      "step": 268,
-      "day": 2,
-      "phase": "encounter",
-      "title": "灯还亮着",
-      "action": "核查当天记录，写补充说明",
-      "ap": 0,
-      "cash": 1861,
-      "vitals": {
-        "体力": 49,
-        "精神": 86,
-        "情绪": 64
-      }
-    },
-    {
-      "step": 269,
-      "day": 2,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1861,
-      "vitals": {
-        "体力": 49,
-        "精神": 86,
-        "情绪": 64
-      }
-    },
-    {
-      "step": 270,
-      "day": 2,
-      "phase": "talk",
-      "title": "灯还亮着",
-      "action": "结束本日 · 掷骰",
-      "ap": 0,
-      "cash": 1861,
-      "vitals": {
-        "体力": 39,
-        "精神": 84,
-        "情绪": 61
-      }
-    },
-    {
-      "step": 271,
+      "step": 94,
+      "t": 66.8,
       "day": 2,
       "phase": "roll",
       "title": "日终 · 扛住这一夜",
       "action": "掷二十面骰",
       "ap": 0,
-      "cash": 1821,
+      "cash": 1720,
       "vitals": {
-        "体力": 39,
-        "精神": 84,
-        "情绪": 58
+        "体力": 100,
+        "精神": 100,
+        "情绪": 96
       }
     },
     {
-      "step": 272,
-      "day": 2,
-      "phase": "roll",
-      "title": "日终 · 扛住这一夜",
-      "action": "直接看点数",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 39,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 273,
+      "step": 95,
+      "t": 67.8,
       "day": 2,
       "phase": "roll",
       "title": "日终 · 扛住这一夜",
       "action": "接受结果 →",
       "ap": 0,
-      "cash": 1821,
+      "cash": 1720,
       "vitals": {
-        "体力": 39,
-        "精神": 84,
-        "情绪": 58
+        "体力": 100,
+        "精神": 100,
+        "情绪": 96
       }
     },
     {
-      "step": 274,
+      "step": 96,
+      "t": 67.9,
       "day": 2,
       "phase": "debuff",
       "title": "夜里留下的东西",
-      "action": "幻听",
+      "action": "催婚电话",
       "ap": 0,
-      "cash": 1821,
+      "cash": 1720,
       "vitals": {
-        "体力": 39,
-        "精神": 84,
-        "情绪": 58
+        "体力": 100,
+        "精神": 100,
+        "情绪": 96
       }
     },
     {
-      "step": 275,
+      "step": 97,
+      "t": 68,
       "day": 2,
       "phase": "talk",
       "title": "天亮了",
       "action": "迎接下一天 ▸",
       "ap": 0,
-      "cash": 1821,
+      "cash": 1720,
       "vitals": {
-        "体力": 39,
-        "精神": 84,
-        "情绪": 58
+        "体力": 100,
+        "精神": 100,
+        "情绪": 96
       }
     },
     {
-      "step": 276,
+      "step": 98,
+      "t": 68.1,
       "day": 3,
       "phase": "map",
       "title": "值班室",
       "action": "打开当班待办",
-      "ap": 8,
-      "cash": 1821,
-      "vitals": {
-        "体力": 54,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 277,
-      "day": 3,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 顶床",
-      "ap": 8,
-      "cash": 1821,
-      "vitals": {
-        "体力": 54,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 278,
-      "day": 3,
-      "phase": "encounter",
-      "title": "燕奶奶 · 顶床",
-      "action": "先接下来，三张床都只看一眼",
-      "ap": 8,
-      "cash": 1821,
-      "vitals": {
-        "体力": 54,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 279,
-      "day": 3,
-      "phase": "encounter",
-      "title": "燕奶奶 · 顶床",
-      "action": "先接下来，三张床都只看一眼",
-      "ap": 8,
-      "cash": 1821,
-      "vitals": {
-        "体力": 54,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 280,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 8,
-      "cash": 1821,
-      "vitals": {
-        "体力": 54,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 281,
-      "day": 3,
-      "phase": "talk",
-      "title": "顶床",
-      "action": "继续 ▸",
-      "ap": 8,
-      "cash": 1821,
-      "vitals": {
-        "体力": 54,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 282,
-      "day": 3,
-      "phase": "map",
-      "title": "C病房",
-      "action": "打开当班待办",
-      "ap": 8,
-      "cash": 1821,
-      "vitals": {
-        "体力": 54,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 283,
-      "day": 3,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 5 床 · 床旁随访",
-      "ap": 8,
-      "cash": 1821,
-      "vitals": {
-        "体力": 54,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 284,
-      "day": 3,
-      "phase": "encounter",
-      "title": "濮老先生 · 5 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 8,
-      "cash": 1821,
-      "vitals": {
-        "体力": 54,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 285,
-      "day": 3,
-      "phase": "encounter",
-      "title": "濮老先生 · 5 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 8,
-      "cash": 1821,
-      "vitals": {
-        "体力": 54,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 286,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 8,
-      "cash": 1821,
-      "vitals": {
-        "体力": 54,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 287,
-      "day": 3,
-      "phase": "talk",
-      "title": "5 床 · 床旁随访",
-      "action": "继续 ▸",
-      "ap": 7,
-      "cash": 1821,
-      "vitals": {
-        "体力": 51,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 288,
-      "day": 3,
-      "phase": "map",
-      "title": "A病房",
-      "action": "打开当班待办",
-      "ap": 7,
-      "cash": 1821,
-      "vitals": {
-        "体力": 51,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 289,
-      "day": 3,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 6 床 · 床旁随访",
-      "ap": 7,
-      "cash": 1821,
-      "vitals": {
-        "体力": 51,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 290,
-      "day": 3,
-      "phase": "encounter",
-      "title": "靖奶奶 · 6 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 7,
-      "cash": 1821,
-      "vitals": {
-        "体力": 51,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 291,
-      "day": 3,
-      "phase": "encounter",
-      "title": "靖奶奶 · 6 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 7,
-      "cash": 1821,
-      "vitals": {
-        "体力": 51,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 292,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 7,
-      "cash": 1821,
-      "vitals": {
-        "体力": 51,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 293,
-      "day": 3,
-      "phase": "talk",
-      "title": "6 床 · 床旁随访",
-      "action": "继续 ▸",
-      "ap": 6,
-      "cash": 1821,
-      "vitals": {
-        "体力": 48,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 294,
-      "day": 3,
-      "phase": "map",
-      "title": "A病房",
-      "action": "打开当班待办",
-      "ap": 6,
-      "cash": 1821,
-      "vitals": {
-        "体力": 48,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 295,
-      "day": 3,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 7 床 · 床旁随访",
-      "ap": 6,
-      "cash": 1821,
-      "vitals": {
-        "体力": 48,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 296,
-      "day": 3,
-      "phase": "encounter",
-      "title": "佘爷爷 · 7 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 6,
-      "cash": 1821,
-      "vitals": {
-        "体力": 48,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 297,
-      "day": 3,
-      "phase": "encounter",
-      "title": "佘爷爷 · 7 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 6,
-      "cash": 1821,
-      "vitals": {
-        "体力": 48,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 298,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 6,
-      "cash": 1821,
-      "vitals": {
-        "体力": 48,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 299,
-      "day": 3,
-      "phase": "talk",
-      "title": "7 床 · 床旁随访",
-      "action": "继续 ▸",
-      "ap": 5,
-      "cash": 1821,
-      "vitals": {
-        "体力": 45,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 300,
-      "day": 3,
-      "phase": "map",
-      "title": "A病房",
-      "action": "打开当班待办",
-      "ap": 5,
-      "cash": 1821,
-      "vitals": {
-        "体力": 45,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 301,
-      "day": 3,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 8 床 · 床旁随访",
-      "ap": 5,
-      "cash": 1821,
-      "vitals": {
-        "体力": 45,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 302,
-      "day": 3,
-      "phase": "encounter",
-      "title": "单阿婆 · 8 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 5,
-      "cash": 1821,
-      "vitals": {
-        "体力": 45,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 303,
-      "day": 3,
-      "phase": "encounter",
-      "title": "单阿婆 · 8 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 5,
-      "cash": 1821,
-      "vitals": {
-        "体力": 45,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 304,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 5,
-      "cash": 1821,
-      "vitals": {
-        "体力": 45,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 305,
-      "day": 3,
-      "phase": "talk",
-      "title": "8 床 · 床旁随访",
-      "action": "继续 ▸",
-      "ap": 4,
-      "cash": 1821,
-      "vitals": {
-        "体力": 42,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 306,
-      "day": 3,
-      "phase": "map",
-      "title": "A病房",
-      "action": "打开当班待办",
-      "ap": 4,
-      "cash": 1821,
-      "vitals": {
-        "体力": 42,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 307,
-      "day": 3,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 9 床 · 床旁随访",
-      "ap": 4,
-      "cash": 1821,
-      "vitals": {
-        "体力": 42,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 308,
-      "day": 3,
-      "phase": "encounter",
-      "title": "巩姐 · 9 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 4,
-      "cash": 1821,
-      "vitals": {
-        "体力": 42,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 309,
-      "day": 3,
-      "phase": "encounter",
-      "title": "巩姐 · 9 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 4,
-      "cash": 1821,
-      "vitals": {
-        "体力": 42,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 310,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 4,
-      "cash": 1821,
-      "vitals": {
-        "体力": 42,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 311,
-      "day": 3,
-      "phase": "talk",
-      "title": "9 床 · 床旁随访",
-      "action": "继续 ▸",
-      "ap": 3,
-      "cash": 1821,
-      "vitals": {
-        "体力": 39,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 312,
-      "day": 3,
-      "phase": "map",
-      "title": "B病房",
-      "action": "打开当班待办",
-      "ap": 3,
-      "cash": 1821,
-      "vitals": {
-        "体力": 39,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 313,
-      "day": 3,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 10 床 · 床旁随访",
-      "ap": 3,
-      "cash": 1821,
-      "vitals": {
-        "体力": 39,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 314,
-      "day": 3,
-      "phase": "encounter",
-      "title": "沈岚 · 10 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 3,
-      "cash": 1821,
-      "vitals": {
-        "体力": 39,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 315,
-      "day": 3,
-      "phase": "encounter",
-      "title": "沈岚 · 10 床 · 床旁随访",
-      "action": "床旁监测、复核并解释后续安排",
-      "ap": 3,
-      "cash": 1821,
-      "vitals": {
-        "体力": 39,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 316,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 3,
-      "cash": 1821,
-      "vitals": {
-        "体力": 39,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 317,
-      "day": 3,
-      "phase": "talk",
-      "title": "10 床 · 床旁随访",
-      "action": "继续 ▸",
-      "ap": 2,
-      "cash": 1821,
-      "vitals": {
-        "体力": 36,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 318,
-      "day": 3,
-      "phase": "map",
-      "title": "B病房",
-      "action": "打开当班待办",
-      "ap": 2,
-      "cash": 1821,
-      "vitals": {
-        "体力": 36,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 319,
-      "day": 3,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 家属要求隐瞒",
-      "ap": 2,
-      "cash": 1821,
-      "vitals": {
-        "体力": 36,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 320,
-      "day": 3,
-      "phase": "encounter",
-      "title": "姬阿婆 · 家属要求隐瞒",
-      "action": "翻看与这次处置有关的规范",
-      "ap": 2,
-      "cash": 1821,
-      "vitals": {
-        "体力": 36,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 321,
-      "day": 3,
-      "phase": "encounter",
-      "title": "姬阿婆 · 家属要求隐瞒",
-      "action": "翻看与这次处置有关的规范",
-      "ap": 2,
-      "cash": 1821,
-      "vitals": {
-        "体力": 36,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 322,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 2,
-      "cash": 1821,
-      "vitals": {
-        "体力": 36,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 323,
-      "day": 3,
-      "phase": "talk",
-      "title": "家属要求隐瞒",
-      "action": "继续 ▸",
-      "ap": 2,
-      "cash": 1821,
-      "vitals": {
-        "体力": 36,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 324,
-      "day": 3,
-      "phase": "encounter",
-      "title": "姬阿婆 · 家属要求隐瞒",
-      "action": "按子女的意思，只跟老人说是炎症",
-      "ap": 2,
-      "cash": 1821,
-      "vitals": {
-        "体力": 36,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 325,
-      "day": 3,
-      "phase": "encounter",
-      "title": "姬阿婆 · 家属要求隐瞒",
-      "action": "按子女的意思，只跟老人说是炎症",
-      "ap": 2,
-      "cash": 1821,
-      "vitals": {
-        "体力": 36,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 326,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 2,
-      "cash": 1821,
-      "vitals": {
-        "体力": 36,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 327,
-      "day": 3,
-      "phase": "talk",
-      "title": "家属要求隐瞒",
-      "action": "继续 ▸",
-      "ap": 2,
-      "cash": 1821,
-      "vitals": {
-        "体力": 36,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 328,
-      "day": 3,
-      "phase": "map",
-      "title": "C病房",
-      "action": "打开当班待办",
-      "ap": 2,
-      "cash": 1821,
-      "vitals": {
-        "体力": 36,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 329,
-      "day": 3,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 接诊",
-      "ap": 2,
-      "cash": 1821,
-      "vitals": {
-        "体力": 36,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 330,
-      "day": 3,
-      "phase": "menu",
-      "title": "留观 · 许舟",
-      "action": "接诊",
-      "ap": 2,
-      "cash": 1821,
-      "vitals": {
-        "体力": 36,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 331,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 接诊",
-      "action": "请室友回避，追问服药片数与时间",
-      "ap": 2,
-      "cash": 1821,
-      "vitals": {
-        "体力": 36,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 332,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 接诊",
-      "action": "请室友回避，追问服药片数与时间",
-      "ap": 2,
-      "cash": 1821,
-      "vitals": {
-        "体力": 36,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 333,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 2,
-      "cash": 1821,
-      "vitals": {
-        "体力": 36,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 334,
-      "day": 3,
-      "phase": "roll",
-      "title": "能否问清这段病史",
-      "action": "掷二十面骰",
-      "ap": 2,
-      "cash": 1821,
-      "vitals": {
-        "体力": 36,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 335,
-      "day": 3,
-      "phase": "roll",
-      "title": "能否问清这段病史",
-      "action": "直接看点数",
-      "ap": 2,
-      "cash": 1821,
-      "vitals": {
-        "体力": 36,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 336,
-      "day": 3,
-      "phase": "roll",
-      "title": "能否问清这段病史",
-      "action": "接受结果 →",
-      "ap": 2,
-      "cash": 1821,
-      "vitals": {
-        "体力": 36,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 337,
-      "day": 3,
-      "phase": "talk",
-      "title": "接诊",
-      "action": "继续 ▸",
-      "ap": 1,
-      "cash": 1821,
-      "vitals": {
-        "体力": 35,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 338,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 检查与解毒",
-      "action": "8 小时内启动乙酰半胱氨酸 21 小时方案",
-      "ap": 1,
-      "cash": 1821,
-      "vitals": {
-        "体力": 35,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 339,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 检查与解毒",
-      "action": "8 小时内启动乙酰半胱氨酸 21 小时方案",
-      "ap": 1,
-      "cash": 1821,
-      "vitals": {
-        "体力": 35,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 340,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 1,
-      "cash": 1821,
-      "vitals": {
-        "体力": 35,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 341,
-      "day": 3,
-      "phase": "talk",
-      "title": "检查与解毒",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 34,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 342,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 检查与解毒",
-      "action": "翻看与这次处置有关的规范",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 34,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 343,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 检查与解毒",
-      "action": "翻看与这次处置有关的规范",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 34,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 344,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 34,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 345,
-      "day": 3,
-      "phase": "talk",
-      "title": "检查与解毒",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 34,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 346,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 检查与解毒",
-      "action": "加查血乙醇与常见药物筛查",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 34,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 347,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 检查与解毒",
-      "action": "加查血乙醇与常见药物筛查",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 34,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 348,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 34,
-        "精神": 84,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 349,
-      "day": 3,
-      "phase": "talk",
-      "title": "检查与解毒",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 29,
-        "精神": 82,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 350,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 检查与解毒",
-      "action": "只查血常规与电解质",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 29,
-        "精神": 82,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 351,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 检查与解毒",
-      "action": "只查血常规与电解质",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 29,
-        "精神": 82,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 352,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 29,
-        "精神": 82,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 353,
-      "day": 3,
-      "phase": "talk",
-      "title": "检查与解毒",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 24,
-        "精神": 80,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 354,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 精神状态评估与会诊",
-      "action": "患者否认，不评估、不会诊",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 24,
-        "精神": 80,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 355,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 精神状态评估与会诊",
-      "action": "患者否认，不评估、不会诊",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 24,
-        "精神": 80,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 356,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 24,
-        "精神": 80,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 357,
-      "day": 3,
-      "phase": "talk",
-      "title": "精神状态评估与会诊",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 19,
-        "精神": 78,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 358,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 精神状态评估与会诊",
-      "action": "请精神科急会诊",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 19,
-        "精神": 78,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 359,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 精神状态评估与会诊",
-      "action": "请精神科急会诊",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 19,
-        "精神": 78,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 360,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 19,
-        "精神": 78,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 361,
-      "day": 3,
-      "phase": "talk",
-      "title": "精神状态评估与会诊",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 13,
-        "精神": 76,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 362,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 观察、看护与告知",
-      "action": "按患者要求不通知家属，由室友陪护",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 13,
-        "精神": 76,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 363,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 观察、看护与告知",
-      "action": "按患者要求不通知家属，由室友陪护",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 13,
-        "精神": 76,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 364,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 13,
-        "精神": 76,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 365,
-      "day": 3,
-      "phase": "talk",
-      "title": "观察、看护与告知",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 8,
-        "精神": 74,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 366,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 观察、看护与告知",
-      "action": "留观至疗程结束，24 小时复查肝功凝血",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 8,
-        "精神": 74,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 367,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 观察、看护与告知",
-      "action": "留观至疗程结束，24 小时复查肝功凝血",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 8,
-        "精神": 74,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 368,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 8,
-        "精神": 74,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 369,
-      "day": 3,
-      "phase": "talk",
-      "title": "观察、看护与告知",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 3,
-        "精神": 72,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 370,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 记录",
-      "action": "记录剂量时间、解毒、评估、会诊与告知",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 3,
-        "精神": 72,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 371,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 记录",
-      "action": "记录剂量时间、解毒、评估、会诊与告知",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 3,
-        "精神": 72,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 372,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 3,
-        "精神": 72,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 373,
-      "day": 3,
-      "phase": "roll",
-      "title": "能否把这次处置和沟通完整记入文书",
-      "action": "掷二十面骰",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 3,
-        "精神": 72,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 374,
-      "day": 3,
-      "phase": "roll",
-      "title": "能否把这次处置和沟通完整记入文书",
-      "action": "直接看点数",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 3,
-        "精神": 72,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 375,
-      "day": 3,
-      "phase": "roll",
-      "title": "能否把这次处置和沟通完整记入文书",
-      "action": "接受结果 →",
-      "ap": 0,
-      "cash": 1821,
-      "vitals": {
-        "体力": 3,
-        "精神": 72,
-        "情绪": 58
-      }
-    },
-    {
-      "step": 376,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 十二导联",
-      "action": "报告收好，接着上班",
-      "ap": 0,
-      "cash": 1861,
-      "vitals": {
-        "体力": 0,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 377,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 十二导联",
-      "action": "报告收好，接着上班",
-      "ap": 0,
-      "cash": 1861,
-      "vitals": {
-        "体力": 0,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 378,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1861,
-      "vitals": {
-        "体力": 0,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 379,
-      "day": 3,
-      "phase": "talk",
-      "title": "十二导联",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1861,
-      "vitals": {
-        "体力": 13,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 380,
-      "day": 3,
-      "phase": "talk",
-      "title": "记录",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1861,
-      "vitals": {
-        "体力": 13,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 381,
-      "day": 3,
-      "phase": "map",
-      "title": "留观室",
-      "action": "前往咖啡台",
-      "ap": 0,
-      "cash": 1861,
-      "vitals": {
-        "体力": 13,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 382,
-      "day": 3,
-      "phase": "recovery",
-      "title": "值班室 · 咖啡",
-      "action": "确认购买这一杯",
-      "ap": 0,
-      "cash": 1861,
-      "vitals": {
-        "体力": 13,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 383,
-      "day": 3,
-      "phase": "talk",
-      "title": "纸杯",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 28,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 384,
-      "day": 3,
-      "phase": "map",
-      "title": "值班室",
-      "action": "打开当班待办",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 28,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 385,
-      "day": 3,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 陶小雯 · 接诊前的核对",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 28,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 386,
-      "day": 3,
-      "phase": "encounter",
-      "title": "陶小雯 · 陶小雯 · 接诊前的核对",
-      "action": "保持现有病史，暂不单独补问",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 28,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 387,
-      "day": 3,
-      "phase": "encounter",
-      "title": "陶小雯 · 陶小雯 · 接诊前的核对",
-      "action": "保持现有病史，暂不单独补问",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 28,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 388,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 28,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 389,
-      "day": 3,
-      "phase": "talk",
-      "title": "陶小雯 · 接诊前的核对",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 28,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 390,
-      "day": 3,
-      "phase": "encounter",
-      "title": "陶小雯 · 校服里的心率",
-      "action": "先依据现有记录安排下一步",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 28,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 391,
-      "day": 3,
-      "phase": "encounter",
-      "title": "陶小雯 · 校服里的心率",
-      "action": "先依据现有记录安排下一步",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 28,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 392,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 28,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 393,
-      "day": 3,
-      "phase": "talk",
-      "title": "校服里的心率",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 28,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 394,
-      "day": 3,
-      "phase": "encounter",
-      "title": "陶小雯 · 校服里的心率 · 处置决定",
-      "action": "快速大量静脉葡萄糖不监测磷",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 28,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 395,
-      "day": 3,
-      "phase": "encounter",
-      "title": "陶小雯 · 校服里的心率 · 处置决定",
-      "action": "快速大量静脉葡萄糖不监测磷",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 28,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 396,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 28,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 397,
-      "day": 3,
-      "phase": "talk",
-      "title": "校服里的心率 · 处置决定",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 27,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 398,
-      "day": 3,
-      "phase": "encounter",
-      "title": "陶小雯 · 校服里的心率 · 再次评估",
-      "action": "维持当前安排，留给下一班再解释",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 27,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 399,
-      "day": 3,
-      "phase": "encounter",
-      "title": "陶小雯 · 校服里的心率 · 再次评估",
-      "action": "维持当前安排，留给下一班再解释",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 27,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 400,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 27,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 401,
-      "day": 3,
-      "phase": "talk",
-      "title": "校服里的心率 · 再次评估",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 27,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 402,
-      "day": 3,
-      "phase": "encounter",
-      "title": "陶小雯 · 校服里的心率 · 家属沟通与决定",
-      "action": "核实监护人决定或备案依据，记录具体拒绝并落实替代支持",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 27,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 403,
-      "day": 3,
-      "phase": "encounter",
-      "title": "陶小雯 · 校服里的心率 · 家属沟通与决定",
-      "action": "核实监护人决定或备案依据，记录具体拒绝并落实替代支持",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 27,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 404,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 27,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 405,
-      "day": 3,
-      "phase": "talk",
-      "title": "校服里的心率 · 家属沟通与决定",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 406,
-      "day": 3,
-      "phase": "encounter",
-      "title": "陶小雯 · 校服里的心率 · 交接",
-      "action": "请同事复核交班，自己补齐已发生的记录",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 407,
-      "day": 3,
-      "phase": "encounter",
-      "title": "陶小雯 · 校服里的心率 · 交接",
-      "action": "请同事复核交班，自己补齐已发生的记录",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 408,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 409,
-      "day": 3,
-      "phase": "talk",
-      "title": "校服里的心率 · 交接",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 410,
-      "day": 3,
-      "phase": "encounter",
-      "title": "陶小雯 · 校服里的心率 · 复评结果",
-      "action": "翻看与这次处置有关的规范",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 411,
-      "day": 3,
-      "phase": "encounter",
-      "title": "陶小雯 · 校服里的心率 · 复评结果",
-      "action": "翻看与这次处置有关的规范",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 412,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 413,
-      "day": 3,
-      "phase": "talk",
-      "title": "校服里的心率 · 复评结果",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 414,
-      "day": 3,
-      "phase": "encounter",
-      "title": "陶小雯 · 校服里的心率 · 复评结果",
-      "action": "暂不处理回访，结束本次接诊",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 415,
-      "day": 3,
-      "phase": "encounter",
-      "title": "陶小雯 · 校服里的心率 · 复评结果",
-      "action": "暂不处理回访，结束本次接诊",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 416,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1846,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 417,
-      "day": 3,
-      "phase": "talk",
-      "title": "校服里的心率 · 复评结果",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 68
-      }
-    },
-    {
-      "step": 418,
-      "day": 3,
-      "phase": "map",
-      "title": "B病房",
-      "action": "打开当班待办",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 68
-      }
-    },
-    {
-      "step": 419,
-      "day": 3,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 回扣",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 68
-      }
-    },
-    {
-      "step": 420,
-      "day": 3,
-      "phase": "encounter",
-      "title": "赵师傅 · 回扣",
-      "action": "换成患者要的便宜药",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 68
-      }
-    },
-    {
-      "step": 421,
-      "day": 3,
-      "phase": "encounter",
-      "title": "赵师傅 · 回扣",
-      "action": "换成患者要的便宜药",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 68
-      }
-    },
-    {
-      "step": 422,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 68
-      }
-    },
-    {
-      "step": 423,
-      "day": 3,
-      "phase": "talk",
-      "title": "回扣",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 68
-      }
-    },
-    {
-      "step": 424,
-      "day": 3,
-      "phase": "map",
-      "title": "留观室",
-      "action": "打开当班待办",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 68
-      }
-    },
-    {
-      "step": 425,
-      "day": 3,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 桌角的手机",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 68
-      }
-    },
-    {
-      "step": 426,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 桌角的手机",
-      "action": "请他暂停，先单独问患者",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 68
-      }
-    },
-    {
-      "step": 427,
-      "day": 3,
-      "phase": "encounter",
-      "title": "许舟 · 桌角的手机",
-      "action": "请他暂停，先单独问患者",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 68
-      }
-    },
-    {
-      "step": 428,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 68
-      }
-    },
-    {
-      "step": 429,
-      "day": 3,
-      "phase": "talk",
-      "title": "桌角的手机",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 430,
-      "day": 3,
-      "phase": "map",
-      "title": "留观室",
-      "action": "打开当班待办",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 431,
-      "day": 3,
-      "phase": "quests",
-      "title": "当班待办",
-      "action": "前往 替一次夜班",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 432,
-      "day": 3,
-      "phase": "encounter",
-      "title": "替一次夜班",
-      "action": "换他一个白班，先留时间交接",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 433,
-      "day": 3,
-      "phase": "encounter",
-      "title": "替一次夜班",
-      "action": "换他一个白班，先留时间交接",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 434,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 435,
-      "day": 3,
-      "phase": "talk",
-      "title": "替一次夜班",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 436,
-      "day": 3,
-      "phase": "map",
-      "title": "南屏医院 · 住院部",
-      "action": "打开当班待办",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1720,
       "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
+        "体力": 100,
+        "精神": 100,
+        "情绪": 96
       }
     },
     {
-      "step": 437,
+      "step": 99,
+      "t": 68.1,
       "day": 3,
       "phase": "quests",
       "title": "当班待办",
       "action": "前往 陪床",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1720,
       "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
+        "体力": 100,
+        "精神": 100,
+        "情绪": 96
       }
     },
     {
-      "step": 438,
+      "step": 100,
+      "t": 72.3,
       "day": 3,
       "phase": "encounter",
       "title": "陪床",
       "action": "请两天假，回去陪床",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1720,
       "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
+        "体力": 100,
+        "精神": 100,
+        "情绪": 96
       }
     },
     {
-      "step": 439,
-      "day": 3,
-      "phase": "encounter",
-      "title": "陪床",
-      "action": "请两天假，回去陪床",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
-      }
-    },
-    {
-      "step": 440,
+      "step": 101,
+      "t": 72.3,
       "day": 3,
       "phase": "confirm",
       "title": "确认这次选择",
       "action": "确认",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1720,
       "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 63
+        "体力": 100,
+        "精神": 100,
+        "情绪": 96
       }
     },
     {
-      "step": 441,
+      "step": 102,
+      "t": 72.4,
       "day": 3,
       "phase": "talk",
       "title": "陪床",
       "action": "继续 ▸",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1720,
       "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 53
+        "体力": 100,
+        "精神": 100,
+        "情绪": 86
       }
     },
     {
-      "step": 442,
+      "step": 103,
+      "t": 72.5,
       "day": 3,
       "phase": "map",
       "title": "南屏医院 · 住院部",
       "action": "打开当班待办",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1720,
       "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 53
+        "体力": 100,
+        "精神": 100,
+        "情绪": 86
       }
     },
     {
-      "step": 443,
+      "step": 104,
+      "t": 72.5,
       "day": 3,
       "phase": "quests",
       "title": "当班待办",
-      "action": "前往 雍师傅 · 接诊前的核对",
+      "action": "前往 今天由别人接班",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1720,
       "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 53
+        "体力": 100,
+        "精神": 100,
+        "情绪": 86
       }
     },
     {
-      "step": 444,
+      "step": 105,
+      "t": 79.7,
+      "day": 3,
+      "phase": "menu",
+      "title": "日终 · 休息与结算",
+      "action": "今天由别人接班",
+      "ap": 0,
+      "cash": 1720,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 86
+      }
+    },
+    {
+      "step": 106,
+      "t": 80.3,
       "day": 3,
       "phase": "encounter",
-      "title": "雍师傅 · 雍师傅 · 接诊前的核对",
-      "action": "落实回家后的照护人与联络方式",
+      "title": "今天由别人接班",
+      "action": "给家里打电话，把自己的情况说清楚",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1720,
       "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 53
+        "体力": 100,
+        "精神": 100,
+        "情绪": 86
       }
     },
     {
-      "step": 445,
-      "day": 3,
-      "phase": "encounter",
-      "title": "雍师傅 · 雍师傅 · 接诊前的核对",
-      "action": "落实回家后的照护人与联络方式",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 446,
+      "step": 107,
+      "t": 80.4,
       "day": 3,
       "phase": "confirm",
       "title": "确认这次选择",
       "action": "确认",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1720,
       "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 53
+        "体力": 100,
+        "精神": 100,
+        "情绪": 86
       }
     },
     {
-      "step": 447,
+      "step": 108,
+      "t": 80.5,
       "day": 3,
       "phase": "roll",
-      "title": "核实患者或陪同者尚未说全的信息",
+      "title": "家人能否接受你对婚事的安排",
       "action": "掷二十面骰",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1720,
       "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 53
+        "体力": 100,
+        "精神": 100,
+        "情绪": 86
       }
     },
     {
-      "step": 448,
+      "step": 109,
+      "t": 81.5,
       "day": 3,
       "phase": "roll",
-      "title": "核实患者或陪同者尚未说全的信息",
-      "action": "直接看点数",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 449,
-      "day": 3,
-      "phase": "roll",
-      "title": "核实患者或陪同者尚未说全的信息",
+      "title": "家人能否接受你对婚事的安排",
       "action": "接受结果 →",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1720,
       "vitals": {
-        "体力": 24,
-        "精神": 70,
-        "情绪": 53
+        "体力": 100,
+        "精神": 100,
+        "情绪": 86
       }
     },
     {
-      "step": 450,
+      "step": 110,
+      "t": 81.6,
       "day": 3,
       "phase": "talk",
-      "title": "雍师傅 · 接诊前的核对",
+      "title": "今天由别人接班",
       "action": "继续 ▸",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1720,
       "vitals": {
-        "体力": 16,
-        "精神": 65,
-        "情绪": 53
+        "体力": 100,
+        "精神": 100,
+        "情绪": 81
       }
     },
     {
-      "step": 451,
+      "step": 111,
+      "t": 81.6,
       "day": 3,
       "phase": "encounter",
-      "title": "雍师傅 · 酒气之下",
-      "action": "先依据现有记录安排下一步",
+      "title": "今天由别人接班",
+      "action": "接受休息与复评安排",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1720,
       "vitals": {
-        "体力": 16,
-        "精神": 65,
-        "情绪": 53
+        "体力": 100,
+        "精神": 100,
+        "情绪": 81
       }
     },
     {
-      "step": 452,
+      "step": 112,
+      "t": 81.7,
       "day": 3,
       "phase": "confirm",
       "title": "确认这次选择",
       "action": "确认",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1720,
       "vitals": {
-        "体力": 16,
-        "精神": 65,
-        "情绪": 53
+        "体力": 100,
+        "精神": 100,
+        "情绪": 81
       }
     },
     {
-      "step": 453,
+      "step": 113,
+      "t": 81.7,
       "day": 3,
       "phase": "talk",
-      "title": "酒气之下",
-      "action": "继续 ▸",
+      "title": "今天由别人接班",
+      "action": "结束本日 · 掷骰",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1720,
       "vitals": {
-        "体力": 16,
-        "精神": 65,
-        "情绪": 53
+        "体力": 100,
+        "精神": 100,
+        "情绪": 91
       }
     },
     {
-      "step": 454,
-      "day": 3,
-      "phase": "encounter",
-      "title": "雍师傅 · 酒气之下 · 处置决定",
-      "action": "血糖回升至 6 后即放行，不留观、不静脉维持",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 16,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 455,
-      "day": 3,
-      "phase": "encounter",
-      "title": "雍师傅 · 酒气之下 · 处置决定",
-      "action": "血糖回升至 6 后即放行，不留观、不静脉维持",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 16,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 456,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 16,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 457,
-      "day": 3,
-      "phase": "talk",
-      "title": "酒气之下 · 处置决定",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 15,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 458,
-      "day": 3,
-      "phase": "encounter",
-      "title": "雍师傅 · 酒气之下 · 再次评估",
-      "action": "维持当前安排，留给下一班再评估",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 15,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 459,
-      "day": 3,
-      "phase": "encounter",
-      "title": "雍师傅 · 酒气之下 · 再次评估",
-      "action": "维持当前安排，留给下一班再评估",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 15,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 460,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 15,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 461,
-      "day": 3,
-      "phase": "talk",
-      "title": "酒气之下 · 再次评估",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 15,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 462,
-      "day": 3,
-      "phase": "encounter",
-      "title": "雍师傅 · 酒气之下 · 患者的决定",
-      "action": "尊重拒绝，签具体拒绝记录并落实替代支持",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 15,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 463,
-      "day": 3,
-      "phase": "encounter",
-      "title": "雍师傅 · 酒气之下 · 患者的决定",
-      "action": "尊重拒绝，签具体拒绝记录并落实替代支持",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 15,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 464,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 15,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 465,
-      "day": 3,
-      "phase": "talk",
-      "title": "酒气之下 · 患者的决定",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 12,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 466,
-      "day": 3,
-      "phase": "encounter",
-      "title": "雍师傅 · 酒气之下 · 交接",
-      "action": "请同事复核交班，自己补齐已发生的记录",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 12,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 467,
-      "day": 3,
-      "phase": "encounter",
-      "title": "雍师傅 · 酒气之下 · 交接",
-      "action": "请同事复核交班，自己补齐已发生的记录",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 12,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 468,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 12,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 469,
-      "day": 3,
-      "phase": "talk",
-      "title": "酒气之下 · 交接",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 12,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 470,
-      "day": 3,
-      "phase": "encounter",
-      "title": "雍师傅 · 酒气之下 · 复评结果",
-      "action": "翻看与这次处置有关的规范",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 12,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 471,
-      "day": 3,
-      "phase": "encounter",
-      "title": "雍师傅 · 酒气之下 · 复评结果",
-      "action": "翻看与这次处置有关的规范",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 12,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 472,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 12,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 473,
-      "day": 3,
-      "phase": "talk",
-      "title": "酒气之下 · 复评结果",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 12,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 474,
-      "day": 3,
-      "phase": "encounter",
-      "title": "雍师傅 · 酒气之下 · 复评结果",
-      "action": "逐项补上未完成的沟通、复查与交接",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 12,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 475,
-      "day": 3,
-      "phase": "encounter",
-      "title": "雍师傅 · 酒气之下 · 复评结果",
-      "action": "逐项补上未完成的沟通、复查与交接",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 12,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 476,
-      "day": 3,
-      "phase": "confirm",
-      "title": "确认这次选择",
-      "action": "确认",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 12,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 477,
-      "day": 3,
-      "phase": "talk",
-      "title": "酒气之下 · 复评结果",
-      "action": "继续 ▸",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 8,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 478,
+      "step": 114,
+      "t": 81.8,
       "day": 3,
       "phase": "map",
-      "title": "急救室",
+      "title": "值班室",
       "action": "打开当班待办",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1720,
       "vitals": {
-        "体力": 8,
-        "精神": 65,
-        "情绪": 53
+        "体力": 100,
+        "精神": 100,
+        "情绪": 91
       }
     },
     {
-      "step": 479,
+      "step": 115,
+      "t": 81.8,
       "day": 3,
       "phase": "quests",
       "title": "当班待办",
-      "action": "前往 赵师傅 · 接诊前的核对",
+      "action": "前往 停电",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1720,
       "vitals": {
-        "体力": 8,
-        "精神": 65,
-        "情绪": 53
+        "体力": 100,
+        "精神": 100,
+        "情绪": 91
       }
     },
     {
-      "step": 480,
+      "step": 116,
+      "t": 82.4,
       "day": 3,
       "phase": "encounter",
-      "title": "赵师傅 · 赵师傅 · 接诊前的核对",
-      "action": "翻看与这次处置有关的规范",
+      "title": "停电",
+      "action": "问同事能不能借住一晚",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1720,
       "vitals": {
-        "体力": 8,
-        "精神": 65,
-        "情绪": 53
+        "体力": 100,
+        "精神": 100,
+        "情绪": 91
       }
     },
     {
-      "step": 481,
-      "day": 3,
-      "phase": "encounter",
-      "title": "赵师傅 · 赵师傅 · 接诊前的核对",
-      "action": "翻看与这次处置有关的规范",
-      "ap": 0,
-      "cash": 1886,
-      "vitals": {
-        "体力": 8,
-        "精神": 65,
-        "情绪": 53
-      }
-    },
-    {
-      "step": 482,
+      "step": 117,
+      "t": 82.4,
       "day": 3,
       "phase": "confirm",
       "title": "确认这次选择",
       "action": "确认",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1720,
       "vitals": {
-        "体力": 8,
-        "精神": 65,
-        "情绪": 53
+        "体力": 100,
+        "精神": 100,
+        "情绪": 91
       }
     },
     {
-      "step": 483,
+      "step": 118,
+      "t": 82.5,
       "day": 3,
       "phase": "talk",
-      "title": "赵师傅 · 接诊前的核对",
+      "title": "停电",
       "action": "继续 ▸",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1720,
       "vitals": {
-        "体力": 8,
-        "精神": 65,
-        "情绪": 53
+        "体力": 100,
+        "精神": 100,
+        "情绪": 88
       }
     },
     {
-      "step": 484,
+      "step": 119,
+      "t": 82.6,
       "day": 3,
-      "phase": "encounter",
-      "title": "赵师傅 · 赵师傅 · 接诊前的核对",
-      "action": "请合适的同事协助核对，并确认结果",
+      "phase": "roll",
+      "title": "日终 · 扛住这一夜",
+      "action": "掷二十面骰",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1680,
       "vitals": {
-        "体力": 8,
-        "精神": 65,
-        "情绪": 53
+        "体力": 100,
+        "精神": 99,
+        "情绪": 79
       }
     },
     {
-      "step": 485,
+      "step": 120,
+      "t": 83.6,
       "day": 3,
-      "phase": "encounter",
-      "title": "赵师傅 · 赵师傅 · 接诊前的核对",
-      "action": "请合适的同事协助核对，并确认结果",
+      "phase": "roll",
+      "title": "日终 · 扛住这一夜",
+      "action": "接受结果 →",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1680,
       "vitals": {
-        "体力": 8,
-        "精神": 65,
-        "情绪": 53
+        "体力": 100,
+        "精神": 99,
+        "情绪": 79
       }
     },
     {
-      "step": 486,
+      "step": 121,
+      "t": 83.7,
       "day": 3,
+      "phase": "debuff",
+      "title": "夜里留下的东西",
+      "action": "胃痛",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 99,
+        "情绪": 79
+      }
+    },
+    {
+      "step": 122,
+      "t": 83.7,
+      "day": 3,
+      "phase": "talk",
+      "title": "天亮了",
+      "action": "迎接下一天 ▸",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 99,
+        "情绪": 79
+      }
+    },
+    {
+      "step": 123,
+      "t": 83.9,
+      "day": 4,
+      "phase": "map",
+      "title": "值班室",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 79
+      }
+    },
+    {
+      "step": 124,
+      "t": 83.9,
+      "day": 4,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 一份旧记录",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 79
+      }
+    },
+    {
+      "step": 125,
+      "t": 94.6,
+      "day": 4,
+      "phase": "encounter",
+      "title": "韩峻 · 一份旧记录",
+      "action": "提交现有材料，请医务科继续核对",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 79
+      }
+    },
+    {
+      "step": 126,
+      "t": 94.6,
+      "day": 4,
       "phase": "confirm",
       "title": "确认这次选择",
       "action": "确认",
       "ap": 0,
-      "cash": 1886,
+      "cash": 1680,
       "vitals": {
-        "体力": 8,
-        "精神": 65,
-        "情绪": 53
+        "体力": 100,
+        "精神": 100,
+        "情绪": 79
       }
     },
     {
-      "step": 487,
+      "step": 127,
+      "t": 94.7,
+      "day": 4,
+      "phase": "talk",
+      "title": "一份旧记录",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 79
+      }
+    },
+    {
+      "step": 128,
+      "t": 94.7,
+      "day": 4,
+      "phase": "map",
+      "title": "留观室",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 79
+      }
+    },
+    {
+      "step": 129,
+      "t": 94.8,
+      "day": 4,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 打个招呼",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 79
+      }
+    },
+    {
+      "step": 130,
+      "t": 109.4,
+      "day": 4,
+      "phase": "encounter",
+      "title": "打个招呼",
+      "action": "诊疗按流程来，这个招呼我不打",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 79
+      }
+    },
+    {
+      "step": 131,
+      "t": 109.4,
+      "day": 4,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 79
+      }
+    },
+    {
+      "step": 132,
+      "t": 109.5,
+      "day": 4,
+      "phase": "talk",
+      "title": "打个招呼",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 74
+      }
+    },
+    {
+      "step": 133,
+      "t": 109.6,
+      "day": 4,
+      "phase": "map",
+      "title": "南屏医院 · 住院部",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 74
+      }
+    },
+    {
+      "step": 134,
+      "t": 109.6,
+      "day": 4,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 今天由别人接班",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 74
+      }
+    },
+    {
+      "step": 135,
+      "t": 116.8,
+      "day": 4,
+      "phase": "menu",
+      "title": "日终 · 休息与结算",
+      "action": "今天由别人接班",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 74
+      }
+    },
+    {
+      "step": 136,
+      "t": 117.4,
+      "day": 4,
+      "phase": "encounter",
+      "title": "今天由别人接班",
+      "action": "给家里打电话，把自己的情况说清楚",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 74
+      }
+    },
+    {
+      "step": 137,
+      "t": 117.5,
+      "day": 4,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 74
+      }
+    },
+    {
+      "step": 138,
+      "t": 117.5,
+      "day": 4,
+      "phase": "roll",
+      "title": "家人能否接受你对婚事的安排",
+      "action": "掷二十面骰",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 74
+      }
+    },
+    {
+      "step": 139,
+      "t": 118.6,
+      "day": 4,
+      "phase": "roll",
+      "title": "家人能否接受你对婚事的安排",
+      "action": "接受结果 →",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 74
+      }
+    },
+    {
+      "step": 140,
+      "t": 118.6,
+      "day": 4,
+      "phase": "talk",
+      "title": "今天由别人接班",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 74
+      }
+    },
+    {
+      "step": 141,
+      "t": 118.7,
+      "day": 4,
+      "phase": "encounter",
+      "title": "今天由别人接班",
+      "action": "向科室申请明天停诊休息一天",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 74
+      }
+    },
+    {
+      "step": 142,
+      "t": 118.7,
+      "day": 4,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 74
+      }
+    },
+    {
+      "step": 143,
+      "t": 118.8,
+      "day": 4,
+      "phase": "talk",
+      "title": "今天由别人接班",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 74
+      }
+    },
+    {
+      "step": 144,
+      "t": 118.9,
+      "day": 4,
+      "phase": "encounter",
+      "title": "今天由别人接班",
+      "action": "接受休息与复评安排",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 74
+      }
+    },
+    {
+      "step": 145,
+      "t": 118.9,
+      "day": 4,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 74
+      }
+    },
+    {
+      "step": 146,
+      "t": 119,
+      "day": 4,
+      "phase": "talk",
+      "title": "今天由别人接班",
+      "action": "结束本日 · 掷骰",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 84
+      }
+    },
+    {
+      "step": 147,
+      "t": 119,
+      "day": 4,
+      "phase": "map",
+      "title": "值班室",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 84
+      }
+    },
+    {
+      "step": 148,
+      "t": 119.1,
+      "day": 4,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 横幅",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 84
+      }
+    },
+    {
+      "step": 149,
+      "t": 119.6,
+      "day": 4,
+      "phase": "encounter",
+      "title": "横幅",
+      "action": "从横幅旁边走过去",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 84
+      }
+    },
+    {
+      "step": 150,
+      "t": 119.7,
+      "day": 4,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 84
+      }
+    },
+    {
+      "step": 151,
+      "t": 119.8,
+      "day": 4,
+      "phase": "talk",
+      "title": "横幅",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 1680,
+      "vitals": {
+        "体力": 100,
+        "精神": 95,
+        "情绪": 84
+      }
+    },
+    {
+      "step": 152,
+      "t": 119.8,
+      "day": 4,
+      "phase": "roll",
+      "title": "日终 · 扛住这一夜",
+      "action": "掷二十面骰",
+      "ap": 0,
+      "cash": 1640,
+      "vitals": {
+        "体力": 100,
+        "精神": 93,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 153,
+      "t": 120.9,
+      "day": 4,
+      "phase": "roll",
+      "title": "日终 · 扛住这一夜",
+      "action": "接受结果 →",
+      "ap": 0,
+      "cash": 1640,
+      "vitals": {
+        "体力": 100,
+        "精神": 93,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 154,
+      "t": 121,
+      "day": 4,
+      "phase": "debuff",
+      "title": "夜里留下的东西",
+      "action": "主任盯上",
+      "ap": 0,
+      "cash": 1640,
+      "vitals": {
+        "体力": 100,
+        "精神": 93,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 155,
+      "t": 121,
+      "day": 4,
+      "phase": "talk",
+      "title": "天亮了",
+      "action": "迎接下一天 ▸",
+      "ap": 0,
+      "cash": 1640,
+      "vitals": {
+        "体力": 100,
+        "精神": 93,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 156,
+      "t": 121.1,
+      "day": 5,
+      "phase": "map",
+      "title": "值班室",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 1640,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 157,
+      "t": 121.1,
+      "day": 5,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 示教室",
+      "ap": 0,
+      "cash": 1640,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 158,
+      "t": 125.4,
+      "day": 5,
+      "phase": "encounter",
+      "title": "靖奶奶 · 示教室",
+      "action": "请实习生整理，明早我来核对",
+      "ap": 0,
+      "cash": 1640,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 159,
+      "t": 125.5,
+      "day": 5,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 1640,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 160,
+      "t": 125.6,
+      "day": 5,
+      "phase": "roll",
+      "title": "让实习生整理",
+      "action": "掷二十面骰",
+      "ap": 0,
+      "cash": 1640,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 161,
+      "t": 126.6,
+      "day": 5,
+      "phase": "roll",
+      "title": "让实习生整理",
+      "action": "接受结果 →",
+      "ap": 0,
+      "cash": 1640,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 162,
+      "t": 126.6,
+      "day": 5,
+      "phase": "talk",
+      "title": "示教室",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 1640,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 163,
+      "t": 126.7,
+      "day": 5,
+      "phase": "map",
+      "title": "A病房",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 1640,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 164,
+      "t": 126.7,
+      "day": 5,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 过户",
+      "ap": 0,
+      "cash": 1640,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 165,
+      "t": 129.7,
+      "day": 5,
+      "phase": "encounter",
+      "title": "过户",
+      "action": "不同意，房子的事要一起商量",
+      "ap": 0,
+      "cash": 1640,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 166,
+      "t": 129.7,
+      "day": 5,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 1640,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 167,
+      "t": 129.8,
+      "day": 5,
+      "phase": "talk",
+      "title": "过户",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 1640,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 70
+      }
+    },
+    {
+      "step": 168,
+      "t": 129.9,
+      "day": 5,
+      "phase": "funding",
+      "title": "余额不足",
+      "action": "刷信用额度，补齐差额",
+      "ap": 0,
+      "cash": -2260,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 70
+      }
+    },
+    {
+      "step": 169,
+      "t": 130,
+      "day": 5,
+      "phase": "map",
+      "title": "南屏医院 · 住院部",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 70
+      }
+    },
+    {
+      "step": 170,
+      "t": 130,
+      "day": 5,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 今天由别人接班",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 70
+      }
+    },
+    {
+      "step": 171,
+      "t": 137.2,
+      "day": 5,
+      "phase": "menu",
+      "title": "日终 · 休息与结算",
+      "action": "今天由别人接班",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 70
+      }
+    },
+    {
+      "step": 172,
+      "t": 137.8,
+      "day": 5,
+      "phase": "encounter",
+      "title": "今天由别人接班",
+      "action": "向科室申请明天停诊休息一天",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 70
+      }
+    },
+    {
+      "step": 173,
+      "t": 137.9,
+      "day": 5,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 70
+      }
+    },
+    {
+      "step": 174,
+      "t": 137.9,
+      "day": 5,
+      "phase": "talk",
+      "title": "今天由别人接班",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 70
+      }
+    },
+    {
+      "step": 175,
+      "t": 138,
+      "day": 5,
+      "phase": "encounter",
+      "title": "今天由别人接班",
+      "action": "接受休息与复评安排",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 70
+      }
+    },
+    {
+      "step": 176,
+      "t": 138,
+      "day": 5,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 98,
+        "情绪": 70
+      }
+    },
+    {
+      "step": 177,
+      "t": 138.1,
+      "day": 5,
+      "phase": "talk",
+      "title": "今天由别人接班",
+      "action": "结束本日 · 掷骰",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 178,
+      "t": 138.2,
+      "day": 5,
+      "phase": "map",
+      "title": "值班室",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 179,
+      "t": 138.2,
+      "day": 5,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 规培考试",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 180,
+      "t": 138.8,
+      "day": 5,
+      "phase": "encounter",
+      "title": "规培考试",
+      "action": "问同事借往年题，考前过一遍",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 181,
+      "t": 138.8,
+      "day": 5,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 182,
+      "t": 138.9,
+      "day": 5,
+      "phase": "talk",
+      "title": "规培考试",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 183,
+      "t": 139,
+      "day": 5,
+      "phase": "funding",
+      "title": "余额不足",
+      "action": "刷信用额度，补齐差额",
+      "ap": 0,
+      "cash": -1190,
+      "vitals": {
+        "体力": 100,
+        "精神": 97,
+        "情绪": 75
+      }
+    },
+    {
+      "step": 184,
+      "t": 139,
+      "day": 5,
+      "phase": "roll",
+      "title": "日终 · 扛住这一夜",
+      "action": "掷二十面骰",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 97,
+        "情绪": 75
+      }
+    },
+    {
+      "step": 185,
+      "t": 140.1,
+      "day": 5,
+      "phase": "roll",
+      "title": "日终 · 扛住这一夜",
+      "action": "接受结果 →",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 97,
+        "情绪": 75
+      }
+    },
+    {
+      "step": 186,
+      "t": 140.2,
+      "day": 5,
+      "phase": "debuff",
+      "title": "夜里留下的东西",
+      "action": "护士长记账",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 97,
+        "情绪": 75
+      }
+    },
+    {
+      "step": 187,
+      "t": 140.2,
+      "day": 5,
+      "phase": "talk",
+      "title": "天亮了",
+      "action": "迎接下一天 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 97,
+        "情绪": 75
+      }
+    },
+    {
+      "step": 188,
+      "t": 140.3,
+      "day": 6,
+      "phase": "map",
+      "title": "值班室",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 75
+      }
+    },
+    {
+      "step": 189,
+      "t": 140.4,
+      "day": 6,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 短信",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 75
+      }
+    },
+    {
+      "step": 190,
+      "t": 141.5,
+      "day": 6,
+      "phase": "encounter",
+      "title": "短信",
+      "action": "退八百元，留好退款记录",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 75
+      }
+    },
+    {
+      "step": 191,
+      "t": 141.5,
+      "day": 6,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 75
+      }
+    },
+    {
+      "step": 192,
+      "t": 141.6,
+      "day": 6,
+      "phase": "funding",
+      "title": "余额不足",
+      "action": "刷信用额度，补齐差额",
+      "ap": 0,
+      "cash": -800,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 75
+      }
+    },
+    {
+      "step": 193,
+      "t": 141.7,
+      "day": 6,
+      "phase": "talk",
+      "title": "短信",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 75
+      }
+    },
+    {
+      "step": 194,
+      "t": 141.7,
+      "day": 6,
+      "phase": "map",
+      "title": "护士站",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 75
+      }
+    },
+    {
+      "step": 195,
+      "t": 141.8,
+      "day": 6,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 月供",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 75
+      }
+    },
+    {
+      "step": 196,
+      "t": 146.8,
+      "day": 6,
+      "phase": "encounter",
+      "title": "月供",
+      "action": "问伴侣能不能先付这期月供",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 75
+      }
+    },
+    {
+      "step": 197,
+      "t": 146.8,
+      "day": 6,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 75
+      }
+    },
+    {
+      "step": 198,
+      "t": 146.9,
+      "day": 6,
+      "phase": "talk",
+      "title": "月供",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 70
+      }
+    },
+    {
+      "step": 199,
+      "t": 147,
+      "day": 6,
+      "phase": "map",
+      "title": "南屏医院 · 住院部",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 70
+      }
+    },
+    {
+      "step": 200,
+      "t": 147,
+      "day": 6,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 今天由别人接班",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 70
+      }
+    },
+    {
+      "step": 201,
+      "t": 154,
+      "day": 6,
+      "phase": "menu",
+      "title": "日终 · 休息与结算",
+      "action": "今天由别人接班",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 70
+      }
+    },
+    {
+      "step": 202,
+      "t": 154.6,
+      "day": 6,
+      "phase": "encounter",
+      "title": "今天由别人接班",
+      "action": "接受休息与复评安排",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 70
+      }
+    },
+    {
+      "step": 203,
+      "t": 154.6,
+      "day": 6,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 70
+      }
+    },
+    {
+      "step": 204,
+      "t": 154.7,
+      "day": 6,
+      "phase": "talk",
+      "title": "今天由别人接班",
+      "action": "结束本日 · 掷骰",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 205,
+      "t": 154.8,
+      "day": 6,
+      "phase": "map",
+      "title": "值班室",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 206,
+      "t": 154.8,
+      "day": 6,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 额度",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 207,
+      "t": 155.4,
+      "day": 6,
+      "phase": "encounter",
+      "title": "额度",
+      "action": "向科室申请明天停诊休息一天",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 208,
+      "t": 155.5,
+      "day": 6,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 209,
+      "t": 155.5,
+      "day": 6,
+      "phase": "talk",
+      "title": "额度",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 210,
+      "t": 155.6,
+      "day": 6,
+      "phase": "encounter",
+      "title": "额度",
+      "action": "划掉，不借",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 211,
+      "t": 155.6,
+      "day": 6,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 80
+      }
+    },
+    {
+      "step": 212,
+      "t": 155.7,
+      "day": 6,
+      "phase": "talk",
+      "title": "额度",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 77
+      }
+    },
+    {
+      "step": 213,
+      "t": 155.8,
+      "day": 6,
+      "phase": "funding",
+      "title": "余额不足",
+      "action": "刷信用额度，补齐差额",
+      "ap": 0,
+      "cash": -3917,
+      "vitals": {
+        "体力": 100,
+        "精神": 96,
+        "情绪": 66
+      }
+    },
+    {
+      "step": 214,
+      "t": 156,
+      "day": 6,
+      "phase": "roll",
+      "title": "日终 · 扛住这一夜",
+      "action": "掷二十面骰",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 96,
+        "情绪": 66
+      }
+    },
+    {
+      "step": 215,
+      "t": 156.9,
+      "day": 6,
+      "phase": "roll",
+      "title": "日终 · 扛住这一夜",
+      "action": "接受结果 →",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 96,
+        "情绪": 66
+      }
+    },
+    {
+      "step": 216,
+      "t": 157,
+      "day": 6,
+      "phase": "debuff",
+      "title": "夜里留下的东西",
+      "action": "迟记",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 96,
+        "情绪": 66
+      }
+    },
+    {
+      "step": 217,
+      "t": 157.1,
+      "day": 6,
+      "phase": "talk",
+      "title": "天亮了",
+      "action": "迎接下一天 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 96,
+        "情绪": 66
+      }
+    },
+    {
+      "step": 218,
+      "t": 157.2,
+      "day": 7,
+      "phase": "map",
+      "title": "值班室",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 219,
+      "t": 157.2,
+      "day": 7,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 录音与病程",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 220,
+      "t": 161.8,
+      "day": 7,
+      "phase": "encounter",
+      "title": "濮老先生 · 录音与病程",
+      "action": "与家属谈，出示完整病程",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 221,
+      "t": 161.9,
+      "day": 7,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 222,
+      "t": 162,
+      "day": 7,
+      "phase": "roll",
+      "title": "核对完整病程与录音时间",
+      "action": "掷二十面骰",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 223,
+      "t": 163.1,
+      "day": 7,
+      "phase": "roll",
+      "title": "核对完整病程与录音时间",
+      "action": "接受结果 →",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 224,
+      "t": 163.1,
+      "day": 7,
+      "phase": "talk",
+      "title": "录音与病程",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 225,
+      "t": 163.2,
+      "day": 7,
+      "phase": "map",
+      "title": "A病房",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 226,
+      "t": 163.2,
+      "day": 7,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 倒数第一",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 227,
+      "t": 169.9,
+      "day": 7,
+      "phase": "encounter",
+      "title": "倒数第一",
+      "action": "整理病例依据，在群里说明超支原因",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 228,
+      "t": 170,
+      "day": 7,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 229,
+      "t": 170.2,
+      "day": 7,
+      "phase": "roll",
+      "title": "群里解释病例",
+      "action": "掷二十面骰",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 230,
+      "t": 171.1,
+      "day": 7,
+      "phase": "roll",
+      "title": "群里解释病例",
+      "action": "接受结果 →",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 231,
+      "t": 171.2,
+      "day": 7,
+      "phase": "talk",
+      "title": "倒数第一",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 232,
+      "t": 171.3,
+      "day": 7,
+      "phase": "map",
+      "title": "主任办公室",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 233,
+      "t": 171.3,
+      "day": 7,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 两份病历",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 234,
+      "t": 178,
+      "day": 7,
+      "phase": "encounter",
+      "title": "濮老先生 · 两份病历",
+      "action": "请护士长把缺签的那页换掉",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 235,
+      "t": 178.1,
+      "day": 7,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 236,
+      "t": 178.3,
+      "day": 7,
+      "phase": "roll",
+      "title": "请护士长帮忙换页",
+      "action": "掷二十面骰",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 237,
+      "t": 179.2,
+      "day": 7,
+      "phase": "roll",
+      "title": "请护士长帮忙换页",
+      "action": "接受结果 →",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 238,
+      "t": 179.3,
+      "day": 7,
+      "phase": "talk",
+      "title": "两份病历",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 239,
+      "t": 179.4,
+      "day": 7,
+      "phase": "map",
+      "title": "A病房",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 240,
+      "t": 179.4,
+      "day": 7,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 医嘱单",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 241,
+      "t": 181.8,
+      "day": 7,
+      "phase": "encounter",
+      "title": "医嘱单",
+      "action": "打给主管医生，问清这三种抗菌药",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 242,
+      "t": 181.9,
+      "day": 7,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 243,
+      "t": 182.1,
+      "day": 7,
+      "phase": "roll",
+      "title": "打电话给那边的医生",
+      "action": "掷二十面骰",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 244,
+      "t": 183.1,
+      "day": 7,
+      "phase": "roll",
+      "title": "打电话给那边的医生",
+      "action": "接受结果 →",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 245,
+      "t": 183.1,
+      "day": 7,
+      "phase": "talk",
+      "title": "医嘱单",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 97,
+        "精神": 100,
+        "情绪": 46
+      }
+    },
+    {
+      "step": 246,
+      "t": 183.2,
+      "day": 7,
+      "phase": "map",
+      "title": "南屏医院 · 住院部",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 97,
+        "精神": 100,
+        "情绪": 46
+      }
+    },
+    {
+      "step": 247,
+      "t": 183.2,
+      "day": 7,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 今天由别人接班",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 97,
+        "精神": 100,
+        "情绪": 46
+      }
+    },
+    {
+      "step": 248,
+      "t": 190.2,
+      "day": 7,
+      "phase": "menu",
+      "title": "日终 · 休息与结算",
+      "action": "今天由别人接班",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 97,
+        "精神": 100,
+        "情绪": 46
+      }
+    },
+    {
+      "step": 249,
+      "t": 190.8,
+      "day": 7,
+      "phase": "encounter",
+      "title": "今天由别人接班",
+      "action": "向科室申请明天停诊休息一天",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 97,
+        "精神": 100,
+        "情绪": 46
+      }
+    },
+    {
+      "step": 250,
+      "t": 190.9,
+      "day": 7,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 97,
+        "精神": 100,
+        "情绪": 46
+      }
+    },
+    {
+      "step": 251,
+      "t": 191,
+      "day": 7,
+      "phase": "talk",
+      "title": "今天由别人接班",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 97,
+        "精神": 100,
+        "情绪": 46
+      }
+    },
+    {
+      "step": 252,
+      "t": 191,
+      "day": 7,
+      "phase": "encounter",
+      "title": "今天由别人接班",
+      "action": "接受休息与复评安排",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 97,
+        "精神": 100,
+        "情绪": 46
+      }
+    },
+    {
+      "step": 253,
+      "t": 191,
+      "day": 7,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 97,
+        "精神": 100,
+        "情绪": 46
+      }
+    },
+    {
+      "step": 254,
+      "t": 191.1,
+      "day": 7,
+      "phase": "talk",
+      "title": "今天由别人接班",
+      "action": "结束本日 · 掷骰",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 97,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 255,
+      "t": 191.2,
+      "day": 7,
+      "phase": "map",
+      "title": "值班室",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 97,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 256,
+      "t": 191.2,
+      "day": 7,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 聚会",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 97,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 257,
+      "t": 191.8,
+      "day": 7,
+      "phase": "encounter",
+      "title": "聚会",
+      "action": "人不过去，视频聊到一点",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 97,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 258,
+      "t": 191.9,
+      "day": 7,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 97,
+        "精神": 100,
+        "情绪": 56
+      }
+    },
+    {
+      "step": 259,
+      "t": 191.9,
+      "day": 7,
+      "phase": "talk",
+      "title": "聚会",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 97,
+        "精神": 100,
+        "情绪": 59
+      }
+    },
+    {
+      "step": 260,
+      "t": 192,
+      "day": 7,
+      "phase": "funding",
+      "title": "余额不足",
+      "action": "刷信用额度，补齐差额",
+      "ap": 0,
+      "cash": -6784,
+      "vitals": {
+        "体力": 80,
+        "精神": 95,
+        "情绪": 11
+      }
+    },
+    {
+      "step": 261,
+      "t": 192.1,
+      "day": 7,
+      "phase": "map",
+      "title": "值班室",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 80,
+        "精神": 95,
+        "情绪": 11
+      }
+    },
+    {
+      "step": 262,
+      "t": 192.1,
+      "day": 7,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 主任的两条建议",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 80,
+        "精神": 95,
+        "情绪": 11
+      }
+    },
+    {
+      "step": 263,
+      "t": 194.8,
+      "day": 7,
+      "phase": "encounter",
+      "title": "主任的两条建议",
+      "action": "该查该治的照做，住院也按指征来",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 80,
+        "精神": 95,
+        "情绪": 11
+      }
+    },
+    {
+      "step": 264,
+      "t": 194.8,
+      "day": 7,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 80,
+        "精神": 95,
+        "情绪": 11
+      }
+    },
+    {
+      "step": 265,
+      "t": 194.9,
+      "day": 7,
+      "phase": "talk",
+      "title": "主任的两条建议",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 80,
+        "精神": 95,
+        "情绪": 11
+      }
+    },
+    {
+      "step": 266,
+      "t": 195,
+      "day": 7,
+      "phase": "roll",
+      "title": "日终 · 扛住这一夜",
+      "action": "掷二十面骰",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 80,
+        "精神": 95,
+        "情绪": 11
+      }
+    },
+    {
+      "step": 267,
+      "t": 196,
+      "day": 7,
+      "phase": "roll",
+      "title": "日终 · 扛住这一夜",
+      "action": "接受结果 →",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 80,
+        "精神": 95,
+        "情绪": 11
+      }
+    },
+    {
+      "step": 268,
+      "t": 196.1,
+      "day": 7,
+      "phase": "debuff",
+      "title": "夜里留下的东西",
+      "action": "同事疏远",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 80,
+        "精神": 95,
+        "情绪": 11
+      }
+    },
+    {
+      "step": 269,
+      "t": 196.2,
+      "day": 7,
+      "phase": "talk",
+      "title": "天亮了",
+      "action": "迎接下一天 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 80,
+        "精神": 95,
+        "情绪": 11
+      }
+    },
+    {
+      "step": 270,
+      "t": 196.3,
+      "day": 8,
+      "phase": "map",
+      "title": "主任办公室",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 11
+      }
+    },
+    {
+      "step": 271,
+      "t": 196.4,
+      "day": 8,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 电话",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 11
+      }
+    },
+    {
+      "step": 272,
+      "t": 200.7,
+      "day": 8,
+      "phase": "encounter",
+      "title": "电话",
+      "action": "我请假回去，钱先请家里凑",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 11
+      }
+    },
+    {
+      "step": 273,
+      "t": 200.7,
+      "day": 8,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 11
+      }
+    },
+    {
+      "step": 274,
+      "t": 200.8,
+      "day": 8,
+      "phase": "encounter",
+      "title": "走廊",
+      "action": "道歉，重新回答家属的问题",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 0
+      }
+    },
+    {
+      "step": 275,
+      "t": 200.8,
+      "day": 8,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 0
+      }
+    },
+    {
+      "step": 276,
+      "t": 201.1,
+      "day": 8,
+      "phase": "roll",
+      "title": "道歉",
+      "action": "掷二十面骰",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 0
+      }
+    },
+    {
+      "step": 277,
+      "t": 202,
+      "day": 8,
+      "phase": "roll",
+      "title": "道歉",
+      "action": "接受结果 →",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 0
+      }
+    },
+    {
+      "step": 278,
+      "t": 202.1,
+      "day": 8,
+      "phase": "talk",
+      "title": "走廊",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 40
+      }
+    },
+    {
+      "step": 279,
+      "t": 202.1,
+      "day": 8,
+      "phase": "talk",
+      "title": "电话",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 40
+      }
+    },
+    {
+      "step": 280,
+      "t": 202.2,
+      "day": 8,
+      "phase": "map",
+      "title": "南屏医院 · 住院部",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 40
+      }
+    },
+    {
+      "step": 281,
+      "t": 202.2,
+      "day": 8,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 完整的一句话",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 40
+      }
+    },
+    {
+      "step": 282,
+      "t": 202.8,
+      "day": 8,
+      "phase": "encounter",
+      "title": "完整的一句话",
+      "action": "我也快累死了，忍不住吵起来",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 40
+      }
+    },
+    {
+      "step": 283,
+      "t": 202.9,
+      "day": 8,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 40
+      }
+    },
+    {
+      "step": 284,
+      "t": 203,
+      "day": 8,
+      "phase": "talk",
+      "title": "完整的一句话",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 95,
+        "情绪": 25
+      }
+    },
+    {
+      "step": 285,
+      "t": 203,
+      "day": 8,
+      "phase": "map",
+      "title": "南屏医院 · 住院部",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 95,
+        "情绪": 25
+      }
+    },
+    {
+      "step": 286,
+      "t": 203.1,
+      "day": 8,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 今天由别人接班",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 95,
+        "情绪": 25
+      }
+    },
+    {
+      "step": 287,
+      "t": 210.1,
+      "day": 8,
+      "phase": "menu",
+      "title": "日终 · 休息与结算",
+      "action": "今天由别人接班",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 95,
+        "情绪": 25
+      }
+    },
+    {
+      "step": 288,
+      "t": 210.7,
+      "day": 8,
+      "phase": "encounter",
+      "title": "今天由别人接班",
+      "action": "接受休息与复评安排",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 95,
+        "情绪": 25
+      }
+    },
+    {
+      "step": 289,
+      "t": 210.7,
+      "day": 8,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 95,
+        "情绪": 25
+      }
+    },
+    {
+      "step": 290,
+      "t": 210.8,
+      "day": 8,
+      "phase": "talk",
+      "title": "今天由别人接班",
+      "action": "结束本日 · 掷骰",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 35
+      }
+    },
+    {
+      "step": 291,
+      "t": 210.8,
+      "day": 8,
+      "phase": "map",
+      "title": "值班室",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 35
+      }
+    },
+    {
+      "step": 292,
+      "t": 210.9,
+      "day": 8,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 楼下的同事",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 35
+      }
+    },
+    {
+      "step": 293,
+      "t": 211.5,
+      "day": 8,
+      "phase": "encounter",
+      "title": "楼下的同事",
+      "action": "不管他，自己回宿舍",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 35
+      }
+    },
+    {
+      "step": 294,
+      "t": 211.5,
+      "day": 8,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 35
+      }
+    },
+    {
+      "step": 295,
+      "t": 211.6,
+      "day": 8,
+      "phase": "talk",
+      "title": "楼下的同事",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 100,
+        "情绪": 35
+      }
+    },
+    {
+      "step": 296,
+      "t": 211.7,
+      "day": 8,
+      "phase": "funding",
+      "title": "余额不足",
+      "action": "刷信用额度，补齐差额",
+      "ap": 0,
+      "cash": -6799,
+      "vitals": {
+        "体力": 100,
+        "精神": 94,
+        "情绪": 3
+      }
+    },
+    {
+      "step": 297,
+      "t": 212,
+      "day": 8,
+      "phase": "roll",
+      "title": "日终 · 扛住这一夜",
+      "action": "掷二十面骰",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 94,
+        "情绪": 3
+      }
+    },
+    {
+      "step": 298,
+      "t": 212.9,
+      "day": 8,
+      "phase": "roll",
+      "title": "日终 · 扛住这一夜",
+      "action": "接受结果 →",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 94,
+        "情绪": 3
+      }
+    },
+    {
+      "step": 299,
+      "t": 213,
+      "day": 8,
+      "phase": "debuff",
+      "title": "夜里留下的东西",
+      "action": "多开一项（临时）",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 94,
+        "情绪": 3
+      }
+    },
+    {
+      "step": 300,
+      "t": 213.1,
+      "day": 8,
+      "phase": "talk",
+      "title": "天亮了",
+      "action": "迎接下一天 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 94,
+        "情绪": 3
+      }
+    },
+    {
+      "step": 301,
+      "t": 213.2,
+      "day": 9,
+      "phase": "map",
+      "title": "值班室",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 99,
+        "情绪": 3
+      }
+    },
+    {
+      "step": 302,
+      "t": 213.3,
+      "day": 9,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 需要补交的说明",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 99,
+        "情绪": 3
+      }
+    },
+    {
+      "step": 303,
+      "t": 224.2,
+      "day": 9,
+      "phase": "encounter",
+      "title": "韩峻 · 需要补交的说明",
+      "action": "暂不答复，把通知留在待办里",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 99,
+        "情绪": 3
+      }
+    },
+    {
+      "step": 304,
+      "t": 224.3,
+      "day": 9,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 99,
+        "情绪": 3
+      }
+    },
+    {
+      "step": 305,
+      "t": 224.4,
+      "day": 9,
+      "phase": "talk",
+      "title": "需要补交的说明",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 99,
+        "情绪": 1
+      }
+    },
+    {
+      "step": 306,
+      "t": 224.4,
+      "day": 9,
+      "phase": "map",
+      "title": "留观室",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 99,
+        "情绪": 1
+      }
+    },
+    {
+      "step": 307,
+      "t": 224.5,
+      "day": 9,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 约谈",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 99,
+        "情绪": 1
+      }
+    },
+    {
+      "step": 308,
+      "t": 236.1,
+      "day": 9,
+      "phase": "encounter",
+      "title": "约谈",
+      "action": "说明医嘱是上级要求开的",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 99,
+        "情绪": 1
+      }
+    },
+    {
+      "step": 309,
+      "t": 236.1,
+      "day": 9,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 99,
+        "情绪": 1
+      }
+    },
+    {
+      "step": 310,
+      "t": 236.3,
+      "day": 9,
+      "phase": "funding",
+      "title": "余额不足",
+      "action": "刷信用额度，补齐差额",
+      "ap": 0,
+      "cash": -1200,
+      "vitals": {
+        "体力": 100,
+        "精神": 99,
+        "情绪": 1
+      }
+    },
+    {
+      "step": 311,
+      "t": 236.4,
+      "day": 9,
+      "phase": "talk",
+      "title": "约谈",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 99,
+        "情绪": 1
+      }
+    },
+    {
+      "step": 312,
+      "t": 236.5,
+      "day": 9,
+      "phase": "map",
+      "title": "护士站",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 99,
+        "情绪": 1
+      }
+    },
+    {
+      "step": 313,
+      "t": 236.5,
+      "day": 9,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 今日费用",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 99,
+        "情绪": 1
+      }
+    },
+    {
+      "step": 314,
+      "t": 241.4,
+      "day": 9,
+      "phase": "encounter",
+      "title": "今日费用",
+      "action": "和 ICU 医生核对项目，商量明天的费用",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 99,
+        "情绪": 1
+      }
+    },
+    {
+      "step": 315,
+      "t": 241.4,
+      "day": 9,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 99,
+        "情绪": 1
+      }
+    },
+    {
+      "step": 316,
+      "t": 241.7,
+      "day": 9,
+      "phase": "roll",
+      "title": "打电话问 ICU 医生能否减项",
+      "action": "掷二十面骰",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 99,
+        "情绪": 1
+      }
+    },
+    {
+      "step": 317,
+      "t": 242.6,
+      "day": 9,
+      "phase": "roll",
+      "title": "打电话问 ICU 医生能否减项",
+      "action": "接受结果 →",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 100,
+        "精神": 99,
+        "情绪": 1
+      }
+    },
+    {
+      "step": 318,
+      "t": 242.7,
+      "day": 9,
+      "phase": "talk",
+      "title": "今日费用",
+      "action": "继续 ▸",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 97,
+        "精神": 99,
+        "情绪": 1
+      }
+    },
+    {
+      "step": 319,
+      "t": 242.7,
+      "day": 9,
+      "phase": "map",
+      "title": "南屏医院 · 住院部",
+      "action": "打开当班待办",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 97,
+        "精神": 99,
+        "情绪": 1
+      }
+    },
+    {
+      "step": 320,
+      "t": 242.8,
+      "day": 9,
+      "phase": "quests",
+      "title": "当班待办",
+      "action": "前往 夜里摔了",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 97,
+        "精神": 99,
+        "情绪": 1
+      }
+    },
+    {
+      "step": 321,
+      "t": 243.4,
+      "day": 9,
+      "phase": "encounter",
+      "title": "夜里摔了",
+      "action": "先让护工拍视频，看看伤处",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 97,
+        "精神": 99,
+        "情绪": 1
+      }
+    },
+    {
+      "step": 322,
+      "t": 243.4,
+      "day": 9,
+      "phase": "confirm",
+      "title": "确认这次选择",
+      "action": "确认",
+      "ap": 0,
+      "cash": 0,
+      "vitals": {
+        "体力": 97,
+        "精神": 99,
+        "情绪": 1
+      }
+    },
+    {
+      "step": 323,
+      "t": 243.6,
       "day": 0,
       "phase": "ending",
-      "title": "抢救室",
-      "action": "结局 X20",
+      "title": "解除劳动合同",
+      "action": "结局 X25",
       "ap": 0,
       "cash": 0,
       "vitals": {}
