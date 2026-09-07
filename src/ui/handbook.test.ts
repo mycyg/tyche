@@ -73,7 +73,7 @@ describe('searchable, actionable handbook', () => {
   it('does not call a full leave day a night shift or suggest borrowing its zero AP',()=>{
     const r=run({day:3,ap:0,facts:{'leave:3':{day:2,source:'approved',sequence:0}}});
     expect(contextualHelp(r)?.id).toBe('leave:3');expect(contextualHelp(r)?.text).toContain('不能预支');
-    expect(nextShiftForecast(r)).toMatchObject({afterNight:false,ap:10,stamina:100});
+    expect(nextShiftForecast(r)).toMatchObject({afterNight:false,ap:12,stamina:100});
   });
   it('dismissed warnings do not hide unrelated risks or a new day or severity',()=>{
     const r=run({day:4,vitals:{stamina:40,san:40,emotion:100}}),first=contextualHelp(r)!;
@@ -96,15 +96,15 @@ describe('searchable, actionable handbook', () => {
 describe('schedule projection shares talent and event rules', () => {
   it('is read-only and includes tomorrow repayment without changing current AP', () => {
     const r = run({ borrowed: 2 }); const before = structuredClone(r);
-    expect(nextShiftForecast(r)).toMatchObject({ day: 2, ap: 8, stamina: 100, liveCap: 100 });
-    expect(nextShiftForecast(r, 1)).toMatchObject({ ap: 7, stamina: 99, liveCap: 99 });
+    expect(nextShiftForecast(r)).toMatchObject({ day: 2, ap: 10, stamina: 100, liveCap: 100 });
+    expect(nextShiftForecast(r, 1)).toMatchObject({ ap: 9, stamina: 99, liveCap: 99 });
     expect(r).toEqual(before);
   });
   it('combines night fatigue, night-running synergy and insomnia without double penalties', () => {
-    expect(nextShiftForecast(run({ day: 3 }))).toMatchObject({ ap: 8, stamina: 70 });
-    expect(nextShiftForecast(run({ day: 3, talents: ['T16', 'T17'], caps: { stamina: 120, san: 100, emotion: 100 } }))).toMatchObject({ ap: 10, liveCap: 105, stamina: 90 });
+    expect(nextShiftForecast(run({ day: 3 }))).toMatchObject({ ap: 10, stamina: 70 });
+    expect(nextShiftForecast(run({ day: 3, talents: ['T16', 'T17'], caps: { stamina: 120, san: 100, emotion: 100 } }))).toMatchObject({ ap: 12, liveCap: 105, stamina: 90 });
     expect(nextShiftForecast(run({ day: 3, debuffs: ['B01'] }))).toMatchObject({ stamina: 70 });
-    expect(nextShiftForecast(run({ talents: ['T04'], debuffs: ['B03'], depression: 50 }))).toMatchObject({ ap: 7 });
+    expect(nextShiftForecast(run({ talents: ['T04'], debuffs: ['B03'], depression: 50 }))).toMatchObject({ ap: 9 });
   });
   it('applies only active, personally scoped event sleep and leave modifiers', () => {
     const scope = { kind: 'personal', id: 'guide' } as const;
@@ -113,21 +113,21 @@ describe('schedule projection shares talent and event rules', () => {
       { id: 'leave', kind: 'leave', value: 1, starts: 3, expires: 3, scope, description: '已批准休假' },
       { id: 'other', kind: 'sleep', value: .1, starts: 2, expires: 2, scope: { kind: 'patient', id: 'someone' }, description: '患者作用域不改变医生睡眠' },
     ]);
-    expect(nextShiftForecast(r)).toMatchObject({ ap: 10, stamina: 50, leave: false });
+    expect(nextShiftForecast(r)).toMatchObject({ ap: 12, stamina: 50, leave: false });
     expect(nextShiftForecast({ ...r, day: 2 })).toMatchObject({ ap: 0, leave: true });
     expect(scheduleTuning(r, 4).sleep).toBe(1);
   });
   it('includes temporary night shifts in the next-morning projection', () => {
     const r = withModifiers(run({ day: 2 }), [{ id: 'night', kind: 'night-shift', value: 180, starts: 2, expires: 2, scope: { kind: 'personal', id: 'guide' }, description: '临时夜班' }]);
-    expect(nextShiftForecast(r)).toMatchObject({ afterNight: true, ap: 8, stamina: 70 });
-    expect(nextShiftForecast({...r,day:4})).toMatchObject({afterNight:false,ap:10,stamina:100});
+    expect(nextShiftForecast(r)).toMatchObject({ afterNight: true, ap: 10, stamina: 70 });
+    expect(nextShiftForecast({...r,day:4})).toMatchObject({afterNight:false,ap:12,stamina:100});
   });
   it('distinguishes a half-day absence from full leave', () => {
     const r = withModifiers(run(), [{ id: 'half', kind: 'leave', value: .5, starts: 2, expires: 2, scope: { kind: 'personal', id: 'guide' }, description: '半天离岗' }]);
-    expect(nextShiftForecast(r)).toMatchObject({ leave: false, ap: 6 });
+    expect(nextShiftForecast(r)).toMatchObject({ leave: false, ap: 8 });
   });
   it('includes an actual added night budget and the eighth-day iron-stomach consequence', () => {
-    expect(nextShiftForecast(run({ day: 2, nightBudget: 180 }))).toMatchObject({ afterNight: true, ap: 8 });
-    expect(nextShiftForecast(run({ day: 7, talents: ['T20'] }))).toMatchObject({ ap: 9 });
+    expect(nextShiftForecast(run({ day: 2, nightBudget: 180 }))).toMatchObject({ afterNight: true, ap: 10 });
+    expect(nextShiftForecast(run({ day: 7, talents: ['T20'] }))).toMatchObject({ ap: 11 });
   });
 });
