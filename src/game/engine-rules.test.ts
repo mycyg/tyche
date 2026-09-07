@@ -105,12 +105,13 @@ describe('action points, overtime and caps through act()',()=>{
   it('clips the current value to the lowered cap before charging overtime stamina',()=>{
     let r=startRun('clip','程医生',[]);r.cash=20000;r.ap=0;settle(r,[story('ot',{},1)]);
     r=act(r,{type:'choose',id:'ot:go'});
-    expect(r.caps.stamina).toBe(98);expect(r.vitals.stamina).toBe(93);expect(r.caps.san).toBe(98);expect(r.overtime).toBe(1);
+    const cap=100-RULES.overtimeCapLoss;
+    expect(r.caps.stamina).toBe(cap);expect(r.vitals.stamina).toBe(cap-RULES.overtimeStamina);expect(r.caps.san).toBe(cap);expect(r.overtime).toBe(1);
   });
   it('borrowed points are deducted from tomorrow and each borrow lowers the three caps',()=>{
     let r=startRun('borrow','程医生',[]);r.cash=20000;r.patients=[];settle(r,[story('x',{})]);
     r=act(r,{type:'borrow'});r=act(r,{type:'continue'});r=act(r,{type:'borrow'});r=act(r,{type:'continue'});
-    expect(r.borrowed).toBe(2);expect(r.caps.stamina).toBe(98);
+    expect(r.borrowed).toBe(2);expect(r.caps.stamina).toBe(100-2*RULES.borrowCapLoss);
     r=cycleDay(r);
     expect(r.day).toBe(2);expect(r.ap).toBe(RULES.ap-2);expect(r.borrowed).toBe(0);
   });

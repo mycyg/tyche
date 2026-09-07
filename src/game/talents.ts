@@ -1,5 +1,6 @@
 import { DEBUFF_DEFINITIONS, TALENT_DEFINITIONS, TALENT_SELECTION } from '../content/talents';
 import type { Effects, Hazard, HazardInput, Relation, Skill, Vital } from './types';
+import { RULES } from './rules';
 
 /** Design 02's runtime contract. These hooks accept facts, never infer intent from
  * a translated option label, and never mutate the run or historical hazard log. */
@@ -89,7 +90,7 @@ export function talentStaminaCap(s:TalentContext,baseCap:number,isNight:boolean)
   const daytime=has(s,'T17')&&!isNight?15:0;
   return Math.max(1,baseCap-daytime);
 }
-export function talentWakingStamina(s:TalentContext,liveCap:number,afterNight:boolean):number {return Math.max(0,Math.min(talentSleepCeiling(s,liveCap),liveCap-(afterNight?(both(s,'T16','T17')?15:30):0)));}
+export function talentWakingStamina(s:TalentContext,liveCap:number,afterNight:boolean):number {return Math.max(0,Math.min(talentSleepCeiling(s,liveCap),liveCap-(afterNight?(both(s,'T16','T17')?RULES.nightAfterStamina/2:RULES.nightAfterStamina):0)));}
 export function talentBaseAp(s:TalentContext,base:number,afterNight:boolean):number {
   return Math.max(0,base-Number(has(s,'T04'))-Number(has(s,'B03'))-(afterNight&&!has(s,'T17')?2:0));
 }
