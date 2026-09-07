@@ -263,9 +263,10 @@ function contextFor(r: AuthoredRun, s: AuthoredDirectorState, phase: EventPhase,
   }
   if (f['药代-4统方'] || f['药代-5回扣'] || r.facts['prescription-exported']) {
     q.push('写入 统方 或 回扣');
-    // The source gives two ways in: a hit on the end-of-run check, or D13 settlement.
+    // The source gives two ways in: a hit on the end-of-run check, or D13
+    // settlement. An exported log already in police hands raises the first.
     if (r.day === 13 && phase === '结算') q.push('或 D13 结算');
-    if (r.day >= 13 && runRandom(r, 'authored:arrest:13') < 0.45) q.push('局末判定命中');
+    if (r.day >= 13 && runRandom(r, 'authored:arrest:13') < (f['药代-刑拘候选'] ? .8 : .45)) q.push('局末判定命中');
   }
   if (r.facts['resign-requested']) q.push('玩家在结算页选择「提桶跑路」（确认前）');
   if (f['人情债'] || r.facts['li-owes-time']) q.push('写入 人情债');

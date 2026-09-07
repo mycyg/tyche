@@ -242766,28 +242766,6 @@
     ]
   },
   {
-    "id": "v-bba13b70c70041f9",
-    "text": "这一项要掷一次骰子，没有通过会另有代价。",
-    "displayText": "这一项要掷一次骰子，没有通过会另有代价。",
-    "speaker": "narrator",
-    "sources": [
-      "voice:E-060:E-060-c",
-      "voice:E-065:E-065-b",
-      "voice:E-096:E-096-b",
-      "voice:E-154:E-154-a",
-      "voice:E-155:E-155-a",
-      "voice:E-156:E-156-a",
-      "voice:E-158:E-158-c",
-      "voice:E-163:E-163-a",
-      "voice:E-163:E-163-b",
-      "voice:E-171:E-171-b",
-      "voice:E-176:E-176-b",
-      "voice:E-185:E-185-b",
-      "voice:E-191:E-191-c",
-      "voice-excess:E-171-b"
-    ]
-  },
-  {
     "id": "v-bbca41f40ddeb456",
     "text": "你按预约去院外咨询，今天已为此留出时间。",
     "displayText": "你按预约去院外咨询，今天已为此留出时间。",
@@ -299910,6 +299888,28 @@
     "sources": [
       "BTF-002:N05c",
       "src/content/events/butterfly-prose.ts"
+    ]
+  },
+  {
+    "id": "v-06eb4ec2b6a790c4",
+    "text": "这一项要掷一次骰子；没有通过时，你要承担另一项后果。",
+    "displayText": "这一项要掷一次骰子；没有通过时，你要承担另一项后果。",
+    "speaker": "narrator",
+    "sources": [
+      "voice:E-060:E-060-c",
+      "voice:E-065:E-065-b",
+      "voice:E-096:E-096-b",
+      "voice:E-154:E-154-a",
+      "voice:E-155:E-155-a",
+      "voice:E-156:E-156-a",
+      "voice:E-158:E-158-c",
+      "voice:E-163:E-163-a",
+      "voice:E-163:E-163-b",
+      "voice:E-171:E-171-b",
+      "voice:E-176:E-176-b",
+      "voice:E-185:E-185-b",
+      "voice:E-191:E-191-c",
+      "voice-excess:E-171-b"
     ]
   },
   {

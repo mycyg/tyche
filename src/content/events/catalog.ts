@@ -204,7 +204,7 @@ function optionsFor(row: typeof source.events[number]): EventOption[] {
     }
     // A silent roll still needs a warning before the click, even when the
     // source row lists no immediate cost.
-    if (!option.hint && (option.check || option.chanceCheck)) option.hint = '这一项要掷一次骰子，没有通过会另有代价。';
+    if (!option.hint && (option.check || option.chanceCheck)) option.hint = '这一项要掷一次骰子；没有通过时，你要承担另一项后果。';
     return option;
   });
   // “失败转①” inherits the actual alternative consequences, never a new click/cost twice.
