@@ -238,7 +238,18 @@ describe('authored ledger, participants and butterfly integrity',()=>{
   it('does not replace a healthy browser save with malformed live state',()=>{
     const healthy=authoredFixture();const entries=new Map([[SAVE_KEY,encode(healthy)],[BACKUP_KEY,encode(fresh())]]);const before=new Map(entries);
     const broken=modify(healthy,'run.authored.ledger.pending.0.effects',{cash:'bad'});
-    expect(persist(broken,{getItem:k=>entries.get(k)??null,setItem:(k,v)=>entries.set(k,v)})).toContain('未写入');expect(entries).toEqual(before);
+    const message=persist(broken,{getItem:k=>entries.get(k)??null,setItem:(k,v)=>entries.set(k,v)});
+    expect(message).toContain('未写入');expect(message).toContain('校验');expect(entries).toEqual(before);
+  });
+  it('reports a distinct message when the live state is valid but the browser write itself fails',()=>{
+    const save=fresh();
+    const message=persist(save,{getItem:()=>null,setItem:()=>{throw new Error('QuotaExceededError');}});
+    expect(message).toContain('未写入');expect(message).not.toContain('校验');
+  });
+  it('clears once a later write with the same storage succeeds',()=>{
+    const entries=new Map<string,string>();
+    const storage={getItem:(k:string)=>entries.get(k)??null,setItem:(k:string,v:string)=>entries.set(k,v)};
+    expect(persist(fresh(),storage)).toBe('');
   });
 });
 

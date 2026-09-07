@@ -331,6 +331,9 @@ function Setup({
       <details class="help">
         <summary>上班之前</summary>
         <p>
+          开局资金 {money(RULES.cash)}，其中房租 −{money(RULES.rent)} 已经直接扣除，实际到手 {money(RULES.cash - RULES.rent)}。
+        </p>
+        <p>
           你每天有 10 点基础行动值，最多预支明天的 4 点。每预支一点，体力、精神和情绪上限各减
           1 点。行动值不足时仍可继续处置，但每透支一点，就扣 5 点体力，三项上限还会各减
           2 点。第十四天不能预支。
@@ -528,11 +531,23 @@ function Dialogue({ actor, title, text, close, children, patient, speechActor }:
       <div class="dialogue-body"><p class="dialogue-text">{speech.map((part,i)=><span key={i} class={part.speaker==='narrator'?'dialogue-narration':'dialogue-speech'}>{part.text}</span>)}</p><div>{children}</div></div>
     </div></section>;
 }
+/** Parity with the dedicated "collapse" (stamina) modal's quantified text: SAN/emotion zero only
+ * ever reach this scene once per run (engine ends the run outright on the second occurrence), so
+ * this is always describing the run's one rescue attempt for that vital. */
+function EmergencyNotice({ r, card }: { r: Run; card: Card }) {
+  const emergency = r.emergency;
+  if (!emergency || emergency.resolved || emergency.cardId !== card.id || emergency.vital === 'stamina') return null;
+  const text = emergency.vital === 'san'
+    ? '精神归零本局只有一次自救机会。这次选择的结果决定能不能继续当班；精神再次归零会直接结束轮转，没有第二次机会。'
+    : '情绪归零本局只有一次现场处理机会。这次选择决定恢复多少、怎样交接；情绪再次归零会结束轮转。';
+  return <aside class="clinical-action-help emergency-notice" aria-label={`${VITAL_LABELS[emergency.vital]}归零说明`}><strong>{VITAL_LABELS[emergency.vital]}归零</strong><p>{text}</p></aside>;
+}
 function RpgScene({ r, onSelect, close, records }: { r:Run; onSelect:(id:string)=>void; close:()=>void; records:()=>void }) {
   const card = currentCard(r); if(!card) return null;
   const patient = r.patients.find(p=>p.uid === card.patientId);
   const help=clinicalActionHelp(r,card);
   return <Dialogue actor={card.actor} patient={patient} title={patient ? patient.name+' · '+card.title : card.title} text={card.text} close={close}>
+    <EmergencyNotice r={r} card={card} />
     {help&&<aside class="clinical-action-help" aria-label="本组操作说明"><strong>本组操作</strong><p>{help}</p></aside>}
     <div class="dialogue-options">{availableOptions(r).filter(o=>o.interaction!=='graph-continue').map((o,i)=><button class="dialogue-option" key={o.id} onClick={()=>onSelect(o.id)}><b>{i+1}</b><span>{o.label}<Cost o={o} r={r} /><ClinicalChoiceNotice r={r} o={o}/></span></button>)}</div>
     {availableOptions(r).filter(o=>o.interaction==='graph-continue').map(o=><button class="dialogue-next graph-continue" key={o.id} onClick={()=>onSelect(o.id)}>{o.label} ▸</button>)}
