@@ -152,6 +152,17 @@ describe('ward life runtime', () => {
     expect(sawChart).toBe(true);
   }, 20000);
 
+  it('keeps a working pose on people who have no walking sheet', () => {
+    const life = createWardLife();
+    const sit = { atlas: 'ward-actions' as const, row: 2, group: 0 };
+    life.sync([{ id: 'companion', speed: 20, offset: 0,
+      stops: [{ ...SPOTS.wardA[0], dwell: 900, action: sit }, { x: SPOTS.wardA[0].x + 10, y: SPOTS.wardA[0].y, dwell: 900, action: sit }] }]);
+    for (let i = 0; i < 60 * 20; i++) {
+      life.step(FRAME, { motion: true });
+      expect(actorAction(life.actors[0]), `frame ${i}`).toBeDefined();
+    }
+  }, 20000);
+
   it('alternates the two frames of a pose', () => {
     const life = createWardLife();
     life.sync([{ id: 'x', speed: 40, offset: 0, stops: [{ ...SPOTS.hallCentre, dwell: 4000 }, { ...SPOTS.hallEast, dwell: 4000 }] }]);

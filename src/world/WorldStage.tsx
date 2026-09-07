@@ -194,14 +194,14 @@ export function WorldStage(props: Props) {
     // patient sheets stream in behind it and only their own people wait.
     const atlases = new Map(ATLASES.map(a => [a.id, load(a.file)] as const));
     const drawable = (img?: HTMLImageElement) => !!img?.complete && img.naturalWidth > 0;
-    let stopped = false, raf = 0, width = 1, height = 1, last = 0, wasMoving = false, lastNear = '', lastRoom = '', lastTick = 0, lastFollow = 0;
+    let stopped = false, raf = 0, width = 1, height = 1, last = 0, wasMoving = false, lastNear = '', lastRoom = '', lastTick = 0, lastFollow = 0, follows = 0;
     const resize = () => { width = container.clientWidth; height = container.clientHeight; if(c.width!==Math.round(width))c.width = Math.round(width); if(c.height!==Math.round(height))c.height = Math.round(height); };
     const stopObserving = observeLayout(container,resize); resize();
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const nearest = () => targetsRef.current.filter(t => distance(state.current, livePoint(t)) < 45).sort((a, b) => distance(state.current, livePoint(a)) - distance(state.current, livePoint(b)))[0];
     const interact = (target?: Target) => { if (!blocked.current) { const t = target ?? nearest(); if (t && distance(state.current, livePoint(t)) < 52) openRef.current(t); } };
     const obstacles=()=>corridorBedInUse(latest.current.r)?[CORRIDOR_BED_OBSTACLE]:[];
-    const navigate = (t: Target) => { const to=livePoint(t); state.current.path = findPath(state.current, to,obstacles()); state.current.destination = t.id; if (distance(state.current, to) < 30) interact(t); };
+    const navigate = (t: Target) => { const to=livePoint(t); follows = 0; state.current.path = findPath(state.current, to,obstacles()); state.current.destination = t.id; if (distance(state.current, to) < 30) interact(t); };
     engine.current = { interact, navigate };
     // Depth entries are reused between frames so a busy floor allocates nothing
     // per frame beyond the movement step itself.
@@ -275,12 +275,17 @@ export function WorldStage(props: Props) {
         if (Math.abs(dx) > Math.abs(dy)) player.facing = dx > 0 ? 3 : 1;
         else if (dy) player.facing = dy > 0 ? 0 : 2;
         if (player.destination && !player.path.length) {
-          const t = targetsRef.current.find(t => t.id === player.destination); player.destination = ''; if (t) interact(t);
+          // A route that ends short of a character who kept walking is issued
+          // again, so a required card is never lost to the walk.
+          const t = targetsRef.current.find(t => t.id === player.destination);
+          const to = t?.npc ? livePoint(t) : undefined;
+          if (to && distance(player, to) > 46 && follows < 8) { follows++; player.path = findPath(player, to, obstacles()); }
+          if (!player.path.length) { player.destination = ''; if (t) interact(t); }
         } else if (player.destination && time - lastFollow > 260) {
           // Following a walking character: keep the route pointed at them.
           lastFollow = time;
           const t = targetsRef.current.find(t => t.id === player.destination);
-          const to = t && t.npc ? livePoint(t) : undefined;
+          const to = t?.npc ? livePoint(t) : undefined;
           if (to && distance(player.path[player.path.length - 1], to) > 22) player.path = findPath(player, to, obstacles());
         }
       } else player.moving = false;

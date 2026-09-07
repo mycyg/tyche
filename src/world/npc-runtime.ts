@@ -130,8 +130,10 @@ export function actorAction(actor: NpcActor): NpcAction | undefined {
   const stop = actor.def.stops[Math.min(actor.index, actor.def.stops.length - 1)];
   if (actor.state === 'walk') {
     const haul = actor.def.haul;
-    if (!actor.hauling || !haul) return undefined;
-    return { atlas: haul.atlas, row: haul.row, group: actor.facing === 1 ? haul.left : haul.right };
+    if (actor.hauling && haul) return { atlas: haul.atlas, row: haul.row, group: actor.facing === 1 ? haul.left : haul.right };
+    // People drawn only from a work sheet keep their pose while they shift
+    // position, rather than dropping to an empty frame.
+    return actor.def.walk ? undefined : stop.action;
   }
   return stop.action;
 }
