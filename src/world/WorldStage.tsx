@@ -17,7 +17,7 @@ import {patientPlacard,placardPosition} from './placards';
 import {worldCamera} from './camera';
 import {worldCoffeeOffering,worldNapOffering} from './refreshments';
 import {observeLayout} from './observe-layout';
-import {wardCast,staffRoutes,isNightShift} from './npc-schedule';
+import {wardCast} from './npc-schedule';
 import {createWardLife,actorAction,actorStep,restingInBed,type NpcActor} from './npc-runtime';
 import {ATLASES,actionFrame,walkFrame} from './npc-art';
 import './world-stage.css';
@@ -116,7 +116,7 @@ export function WorldStage(props: Props) {
   const cast=useMemo(()=>wardCast(r,occupants),[r,occupants]);
   const castRef=useRef(cast);castRef.current=cast;
   const life=useRef(createWardLife()).current;
-  const hold=useRef<{id:string;at:Point}|null>(null);
+  const hold=useRef<{id:string;at:Point;since:number}|null>(null);
   /** Names, markers, click areas and route ends all read the live position, so
    * a card never stays behind at the spot its owner left. */
   const livePoint=(t:Target):Point=>{const a=t.npc?life.byId.get(t.npc):undefined;return a?{x:a.x,y:a.y}:t;};
@@ -136,7 +136,7 @@ export function WorldStage(props: Props) {
   const open = (t: Target) => {
     if (latest.current.frozen || latest.current.r.phase !== 'play') return;
     // The character stops and turns to the doctor for as long as they talk.
-    hold.current = t.npc ? { id: t.npc, at: { x: state.current.x, y: state.current.y } } : null;
+    hold.current = t.npc ? { id: t.npc, at: { x: state.current.x, y: state.current.y }, since: performance.now() } : null;
     latest.current.onPosition({ x:state.current.x, y:state.current.y, facing:state.current.facing, day:latest.current.r.day });
     if(t.waitingPatients?.length)setSelection(t);
     else if (t.cards?.length === 1) latest.current.onEncounter(t.cards[0]);
@@ -290,7 +290,7 @@ export function WorldStage(props: Props) {
       if (wasMoving && !player.moving) savePosition();
       wasMoving = player.moving;
       syncCast();
-      if (!p.frozen && !p.dialogueOpen && !blocked.current) hold.current = null;
+      if (hold.current && !p.frozen && !p.dialogueOpen && !blocked.current && time - hold.current.since > 400) hold.current = null;
       life.step(dt, { motion, extra: obstacles(), hold: hold.current });
       const cam=worldCamera(player,width,height,zoom),{scale}=cam;
       camera.current = cam;

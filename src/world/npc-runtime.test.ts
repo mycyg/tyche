@@ -1,8 +1,25 @@
 import { describe, expect, it } from 'vitest';
+import type { Patient, Run } from '../game/types';
 import { walkable, type Point } from './navigation';
-import { CORRIDOR_BED_OBSTACLE } from './scene';
+import { BED_PLACES, CORRIDOR_BED_OBSTACLE } from './scene';
 import { actorAction, actorStep, createWardLife } from './npc-runtime';
-import { SPOTS, staffRoutes, type NpcDefinition } from './npc-schedule';
+import { SPOTS, staffRoutes, wardCast, type NpcDefinition } from './npc-schedule';
+
+const bedPatient = (bed: number, age: number, sex: '男' | '女'): Patient => ({
+  uid: `bed-${bed}`, caseId: 'P90' + bed, name: `患者${bed}`, bed, admitted: 1, expectedDays: 5, budget: 1000,
+  initialBudget: 1000, spent: 0, charged: 0, stability: 5, patience: 50, damage: 0, mitigated: 0, active: true,
+  inpatient: true, caredDay: 0, explainedDay: 0, planned: false, preset: { age, sex } } as unknown as Patient);
+const PATIENTS = [bedPatient(5, 44, '男'), bedPatient(6, 71, '女'), bedPatient(9, 9, '男'), bedPatient(13, 34, '女')];
+const FULL_RUN = { schema: 1, id: 'r', seed: 's', name: '医生', day: 3, difficulty: 'rotation', phase: 'play',
+  vitals: { stamina: 50, san: 50, emotion: 50 }, caps: { stamina: 100, san: 100, emotion: 100 },
+  relations: { chief: 0, nurse: 0, peer: 0, family: 0 }, ap: 6, borrowed: 0, overtime: 0, cash: 0, debt: 0,
+  privateDebt: 0, receivable: 0, income: 0, interest: 0, uncoveredDays: 0, reputation: 50, depression: 0,
+  talents: [], debuffs: [], skills: { observe: 1, clinical: 1, record: 1, persuade: 1, comfort: 1, endure: 1 },
+  coffee: 0, nap: false, exhausted: 0, emotionalBreaks: 0, skipNextDay: false, nightMinutes: 0, nightBudget: 0,
+  patients: PATIENTS, queue: [], cursor: 0, journal: [], hazards: [], committed: [], offered: [], debuffPicks: 0, streak: 0,
+  facts: Object.fromEntries(['家庭-车祸-ICU中', '伴侣-矛盾', '飞检-进驻', '医闹升级', 'clinical:bed-5:recording-exists']
+    .map(key => [key, { day: 1, source: 'test', sequence: 1 }])) } as unknown as Run;
+const FULL_CAST = wardCast(FULL_RUN, PATIENTS.map(patient => ({ patient, place: BED_PLACES.find(b => b.bed === patient.bed)! })));
 
 const FRAME = 1 / 60;
 function advance(life: ReturnType<typeof createWardLife>, seconds: number, motion = true, extra: Point[] = []) {
@@ -12,6 +29,22 @@ function advance(life: ReturnType<typeof createWardLife>, seconds: number, motio
 }
 
 describe('ward life runtime', () => {
+  it('never stands anyone on a bed, a counter or a cabinet', () => {
+    const life = createWardLife();
+    const beds = BED_PLACES.map(b => ({ x: b.x + 11, y: b.y - 3, w: 43, h: 62 }));
+    life.sync(FULL_CAST);
+    for (let i = 0; i < 60 * 150; i++) {
+      life.step(FRAME, { motion: true });
+      for (const actor of life.actors) {
+        expect(walkable(actor), `${actor.id} ${actor.x},${actor.y}`).toBe(true);
+        for (const bed of beds) {
+          const inside = actor.x > bed.x && actor.x < bed.x + bed.w && actor.y > bed.y && actor.y < bed.y + bed.h;
+          expect(inside, `${actor.id} on a bed at ${actor.x},${actor.y}`).toBe(false);
+        }
+      }
+    }
+  }, 60000);
+
   it('never leaves a walking character off the floor', () => {
     const life = createWardLife();
     life.sync(staffRoutes(false));
