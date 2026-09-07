@@ -1,0 +1,142 @@
+[
+  {
+    "title": "查房的人流",
+    "bpm": 96,
+    "root": 50,
+    "chords": [
+      0,
+      -2,
+      -5,
+      -1
+    ],
+    "motif": [
+      0,
+      7,
+      10,
+      7,
+      3,
+      null,
+      2,
+      -1
+    ],
+    "scene": "病区忙碌、巡床与白天探索",
+    "id": "ward-rounds",
+    "seconds": 40.0,
+    "loopStart": 0,
+    "loopEndSamples": 1280000,
+    "sampleRate": 32000,
+    "channels": 2,
+    "license": "MIT",
+    "composer": "Tyche original chip-score",
+    "files": [
+      "ward-rounds.wav",
+      "ward-rounds.ogg",
+      "ward-rounds.mp3"
+    ]
+  },
+  {
+    "title": "家里还在等",
+    "bpm": 66,
+    "root": 57,
+    "chords": [
+      0,
+      -5,
+      -4,
+      -7
+    ],
+    "motif": [
+      7,
+      3,
+      2,
+      null,
+      0,
+      -1,
+      2,
+      null
+    ],
+    "scene": "家庭来电、筹款与探视",
+    "id": "family-call",
+    "seconds": 58.182,
+    "loopStart": 0,
+    "loopEndSamples": 1861818,
+    "sampleRate": 32000,
+    "channels": 2,
+    "license": "MIT",
+    "composer": "Tyche original chip-score",
+    "files": [
+      "family-call.wav",
+      "family-call.ogg",
+      "family-call.mp3"
+    ]
+  },
+  {
+    "title": "没有下班的灯",
+    "bpm": 90,
+    "root": 45,
+    "chords": [
+      0,
+      -1,
+      3,
+      -5
+    ],
+    "motif": [
+      0,
+      12,
+      7,
+      10,
+      3,
+      7,
+      -1,
+      null
+    ],
+    "scene": "科研、办公室与夜间查资料",
+    "id": "research-afterhours",
+    "seconds": 42.667,
+    "loopStart": 0,
+    "loopEndSamples": 1365333,
+    "sampleRate": 32000,
+    "channels": 2,
+    "license": "MIT",
+    "composer": "Tyche original chip-score",
+    "files": [
+      "research-afterhours.wav",
+      "research-afterhours.ogg",
+      "research-afterhours.mp3"
+    ]
+  },
+  {
+    "title": "门外有人",
+    "bpm": 116,
+    "root": 38,
+    "chords": [
+      0,
+      1,
+      -1,
+      -6
+    ],
+    "motif": [
+      0,
+      null,
+      1,
+      7,
+      0,
+      null,
+      -1,
+      6
+    ],
+    "scene": "录音、投诉与多人争执",
+    "id": "complaint-pressure",
+    "seconds": 33.103,
+    "loopStart": 0,
+    "loopEndSamples": 1059310,
+    "sampleRate": 32000,
+    "channels": 2,
+    "license": "MIT",
+    "composer": "Tyche original chip-score",
+    "files": [
+      "complaint-pressure.wav",
+      "complaint-pressure.ogg",
+      "complaint-pressure.mp3"
+    ]
+  }
+]

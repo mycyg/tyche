@@ -51,8 +51,9 @@ describe('player-visible cost contract', () => {
   it('a failed information check adds the announced work without inventing injury', () => {
     const {r,p,option} = fixture();r.ap=1;
     option.check={skill:'observe',dc:100,failure:{ap:-1,stamina:-3},failureText:'补核完成'};
-    const next=act(r,{type:'choose',id:option.id});
-    expect(next.roll?.success).toBe(false);expect(next.overtime).toBe(1);
+    const pending=act(r,{type:'choose',id:option.id});
+    expect(pending.roll?.success).toBe(false);expect(pending.ap).toBe(r.ap);expect(pending.overtime).toBe(0);
+    const next=act(pending,{type:'ack-roll'});expect(next.overtime).toBe(1);
     expect(next.caps.san).toBe(r.caps.san-2);expect(next.patients[0].damage).toBe(p.damage);
   });
   it('previews the actual die modifier after upfront AP overdraw', () => {
@@ -64,6 +65,7 @@ describe('player-visible cost contract', () => {
   });
   it('includes night SAN costs that cross the comfort penalty threshold', () => {
     const {r, option, card} = fixture(); card.kind = 'night'; r.nightMinutes = 0;
+    r.facts[`night-started:${card.patientId}`]={day:r.day,source:'already-assessing',sequence:0};
     r.vitals.san = 52; r.debuffs = ['B06'];
     option.check = { skill: 'comfort', dc: 10, failure: {}, failureText: '未过' };
     expect(previewCheckModifier(r, option, card)).toBe(-2);

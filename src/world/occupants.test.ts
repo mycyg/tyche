@@ -39,6 +39,16 @@ describe('visible patient occupancy', () => {
     expect(worldOccupants(r, [])).toHaveLength(11);
     expect(worldOccupants(r, []).some(o => o.patient.uid === patient.uid)).toBe(false);
   });
+  it('keeps a pre-existing ward patient visible before the night emergency and a contacted patient after it',()=>{
+    const r=fullWard();r.day=6;
+    const prior=createPatient(r,'C020','night0');r.patients.push(prior);
+    expect(prior.admitted).toBeLessThan(r.day);
+    expect(worldOccupants(r,[]).some(o=>o.patient.uid===prior.uid)).toBe(true);
+    const arriving=createPatient(r,'C015','night1');r.patients.push(arriving);
+    expect(worldOccupants(r,[]).some(o=>o.patient.uid===arriving.uid)).toBe(false);
+    r.facts[`night-started:${arriving.uid}`]={day:6,source:'real-bedside-contact',sequence:0};
+    expect(worldOccupants(r,[]).some(o=>o.patient.uid===arriving.uid)).toBe(true);
+  });
   it('lets the doctor reach both sides of each temporary bed', () => {
     for (const bed of TEMPORARY_BEDS) {
       expect(walkable(bed.target)).toBe(true);

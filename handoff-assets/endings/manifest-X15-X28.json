@@ -1,0 +1,198 @@
+[
+  {
+    "id": "X15",
+    "title": "一二二四",
+    "brief": "法院书记员单独复印记有补问内容的病历，医师认出自己写下的询问记录。",
+    "prompt": "Use case: illustration-story. Asset type: independent ending CG for an original Chinese hospital narrative game. Produce ONE standalone full-bleed horizontal 16:9 cinematic scene, no panels. Original dark 2D pixel-art JRPG aesthetic with anime characters, refined crisp square pixel clusters, restrained detailed environment storytelling, atmospheric lighting, clearly pixel art rather than painting or 3D. Protagonist if present: a young Chinese female doctor, short brown bob haircut with a small teal hair clip, white lab coat over teal shirt and dark trousers unless scene specifies casual clothes, consistent delicate anime face. Text: none. Absolutely no lettering, words, numbers, captions, title, logo, watermark, frame, dialogue box, game UI or screenshots; any paperwork has only faint abstract strokes and any screens have only unlabelled abstract shapes. No gore, no self-harm. A quiet Chinese civil court archive room after a hearing. Wide composition: foreground a court clerk in sober formal clothing lifts a single medical chart page from an open case folder beside a softly glowing photocopier. The young female doctor stands a few paces behind watching the page, tired but slightly relieved. Rows of closed case files and a half-open wooden courtroom door recede into shadow. Cool gray daylight and a warm photocopier light emphasize that one preserved page reduced civil liability. Do not show text or official emblems.",
+    "image": "X15.webp",
+    "source": "X15.png",
+    "model": "built-in image_gen",
+    "license": "MIT",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "X16",
+    "title": "一二二二",
+    "brief": "篡改后的打印病历与原始日志连页装订，无法再拆开。",
+    "prompt": "Use case: illustration-story. Asset type: independent ending CG for an original Chinese hospital narrative game. Produce ONE standalone full-bleed horizontal 16:9 cinematic scene, no panels. Original dark 2D pixel-art JRPG aesthetic with anime characters, refined crisp square pixel clusters, restrained detailed environment storytelling, atmospheric lighting, clearly pixel art rather than painting or 3D. Protagonist if present: a young Chinese female doctor, short brown bob haircut with a small teal hair clip, white lab coat over teal shirt and dark trousers unless scene specifies casual clothes, consistent delicate anime face. Text: none. Absolutely no lettering, words, numbers, captions, title, logo, watermark, frame, dialogue box, game UI or screenshots; any paperwork has only faint abstract strokes and any screens have only unlabelled abstract shapes. No gore, no self-harm. Cinematic close foreground of two visibly different medical document bundles bound together by one metal fastener on a long wooden civil court evidence table: fresh white printouts in front, older muted blue-gray system-log pages behind, all pages abstract with no readable marks. The doctor's hands rest beside the joined bundle, no longer separating it; her strained face appears in the upper midground. Empty institutional chairs fade into hard shadow. A narrow cold overhead light makes the physical binding and layered pages the focal point. Quiet accountability after altered records were exposed; no logos.",
+    "image": "X16.webp",
+    "source": "X16.png",
+    "model": "built-in image_gen",
+    "license": "MIT",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "X17",
+    "title": "值班室",
+    "brief": "白班体力耗竭后在走廊休息，同事收好胸牌并接管工作。",
+    "prompt": "Use case: illustration-story. Asset type: independent ending CG for an original Chinese hospital narrative game. Produce ONE standalone full-bleed horizontal 16:9 cinematic scene, no panels. Original dark 2D pixel-art JRPG aesthetic with anime characters, refined crisp square pixel clusters, restrained detailed environment storytelling, atmospheric lighting, clearly pixel art rather than painting or 3D. Protagonist if present: a young Chinese female doctor, short brown bob haircut with a small teal hair clip, white lab coat over teal shirt and dark trousers unless scene specifies casual clothes, consistent delicate anime face. Text: none. Absolutely no lettering, words, numbers, captions, title, logo, watermark, frame, dialogue box, game UI or screenshots; any paperwork has only faint abstract strokes and any screens have only unlabelled abstract shapes. No gore, no self-harm. Daytime hospital corridor viewed from the quiet far end. The exhausted female doctor sits on a bench leaning back safely, alert but drained. A colleague gently slips her unlettered ID badge into her dark jacket pocket. Far down the corridor, small silhouettes of nurses resume shift handover at the illuminated nurses' station. Strong long perspective, broad milky daylight through side windows, muted sea-green walls, shadows stretching toward the resting doctor. The distance between her stillness and ongoing work is the story; no dramatic collapse or injury.",
+    "image": "X17.webp",
+    "source": "X17.png",
+    "model": "built-in image_gen",
+    "license": "MIT",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "X18",
+    "title": "心电图",
+    "brief": "医生把自己的心电图收进检查袋，停止轮转等待专科复诊。",
+    "prompt": "Use case: illustration-story. Asset type: independent ending CG for an original Chinese hospital narrative game. Produce ONE standalone full-bleed horizontal 16:9 cinematic scene, no panels. Original dark 2D pixel-art JRPG aesthetic with anime characters, refined crisp square pixel clusters, restrained detailed environment storytelling, atmospheric lighting, clearly pixel art rather than painting or 3D. Protagonist if present: a young Chinese female doctor, short brown bob haircut with a small teal hair clip, white lab coat over teal shirt and dark trousers unless scene specifies casual clothes, consistent delicate anime face. Text: none. Absolutely no lettering, words, numbers, captions, title, logo, watermark, frame, dialogue box, game UI or screenshots; any paperwork has only faint abstract strokes and any screens have only unlabelled abstract shapes. No gore, no self-harm. Inside a cardiology outpatient waiting alcove, the young female doctor sits alone in three-quarter profile under a cool window. Her white lab coat is folded next to her; she wears teal shirt and dark trousers. She carefully slides a long ECG strip showing only an abstract waveform and no labels into a translucent examination envelope. A closed examination-room door and several empty waiting chairs frame the background. Medium-wide composition focuses on her hands and unfamiliar role as patient, late daylight, tired contemplative expression, restrained warm highlights against teal-gray institutional shadows.",
+    "image": "X18.webp",
+    "source": "X18.png",
+    "model": "built-in image_gen",
+    "license": "MIT",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "X19",
+    "title": "护士站",
+    "brief": "护士站事件调查后收到终止聘用通知，影像打印件夹在记录后面。",
+    "prompt": "Use case: illustration-story. Asset type: independent ending CG for an original Chinese hospital narrative game. Produce ONE standalone full-bleed horizontal 16:9 cinematic scene, no panels. Original dark 2D pixel-art JRPG aesthetic with anime characters, refined crisp square pixel clusters, restrained detailed environment storytelling, atmospheric lighting, clearly pixel art rather than painting or 3D. Protagonist if present: a young Chinese female doctor, short brown bob haircut with a small teal hair clip, white lab coat over teal shirt and dark trousers unless scene specifies casual clothes, consistent delicate anime face. Text: none. Absolutely no lettering, words, numbers, captions, title, logo, watermark, frame, dialogue box, game UI or screenshots; any paperwork has only faint abstract strokes and any screens have only unlabelled abstract shapes. No gore, no self-harm. Hospital personnel interview room with a broad glass partition looking out toward a distant nurses' station. The young female doctor stands at the end of the meeting table, signing a plain notification sheet with only abstract gray marks. Behind the sheet lies a small grainy monochrome still image depicting an indistinct person at a hospital counter, attached to a folder. The administrator's hands hold the folder, their face out of frame. The doctor looks exhausted and withdrawn, a boxed ID lanyard beside her. Cool noon light through frosted glass, wide environment-heavy cinematic composition, a sense of employment ending after an investigated incident.",
+    "image": "X19.webp",
+    "source": "X19.png",
+    "model": "built-in image_gen",
+    "license": "MIT",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "X20",
+    "title": "抢救室",
+    "brief": "夜班晕倒转入抢救室，同事监护；洗净倒扣的咖啡杯留在窗台。",
+    "prompt": "Use case: illustration-story. Asset type: independent ending CG for an original Chinese hospital narrative game. Produce ONE standalone full-bleed horizontal 16:9 cinematic scene, no panels. Original dark 2D pixel-art JRPG aesthetic with anime characters, refined crisp square pixel clusters, restrained detailed environment storytelling, atmospheric lighting, clearly pixel art rather than painting or 3D. Protagonist if present: a young Chinese female doctor, short brown bob haircut with a small teal hair clip, white lab coat over teal shirt and dark trousers unless scene specifies casual clothes, consistent delicate anime face. Text: none. Absolutely no lettering, words, numbers, captions, title, logo, watermark, frame, dialogue box, game UI or screenshots; any paperwork has only faint abstract strokes and any screens have only unlabelled abstract shapes. No gore, no self-harm. Quiet hospital emergency observation room late at night. Foreground focal point: a freshly washed ceramic coffee mug upside down on a wet window ledge with droplets, beyond it rainy midnight city lights. In midground the young female doctor is safely awake resting on an observation bed beneath a pale blanket, her short brown bob and teal hair clip visible, teal blouse, folded white coat on nearby chair. A head nurse checks a simple bedside monitor with only an unlabeled green waveform. Warm bed lamp within dark blue midnight ambience. Wide cinematic depth of field rendered entirely as pixel art; the inverted coffee cup and colleague's care tell the story. No invasive procedures, no injury.",
+    "image": "X20.webp",
+    "source": "X20.png",
+    "model": "built-in image_gen",
+    "license": "MIT",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "X21",
+    "title": "病假条",
+    "brief": "精神状态无法继续临床，姜蓉陪坐收好未填完的表，下午醒来。",
+    "prompt": "Use case: illustration-story. Asset type: independent ending CG for an original Chinese hospital narrative game. Produce ONE standalone full-bleed horizontal 16:9 cinematic scene, no panels. Original dark 2D pixel-art JRPG aesthetic with anime characters, refined crisp square pixel clusters, restrained detailed environment storytelling, atmospheric lighting, clearly pixel art rather than painting or 3D. Protagonist if present: a young Chinese female doctor, short brown bob haircut with a small teal hair clip, white lab coat over teal shirt and dark trousers unless scene specifies casual clothes, consistent delicate anime face. Text: none. Absolutely no lettering, words, numbers, captions, title, logo, watermark, frame, dialogue box, game UI or screenshots; any paperwork has only faint abstract strokes and any screens have only unlabelled abstract shapes. No gore, no self-harm. Late afternoon in a small hospital staff rest lounge. The young female doctor rests on a narrow sofa in teal shirt and dark trousers, white coat folded at her feet, awake with a drained expression. A caring female colleague quietly gathers several unfinished plain forms into a folder, sitting nearby at the low table. A phone lies face up but shows only a soft notification glow without symbols or words. Heavy curtains leave a wide amber beam across the sofa; institutional green paint and cooling tea suggest a long pause. Wide composition gives warmth and breathing space to an emotionally exhausted doctor receiving care.",
+    "image": "X21.webp",
+    "source": "X21.png",
+    "model": "built-in image_gen",
+    "license": "MIT",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "X22",
+    "title": "值班室的窗",
+    "brief": "夜间无法回应呼叫，评估后回宿舍休息；醒来窗外有人拍球。",
+    "prompt": "Use case: illustration-story. Asset type: independent ending CG for an original Chinese hospital narrative game. Produce ONE standalone full-bleed horizontal 16:9 cinematic scene, no panels. Original dark 2D pixel-art JRPG aesthetic with anime characters, refined crisp square pixel clusters, restrained detailed environment storytelling, atmospheric lighting, clearly pixel art rather than painting or 3D. Protagonist if present: a young Chinese female doctor, short brown bob haircut with a small teal hair clip, white lab coat over teal shirt and dark trousers unless scene specifies casual clothes, consistent delicate anime face. Text: none. Absolutely no lettering, words, numbers, captions, title, logo, watermark, frame, dialogue box, game UI or screenshots; any paperwork has only faint abstract strokes and any screens have only unlabelled abstract shapes. No gore, no self-harm. Wide view from inside a modest hospital dormitory after an overnight shift, morning sun entering through an open window. The young female doctor in loose teal casual top and dark pants sits newly awake at the edge of a simple bed, brown bob tousled, teal clip still present, her white coat hangs on a wall hook. Through the window in the middle distance a single person bounces a basketball on a small courtyard court, captured mid-bounce. The window and ordinary outdoor life are the visual center; a silent phone lies on the bedside stool. Soft morning gold and blue-gray shadows, stillness after a difficult night, humane understated mood.",
+    "image": "X22.webp",
+    "source": "X22.png",
+    "model": "built-in image_gen",
+    "license": "MIT",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "X23",
+    "title": "别人的病历",
+    "brief": "混入内容的两份病历分开核对，护士长接过笔安排后续。",
+    "prompt": "Use case: illustration-story. Asset type: independent ending CG for an original Chinese hospital narrative game. Produce ONE standalone full-bleed horizontal 16:9 cinematic scene, no panels. Original dark 2D pixel-art JRPG aesthetic with anime characters, refined crisp square pixel clusters, restrained detailed environment storytelling, atmospheric lighting, clearly pixel art rather than painting or 3D. Protagonist if present: a young Chinese female doctor, short brown bob haircut with a small teal hair clip, white lab coat over teal shirt and dark trousers unless scene specifies casual clothes, consistent delicate anime face. Text: none. Absolutely no lettering, words, numbers, captions, title, logo, watermark, frame, dialogue box, game UI or screenshots; any paperwork has only faint abstract strokes and any screens have only unlabelled abstract shapes. No gore, no self-harm. A hospital records counter in a quiet side room. Two clearly separate medical folders, one muted blue and one cream, lie open far apart on the counter. The fatigued young female doctor uses one hand to steady a folder while a senior female head nurse gently receives the doctor's pen from her other hand. Both look down at the covers to check identities, but the covers are entirely unlettered with only tiny blank label patches. Patient beds are visible through a distant doorway, no one in distress. Medium-wide elevated angle foregrounding the separation of two charts and the handover of the pen, cool fluorescent light, shadowed shelves, precise emotional realism in crisp pixel art.",
+    "image": "X23.webp",
+    "source": "X23.png",
+    "model": "built-in image_gen",
+    "license": "MIT",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "X24",
+    "title": "接走",
+    "brief": "家人到宿舍接医师离岗休养，母亲提醒带钥匙并顺手带走外卖袋。",
+    "prompt": "Use case: illustration-story. Asset type: independent ending CG for an original Chinese hospital narrative game. Produce ONE standalone full-bleed horizontal 16:9 cinematic scene, no panels. Original dark 2D pixel-art JRPG aesthetic with anime characters, refined crisp square pixel clusters, restrained detailed environment storytelling, atmospheric lighting, clearly pixel art rather than painting or 3D. Protagonist if present: a young Chinese female doctor, short brown bob haircut with a small teal hair clip, white lab coat over teal shirt and dark trousers unless scene specifies casual clothes, consistent delicate anime face. Text: none. Absolutely no lettering, words, numbers, captions, title, logo, watermark, frame, dialogue box, game UI or screenshots; any paperwork has only faint abstract strokes and any screens have only unlabelled abstract shapes. No gore, no self-harm. Open doorway of a small hospital dormitory at dusk, viewed from the corridor with warm homeward light beyond the stairwell. The young female doctor in a simple teal cardigan and dark trousers steps out carrying a modest overnight bag and a neatly folded white lab coat. Her middle-aged Chinese mother waits beside her, gently checking the small ring of keys in her daughter's hand while holding a tied empty takeaway bag collected from the threshold. Shoes, bare bed and a cup visible inside convey the room being left behind. Tender understated farewell to rotation, mother and daughter near full body, cinematic wide horizontal framing, dusky blue and soft amber.",
+    "image": "X24.webp",
+    "source": "X24.png",
+    "model": "built-in image_gen",
+    "license": "MIT",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "X25",
+    "title": "解除劳动合同",
+    "brief": "解除劳动合同后归还门禁卡，自己的白大褂装袋带走。",
+    "prompt": "Use case: illustration-story. Asset type: independent ending CG for an original Chinese hospital narrative game. Produce ONE standalone full-bleed horizontal 16:9 cinematic scene, no panels. Original dark 2D pixel-art JRPG aesthetic with anime characters, refined crisp square pixel clusters, restrained detailed environment storytelling, atmospheric lighting, clearly pixel art rather than painting or 3D. Protagonist if present: a young Chinese female doctor, short brown bob haircut with a small teal hair clip, white lab coat over teal shirt and dark trousers unless scene specifies casual clothes, consistent delicate anime face. Text: none. Absolutely no lettering, words, numbers, captions, title, logo, watermark, frame, dialogue box, game UI or screenshots; any paperwork has only faint abstract strokes and any screens have only unlabelled abstract shapes. No gore, no self-harm. Hospital administration service window at the end of a bare corridor. The young female former doctor wears teal shirt and dark trousers, short brown bob and teal clip. She slides an unmarked access card under the glass with one hand; her other arm holds a cloth tote visibly containing her folded white lab coat. Only the clerk's hand is seen receiving the card. Her face is resigned and exhausted without tears or theatrics. The corridor recedes behind her into dim green-gray light, while the small service aperture glows cold white. Full figure cinematic composition centered on the returned card and coat taken home; all windows and walls completely free of writing.",
+    "image": "X25.webp",
+    "source": "X25.png",
+    "model": "built-in image_gen",
+    "license": "MIT",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "X26",
+    "title": "白噪音",
+    "brief": "轮转结束后持续随访支持，宿舍清晨把药袋和复诊预约单放在一起。",
+    "prompt": "Use case: illustration-story. Asset type: independent ending CG for an original Chinese hospital narrative game. Produce ONE standalone full-bleed horizontal 16:9 cinematic scene, no panels. Original dark 2D pixel-art JRPG aesthetic with anime characters, refined crisp square pixel clusters, restrained detailed environment storytelling, atmospheric lighting, clearly pixel art rather than painting or 3D. Protagonist if present: a young Chinese female doctor, short brown bob haircut with a small teal hair clip, white lab coat over teal shirt and dark trousers unless scene specifies casual clothes, consistent delicate anime face. Text: none. Absolutely no lettering, words, numbers, captions, title, logo, watermark, frame, dialogue box, game UI or screenshots; any paperwork has only faint abstract strokes and any screens have only unlabelled abstract shapes. No gore, no self-harm. Quiet morning in a modest hospital dorm room after rotation has ended. The young Chinese female doctor in a loose teal casual sweater, dark pants, short brown bob and teal clip sits at the edge of a small wooden table beside the bed. She calmly places a sealed ordinary pharmacy paper bag and a plain follow-up appointment card together inside one tidy translucent envelope. Her phone is face down and silent nearby, her white coat hangs in the background. Gentle dawn light falls across her hands, an open curtain and lived-in bedding balance deep blue-gray shadows. Wide intimate environmental composition communicates ongoing professional support and taking the next manageable step. Medication remains inside its closed bag; no loose tablets, no harmful acts, no danger, no despair spectacle, no readable marks.",
+    "image": "X26.webp",
+    "source": "X26.png",
+    "model": "built-in image_gen",
+    "license": "MIT",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "X27",
+    "title": "婚礼",
+    "brief": "错过婚礼后与家人断联，手机里的合照与未用的请假单留在桌边。",
+    "prompt": "Use case: illustration-story. Asset type: independent ending CG for an original Chinese hospital narrative game. Produce ONE standalone full-bleed horizontal 16:9 cinematic scene, no panels. Original dark 2D pixel-art JRPG aesthetic with anime characters, refined crisp square pixel clusters, restrained detailed environment storytelling, atmospheric lighting, clearly pixel art rather than painting or 3D. Protagonist if present: a young Chinese female doctor, short brown bob haircut with a small teal hair clip, white lab coat over teal shirt and dark trousers unless scene specifies casual clothes, consistent delicate anime face. Text: none. Absolutely no lettering, words, numbers, captions, title, logo, watermark, frame, dialogue box, game UI or screenshots; any paperwork has only faint abstract strokes and any screens have only unlabelled abstract shapes. No gore, no self-harm. Lonely late night in a hospital break room after a family wedding was missed. Cinematic over-the-shoulder medium-wide scene: the young female doctor in her white coat and teal shirt holds a smartphone just above the desk, on its screen a tiny clear image of a smiling family wedding group around a bride and groom, faces only and no interface or letters. An unused blank leave-request sheet lies untouched beside her elbow. A vacant chair faces her across the desk; behind the window dark city lights and a few distant warm celebration-colored points. Her gaze is fixed on the people absent from her own evening. The phone's small warm wedding image contrasts with the cool empty room, no text anywhere.",
+    "image": "X27.webp",
+    "source": "X27.png",
+    "model": "built-in image_gen",
+    "license": "MIT",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "X28",
+    "title": "利息",
+    "brief": "连续结算收入不够付利息，手机还款页面下滑才能看到已还款记录。",
+    "prompt": "Use case: illustration-story. Asset type: independent ending CG for an original Chinese hospital narrative game. Produce ONE standalone full-bleed horizontal 16:9 cinematic scene, no panels. Original dark 2D pixel-art JRPG aesthetic with anime characters, refined crisp square pixel clusters, restrained detailed environment storytelling, atmospheric lighting, clearly pixel art rather than painting or 3D. Protagonist if present: a young Chinese female doctor, short brown bob haircut with a small teal hair clip, white lab coat over teal shirt and dark trousers unless scene specifies casual clothes, consistent delicate anime face. Text: none. Absolutely no lettering, words, numbers, captions, title, logo, watermark, frame, dialogue box, game UI or screenshots; any paperwork has only faint abstract strokes and any screens have only unlabelled abstract shapes. No gore, no self-harm. Late-night modest apartment dining nook, a wide diagonal composition looking down past the tired doctor's shoulder toward her hands. The young Chinese woman with short brown bob and teal hair clip wears a teal casual top and dark trousers, white lab coat draped over the chair behind her. She scrolls a smartphone with an unlabelled abstract financial list: one long muted red bar at the top and several small dim bars lower down, absolutely no numbers, text or UI icons. Beside her are a small closed wallet, several plain receipts with only faint strokes, a cold cup, and a single overhead bulb. Rain reflects amber light across the bare table. Her still posture and recurring rows convey interest overwhelming already-made repayments, restrained real-world financial strain, no fantastical symbols.",
+    "image": "X28.webp",
+    "source": "X28.png",
+    "model": "built-in image_gen",
+    "license": "MIT",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    }
+  }
+]

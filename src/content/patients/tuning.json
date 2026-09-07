@@ -1,0 +1,37 @@
+{
+  "inpatientBaseRate": 0.6,
+  "outpatientBaseRate": 0.08,
+  "departureAfterFailedComfortRate": 0.25,
+  "hiddenRates": [
+    0.15,
+    0.2,
+    0.2,
+    0.3,
+    0.35,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.5,
+    0.55,
+    0.6,
+    0.6,
+    0.65
+  ],
+  "clinicalDc": [
+    11,
+    11,
+    11,
+    12,
+    12,
+    12,
+    13,
+    13,
+    13,
+    14,
+    14,
+    14,
+    15,
+    15
+  ]
+}

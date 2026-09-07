@@ -1,0 +1,100 @@
+[
+  {
+    "id": "END-21",
+    "title": "樱桃园",
+    "author": "安东·契诃夫",
+    "qa": {
+      "status": "pass_with_notes",
+      "scene": "空老宅照片方印、女主抱箱、父母各携编织袋分离离去均清楚。",
+      "style": "冷色二次元人物与硬像素纹理一致。",
+      "text": "无可读文字或数字。",
+      "safety": "无血腥、自伤或暴力。",
+      "notes": [
+        "屋内仍留少量旧柜与窗边摆件，非彻底无家具。",
+        "原生1672×941，接近16:9，按要求未裁切缩放。"
+      ]
+    },
+    "prompt": "Use case: illustration-story. Asset: original Chinese dark medical 2D pixel JRPG ending CG, full-bleed cinematic landscape exactly 16:9. Scene: an emptied old Chinese family apartment after ruinous debts and family estrangement. A young adult Chinese woman with short brown bob and small teal hairclip, teal blouse and dark trousers, holds a cardboard box close to her chest inside the room, looking away from her parents. Her mother, age 55, short dark-gray hair, dusty plum cardigan over cream blouse, stands at the open door gripping bulging woven moving bags, looking down. Her father, age 60, gray hair, navy jacket over gray shirt, is already turning away down the dim stairwell carrying his own woven luggage. The three leave separately with their belongings, emotionally disconnected. Bare floor and unmistakable rectangular pale marks left by removed family photographs on the peeling wall. Empty home dominates but three people remain clear readable anime characters; wide eye-level composition with depth through doorway. Medium: painstaking original 2D pixel art, visibly deliberate square pixel clusters, hard-edged sprite-like anime shading and stepped outlines, clear hard pixel texture throughout, no smooth digital painting. Muted navy blue-gray, dirty teal and brown palette; cold dull light, oppressive unresolved mood, no warm horizon. No baked-in text, letters, numbers, readable paperwork, book titles, logos, captions, UI, borders, watermarks, photo, 3D, gore, wounds, or self-harm.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a5b-5c16-79a2-862e-c0591abc971c/exec-d1b3ff7c-1764-4e3d-9243-155108c2c639.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-21.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-21.webp",
+    "width": 1672,
+    "height": 941,
+    "license": "MIT",
+    "generationTool": "built-in image_gen",
+    "webpQuality": 90
+  },
+  {
+    "id": "END-22",
+    "title": "悲惨世界",
+    "author": "维克多·雨果",
+    "qa": {
+      "status": "pass",
+      "scene": "女主独居狭窄出租屋，将有限现金分入三个无字信封；残余食物和少量零钱清楚。",
+      "style": "冷色二次元人物与硬像素纹理一致。",
+      "text": "信封无字，钞票抽象，无可读数字或文字。",
+      "safety": "无血腥、自伤或暴力。",
+      "notes": [
+        "原生1672×941，接近16:9，按要求未裁切缩放。"
+      ]
+    },
+    "prompt": "Use case: illustration-story. Asset: original Chinese dark medical 2D pixel JRPG ending CG, full-bleed cinematic landscape exactly 16:9. Scene: deep night inside a very narrow rented room. A young adult Chinese woman with short brown bob, small teal hairclip, teal blouse and dark trousers sits alone beside her cramped bed at a tiny battered wooden desk. Salary has already been deducted for compensation debts. She carefully separates the few remaining cash notes from a plain wage envelope into three plain unmarked envelopes for rent, debt and living costs. Show one hand putting a single note inside an envelope, the other holding only a few notes; small meager leftover food on a plate and several coins at the desk edge. Bed, hanging everyday clothes, old electric kettle, and cold dark window make the impoverished cramped room legible. Three-quarter slightly overhead intimate composition, tired anime face clearly visible, solitude and sustained financial strain; the person and her action are central. Medium: painstaking original 2D pixel art, visibly deliberate square pixel clusters, hard-edged sprite-like anime shading and stepped outlines, clear hard pixel texture throughout, no smooth digital painting. Muted navy blue-gray, dirty teal and brown palette; cold tired fluorescent desk light, oppressive unresolved mood, no warm glow. Banknotes are abstract colored rectangles without recognizable currency or legible marks. All envelopes completely blank. No baked-in text, letters, numbers, readable documents, book titles, logos, captions, UI, borders, watermarks, photo, 3D, gore, wounds, or self-harm.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a5b-5c16-79a2-862e-c0591abc971c/exec-2a1647cd-6013-4091-84c7-9cdbbcb86c7c.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-22.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-22.webp",
+    "width": 1672,
+    "height": 941,
+    "license": "MIT",
+    "generationTool": "built-in image_gen",
+    "webpQuality": 90
+  },
+  {
+    "id": "END-23",
+    "title": "包法利夫人",
+    "author": "居斯塔夫·福楼拜",
+    "qa": {
+      "status": "pass",
+      "scene": "女主凌晨独坐银行金属等候椅，膝上还款单，关闭营业区、ATM与黑暗街景清楚。",
+      "style": "冷色二次元人物与硬像素纹理一致。",
+      "text": "ATM无文字，纸张仅不可辨识抽象笔画。",
+      "safety": "无血腥、自伤或暴力。",
+      "notes": [
+        "原生1672×941，接近16:9，按要求未裁切缩放。"
+      ]
+    },
+    "prompt": "Use case: illustration-story. Asset: original Chinese dark medical 2D pixel JRPG ending CG, full-bleed cinematic landscape exactly 16:9. Scene: the self-service vestibule of an ordinary bank in the hours before dawn. A young adult Chinese woman with short brown bob, small teal hairclip, teal blouse under a worn dark coat and dark trousers sits hunched on a row of cold metal waiting seats, repayment papers spread across her lap, studying them in exhausted silence. Her phone rests face down beside a nearly empty wallet. Behind her a locked interior glass door separates the closed staffed branch; two anonymous ATM terminals with blank cold glowing screens occupy another wall. Through exterior glass doors the street is still blue-black. No desk or home setting: seating row, ATMs, closed bank doors and dark street are unmistakable. Wide low eye-level composition, lonely anime figure clearly visible with papers in her lap, severe geometric institutional space swallowing her. Medium: painstaking original 2D pixel art, visibly deliberate square pixel clusters, hard-edged sprite-like anime shading and stepped outlines, clear hard pixel texture throughout, no smooth digital painting. Muted navy blue-gray, dirty teal and brown palette; harsh cold terminal and fluorescent lights, oppressive unresolved debt, no hopeful dawn glow. Papers contain only sparse abstract unrecognizable marks, no readable numerals or writing. No baked-in text, letters, numbers, book titles, logos, captions, UI overlays, borders, watermarks, photo, 3D, gore, wounds, or self-harm.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a5b-5c16-79a2-862e-c0591abc971c/exec-06d2eae7-9b61-4aa0-b68e-2367a2bb1ebd.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-23.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-23.webp",
+    "width": 1672,
+    "height": 941,
+    "license": "MIT",
+    "generationTool": "built-in image_gen",
+    "webpQuality": 90
+  },
+  {
+    "id": "END-24",
+    "title": "欧也妮·葛朗台",
+    "author": "奥诺雷·德·巴尔扎克",
+    "qa": {
+      "status": "pass_with_notes",
+      "scene": "父亲与担保亲属面对女主打开的空钱包，借款材料、疲惫表情和老家环境明确，区别于22的独处出租屋。",
+      "style": "冷色二次元人物与硬像素纹理一致。",
+      "text": "文件与背景小挂件有不可辨识伪文字纹理，无可读词句、数字或标题。",
+      "safety": "无血腥、自伤、暴力或滑稽争吵。",
+      "notes": [
+        "背景小挂件有伪文字纹理；严格完全无笔画标准下需后续局部清除，但本轮按四次调用上限不追加。",
+        "原生1672×941，接近16:9，按要求未裁切缩放。"
+      ]
+    },
+    "prompt": "Use case: illustration-story. Asset: original Chinese dark medical 2D pixel JRPG ending CG, full-bleed cinematic landscape exactly 16:9. Scene: an uncomfortable visit in a modest old Chinese family living room. Three adults at an old square dining table: a young adult Chinese woman with short brown bob, small teal hairclip, teal blouse and dark trousers holds open a visibly empty wallet towards her father. Father age 60 with gray hair, navy jacket over gray shirt sits alongside, leaning forward with one hand quietly open as he asks what money remains. Across from them a weary middle-aged Chinese male relative in plain brown jacket, who guaranteed her loan, has brought a thick worn folder of debt papers; his hand rests on them, his tired face turned toward the woman. The relative is here to seek repayment because his own family finances are affected. Stage a restrained intimate three-person confrontation: clear triangular seating and faces, empty wallet focal point; no shouting, comic gestures or violence. Include mismatched chairs, worn sofa and dim closed doorway in background so this is a family home, not the solo rented-bedroom cash-counting scene. Medium: painstaking original 2D pixel art, visibly deliberate square pixel clusters, hard-edged sprite-like anime shading and stepped outlines, clear hard pixel texture throughout, no smooth digital painting. Muted navy blue-gray, dirty teal and brown palette; cold overhead bulb, heavy unresolved exhaustion, no warm light. All documents show only faint abstract illegible strokes, no readable text or numbers. No baked-in text, letters, numbers, book titles, logos, captions, UI, borders, watermarks, photo, 3D, gore, wounds, or self-harm.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a5b-5c16-79a2-862e-c0591abc971c/exec-a1730768-fe9a-43dd-9221-3a00906f15fe.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-24.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-24.webp",
+    "width": 1672,
+    "height": 941,
+    "license": "MIT",
+    "generationTool": "built-in image_gen",
+    "webpQuality": 90
+  }
+]

@@ -1,0 +1,57 @@
+import type {Run}from '../../game/types';
+/** These facts describe completed acts or decisions. Their numerical effects are
+ * already applied by the source option; they do not promise another incident.
+ * Retain them visibly, without manufacturing harm, testimony or reconciliation. */
+export const RECORD_ONLY_EVENT_FACTS:Record<string,string>={
+ '假条':'开出的证明与当时掌握的情况不一致，原件仍有你的签名。',
+ '冒名开药':'这次处方使用的姓名与实际用药者不同，处方原件保留。',
+ '质疑-化解':'你已解释用药依据，对方接受了这次说明。',
+ '质疑-换药':'患者提出质疑后，你改用了较便宜的次优药，处方变更已经发生。',
+ '退费息事':'医院已经按当时方案退费，原来的问诊与收费记录没有删除。',
+ '隐瞒-未记录':'新核实的病史没有完整补记，原先的问诊记录仍保留。',
+ '政治-一幕':'主任提出加药意见，你的实际答复与签署记录分别保存。',
+ '政治-签了':'你在上级交来的处方上签了字，也保留着当时的聊天记录。签字的责任仍需按实际经过核对。',
+ '政治-拒签':'你拒绝了这次代签，相关处方没有你的签名。',
+ '政治-举报':'你已把亲自核实的材料递交处理，未见过的部分没有写入说明。',
+ '政治-沉默':'你看见了材料里的问题，没往上报，那份材料也没改。',
+ '政治-背了':'不良事件报告留下了你的签字，当时写入的原因保留在原件中。',
+ '政治-不背':'你没有签下那份归因报告，双方的分歧仍然存在。',
+ '健康-拖延':'你把自己的检查或进一步就诊向后推迟，未完成的预约仍待安排。',
+ '健康-确诊':'你看过自己的检查结果，当时选择的处理办法留在就诊记录里。',
+ '健康-请假':'你为自己的健康问题申请了离岗，交接按实际安排记录。',
+ '健康-结果':'报告建议你继续检查，其中还有问题需要进一步确认。',
+ '提桶-念头':'你认真考虑过离开这里，还没有递交辞呈。',
+ '房东-警告':'房东已催促处理租住问题，已经支付的款项仍按原账目计算。',
+ '伴侣-矛盾':'你和伴侣有一次谈话没有谈拢，当时争执的问题没有解决。',
+ '家庭-弟弟矛盾':'你与弟弟在家里的安排上发生分歧，各自承担过的事情仍分别记下。',
+ '药代-试用':'药代留下了试用品，接收样品与后来是否收取报酬分别记录。',
+ '药代-课件':'你已经接触对方提供的课件，使用范围与实际讲课记录分别保留。',
+ '药代-退款-部分':'你退回了部分实际收款，尚未退还的余额仍列在账目里。',
+ '药代-举报-匿名':'你匿名交了举报材料，调查是否查实仍待答复。',
+ '飞检-举报':'你已向稽核人员提交所知线索，没有把未核实的指控写成结论。',
+ 'DIP-首通报':'科室公布过你的病组超支金额，实际费用与已付差额仍按患者分列。',
+ 'DIP-主任谈话':'主任与你谈过超支处理办法，提出建议与后来实际执行分别记录。',
+ 'DIP-拒绝':'你拒绝了当时要求的费用处理方案，自己的答复保留在记录中。',
+ 'DIP-照做':'你执行过一次主任提出的费用安排，具体用药、收治和费用仍以患者记录为准。',
+ '串换':'这笔收费使用了与实际项目不符的名称，账单与原项目都留有记录。',
+ '分解住院':'同一段治疗被拆为两次住院，住院日期与实际治疗经过需要一并核对。',
+ '飞检-整改':'医务科要求你整改，报告是否交齐还要核对提交记录。',
+ '科研-诱惑-版面':'有人提出过付费发表的安排，你当时的答复与实际付款分别保留。',
+ '科研-诱惑-挂名':'你收到过挂名邀请，署名是否取得同意仍按实际往来核对。',
+ '科研-诱惑-药企':'企业提出过资助安排，实际接受的款项与约定工作分别记录。',
+ 'paper-journal-counterfeit':'投稿查询发现了冒用期刊名义的情况，这次稿件不能算作已在该刊发表。',
+ '纸带':'那张折过四折的心电图纸带仍在，记录着当时的窦性心动过速。',
+ '被接走':'家人来院接你离开，当时未完成的工作已经留给科室继续安排。',
+ '护士长借款':'护士长替你垫付过款项，未偿还的借款仍在个人账目中。',
+ '家人知情':'你把自己的体检报告发给了家里，他们已经知道报告上的异常。',
+};
+export function eventFactNotes(r:Run):string[]{
+ const notes:string[]=[],seen=new Set<string>();
+ for(const fact of r.authored?.ledger.facts??[]){
+  const line=RECORD_ONLY_EVENT_FACTS[fact.id];if(!line)continue;
+  const person=fact.scope.kind==='patient'?r.patients.find(p=>p.uid===fact.scope.id)?.name??r.authored?.participants.find(p=>p.id===fact.scope.id)?.name:undefined;
+  const text=`${person?`${person}：`:''}${line}`;if(!seen.has(text)){seen.add(text);notes.push(text);}
+ }
+ for(const [key,line]of Object.entries(RECORD_ONLY_EVENT_FACTS))if((r.facts[key]||r.authored?.activeFacts[key])&&!(r.authored?.ledger.facts??[]).some(f=>f.id===key)&&!seen.has(line)){seen.add(line);notes.push(line);}
+ return notes;
+}

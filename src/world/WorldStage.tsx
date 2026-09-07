@@ -2,16 +2,24 @@ import type { ComponentChildren } from 'preact';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { availableEncounters } from '../game/engine';
 import { ACTORS, VITAL_LABELS } from '../game/rules';
-import type { Action, Card, Run, Vital } from '../game/types';
-import { distance, findPath, move, roomName, SPAWN, walkable, WORLD, type Point } from './navigation';
-import { BED_PLACES, PROPS, paintProp, paintWorldMap } from './scene';
-import { idlePose } from './idle';
-import { patientArtIndex } from './patients';
+import type { Action, Card, Patient, Run, Vital } from '../game/types';
+import { distance, findPath, followPath, move, nearestFloor, roomName, SPAWN, walkable, WORLD, type Point } from './navigation';
+import { BED_PLACES, PROPS, paintProp, paintWorldMap, CORRIDOR_BED_PROP, CORRIDOR_BED_OBSTACLE } from './scene';
+import { idlePose,ambientDropout } from './idle';
+import { patientArt } from './patients';
 import { awaitingBed } from '../game/cards';
+import {underObservation}from '../game/clinical-admission';
 import { ROOMS } from './layout';
-import { worldOccupants } from './occupants';
+import { worldOccupants, worldWaitingPatients, patientWorldBed, corridorBedInUse,temporaryPatients } from './occupants';
+import { ambientPerception, perceptionBand } from '../game/perception';
+import { liveCap } from '../game/traits';
+import {patientPlacard,placardPosition} from './placards';
+import {worldCamera} from './camera';
+import {worldCoffeeOffering,worldNapOffering} from './refreshments';
+import {observeLayout} from './observe-layout';
+import './world-stage.css';
 
-interface Target extends Point { id: string; label: string; actor?: string; patientId?: string; cards?: Card[]; action?: 'coffee' | 'nap' | 'borrow' | 'journal' | 'ward'; text?: string }
+interface Target extends Point { id: string; label: string; actor?: string; patientId?: string; waitingPatients?:Patient[]; cards?: Card[]; action?: 'coffee' | 'nap' | 'borrow' | 'journal' | 'ward' | 'schedule'; text?: string }
 const PEOPLE = [
   { id: 'chief', x: 638, y: 159, cell: 0 },
   { id: 'nurse', x: 397, y: 183, cell: 1 },
@@ -20,35 +28,51 @@ const PEOPLE = [
   { id: 'rep', x: 659, y: 278, cell: 4 },
 ];
 export function worldTargets(r: Run): Target[] {
+  const coffee=worldCoffeeOffering(r);
+  const nap=worldNapOffering(r);
   const encounters = availableEncounters(r);
   const occupants = worldOccupants(r, encounters);
+  const waiting=worldWaitingPatients(r,encounters);
   const targets: Target[] = PEOPLE.map(p => ({ ...p, actor: p.id, label: ACTORS[p.id].name,
-    text: ({ chief: '“这层楼的床位要转起来。病人能不能走，你签字。”', nurse: '“床头夹都在。没问过的，别当成没有；没排除的，别写成正常。”', peer: '李恂把手机扣在桌上。“你今天还有几个没看完？”', research: '周乔抬头看了一眼钟。“数据不会自己长出来，病历也不会自己写完。”', rep: '“有需要，随时找我。”叶茗收起手机，没有离开走廊。' } as Record<string, string>)[p.id] }));
+    text: ({ chief: '“这层楼还有人等着住院呢。病人能不能出院，你得评估清楚，再签字。”', nurse: '“病历夹都放在床头了。你先核对患者的情况，没问过的病史还得问，也别把没查清的结果写成正常啊。”', peer: '李恂把手机扣在桌上。“你今天还有几位患者没看完啊？”', research: '周乔抬头看了一眼钟。“我还得整理数据，病历也没写完。今天又不知道要忙到几点。”', rep: '“有需要，随时找我。”叶茗收起手机，没有离开走廊。' } as Record<string, string>)[p.id] }));
   targets.push(
-    { id: 'phone', x: 54, y: 270, label: '走廊电话', actor: 'father', text: r.facts['family-accident'] ? '通话记录里，家里的号码排在最上面。' : '屏幕上有家里的号码。你把音量调高了一格。' },
-    { id: 'coffee', x: 556, y: 426, label: '咖啡 · ¥15', action: 'coffee' },
-    { id: 'nap', x: 690, y: 455, label: '值班沙发 · 午睡', action: 'nap' },
-    { id: 'borrow', x: 343, y: 180, label: '排班表 · 预支行动', action: 'borrow' },
+    { id: 'phone', x: 54, y: 270, label: '走廊电话', actor: r.facts['father-deceased']||r.authored?.activeFacts['father-deceased']?'mother':'father', text: r.facts['family-accident']||r.authored?.activeFacts['家庭-车祸'] ? '通话记录里，家里的号码排在最上面。' : '屏幕上有家里的号码。你把音量调高了一格。' },
+    { id: 'coffee', x: 556, y: 426, label: coffee.label, action: coffee.allowed?'coffee':undefined,text:coffee.text },
+    { id: 'nap', x: 690, y: 455, label: nap.label, action: nap.allowed?'nap':undefined,text:nap.text },
+    { id: 'borrow', x: 343, y: 180, label: '排班表', action: 'schedule' },
     { id: 'journal', x: 326, y: 398, label: '档案柜 · 旧病历', action: 'journal' },
+    { id: 'auditor', x: 362, y: 398, label: '稽核材料交接', actor:'auditor',text:'资料接收单按患者和日期分开装订。核查人员请你先列清材料来源，再说明自己经手的部分。' },
     { id: 'ward', x: 440, y: 183, label: '住院台账', action: 'ward' },
   );
-  for (const {patient,place} of occupants.filter(o=>o.patient.inpatient||awaitingBed(r,o.patient))) {
+  for (const {patient,place} of occupants) {
     targets.push({...place.target,id:patient.inpatient?`bed:${patient.bed}`:`observation:${patient.uid}`,
-      label:`${patient.inpatient?`${patient.bed} 床`:'留观'} · ${patient.name}`,patientId:patient.uid});
+      label:`${patient.inpatient?`${patient.bed} 床`:place.target.x<256?'急救室':'留观'} · ${patient.name}`,patientId:patient.uid});
   }
+  for(const group of waiting)targets.push({...group.place.target,id:group.id,label:`${group.label} · ${group.patients.length} 位`,waitingPatients:group.patients});
   for (const card of encounters) {
     let key: string, point: Point, label: string;
-    if (card.patientId && card.kind !== 'night' && card.kind !== 'quick') {
-      const p = r.patients.find(p => p.uid === card.patientId)!;
-      const place = BED_PLACES.find(b => b.bed === p.bed);
+    const waitingGroup=waiting.find(g=>g.patients.some(p=>p.uid===card.patientId));
+    const assignedPlace=occupants.find(o=>o.patient.uid===card.patientId);
+    if(waitingGroup){key=waitingGroup.id;point=waitingGroup.place.target;label=`${waitingGroup.label} · ${waitingGroup.patients.length} 位`;}
+    else if(assignedPlace){const p=assignedPlace.patient;key=p.inpatient?`bed:${p.bed}`:`observation:${p.uid}`;point=assignedPlace.place.target;label=`${p.inpatient?`${p.bed} 床`:point.x<256?'急救室':'留观'} · ${p.name}`;}
+    else if (card.patientId && card.kind !== 'night' && card.kind !== 'quick') {
+      const p = r.patients.find(p => p.uid === card.patientId);
+      if(!p){
+        // Event-only patients belong to the director, not the ward bed ledger.
+        const participant=r.authored?.participants.find(p=>p.id===card.patientId);
+        const station=targets.find(t=>t.id==='nurse')!;
+        (station.cards??=[]).push(card);station.label=participant?.name??'护理站';
+        continue;
+      }
+      const place = patientWorldBed(r,p);
       key = !p.active ? 'phone' : place ? `bed:${p.bed}` : `observation:${p.uid}`;
       point = !p.active?{x:54,y:270}:place?.target ?? occupants.find(o=>o.patient.uid===p.uid)?.place.target ?? {x:1412,y:367};
       label = !p.active?`出院回访 · ${p.name}`:place?`${p.bed} 床 · ${p.name}`:`留观 · ${p.name}`;
     } else if (card.kind === 'night') { key = 'emergency'; point = { x: 132, y: 367 }; label = '急救呼叫'; }
     else if (card.kind === 'quick') { key = 'outpatient'; point = { x: 316, y: 273 }; label = '待诊患者'; }
-    else if (card.kind === 'rest') { key = 'day-end'; point = { x: 678, y: 373 }; label = '交班 · 结束本日'; }
-    else if (card.actor === 'father') { key = 'phone'; point = { x: 54, y: 270 }; label = '家里来电'; }
-    else { key = card.actor ?? 'nurse'; point = PEOPLE.find(p => p.id === key) ?? PEOPLE[1]; label = ACTORS[key]?.name ?? card.title; }
+    else if (card.kind === 'rest') { key = 'day-end'; point = { x: 678, y: 373 }; label = '日终 · 休息与结算'; }
+    else if (card.actor === 'father'||card.actor === 'mother') { key = 'phone'; point = { x: 54, y: 270 }; label = '家里来电'; }
+    else { key = card.actor ?? 'nurse'; point = targets.find(t=>t.id===key)??PEOPLE.find(p => p.id === key) ?? PEOPLE[1]; label = ACTORS[key]?.name ?? card.title; }
     const existing = targets.find(t => t.id === key);
     if (existing) { (existing.cards ??= []).push(card); existing.label = label; }
     else targets.push({ ...point, id: key, label, cards: [card], actor: card.actor, patientId:card.patientId });
@@ -59,6 +83,7 @@ interface Props {
   r: Run;
   frozen: boolean;
   motion: boolean;
+  visualInterference?: boolean;
   dialogueOpen?: boolean;
   children?: ComponentChildren;
   onEncounter: (card: Card) => void;
@@ -67,7 +92,7 @@ interface Props {
   guide?: ComponentChildren;
   onAmbient: (label: string, text: string, actor?: string) => void;
   onAction: (a: Action) => void;
-  onMenu: (panel: 'settings' | 'journal' | 'ward' | 'character' | 'archive') => void;
+  onMenu: (panel: 'settings' | 'journal' | 'ward' | 'character' | 'archive' | 'schedule') => void;
   onPosition: (p: NonNullable<Run['world']>) => void;
   onTitle: () => void;
 }
@@ -78,6 +103,11 @@ export function WorldStage(props: Props) {
   const latest = useRef(props); latest.current = props;
   const targets = useMemo(() => worldTargets(r), [r]);
   const targetsRef = useRef(targets); targetsRef.current = targets;
+  const occupants=useMemo(()=>worldOccupants(r,availableEncounters({...r,phase:'play'})),[r]);
+  const occupantsRef=useRef(occupants);occupantsRef.current=occupants;
+  const waiting=useMemo(()=>worldWaitingPatients(r,availableEncounters({...r,phase:'play'})),[r]);
+  const waitingRef=useRef(waiting);waitingRef.current=waiting;
+  const placards=useRef(new Map<string,HTMLButtonElement>());
   const [ready, setReady] = useState(false), [failed, setFailed] = useState(false);
   const [nearby, setNearby] = useState<Target | null>(null), [room, setRoom] = useState('南屏医院 · 住院部');
   const [selection, setSelection] = useState<Target | null>(null), [quests, setQuests] = useState(false);
@@ -93,10 +123,11 @@ export function WorldStage(props: Props) {
   const open = (t: Target) => {
     if (latest.current.frozen || latest.current.r.phase !== 'play') return;
     latest.current.onPosition({ x:state.current.x, y:state.current.y, facing:state.current.facing, day:latest.current.r.day });
-    if (t.cards?.length === 1) latest.current.onEncounter(t.cards[0]);
+    if(t.waitingPatients?.length)setSelection(t);
+    else if (t.cards?.length === 1) latest.current.onEncounter(t.cards[0]);
     else if (t.cards?.length) setSelection(t);
     else if (t.patientId) latest.current.onPatient(t.patientId);
-    else if (t.action === 'journal' || t.action === 'ward') latest.current.onMenu(t.action);
+    else if (t.action === 'journal' || t.action === 'ward' || t.action === 'schedule') latest.current.onMenu(t.action);
     else if (t.action) latest.current.onAction({ type: t.action });
     else latest.current.onAmbient(t.label, t.text ?? '暂时没有新的消息。', t.actor);
   };
@@ -107,6 +138,7 @@ export function WorldStage(props: Props) {
     const previous=document.activeElement as HTMLElement|null;
     el.querySelector<HTMLButtonElement>('button')?.focus();
     const onKey=(event:KeyboardEvent)=>{
+      if(event.defaultPrevented||document.querySelector('dialog[open]'))return;
       if(event.key==='Escape'){event.preventDefault();event.stopPropagation();setSelection(null);setQuests(false);setOverview(false);}
       if(event.key==='Tab') {
         const buttons=[...el.querySelectorAll<HTMLButtonElement>('button:not(:disabled)')];
@@ -121,12 +153,11 @@ export function WorldStage(props: Props) {
   useEffect(()=>{
     const el=guideBox.current;
     if(!el){setGuideHeight(0);return;}
-    const observer=new ResizeObserver(()=>setGuideHeight(el.getBoundingClientRect().height));
-    observer.observe(el);return()=>observer.disconnect();
+    return observeLayout(el,()=>setGuideHeight(el.getBoundingClientRect().height));
   },[!!props.guide]);
   useEffect(() => {
     const saved = latest.current.r.world;
-    const pos = saved?.day === r.day && walkable(saved) ? saved : SPAWN;
+    const pos = saved?.day === r.day && walkable(saved,corridorBedInUse(r)?[CORRIDOR_BED_OBSTACLE]:[]) ? saved : SPAWN;
     state.current = { ...pos, moving: false, path: [], destination: '' };
   }, [r.id, r.day]);
   useEffect(() => {
@@ -141,20 +172,21 @@ export function WorldStage(props: Props) {
     const c = canvas.current!, container = frame.current!;
     const ctx = c.getContext('2d', { alpha: false });
     if (!ctx) { setFailed(true); return; }
-    const sources = ['ward-map.webp', 'hero-walk.webp', 'npc-idle.webp', 'bed-patients.webp'];
+    const sources = ['ward-map.webp', 'hero-walk.webp', 'npc-idle.webp', 'bed-patients.webp','extended-bed-patients.webp'];
     const images = sources.map(src => { const img = new Image(); img.src = `${import.meta.env.BASE_URL}art/${src}`; return img; });
     let stopped = false, raf = 0, width = 1, height = 1, last = 0, wasMoving = false, lastNear = '', lastRoom = '', lastTick = 0;
-    const resize = () => { width = container.clientWidth; height = container.clientHeight; c.width = Math.round(width); c.height = Math.round(height); };
-    const observer = new ResizeObserver(resize); observer.observe(container); resize();
+    const resize = () => { width = container.clientWidth; height = container.clientHeight; if(c.width!==Math.round(width))c.width = Math.round(width); if(c.height!==Math.round(height))c.height = Math.round(height); };
+    const stopObserving = observeLayout(container,resize); resize();
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const nearest = () => targetsRef.current.filter(t => distance(state.current, t) < 45).sort((a, b) => distance(state.current, a) - distance(state.current, b))[0];
     const interact = (target?: Target) => { if (!blocked.current) { const t = target ?? nearest(); if (t && distance(state.current, t) < 52) openRef.current(t); } };
-    const navigate = (t: Target) => { state.current.path = findPath(state.current, t); state.current.destination = t.id; if (distance(state.current, t) < 30) interact(t); };
+    const obstacles=()=>corridorBedInUse(latest.current.r)?[CORRIDOR_BED_OBSTACLE]:[];
+    const navigate = (t: Target) => { state.current.path = findPath(state.current, t,obstacles()); state.current.destination = t.id; if (distance(state.current, t) < 30) interact(t); };
     engine.current = { interact, navigate };
     const savePosition = () => latest.current.onPosition({ x: state.current.x, y: state.current.y, facing: state.current.facing, day: latest.current.r.day });
     const reset = () => { input.current.clear(); pad.current.x = pad.current.y = 0; state.current.path = []; state.current.destination = ''; if (stick.current) stick.current.style.transform = 'translate(0, 0)'; if (wasMoving) savePosition(); wasMoving = false; };
     const keydown = (e: KeyboardEvent) => {
-      if (blocked.current || (e.target as HTMLElement)?.closest('input,textarea,select,dialog,[role="dialog"]')) return;
+      if (e.defaultPrevented||document.querySelector('dialog[open]')||blocked.current || (e.target as HTMLElement)?.closest('input,textarea,select,dialog,[role="dialog"]')) return;
       const key = e.key.toLowerCase();
       if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', 'w', 'a', 's', 'd', 'shift'].includes(key)) { e.preventDefault(); input.current.add(key); state.current.path = []; state.current.destination = ''; }
       if ((key === 'e' || key === ' ') && !e.repeat) { e.preventDefault(); interact(); }
@@ -174,15 +206,14 @@ export function WorldStage(props: Props) {
         const keys = input.current;
         dx = Number(keys.has('d') || keys.has('arrowright')) - Number(keys.has('a') || keys.has('arrowleft')) + pad.current.x;
         dy = Number(keys.has('s') || keys.has('arrowdown')) - Number(keys.has('w') || keys.has('arrowup')) + pad.current.y;
-        if (!dx && !dy && player.path.length) {
-          const target = player.path[0], dist = distance(player, target);
-          if (dist < 3) player.path.shift();
-          else { dx = (target.x - player.x) / dist; dy = (target.y - player.y) / dist; }
-        }
-        const length = Math.hypot(dx, dy);
-        if (length > 1) { dx /= length; dy /= length; }
         const speed = WORLD.speed * (keys.has('shift') ? 1.45 : 1);
-        const next = move(player, dx * speed * dt, dy * speed * dt);
+        let next:Point;
+        if(!dx&&!dy&&player.path.length){
+          next=followPath(player,player.path,speed*dt,obstacles());dx=next.x-player.x;dy=next.y-player.y;
+        }else{
+          const length=Math.hypot(dx,dy);if(length>1){dx/=length;dy/=length;}
+          next=move(player,dx*speed*dt,dy*speed*dt,obstacles());
+        }
         player.moving = distance(player, next) > .01;
         player.x = next.x; player.y = next.y;
         if (Math.abs(dx) > Math.abs(dy)) player.facing = dx > 0 ? 3 : 1;
@@ -191,11 +222,12 @@ export function WorldStage(props: Props) {
           const t = targetsRef.current.find(t => t.id === player.destination); player.destination = ''; if (t) interact(t);
         }
       } else player.moving = false;
+      if(corridorBedInUse(p.r)&&!walkable(player,obstacles())){
+        const safe=nearestFloor(player,64,obstacles());if(safe){player.x=safe.x;player.y=safe.y;player.path=[];player.destination='';}
+      }
       if (wasMoving && !player.moving) savePosition();
       wasMoving = player.moving;
-      const scale = Math.max(width / WORLD.width, height / WORLD.height, Math.min(2.4, width / 700)) * zoom;
-      const viewW = width / scale, viewH = height / scale;
-      const cam = { x: Math.max(0, Math.min(WORLD.width - viewW, player.x - viewW / 2)), y: Math.max(0, Math.min(WORLD.height - viewH, player.y - viewH * .49)), scale };
+      const cam=worldCamera(player,width,height,zoom),{scale}=cam;
       camera.current = cam;
       ctx.imageSmoothingEnabled = false;
       ctx.fillStyle = '#08101b'; ctx.fillRect(0, 0, width, height);
@@ -206,13 +238,14 @@ export function WorldStage(props: Props) {
         ctx.fillStyle = '#ffe5a2'; player.path.forEach((p, i) => { if (i % 3 === 0) ctx.fillRect(p.x - 1, p.y - 1, 2, 2); });
       }
       const sprites = [...PEOPLE.map(person => ({ ...person, hero: false })), { x: player.x, y: player.y, id: 'hero', cell: 0, hero: true }];
-      const layers = PROPS.map(prop => ({depth:prop.depth,draw:()=>paintProp(ctx,images[0],prop)}));
-      for(const {patient,place:bed} of worldOccupants(p.r,availableEncounters({...p.r,phase:'play'}))) {
-        const index=Math.min(19,patientArtIndex(patient.caseId));
+      const visibleProps=corridorBedInUse(p.r)?[...PROPS,CORRIDOR_BED_PROP]:PROPS;
+      const layers = visibleProps.map(prop => ({depth:prop.depth,draw:()=>paintProp(ctx,images[0],prop)}));
+      for(const {patient,place:bed} of occupantsRef.current) {
+        const art=patientArt(patient),{index,columns}=art;
         layers.push({depth:bed.depth,draw:()=>{
           const pose=idlePose(time,patient.uid,motion&&patient.damage<3&&patient.caseId!=='C020');
           const rise=pose.breathe*.55;
-          ctx.drawImage(images[3],index%5*128,Math.floor(index/5)*128,128,128,bed.x,bed.y-rise,bed.width,bed.height+rise);
+          ctx.drawImage(images[art.atlas==='original'?3:4],index%columns*128,Math.floor(index/columns)*128,128,128,bed.x,bed.y-rise,bed.width,bed.height+rise);
         }});
       }
       for (const sp of sprites) layers.push({depth:sp.y,draw:()=>{
@@ -229,6 +262,20 @@ export function WorldStage(props: Props) {
       }});
       layers.sort((a,b)=>a.depth-b.depth).forEach(layer=>layer.draw());
       if (night || p.r.day > 5) { ctx.fillStyle = night ? 'rgba(14, 20, 69, .23)' : `rgba(35, 18, 46, ${Math.min(.17, (p.r.day - 5) * .014)})`; ctx.fillRect(0, 0, WORLD.width, WORLD.height); }
+      if (p.visualInterference !== false) {
+        const band = perceptionBand(p.r.vitals.san);
+        if (band !== 'clear') {
+          ctx.fillStyle = band === 'tense' ? 'rgba(83, 84, 89, .08)' : band === 'distorted' ? 'rgba(28, 31, 43, .19)' : 'rgba(17, 20, 38, .30)';
+          ctx.fillRect(0, 0, WORLD.width, WORLD.height);
+          if (band === 'fractured') {
+            // The apparition has no hitbox or quest marker; genuine patients remain visible.
+            const ghostX = Math.max(32, Math.min(WORLD.width - 32, player.x + 155));
+            const opacity = motion ? .05 + .09 * (1 + Math.sin(time / 3000)) / 2 : .08;
+            ctx.fillStyle = `rgba(164, 169, 189, ${opacity})`;
+            ctx.fillRect(ghostX - 5, 242, 10, 10); ctx.fillRect(ghostX - 9, 252, 18, 27);
+          }
+        }
+      }
       const near = nearest();
       for (const t of targetsRef.current) {
         const quest = !!t.cards?.length, dist = distance(player, t);
@@ -238,23 +285,35 @@ export function WorldStage(props: Props) {
           ctx.fillStyle = '#151a35'; ctx.fillRect(t.x - 6, y - 9 + bob, 12, 16);
           ctx.fillStyle = t.id === 'emergency' ? '#ff787e' : '#ffe3a0'; ctx.font = 'bold 13px monospace'; ctx.textAlign = 'center'; ctx.fillText('!', t.x, y + 4 + bob);
         }
-        if (dist < 84 && (quest || t.id === near?.id)) {
+        if (!t.patientId&&dist < 84 && (quest || t.id === near?.id)) {
           ctx.font = '10px sans-serif'; const w = Math.min(190, ctx.measureText(t.label).width + 14);
           ctx.fillStyle = 'rgba(9, 14, 33, .9)'; ctx.fillRect(t.x - w / 2, t.y + 7, w, 17);
           ctx.fillStyle = '#f3eddd'; ctx.textAlign = 'center'; ctx.fillText(t.label, t.x, t.y + 19, w - 10);
         }
       }
       ctx.restore();
+      for(const occupant of occupantsRef.current){
+        const label=placards.current.get(occupant.patient.uid);if(!label)continue;
+        const position=placardPosition(occupant.place,cam,{width,height});
+        label.hidden=!position.visible;label.style.width=`${position.width}px`;
+        label.style.transform=`translate(${Math.round(position.x-position.width/2)}px,${Math.round(position.y)}px)`;
+      }
+      for(const group of waitingRef.current){
+        const label=placards.current.get(group.id);if(!label)continue;
+        const position=placardPosition(group.place,cam,{width,height});
+        label.hidden=!position.visible;label.style.width=`${position.width}px`;
+        label.style.transform=`translate(${Math.round(position.x-position.width/2)}px,${Math.round(position.y)}px)`;
+      }
       if (time - lastTick > 100) {
         lastTick = time;
-        const nearKey = near ? near.id + ':' + (near.cards?.map(c=>c.id).join(',') ?? '') : '';
+        const nearKey = near ? [near.id,near.label,near.text,near.action,near.cards?.map(c=>c.id).join(',')].join(':') : '';
         if (nearKey !== lastNear) { lastNear = nearKey; setNearby(near ?? null); if(near?.patientId) latest.current.onBedNear?.(); }
         const name = roomName(player); if (name !== lastRoom) { lastRoom = name; setRoom(name); }
       }
       raf = requestAnimationFrame(draw);
     };
     Promise.all(images.map(img => img.decode())).then(() => { if (!stopped) { setReady(true); raf = requestAnimationFrame(draw); } }).catch(() => { if (!stopped) setFailed(true); });
-    return () => { stopped = true; cancelAnimationFrame(raf); observer.disconnect(); window.removeEventListener('keydown', keydown); window.removeEventListener('keyup', keyup); window.removeEventListener('blur', reset); document.removeEventListener('visibilitychange', reset); };
+    return () => { stopped = true; cancelAnimationFrame(raf); stopObserving(); window.removeEventListener('keydown', keydown); window.removeEventListener('keyup', keyup); window.removeEventListener('blur', reset); document.removeEventListener('visibilitychange', reset); };
   }, [zoom, r.id]);
   const usePad = (e: PointerEvent) => {
     if (blocked.current || pad.current.pointer !== e.pointerId) return;
@@ -265,7 +324,9 @@ export function WorldStage(props: Props) {
     if (stick.current) stick.current.style.transform = `translate(${x * k}px, ${y * k}px)`;
   };
   const releasePad = (e: PointerEvent) => { if (pad.current.pointer === e.pointerId) { pad.current = { x: 0, y: 0, pointer: -1 }; if (stick.current) stick.current.style.transform = 'translate(0, 0)'; } };
-  return <section class={`world-stage ${props.dialogueOpen ? 'with-dialogue' : ''}`} style={{'--guide-space':`${props.guide?guideHeight:0}px`}} aria-label="南屏医院">
+  const band=props.visualInterference===false?'clear':perceptionBand(r.vitals.san);
+  const perceptionText=band==='clear'?'':ambientPerception(r)??'',dropout=ambientDropout(perceptionText,`${r.seed}:${r.day}:${r.cursor}`);
+  return <section class={`world-stage world-stage-readable ${props.dialogueOpen ? 'with-dialogue' : ''}`} data-perception={band} data-motion={props.motion?'on':'off'} style={{'--guide-space':`${props.guide?guideHeight:0}px`}} aria-label="南屏医院">
     <div ref={frame} class="world-viewport">
     <canvas ref={canvas} class="world-canvas" tabIndex={0} aria-label="医院地图。方向键或 WASD 移动，E 或空格交互，J 打开病历。也可点击目的地行走。"
       onPointerDown={e => {
@@ -274,21 +335,24 @@ export function WorldStage(props: Props) {
         const point = { x: (e.clientX - rect.left) / cam.scale + cam.x, y: (e.clientY - rect.top) / cam.scale + cam.y };
         const target = targetsRef.current.filter(t => distance(point, { x: t.x, y: t.y - 20 }) < 32).sort((a, b) => distance(point, a) - distance(point, b))[0];
         if (target) engine.current.navigate(target);
-        else { state.current.path = findPath(state.current, point); state.current.destination = ''; }
+        else { state.current.path = findPath(state.current, point,corridorBedInUse(latest.current.r)?[CORRIDOR_BED_OBSTACLE]:[]); state.current.destination = ''; }
       }} />
+    <div class="world-placards">{occupants.map(occupant=>{const label=patientPlacard(r,occupant.patient);return <button type="button" key={occupant.patient.uid} hidden ref={element=>{if(element)placards.current.set(occupant.patient.uid,element);else placards.current.delete(occupant.patient.uid);}} class="world-placard" aria-label={`${label.name}，${label.status}，前往床旁`} disabled={props.frozen} onClick={()=>{if(blocked.current)return;const target=targetsRef.current.find(t=>t.patientId===occupant.patient.uid);if(target)engine.current.navigate(target);}}><span class="world-placard-content"><b>{label.name}</b><small>{label.status}</small></span></button>;})}</div>
+    <div class="world-placards">{waiting.map(group=><button type="button" key={group.id} hidden ref={element=>{if(element)placards.current.set(group.id,element);else placards.current.delete(group.id);}} class="world-placard" aria-label={`${group.label}，${group.patients.length} 位，前往查看名单`} disabled={props.frozen} onClick={()=>{if(blocked.current)return;const target=targetsRef.current.find(t=>t.id===group.id);if(target)engine.current.navigate(target);}}><span class="world-placard-content"><b>{group.label}</b><small>{group.patients.length} 位 · 查看名单</small></span></button>)}</div>
+    {band!=='clear'&&<p class="world-perception-message"><span aria-hidden="true">{[...perceptionText].map((glyph,index)=><span key={index} class={index===dropout?'world-ambient-dropout':undefined}>{glyph}</span>)}</span><span class="sr-only">{perceptionText}</span></p>}
     </div>
     {!ready && <div class="world-loading" role="status">{failed ? '病区画面未能载入，请刷新重试。进度已保留。' : '南屏医院 · 住院部'}</div>}
     <div class="world-vignette" aria-hidden="true" />
     <header class="rpg-hud">
       <button class="rpg-avatar" onClick={() => props.onMenu('character')} aria-label="角色状态"><img src={`${import.meta.env.BASE_URL}art/hero-walk.webp`} alt="" /></button>
       <div class="rpg-vitals">{(['stamina', 'san', 'emotion'] as Vital[]).map(v => <div class={`rpg-meter meter-${v}`} key={v}>
-        <span>{VITAL_LABELS[v]}</span><div role="meter" aria-label={VITAL_LABELS[v]} aria-valuenow={r.vitals[v]} aria-valuemin={0} aria-valuemax={r.caps[v]}><i style={{ width: `${Math.max(0, r.vitals[v] / r.caps[v] * 100)}%` }} /></div><b>{Math.round(r.vitals[v])}<small>/{r.caps[v]}</small></b>
+        <span>{VITAL_LABELS[v]}</span><div role="meter" aria-label={VITAL_LABELS[v]} aria-valuenow={r.vitals[v]} aria-valuemin={0} aria-valuemax={liveCap(r,v)}><i style={{ width: `${Math.max(0, Math.min(100,r.vitals[v] / liveCap(r,v) * 100))}%` }} /></div><b>{Math.round(r.vitals[v])}<small>/{liveCap(r,v)}</small></b>
       </div>)}</div>
       <div class="rpg-ap" title={`行动值 ${r.ap}，今日已预支 ${r.borrowed} 点`}><strong>行动 <b>{r.ap}</b></strong><div>{Array.from({ length: 10 }, (_, i) => <i class={i < r.ap ? 'filled' : ''} key={i} />)}</div><small>预支 {r.borrowed}/4</small></div>
-      <div class="rpg-wallet"><strong>¥ {Math.round(r.cash).toLocaleString('zh-CN')}</strong><small>负债 ¥{Math.round(r.debt + r.privateDebt).toLocaleString('zh-CN')}</small></div>
+      <div class="rpg-wallet"><strong>余额 ¥ {Math.round(r.cash).toLocaleString('zh-CN')}</strong><small>负债 ¥{Math.round(r.debt + r.privateDebt).toLocaleString('zh-CN')}</small></div>
       <button class="rpg-pause" aria-label="暂停与设置" onClick={() => props.onMenu('settings')}>Ⅱ</button>
     </header>
-    <div class="rpg-location"><span>第 {String(Math.min(14, r.day)).padStart(2, '0')} 天</span><b>{room}</b><small>{r.day === 15 ? '鉴定日' : `距鉴定庭 ${15 - r.day} 天`}</small></div>
+    <div class="rpg-location"><span>第 {String(r.day).padStart(2, '0')} 天</span><b>{room}</b><small>{r.day === 15 ? '医疗纠纷复核' : `距本次轮转结束 ${15 - r.day} 天`}</small></div>
     <div class="rpg-quest-button"><button onClick={() => setQuests(true)} disabled={props.frozen}><span>！</span>当班待办 <b>{availableEncounters({...r,phase:'play'}).length}</b></button></div>
     {props.guide && <div class="world-guide" ref={guideBox}>{props.guide}</div>}
     <div class="rpg-tools"><button onClick={() => props.onMenu('journal')} aria-label="病历夹">▤<span>病历</span></button><button onClick={() => props.onMenu('character')} aria-label="角色与天赋">◇<span>角色</span></button><button onClick={()=>setOverview(true)} aria-label="打开病区地图">▦<span>地图</span></button><button onClick={() => setZoom(z => z === 1 ? 1.3 : 1)} aria-label="切换地图缩放">⌕<span>视野</span></button></div>
@@ -297,12 +361,13 @@ export function WorldStage(props: Props) {
         <div class="joystick" role="group" aria-label="移动摇杆" onPointerDown={e => { if (pad.current.pointer !== -1) return; pad.current.pointer = e.pointerId; (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId); usePad(e); }} onPointerMove={usePad} onPointerUp={releasePad} onPointerCancel={releasePad} onLostPointerCapture={releasePad}><span class="joystick-cross" /><span ref={stick} class="joystick-knob" /></div>
         <button class="rpg-interact" disabled={!nearby} onClick={() => engine.current.interact()}><span>E</span><b>{nearby ? nearby.cards?.length ? '交互' : nearby.action ? '查看' : '交谈' : '交互'}</b></button>
       </div>
-      <div class="rpg-nearby" aria-live="polite">{nearby ? nearby.label : '走近人物、病床或物件'}</div>
-      <p class="rpg-controls-hint">WASD / 方向键 移动 · E 交互 · 点击地面行走</p>
+      <div class="rpg-nearby" aria-live="polite">{nearby ? nearby.label : props.visualInterference !== false ? ambientPerception(r) ?? '走近人物、病床或物件' : '走近人物、病床或物件'}</div>
+      <p class="rpg-controls-hint">WASD / 方向键移动 · E / 空格交互 · J 病历 · Esc 设置 · 点击地面行走</p>
     </>}
     {(selection || quests) && <div ref={menu} class="rpg-map-menu" role="dialog" aria-modal="true" aria-label={selection?.label ?? '当班待办'}>
       <div class="rpg-menu-heading"><h2>{selection?.label ?? '当班待办'}</h2><button aria-label="关闭" onClick={() => { setSelection(null); setQuests(false); }}>×</button></div>
-      {(selection?.cards ?? availableEncounters(r)).map(card => {const patient=r.patients.find(p=>p.uid===card.patientId);return <button class="rpg-menu-row" key={card.id} onClick={() => { setSelection(null); setQuests(false); if (selection) props.onEncounter(card); else { const t = targets.find(t => t.cards?.some(c => c.id === card.id)); if (t) engine.current.navigate(t); } }}><span>▸</span><b>{card.title==='信息'?'入院核查':card.title}</b><small>{patient?`${patient.bed?`${patient.bed} 床 · `:awaitingBed(r,patient)?'留观 · ':''}${patient.name}`:ACTORS[card.actor ?? '']?.name ?? '值班室'}</small></button>;})}
+      {(selection?.cards ?? availableEncounters(r)).map(card => {const patient=r.patients.find(p=>p.uid===card.patientId),title=card.title==='信息'?'入院核查':card.title,who=patient?`${patient.bed?`${patient.bed} 床 · `:awaitingBed(r,patient)||underObservation(r,patient)?'留观 · ':''}${patient.name}`:ACTORS[card.actor ?? '']?.name ?? '值班室';return <button class="rpg-menu-row" key={card.id} aria-label={`${title}，${who}，${selection?'开始交互':'前往办理'}`} onClick={() => { setSelection(null); setQuests(false); if (selection) props.onEncounter(card); else { const t = targets.find(t => t.cards?.some(c => c.id === card.id)); if (t) engine.current.navigate(t); } }}><span aria-hidden="true">▸</span><b>{title}</b><small>{who}</small></button>;})}
+      {selection?.waitingPatients?.map(patient=><button class="rpg-menu-row" key={`waiting:${patient.uid}`} onClick={()=>{setSelection(null);props.onPatient(patient.uid);}}><span aria-hidden="true">▤</span><b>{patient.name}</b><small>候床 · 查看现有病历</small></button>)}
       {!selection && <p>选定目的地后沿路线前往。</p>}
     </div>}
     {overview && <div ref={menu} class="rpg-map-menu hospital-overview" role="dialog" aria-modal="true" aria-label="病区地图">
@@ -310,8 +375,8 @@ export function WorldStage(props: Props) {
       <div class="hospital-map-grid">{ROOMS.map((place,index)=>{
         const beds=BED_PLACES.filter(b=>b.target.x>=place.target.x&&b.target.x<place.target.x+place.target.w);
         const occupied=r.patients.filter(p=>p.active&&p.inpatient&&beds.some(b=>b.bed===p.bed)).length;
-        return <>{index===6&&<div class="hospital-map-corridor">公共走廊</div>}<button key={place.id} class={`map-room map-room-${place.kind}`} onClick={()=>{setOverview(false);engine.current.navigate({...place.interaction,id:`room:${place.id}`,label:place.name});}}><b>{place.name}</b><small>{place.kind==='ward'?`${occupied} / 4 床`:place.id==='observation'?`${r.patients.filter(p=>awaitingBed(r,p)).length} 人留观`:room===place.name?'你在这里':'前往'}</small></button></>;
-      })}</div><p>点选房间后沿走廊前往。病床与人物处按 E 或点交互。</p>
+        return <>{index===6&&<div class="hospital-map-corridor">公共走廊</div>}<button key={place.id} class={`map-room map-room-${place.kind}`} onClick={()=>{setOverview(false);engine.current.navigate({...place.interaction,id:`room:${place.id}`,label:place.name});}}><b>{place.name}</b><small>{place.kind==='ward'?`${occupied} / 4 床`:place.id==='observation'||place.id==='er'?`${temporaryPatients(r,availableEncounters(r),place.id).length} 位患者`:room===place.name?'你在这里':'前往'}</small></button></>;
+      })}</div><div class="map-amenities">{[{id:'coffee',label:'前往咖啡台'},{id:'nap',label:'前往午睡沙发'},{id:'borrow',label:'前往排班表'}].map(item=><button class="rpg-menu-row" key={item.id} onClick={()=>{setOverview(false);const target=targets.find(t=>t.id===item.id);if(target)engine.current.navigate(target);}}><b>{item.label}</b><small>{item.id==='borrow'?'护士站':targets.find(t=>t.id===item.id)?.label}</small></button>)}</div>{corridorBedInUse(r)&&<button class="rpg-menu-row" onClick={()=>{setOverview(false);const target=targets.find(t=>t.id==='bed:17');if(target)engine.current.navigate(target);}}><b>公共走廊 · 17 加床</b><small>{r.patients.find(p=>p.active&&p.inpatient&&p.bed===17)?.name}</small></button>}<p>点选房间后沿走廊前往。病床与人物处按 E 或点交互。</p>
     </div>}
     {children}
   </section>;

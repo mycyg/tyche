@@ -1,0 +1,18 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.12/schema.json",
+  "files": { "includes": ["src/**/*.ts", "src/**/*.tsx", "scripts/**/*.ts", "tests/**/*.ts", "*.ts"], "ignoreUnknown": true },
+  "formatter": { "enabled": true, "indentStyle": "space", "indentWidth": 2 },
+  "assist": { "enabled": false },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": false,
+      "correctness": { "noUnreachable": "error", "noInvalidBuiltinInstantiation": "error", "useIsNan": "error", "noUnsafeFinally": "error" },
+      "suspicious": { "noDuplicateCase": "error", "noDuplicateObjectKeys": "error", "noAsyncPromiseExecutor": "error" }
+    }
+  },
+  "overrides": [{
+    "includes": ["src/game/**/*.ts"],
+    "linter": { "rules": { "style": { "noRestrictedImports": { "level": "error", "options": { "paths": { "preact": "Keep rendering outside the engine.", "preact/hooks": "Keep rendering outside the engine.", "three": "Dice presentation cannot decide engine outcomes." } } } } } }
+  }]
+}

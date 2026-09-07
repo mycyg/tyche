@@ -1,0 +1,8087 @@
+[
+  {
+    "id": "P-001",
+    "name": "许家宝宝",
+    "age": "2 月",
+    "ageYears": 0.16666666666666666,
+    "sex": "男",
+    "occupation": "婴儿，母乳喂养",
+    "companion": "父母",
+    "payment": "医保",
+    "personality": "嗜睡、少哭",
+    "concealment": 1,
+    "concealedFact": "母亲不主动说自己产后在服药并哺乳",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "母亲：「他就是吃得少了点，我婆婆说小孩都这样，我就没敢往别的想。」",
+    "categories": [
+      "儿科",
+      "感染",
+      "神经",
+      "消化"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "infant",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-002",
+    "name": "陆家小囡",
+    "age": "5 月",
+    "ageYears": 0.4166666666666667,
+    "sex": "女",
+    "occupation": "婴儿，母亲上班由外婆带",
+    "companion": "祖辈",
+    "payment": "医保",
+    "personality": "好哭、黏人",
+    "concealment": 3,
+    "concealedFact": "外婆自己喂过「去火」草药水，不说",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "外婆：「她妈上班去了，一直是我带她。这两天她拉得多了点，别的都挺好啊。」",
+    "categories": [
+      "儿科",
+      "消化",
+      "中毒",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "infant",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-003",
+    "name": "邱家宝宝",
+    "age": "8 月",
+    "ageYears": 0.6666666666666666,
+    "sex": "男",
+    "occupation": "婴儿，早产儿",
+    "companion": "多人",
+    "payment": "商保",
+    "personality": "瘦小、警觉",
+    "concealment": 1,
+    "concealedFact": "父母不提早产史，觉得已经没关系了",
+    "complaintTendency": 2,
+    "adherence": "高",
+    "dialogue": "父亲：「我们买了保险的，该做的检查你全给做了，别到时候说漏了什么。」",
+    "categories": [
+      "儿科",
+      "呼吸",
+      "感染",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "infant",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-004",
+    "name": "谢小满",
+    "age": "1 岁 3 月",
+    "ageYears": 1.25,
+    "sex": "女",
+    "occupation": "幼儿，父亲一人带",
+    "companion": "父母",
+    "payment": "自费（异地医保未备案）",
+    "personality": "好动、怕生",
+    "concealment": 2,
+    "concealedFact": "父亲不说孩子昨天从沙发上摔过，怕妻子知道",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "父亲：「她就磕了一下，连哭都没哭。我看她没事，就没跟她妈说。」",
+    "categories": [
+      "儿科",
+      "创伤",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-girl",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-005",
+    "name": "韦家老二",
+    "age": "1 岁 8 月",
+    "ageYears": 1.6666666666666665,
+    "sex": "男",
+    "occupation": "幼儿，家里第二个孩子",
+    "companion": "祖辈",
+    "payment": "医保",
+    "personality": "皮实、不怕打针",
+    "concealment": 3,
+    "concealedFact": "爷爷不说孩子可能吞了什么，桌上有他的药和硬币",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "爷爷：「他什么都往嘴里塞，我哪看得住，反正现在也没什么事嘛。」",
+    "categories": [
+      "儿科",
+      "中毒",
+      "消化",
+      "呼吸"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-boy",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-006",
+    "name": "程小桐",
+    "age": "2 岁",
+    "ageYears": 2,
+    "sex": "女",
+    "occupation": "幼儿",
+    "companion": "父母",
+    "payment": "医保",
+    "personality": "黏人、易惊",
+    "concealment": 1,
+    "concealedFact": "母亲在家喂过退烧冲剂，剂量记不清",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "母亲：「我给她喂了点退烧冲剂。包装我扔了，喂了多少……我也记不清。」",
+    "categories": [
+      "儿科",
+      "感染",
+      "呼吸",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-girl",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-007",
+    "name": "江家小胖",
+    "age": "3 岁",
+    "ageYears": 3,
+    "sex": "男",
+    "occupation": "幼儿园小班",
+    "companion": "祖辈",
+    "payment": "医保",
+    "personality": "贪吃、爱笑",
+    "concealment": 1,
+    "concealedFact": "奶奶少说自己天天喂零食饮料，怕儿媳知道",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "奶奶：「小孩子哪有不吃零食的，你们医生就是要求太高了。」",
+    "categories": [
+      "儿科",
+      "消化",
+      "内分泌",
+      "感染"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-boy",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-008",
+    "name": "阮家双胞胎老大",
+    "age": "3 岁 6 月",
+    "ageYears": 3.5,
+    "sex": "女",
+    "occupation": "幼儿园小班，双胞胎",
+    "companion": "多人",
+    "payment": "商保",
+    "personality": "内向、爱哭",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 2,
+    "adherence": "高",
+    "dialogue": "母亲：「两个孩子一起病了，另一个也在咳。你先给她看吧，两个都得查，费用我们能出。」",
+    "categories": [
+      "儿科",
+      "呼吸",
+      "感染",
+      "消化"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-girl",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-009",
+    "name": "石家小丁",
+    "age": "4 岁",
+    "ageYears": 4,
+    "sex": "男",
+    "occupation": "幼儿园中班",
+    "companion": "父母",
+    "payment": "医保",
+    "personality": "倔、爱问为什么",
+    "concealment": 3,
+    "concealedFact": "父母在家把成人药掰半喂过，不说",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "父亲：「我们家里有药，大人吃的掰一半给他，从来都这样，没出过事。」",
+    "categories": [
+      "儿科",
+      "中毒",
+      "呼吸",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-boy",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-010",
+    "name": "乔小七",
+    "age": "5 岁",
+    "ageYears": 5,
+    "sex": "女",
+    "occupation": "幼儿园大班",
+    "companion": "录音者",
+    "payment": "自费",
+    "personality": "乖巧、话少",
+    "concealment": 1,
+    "concealedFact": "母亲不确定孩子是不是有过敏史，索性不说",
+    "complaintTendency": 3,
+    "adherence": "中",
+    "dialogue": "母亲：「医生你说话我录一下，上次那个医生说的跟做的不一样，我吃过亏的。」",
+    "categories": [
+      "儿科",
+      "呼吸",
+      "感染",
+      "消化"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-girl",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-011",
+    "name": "冯家小子",
+    "age": "6 岁",
+    "ageYears": 6,
+    "sex": "男",
+    "occupation": "小学一年级，在校受伤",
+    "companion": "老师",
+    "payment": "医保",
+    "personality": "好动、逞强",
+    "concealment": 1,
+    "concealedFact": "老师不说事发时课堂没人看着",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "老师：「家长马上到，你们先处理，是他自己跑的，我们老师都在的。」",
+    "categories": [
+      "儿科",
+      "创伤",
+      "外科",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-boy",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-012",
+    "name": "贺家小妹",
+    "age": "7 岁",
+    "ageYears": 7,
+    "sex": "女",
+    "occupation": "小学二年级，父母在外地",
+    "companion": "祖辈",
+    "payment": "医保",
+    "personality": "懂事、忍痛",
+    "concealment": 1,
+    "concealedFact": "外公不说已经拖了三天",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "外公：「她一直说不疼不疼，我想小孩子哪有那么娇气的，就没来。」",
+    "categories": [
+      "儿科",
+      "外科",
+      "消化",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-girl",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-013",
+    "name": "彭小宇",
+    "age": "8 岁",
+    "ageYears": 8,
+    "sex": "男",
+    "occupation": "小学三年级",
+    "companion": "父母",
+    "payment": "商保",
+    "personality": "敏感、话多",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "母亲：「医生，我把他的症状都记在手机里了，你看一下，按时间排的，我怕说漏。」",
+    "categories": [
+      "儿科",
+      "呼吸",
+      "感染",
+      "神经",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-boy",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-014",
+    "name": "邵家小儿子",
+    "age": "9 岁",
+    "ageYears": 9,
+    "sex": "男",
+    "occupation": "小学四年级，家里开小饭馆",
+    "companion": "父母",
+    "payment": "医保",
+    "personality": "沉默、怕生",
+    "concealment": 3,
+    "concealedFact": "父亲隐瞒烫伤发生在店里帮工时",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "父亲：「在家里烧水烫的，跟店里没关系，你就写在家里就行了。」",
+    "categories": [
+      "儿科",
+      "创伤",
+      "外科",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-boy",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-015",
+    "name": "唐小婷",
+    "age": "10 岁",
+    "ageYears": 10,
+    "sex": "女",
+    "occupation": "小学五年级",
+    "companion": "父母",
+    "payment": "医保",
+    "personality": "文静、懂事",
+    "concealment": 1,
+    "concealedFact": "母亲不说在给孩子吃网购的增高保健品",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "母亲：「我在网上给她买了增高保健品，看好多人都给孩子吃，应该没事吧？」",
+    "categories": [
+      "儿科",
+      "内分泌",
+      "消化",
+      "肾"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-girl",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-016",
+    "name": "谭家孙子",
+    "age": "11 岁",
+    "ageYears": 11,
+    "sex": "男",
+    "occupation": "小学六年级，寄养在奶奶家",
+    "companion": "祖辈",
+    "payment": "医保（异地）",
+    "personality": "早熟、护着奶奶",
+    "concealment": 1,
+    "concealedFact": "奶奶耳背，孩子代答，少说夜里不睡、头痛一周",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「奶奶耳朵不好，你问我就行，我知道我自己怎么回事。」",
+    "categories": [
+      "儿科",
+      "神经",
+      "感染",
+      "消化"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-boy",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-017",
+    "name": "何小凯",
+    "age": "12 岁",
+    "ageYears": 12,
+    "sex": "男",
+    "occupation": "初一，体校苗子",
+    "companion": "多人",
+    "payment": "自费",
+    "personality": "争强、不服",
+    "concealment": 1,
+    "concealedFact": "教练不提用过的「营养针」",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "教练：「练体育的小孩，磕磕碰碰正常，你别一上来就说要停训。」",
+    "categories": [
+      "儿科",
+      "创伤",
+      "外科",
+      "心血管",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-boy",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-018",
+    "name": "秦家女儿",
+    "age": "13 岁",
+    "ageYears": 13,
+    "sex": "女",
+    "occupation": "初二",
+    "companion": "父母",
+    "payment": "医保",
+    "personality": "沉默、抗拒",
+    "concealment": 3,
+    "concealedFact": "本人隐瞒自伤意念与手臂划痕，母亲不知情；母亲离开后才可能说",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「我没事，就是没睡好，妈你能不能出去一下。」",
+    "categories": [
+      "儿科",
+      "精神",
+      "神经",
+      "消化"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-girl",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-019",
+    "name": "小林",
+    "age": "14 岁",
+    "ageYears": 14,
+    "sex": "男",
+    "occupation": "初三，住校",
+    "companion": "老师",
+    "payment": "医保",
+    "personality": "憨、老实",
+    "concealment": 1,
+    "concealedFact": "班主任不说宿舍里好几个孩子症状一样",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "老师：「就他一个人生病，别的孩子都好好的。你先给他看，学校那边我去说明。」",
+    "categories": [
+      "儿科",
+      "感染",
+      "消化",
+      "呼吸"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-boy",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-020",
+    "name": "杜小蕊",
+    "age": "14 岁",
+    "ageYears": 14,
+    "sex": "女",
+    "occupation": "初三，母亲已故",
+    "companion": "父母",
+    "payment": "医保",
+    "personality": "内向、爱看书",
+    "concealment": 2,
+    "concealedFact": "本人隐瞒月经史与腹痛真正部位，不好意思当着父亲说",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "「就是肚子疼，具体哪里……说不清，我爸能不能不在这儿。」",
+    "categories": [
+      "儿科",
+      "妇产",
+      "消化",
+      "外科"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-girl",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-021",
+    "name": "沈家独子",
+    "age": "15 岁",
+    "ageYears": 15,
+    "sex": "男",
+    "occupation": "高一，重点班",
+    "companion": "录音者",
+    "payment": "商保",
+    "personality": "紧绷、少话",
+    "concealment": 2,
+    "concealedFact": "母亲隐瞒给孩子吃网购的「聪明药」",
+    "complaintTendency": 3,
+    "adherence": "中",
+    "dialogue": "母亲：「他下周就考试了，你给他开点见效快的药吧，可别耽误考试。我全程录着呢，你放心。」",
+    "categories": [
+      "儿科",
+      "神经",
+      "精神",
+      "心血管",
+      "中毒"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-boy",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-022",
+    "name": "陶小雯",
+    "age": "15 岁",
+    "ageYears": 15,
+    "sex": "女",
+    "occupation": "高一，艺考生",
+    "companion": "父母",
+    "payment": "自费",
+    "personality": "要强、爱面子",
+    "concealment": 3,
+    "concealedFact": "母女都隐瞒长期节食与催吐",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "母亲：「她就是吃得少一点，跳舞的都这样，你别给她开那种会长胖的药。」",
+    "categories": [
+      "儿科",
+      "内分泌",
+      "消化",
+      "精神",
+      "心血管"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-girl",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-023",
+    "name": "岑同学",
+    "age": "16 岁",
+    "ageYears": 16,
+    "sex": "男",
+    "occupation": "高二，父母在外地",
+    "companion": "同学",
+    "payment": "医保（自己带卡）",
+    "personality": "嘴硬、讲义气",
+    "concealment": 3,
+    "concealedFact": "本人隐瞒饮酒与打架经过",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「我们就是玩着摔的，没喝酒，你别打电话给我爸妈，他们在外地忙。」",
+    "categories": [
+      "儿科",
+      "创伤",
+      "中毒",
+      "外科",
+      "消化"
+    ],
+    "periods": [
+      "夜班",
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-boy",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-024",
+    "name": "白小雨",
+    "age": "16 岁",
+    "ageYears": 16,
+    "sex": "女",
+    "occupation": "高二，休学中",
+    "companion": "父母",
+    "payment": "医保",
+    "personality": "淡漠、疲惫",
+    "concealment": 1,
+    "concealedFact": "父母不愿提精神科就诊史与在服药物，问了会说",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "母亲：「她就是有点睡不好，别的没什么，你别往病历上写那些。」",
+    "categories": [
+      "儿科",
+      "精神",
+      "神经",
+      "中毒"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-girl",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-025",
+    "name": "郝小海",
+    "age": "17 岁",
+    "ageYears": 17,
+    "sex": "男",
+    "occupation": "职高实习生，汽修厂",
+    "companion": "雇主",
+    "payment": "工伤（雇主要求按自费走）",
+    "personality": "憨厚、怕事",
+    "concealment": 2,
+    "concealedFact": "老板隐瞒受伤地点在厂里，要求写成路上摔的",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "老板：「就写他自己路上骑车摔的，费用我全出，用不着走那个工伤。」",
+    "categories": [
+      "儿科",
+      "创伤",
+      "外科",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-boy",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-026",
+    "name": "萧同学",
+    "age": "17 岁",
+    "ageYears": 17,
+    "sex": "女",
+    "occupation": "高三",
+    "companion": "无",
+    "payment": "自费",
+    "personality": "冷静、早熟",
+    "concealment": 3,
+    "concealedFact": "本人隐瞒怀孕可能与性史",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「我就想查一下，能不能别通知家里，我已经十七了。」",
+    "categories": [
+      "儿科",
+      "妇产",
+      "消化",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-girl",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-027",
+    "name": "关小勇",
+    "age": "6 岁",
+    "ageYears": 6,
+    "sex": "男",
+    "occupation": "小学一年级，父母离异",
+    "companion": "多人",
+    "payment": "医保",
+    "personality": "胆小、哭闹",
+    "concealment": 1,
+    "concealedFact": "父母各自隐瞒对方不知道的喂药与饮食",
+    "complaintTendency": 2,
+    "adherence": "低",
+    "dialogue": "母亲：「你问他爸，孩子周末在他那边，回来就这样了，我早说了不能给他吃那些。」",
+    "categories": [
+      "儿科",
+      "消化",
+      "感染",
+      "中毒"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-boy",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-028",
+    "name": "栗家宝宝",
+    "age": "11 月",
+    "ageYears": 0.9166666666666666,
+    "sex": "女",
+    "occupation": "婴儿，先天心脏病术后随访",
+    "companion": "父母",
+    "payment": "医保",
+    "personality": "易累、少动",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "母亲：「她做过手术的，出院小结我都带着，你看这里，医生说要按时复查。」",
+    "categories": [
+      "儿科",
+      "心血管",
+      "呼吸",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "infant",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-029",
+    "name": "梅小坤",
+    "age": "9 岁",
+    "ageYears": 9,
+    "sex": "男",
+    "occupation": "小学三年级，哮喘史",
+    "companion": "祖辈",
+    "payment": "医保",
+    "personality": "活泼、不知节制",
+    "concealment": 1,
+    "concealedFact": "外婆自己停了吸入剂改中药，问到才说",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "外婆：「那个喷的东西是激素，孩子小，我就给他停了，换成中药调理调理。」",
+    "categories": [
+      "儿科",
+      "呼吸",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-boy",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-030",
+    "name": "柴小妮",
+    "age": "2 岁 6 月",
+    "ageYears": 2.5,
+    "sex": "女",
+    "occupation": "幼儿，母亲怀二胎",
+    "companion": "父母",
+    "payment": "医保",
+    "personality": "认生、爱咬手指",
+    "concealment": 1,
+    "concealedFact": "母亲不说自己孕晚期抱不动、孩子磕过额头",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "母亲：「我这肚子大了抱不动她，她跑起来我也追不上，就磕了一下额头。」",
+    "categories": [
+      "儿科",
+      "创伤",
+      "神经",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-girl",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-031",
+    "name": "阎家儿子",
+    "age": "13 岁",
+    "ageYears": 13,
+    "sex": "男",
+    "occupation": "初一，肥胖",
+    "companion": "父母",
+    "payment": "商保",
+    "personality": "自卑、爱吃",
+    "concealment": 1,
+    "concealedFact": "父亲不说家里长辈有糖尿病，觉得跟小孩没关系",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "父亲：「他就是胖点，能吃是福，你别吓他，小孩子敏感。」",
+    "categories": [
+      "儿科",
+      "内分泌",
+      "消化",
+      "心血管"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "child-boy",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-032",
+    "name": "竺家女儿",
+    "age": "4 岁 6 月",
+    "ageYears": 4.5,
+    "sex": "女",
+    "occupation": "幼儿园中班，血液病随访",
+    "companion": "父母",
+    "payment": "欠费",
+    "personality": "苍白、安静",
+    "concealment": 1,
+    "concealedFact": "母亲不说已经欠费、想少做检查",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "母亲：「那项检查能不能先不做？我们卡里……钱不够了。你先给她看，我回去想办法凑。」",
+    "categories": [
+      "儿科",
+      "血液",
+      "感染"
+    ],
+    "periods": [
+      "病区",
+      "门诊"
+    ],
+    "flags": [
+      "医保欠费"
+    ],
+    "flagDescription": "医保欠费",
+    "portraitArchetype": "child-girl",
+    "transferred": false,
+    "source": "11_患者实体库/01_儿童与青少年.md",
+    "original": true
+  },
+  {
+    "id": "P-033",
+    "name": "小周",
+    "age": "18",
+    "ageYears": 18,
+    "sex": "男",
+    "occupation": "大一新生，军训期间",
+    "companion": "同学",
+    "payment": "医保",
+    "personality": "腼腆、逞强",
+    "concealment": 1,
+    "concealedFact": "患者已经两天没好好吃饭，此前没有提",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「没事的医生，我就是站久了有点晕，不用告诉辅导员吧。」",
+    "categories": [
+      "内分泌",
+      "神经",
+      "心血管",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-034",
+    "name": "小唐",
+    "age": "19",
+    "ageYears": 19,
+    "sex": "女",
+    "occupation": "大二，舞蹈系",
+    "companion": "朋友",
+    "payment": "医保",
+    "personality": "活泼、爱刷手机",
+    "concealment": 2,
+    "concealedFact": "患者在吃网购减肥药，起初说自己吃的是代餐",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「我就是喝了点代餐，那个不算药吧，我室友她们都在喝。」",
+    "categories": [
+      "内分泌",
+      "消化",
+      "心血管",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-035",
+    "name": "小郑",
+    "age": "20",
+    "ageYears": 20,
+    "sex": "男",
+    "occupation": "网吧夜班网管",
+    "companion": "无",
+    "payment": "自费",
+    "personality": "沉默、熬夜",
+    "concealment": 1,
+    "concealedFact": "患者每天喝六七罐功能饮料，也抽烟，起初只说「偶尔」",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「我作息挺规律的，就是白天睡晚上上班，跟你们值夜班一样的。」",
+    "categories": [
+      "心血管",
+      "神经",
+      "消化",
+      "呼吸"
+    ],
+    "periods": [
+      "夜班",
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-036",
+    "name": "小鲍",
+    "age": "21",
+    "ageYears": 21,
+    "sex": "女",
+    "occupation": "幼师实习",
+    "companion": "同事",
+    "payment": "医保",
+    "personality": "温和、爱道歉",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "「不好意思医生，我是不是耽误你们了，我看外面还有好多人等着。」",
+    "categories": [
+      "感染",
+      "呼吸",
+      "消化",
+      "血液"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-037",
+    "name": "小施",
+    "age": "22",
+    "ageYears": 22,
+    "sex": "男",
+    "occupation": "应届生，找工作中",
+    "companion": "父母",
+    "payment": "医保（异地）",
+    "personality": "焦躁、话少",
+    "concealment": 2,
+    "concealedFact": "患者有自伤意念，尤其不愿当着父母说",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "母亲：「他就是压力大，找工作嘛，你给他开点安神的就行，别弄得那么严重。」",
+    "categories": [
+      "精神",
+      "神经",
+      "消化",
+      "中毒"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-038",
+    "name": "小任",
+    "age": "23",
+    "ageYears": 23,
+    "sex": "女",
+    "occupation": "研究生，实验室",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "理性、追问",
+    "concealment": 1,
+    "concealedFact": "患者前天接触过试剂，自认为与这次不适无关，没有说出试剂名称",
+    "complaintTendency": 2,
+    "adherence": "高",
+    "dialogue": "「我查了文献，这个症状有几种可能，你能不能跟我说一下你的鉴别思路。」",
+    "categories": [
+      "中毒",
+      "呼吸",
+      "血液",
+      "神经"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-039",
+    "name": "小柯",
+    "age": "24",
+    "ageYears": 24,
+    "sex": "男",
+    "occupation": "外卖骑手，本地租房",
+    "companion": "无",
+    "payment": "自费（未参保）",
+    "personality": "急躁、爽直",
+    "concealment": 1,
+    "concealedFact": "患者骑车摔过几次，此前没有提",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「医生快点行不行，我这单还没送完，超时要扣钱的。」",
+    "categories": [
+      "创伤",
+      "外科",
+      "消化",
+      "呼吸"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-040",
+    "name": "小蔡",
+    "age": "25",
+    "ageYears": 25,
+    "sex": "女",
+    "occupation": "银行柜员，新婚",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "拘谨、爱面子",
+    "concealment": 3,
+    "concealedFact": "丈夫在场，患者隐瞒了怀孕的可能",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "「就是胃不舒服，最近加班，吃得不规律……我先生能不能在外面等一下。」",
+    "categories": [
+      "妇产",
+      "消化",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-041",
+    "name": "小方",
+    "age": "25",
+    "ageYears": 25,
+    "sex": "男",
+    "occupation": "健身教练",
+    "companion": "无",
+    "payment": "商保",
+    "personality": "自信、话多",
+    "concealment": 3,
+    "concealedFact": "患者服用激素类「补剂」，起初只承认吃过蛋白粉",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「我身体你放心，体脂十个点以下，就是最近有点心慌，可能练得猛了。」",
+    "categories": [
+      "心血管",
+      "内分泌",
+      "肾",
+      "消化"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-042",
+    "name": "小闵",
+    "age": "26",
+    "ageYears": 26,
+    "sex": "女",
+    "occupation": "程序员，互联网公司",
+    "companion": "同事",
+    "payment": "商保",
+    "personality": "冷淡、讲效率",
+    "concealment": 1,
+    "concealedFact": "患者每天喝三四杯咖啡，月经也有紊乱，此前都没有提",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "「我下午得盯着程序上线。你告诉我要做什么检查、多久能出结果吧，我算算来不来得及。」",
+    "categories": [
+      "消化",
+      "心血管",
+      "神经",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-043",
+    "name": "小仇",
+    "age": "27",
+    "ageYears": 27,
+    "sex": "男",
+    "occupation": "二手车销售",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "油滑、爱套近乎",
+    "concealment": 3,
+    "concealedFact": "患者每天饮酒，起初只说「应酬喝一点」",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「医生我们都是打工的，你就给我开点药，我这边还有客户，改天请你吃饭。」",
+    "categories": [
+      "消化",
+      "心血管",
+      "中毒",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-044",
+    "name": "田姐",
+    "age": "28",
+    "ageYears": 28,
+    "sex": "女",
+    "occupation": "家政保洁，两个孩子",
+    "companion": "无",
+    "payment": "自费",
+    "personality": "能忍、节省",
+    "concealment": 2,
+    "concealedFact": "患者担心医生开贵检查，隐瞒了收入，也没有说病情已经拖了两个月",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「我觉得还不严重，想先问问你。那些贵的检查能不能先不做，给我开点便宜药行吗？」",
+    "categories": [
+      "外科",
+      "消化",
+      "妇产",
+      "血液"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-045",
+    "name": "小罗",
+    "age": "28",
+    "ageYears": 28,
+    "sex": "男",
+    "occupation": "辅警",
+    "companion": "同事",
+    "payment": "医保",
+    "personality": "硬朗、不肯躺",
+    "concealment": 1,
+    "concealedFact": "患者没有说明自己是在执勤时受伤的",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「就是点小伤，你给我包扎一下就行。我今天还得回去接班呢。」",
+    "categories": [
+      "创伤",
+      "外科",
+      "感染"
+    ],
+    "periods": [
+      "夜班",
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-046",
+    "name": "小晏",
+    "age": "29",
+    "ageYears": 29,
+    "sex": "女",
+    "occupation": "小学老师",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "细致、焦虑",
+    "concealment": 1,
+    "concealedFact": "患者已自行吃了一周消炎药，此前没有提",
+    "complaintTendency": 2,
+    "adherence": "高",
+    "dialogue": "「我把上次的化验单都带来了，你帮我对着看看，我这个指标是不是比上次高了。」",
+    "categories": [
+      "感染",
+      "呼吸",
+      "内分泌",
+      "肾"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-047",
+    "name": "小庞",
+    "age": "29",
+    "ageYears": 29,
+    "sex": "男",
+    "occupation": "装修工，贴瓷砖",
+    "companion": "多人",
+    "payment": "自费",
+    "personality": "大嗓门、豪爽",
+    "concealment": 1,
+    "concealedFact": "患者午饭时也喝酒，这次是在工地上受的伤",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "工友：「他就是喝了两口，午饭喝两口算什么，你先给他止住血。」",
+    "categories": [
+      "创伤",
+      "外科",
+      "消化",
+      "中毒"
+    ],
+    "periods": [
+      "夜班",
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-048",
+    "name": "小殷",
+    "age": "30",
+    "ageYears": 30,
+    "sex": "女",
+    "occupation": "房产中介",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "精明、快语",
+    "concealment": 1,
+    "concealedFact": "患者抽烟，此前没有提",
+    "complaintTendency": 2,
+    "adherence": "低",
+    "dialogue": "「医生，单子我看得懂，你直接告诉我要不要住院吧。要是不用，我下午还得带两组客户看房。」",
+    "categories": [
+      "呼吸",
+      "消化",
+      "内分泌",
+      "心血管"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-049",
+    "name": "小华",
+    "age": "30",
+    "ageYears": 30,
+    "sex": "男",
+    "occupation": "快递站站长",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "稳当、少言",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "「你说怎么治我就怎么治，我媳妇在这儿，她记着。」",
+    "categories": [
+      "消化",
+      "外科",
+      "创伤",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-050",
+    "name": "小郁",
+    "age": "31",
+    "ageYears": 31,
+    "sex": "女",
+    "occupation": "自由摄影师",
+    "companion": "朋友",
+    "payment": "自费",
+    "personality": "随性、健谈",
+    "concealment": 2,
+    "concealedFact": "患者曾在外地查出甲状腺结节，此前没有提",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「我不太记得那个医生怎么说的，好像是有个结节，我觉得没什么，就没管。」",
+    "categories": [
+      "内分泌",
+      "心血管",
+      "神经",
+      "妇产"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-051",
+    "name": "小霍",
+    "age": "32",
+    "ageYears": 32,
+    "sex": "男",
+    "occupation": "网约车司机",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "憋屈、爱抱怨",
+    "concealment": 1,
+    "concealedFact": "患者经常久坐憋尿，尿色已异常一周，起初只说「黄一点」",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "「我这个工作就是不能停车，一停就没单，尿黄一点很正常的吧。」",
+    "categories": [
+      "肾",
+      "心血管",
+      "消化",
+      "外科"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-052",
+    "name": "小虞",
+    "age": "32",
+    "ageYears": 32,
+    "sex": "女",
+    "occupation": "全职妈妈，孩子两岁",
+    "companion": "多人",
+    "payment": "医保",
+    "personality": "疲惫、克制",
+    "concealment": 3,
+    "concealedFact": "患者有自伤意念和产后情绪问题，家人并不知情",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「我觉得自己还好，就是累。你先帮我查查是不是贫血吧，别的我不想多说。」",
+    "categories": [
+      "精神",
+      "血液",
+      "内分泌",
+      "妇产"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-053",
+    "name": "小龚",
+    "age": "33",
+    "ageYears": 33,
+    "sex": "男",
+    "occupation": "公务员，街道办",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "谨慎、客气",
+    "concealment": 1,
+    "concealedFact": "患者体检查出异常后没有复查，医生问到才说明",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "「单位体检好像提过一句，我想着不严重就没管，这次是有点不放心才来。」",
+    "categories": [
+      "消化",
+      "心血管",
+      "内分泌",
+      "肾"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-054",
+    "name": "小卓",
+    "age": "33",
+    "ageYears": 33,
+    "sex": "女",
+    "occupation": "私企会计，月底结账",
+    "companion": "同事",
+    "payment": "医保",
+    "personality": "急、爱算",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "「这个检查医保能报多少，自费部分多少，你先说清楚我再决定做不做。」",
+    "categories": [
+      "消化",
+      "神经",
+      "呼吸",
+      "感染"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-055",
+    "name": "小雷",
+    "age": "34",
+    "ageYears": 34,
+    "sex": "男",
+    "occupation": "厨师，餐馆后厨",
+    "companion": "无",
+    "payment": "自费",
+    "personality": "沉默、耐痛",
+    "concealment": 2,
+    "concealedFact": "患者在工作中受了烫伤和刀伤，老板不让报；患者也抽烟",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「不用记那么细，就是烧伤，你给我看看要不要缝。」",
+    "categories": [
+      "创伤",
+      "外科",
+      "感染",
+      "消化"
+    ],
+    "periods": [
+      "夜班",
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-056",
+    "name": "小鄢",
+    "age": "34",
+    "ageYears": 34,
+    "sex": "女",
+    "occupation": "保险经纪",
+    "companion": "无",
+    "payment": "商保",
+    "personality": "热络、话密",
+    "concealment": 1,
+    "concealedFact": "患者买了多份保险，想让医生多开检查方便理赔，此前没有说",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "「医生你这个诊断写详细一点，最好把检查都做全，我自己是懂的，不会麻烦你。」",
+    "categories": [
+      "内分泌",
+      "消化",
+      "妇产",
+      "呼吸"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-057",
+    "name": "小裘",
+    "age": "35",
+    "ageYears": 35,
+    "sex": "男",
+    "occupation": "电商店主",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "敷衍、爱刷手机",
+    "concealment": 1,
+    "concealedFact": "患者睡前会喝酒助眠，起初却说没有",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「我就是睡不好，你给我开点安眠药吧。这几天店里做活动，我忙得很，没空住院。」",
+    "categories": [
+      "神经",
+      "精神",
+      "消化",
+      "心血管"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-058",
+    "name": "小饶",
+    "age": "35",
+    "ageYears": 35,
+    "sex": "女",
+    "occupation": "幼儿园园长",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "强势、体面",
+    "concealment": 1,
+    "concealedFact": "患者断断续续地吃降压药，此前没有说明",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "「我时间很紧，麻烦你把要紧的先说，不要紧的写在单子上我回去看。」",
+    "categories": [
+      "心血管",
+      "内分泌",
+      "神经"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-059",
+    "name": "小翟",
+    "age": "36",
+    "ageYears": 36,
+    "sex": "男",
+    "occupation": "快递分拣，夜班",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "迟钝、疲惫",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「我下了夜班直接过来的，你说什么我可能反应慢一点，你多说一遍。」",
+    "categories": [
+      "消化",
+      "心血管",
+      "呼吸",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-060",
+    "name": "小敖",
+    "age": "36",
+    "ageYears": 36,
+    "sex": "女",
+    "occupation": "高中英语老师，备孕",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "讲道理、固执",
+    "concealment": 1,
+    "concealedFact": "患者除了叶酸，还在吃中药，此前没有提",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "「我自己查过指南，还有些地方没弄懂。你把这样用药的理由给我讲讲吧，我也好放心。」",
+    "categories": [
+      "内分泌",
+      "妇产",
+      "消化",
+      "感染"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-061",
+    "name": "小樊",
+    "age": "37",
+    "ageYears": 37,
+    "sex": "男",
+    "occupation": "建材店老板",
+    "companion": "多人",
+    "payment": "自费",
+    "personality": "耿直、信偏方",
+    "concealment": 2,
+    "concealedFact": "患者饮酒，也已经服了半年的「土方子」治胃",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「我喝了半年的中药了，那个老先生很灵的，你别给我开西药伤肝。」",
+    "categories": [
+      "消化",
+      "中毒",
+      "内分泌",
+      "心血管"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-062",
+    "name": "小季",
+    "age": "37",
+    "ageYears": 37,
+    "sex": "女",
+    "occupation": "医疗器械销售",
+    "companion": "无",
+    "payment": "商保",
+    "personality": "老练、嘴甜",
+    "concealment": 1,
+    "concealedFact": "患者对某类抗生素过敏，起初只说「记不清」",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "「医生我也算半个同行，你不用跟我绕，该做什么做什么，我懂的。」",
+    "categories": [
+      "消化",
+      "呼吸",
+      "感染",
+      "妇产"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-063",
+    "name": "小鞠",
+    "age": "38",
+    "ageYears": 38,
+    "sex": "男",
+    "occupation": "长途货车司机",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "粗糙、能扛",
+    "concealment": 3,
+    "concealedFact": "患者长期服提神药并饮酒，胸痛已经发作数次",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「我跑长途的，胸口闷一下正常，你给我开点药我明天还要出车。」",
+    "categories": [
+      "心血管",
+      "消化",
+      "神经",
+      "中毒"
+    ],
+    "periods": [
+      "夜班",
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-064",
+    "name": "小卞",
+    "age": "38",
+    "ageYears": 38,
+    "sex": "女",
+    "occupation": "美甲店店主",
+    "companion": "无",
+    "payment": "自费",
+    "personality": "讲究、敏感",
+    "concealment": 1,
+    "concealedFact": "患者长期接触指甲油与胶水，此前没有提",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "「我这个手是吃饭的，你可别给我留疤，你们这边处理不好我就去别的医院。」",
+    "categories": [
+      "外科",
+      "感染",
+      "呼吸",
+      "中毒",
+      "创伤"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-065",
+    "name": "小曹",
+    "age": "39",
+    "ageYears": 39,
+    "sex": "男",
+    "occupation": "中学体育老师",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "乐天、爱开玩笑",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "「我身体一直好得很，这回也就是家里人非要我来，你随便看看。」",
+    "categories": [
+      "心血管",
+      "外科",
+      "创伤",
+      "消化"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-066",
+    "name": "小庄",
+    "age": "39",
+    "ageYears": 39,
+    "sex": "女",
+    "occupation": "单亲妈妈，保险理赔员",
+    "companion": "子女",
+    "payment": "医保",
+    "personality": "强撑、话少",
+    "concealment": 2,
+    "concealedFact": "患者隐瞒了经济状况，也没有说明乳腺肿块已拖了半年",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "「我没时间住院，孩子一个人在家，你能不能开点药我先回去。」",
+    "categories": [
+      "妇产",
+      "外科",
+      "内分泌",
+      "血液"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-067",
+    "name": "小费",
+    "age": "18",
+    "ageYears": 18,
+    "sex": "女",
+    "occupation": "高中刚毕业，准备出国",
+    "companion": "父母",
+    "payment": "商保",
+    "personality": "娇气、爱撒娇",
+    "concealment": 1,
+    "concealedFact": "患者为减肥不吃主食，此前没有说",
+    "complaintTendency": 2,
+    "adherence": "低",
+    "dialogue": "母亲：「下个月就要走了，你给她开最好的药，可别到时候在外面出问题。」",
+    "categories": [
+      "内分泌",
+      "消化",
+      "感染"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-068",
+    "name": "小甄",
+    "age": "22",
+    "ageYears": 22,
+    "sex": "男",
+    "occupation": "大四，考研二战",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "内耗、拖延",
+    "concealment": 2,
+    "concealedFact": "患者有自伤意念，也服用过他人给的助眠药",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「我就是失眠，应该不严重吧？你别让我去精神科，我不想被人当成精神病。」",
+    "categories": [
+      "精神",
+      "神经",
+      "中毒",
+      "消化"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-069",
+    "name": "小佟",
+    "age": "27",
+    "ageYears": 27,
+    "sex": "女",
+    "occupation": "舞蹈室老师",
+    "companion": "朋友",
+    "payment": "自费",
+    "personality": "爽朗、粗心",
+    "concealment": 2,
+    "concealedFact": "朋友在场，患者没有说明性史和使用紧急避孕药的情况",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「就是肚子疼，这次不太一样，反正你先给我看看，我朋友在外面等着呢。」",
+    "categories": [
+      "妇产",
+      "消化",
+      "外科"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-070",
+    "name": "小欧",
+    "age": "31",
+    "ageYears": 31,
+    "sex": "男",
+    "occupation": "小微企业主，做直播设备",
+    "companion": "配偶",
+    "payment": "自费",
+    "personality": "焦虑、健谈",
+    "concealment": 1,
+    "concealedFact": "患者已在别家医院做过检查，此前没有提",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "「我就想再听一个医生说，你别看到那家医院的单子就照抄，你自己判断一下。」",
+    "categories": [
+      "消化",
+      "心血管",
+      "神经",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-071",
+    "name": "小涂",
+    "age": "24",
+    "ageYears": 24,
+    "sex": "女",
+    "occupation": "咖啡店店员",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "安静、有礼",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "「我来得早了点，你慢慢来，我不着急，我今天休息。」",
+    "categories": [
+      "感染",
+      "呼吸",
+      "消化",
+      "血液"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-072",
+    "name": "小裴",
+    "age": "26",
+    "ageYears": 26,
+    "sex": "男",
+    "occupation": "广告公司职员，骑行爱好者",
+    "companion": "朋友",
+    "payment": "商保",
+    "personality": "好胜、爱较真",
+    "concealment": 1,
+    "concealedFact": "患者摔车时没有戴头盔，此前没有说",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "「就是擦破一点皮，头没撞到，我朋友可以证明，真的没撞到。」",
+    "categories": [
+      "创伤",
+      "外科",
+      "神经"
+    ],
+    "periods": [
+      "夜班",
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-073",
+    "name": "小佘",
+    "age": "39",
+    "ageYears": 39,
+    "sex": "男",
+    "occupation": "农产品批发，凌晨上货",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "憨实、憋话",
+    "concealment": 2,
+    "concealedFact": "患者知道自己有糖尿病，却没有服药，此前没有说明",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「以前有医生说过血糖高，我没当回事，那药一吃就要吃一辈子，我就没吃。」",
+    "categories": [
+      "内分泌",
+      "心血管",
+      "肾",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-074",
+    "name": "小尉",
+    "age": "19",
+    "ageYears": 19,
+    "sex": "女",
+    "occupation": "职校生，餐饮实习",
+    "companion": "老师",
+    "payment": "医保",
+    "personality": "怯懦、顺从",
+    "concealment": 1,
+    "concealedFact": "宿舍同学都在腹泻，老师不让患者说出来",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "「老师说就我一个，那就是我一个吧，我也不知道别人怎么样。」",
+    "categories": [
+      "感染",
+      "消化"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/02_青年.md",
+    "original": true
+  },
+  {
+    "id": "P-075",
+    "name": "倪师傅",
+    "age": "40",
+    "ageYears": 40,
+    "sex": "男",
+    "occupation": "出租车司机",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "话密、油滑",
+    "concealment": 2,
+    "concealedFact": "患者经常久坐憋尿，也服用「壮阳」保健品，此前没有提",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「我这个不着急，你先看看，我们开车的哪个没有点毛病。」",
+    "categories": [
+      "肾",
+      "心血管",
+      "消化",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-076",
+    "name": "蒋姐",
+    "age": "41",
+    "ageYears": 41,
+    "sex": "女",
+    "occupation": "菜市场猪肉摊主",
+    "companion": "无",
+    "payment": "自费",
+    "personality": "直爽、大嗓门",
+    "concealment": 1,
+    "concealedFact": "患者没有给手上的伤口消毒，拖了几天才来",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「割到手嘛，卖肉的哪天不割到，就是这回肿得有点厉害。」",
+    "categories": [
+      "感染",
+      "外科",
+      "创伤",
+      "消化"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-077",
+    "name": "杨老师",
+    "age": "42",
+    "ageYears": 42,
+    "sex": "女",
+    "occupation": "中学班主任",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "克制、爱记笔记",
+    "concealment": 1,
+    "concealedFact": "患者已服安眠药助眠半年，此前没有说",
+    "complaintTendency": 2,
+    "adherence": "高",
+    "dialogue": "「你说的我记一下，回去我要跟家里人讲，你慢一点说。」",
+    "categories": [
+      "神经",
+      "精神",
+      "内分泌",
+      "消化"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-078",
+    "name": "邓工",
+    "age": "43",
+    "ageYears": 43,
+    "sex": "男",
+    "occupation": "工程监理",
+    "companion": "同事",
+    "payment": "医保",
+    "personality": "强势、爱质疑",
+    "concealment": 2,
+    "concealedFact": "患者不愿说明昨晚应酬时喝了多少",
+    "complaintTendency": 2,
+    "adherence": "低",
+    "dialogue": "「我这个是不是就是胃的问题，你别给我查一圈，工地那边等着我签字。」",
+    "categories": [
+      "消化",
+      "心血管",
+      "中毒",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-079",
+    "name": "孔阿姨",
+    "age": "44",
+    "ageYears": 44,
+    "sex": "女",
+    "occupation": "家庭主妇，照顾公婆",
+    "companion": "子女",
+    "payment": "医保",
+    "personality": "隐忍、絮叨",
+    "concealment": 2,
+    "concealedFact": "患者有经济压力，出血已经拖了三个月",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「家里两个老人要照顾，我这点事就一直拖着，拖到现在实在不行了。」",
+    "categories": [
+      "妇产",
+      "血液",
+      "外科",
+      "消化"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-080",
+    "name": "曲师傅",
+    "age": "45",
+    "ageYears": 45,
+    "sex": "男",
+    "occupation": "电焊工",
+    "companion": "多人",
+    "payment": "工伤",
+    "personality": "木讷、耐痛",
+    "concealment": 1,
+    "concealedFact": "患者的眼睛以前也受过伤，此前没有说",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "包工头：「他这个算工伤，你写清楚，该做什么做什么，费用我们这边走。」",
+    "categories": [
+      "创伤",
+      "外科",
+      "呼吸",
+      "感染"
+    ],
+    "periods": [
+      "夜班",
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-081",
+    "name": "姚经理",
+    "age": "46",
+    "ageYears": 46,
+    "sex": "女",
+    "occupation": "售楼处销售经理",
+    "companion": "无",
+    "payment": "商保",
+    "personality": "干练、急躁",
+    "concealment": 1,
+    "concealedFact": "患者提到烟酒时，都只说「少量」",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "「我下午有个开盘，你把要做的检查一次开完，我不想跑第二趟。」",
+    "categories": [
+      "心血管",
+      "内分泌",
+      "消化",
+      "妇产"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-082",
+    "name": "范叔",
+    "age": "47",
+    "ageYears": 47,
+    "sex": "男",
+    "occupation": "小超市老板",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "精细、爱算账",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "「这药医保能报吧？你给我开能报销的药，自费药我去药店买，能便宜些。」",
+    "categories": [
+      "消化",
+      "内分泌",
+      "心血管",
+      "呼吸"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-083",
+    "name": "韩姐",
+    "age": "47",
+    "ageYears": 47,
+    "sex": "女",
+    "occupation": "缝纫厂女工",
+    "companion": "同事",
+    "payment": "医保",
+    "personality": "老实、少话",
+    "concealment": 1,
+    "concealedFact": "患者上夜班赶工，腰痛已有一年，此前没有提",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "「厂里赶货，我请了半天假来的，你说什么我都照做，就是别让我住院。」",
+    "categories": [
+      "外科",
+      "神经",
+      "血液",
+      "呼吸"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-084",
+    "name": "甘师傅",
+    "age": "48",
+    "ageYears": 48,
+    "sex": "男",
+    "occupation": "石材厂工人",
+    "companion": "无",
+    "payment": "自费（厂里未参保）",
+    "personality": "沉默、认命",
+    "concealment": 2,
+    "concealedFact": "患者怕厂子出事后自己丢工作，隐瞒了粉尘接触史",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「就是咳，年纪大了都咳，我干什么活跟这个没关系吧。」",
+    "categories": [
+      "呼吸",
+      "感染",
+      "心血管"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-085",
+    "name": "卫主任",
+    "age": "48",
+    "ageYears": 48,
+    "sex": "女",
+    "occupation": "街道居委会主任",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "热情、爱管事",
+    "concealment": 1,
+    "concealedFact": "患者漏服过降压药，起初却说自己「按时吃」",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "「小医生，我们社区好多老人都在你们这儿看，你们医院我熟得很。」",
+    "categories": [
+      "心血管",
+      "内分泌",
+      "神经"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-086",
+    "name": "毕老板",
+    "age": "49",
+    "ageYears": 49,
+    "sex": "男",
+    "occupation": "酒厂区域销售",
+    "companion": "无",
+    "payment": "自费",
+    "personality": "豪爽、嘴硬",
+    "concealment": 3,
+    "concealedFact": "患者不愿说明每日饮酒量，只说「工作需要喝一点」",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「我们做酒的不喝酒还怎么做，就是这两天肚子胀，你给我开点药。」",
+    "categories": [
+      "消化",
+      "内分泌",
+      "中毒",
+      "心血管",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-087",
+    "name": "桑阿姨",
+    "age": "50",
+    "ageYears": 50,
+    "sex": "女",
+    "occupation": "环卫工",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "拘谨、怕花钱",
+    "concealment": 1,
+    "concealedFact": "患者弄丢了提示血糖高的体检单，此前没有提",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「我们这个工作早上四点就上班，能不能不住院，住了院工资就没了。」",
+    "categories": [
+      "内分泌",
+      "心血管",
+      "呼吸",
+      "感染"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-088",
+    "name": "宫先生",
+    "age": "50",
+    "ageYears": 50,
+    "sex": "男",
+    "occupation": "银行支行副行长",
+    "companion": "录音者",
+    "payment": "商保",
+    "personality": "体面、爱绕",
+    "concealment": 2,
+    "concealedFact": "患者怕影响工作，没有提胸痛发作和家族心脏病史",
+    "complaintTendency": 3,
+    "adherence": "中",
+    "dialogue": "妻子：「他的身体我比他清楚，你问我就行，我录一下方便回去跟孩子交代。」",
+    "categories": [
+      "心血管",
+      "内分泌",
+      "消化",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-089",
+    "name": "辛姐",
+    "age": "51",
+    "ageYears": 51,
+    "sex": "女",
+    "occupation": "护工，在本院陪护",
+    "companion": "无",
+    "payment": "自费",
+    "personality": "世故、能吃苦",
+    "concealment": 2,
+    "concealedFact": "患者不想让雇主知道自己的病史和用药",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「我在这楼里干了六年了，你们的规矩我懂，你给我看快点，我那个床上还有个老太太。」",
+    "categories": [
+      "外科",
+      "消化",
+      "心血管",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-090",
+    "name": "葛师傅",
+    "age": "52",
+    "ageYears": 52,
+    "sex": "男",
+    "occupation": "搬家公司老板",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "粗豪、要面子",
+    "concealment": 1,
+    "concealedFact": "患者混着吃几种止痛药，不愿说出剂量",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「止痛药我吃了，吃了好几种，反正哪个管用吃哪个。」",
+    "categories": [
+      "神经",
+      "外科",
+      "消化",
+      "肾"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [
+      "多重用药"
+    ],
+    "flagDescription": "多重用药",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-091",
+    "name": "苗老师",
+    "age": "52",
+    "ageYears": 52,
+    "sex": "女",
+    "occupation": "高校讲师",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "讲道理、固执",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 2,
+    "adherence": "高",
+    "dialogue": "「你是根据哪些检查下的诊断？我想把这事弄明白，麻烦你给我讲讲。」",
+    "categories": [
+      "内分泌",
+      "神经",
+      "消化",
+      "妇产"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-092",
+    "name": "侯叔",
+    "age": "53",
+    "ageYears": 53,
+    "sex": "男",
+    "occupation": "养殖户，进城看病",
+    "companion": "子女",
+    "payment": "医保（异地）",
+    "personality": "憨、拖延",
+    "concealment": 2,
+    "concealedFact": "患者喷过农药，也接触过兽药，病情已拖了数月",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "儿子：「我爸这个人，不到躺下不进医院，你别听他说没事。」",
+    "categories": [
+      "中毒",
+      "消化",
+      "呼吸",
+      "感染",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-093",
+    "name": "骆姐",
+    "age": "53",
+    "ageYears": 53,
+    "sex": "女",
+    "occupation": "面馆老板娘",
+    "companion": "配偶",
+    "payment": "自费",
+    "personality": "麻利、心急",
+    "concealment": 1,
+    "concealedFact": "患者工作时要站十几小时，腿肿已半年，此前没有提",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "「店里我不在就转不起来，你给我看看这个腿，能开药就开药。」",
+    "categories": [
+      "心血管",
+      "肾",
+      "外科",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-094",
+    "name": "严处长",
+    "age": "54",
+    "ageYears": 54,
+    "sex": "男",
+    "occupation": "事业单位中层",
+    "companion": "多人",
+    "payment": "医保",
+    "personality": "客气、有距离",
+    "concealment": 1,
+    "concealedFact": "患者仍饮酒，起初却说「早不喝了」",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "「不用照顾我，该走什么程序走什么程序，我就是个普通病人。」",
+    "categories": [
+      "心血管",
+      "消化",
+      "内分泌",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-095",
+    "name": "屠阿姨",
+    "age": "54",
+    "ageYears": 54,
+    "sex": "女",
+    "occupation": "麻将馆老板",
+    "companion": "朋友",
+    "payment": "医保",
+    "personality": "泼辣、爱热闹",
+    "concealment": 2,
+    "concealedFact": "患者抽烟、熬夜，已有两次咯血，此前没有说",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「我这个人命硬，你别吓我，就是咳嗽嘛，咳了两口血怎么了。」",
+    "categories": [
+      "呼吸",
+      "心血管",
+      "感染",
+      "消化"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-096",
+    "name": "聂师傅",
+    "age": "55",
+    "ageYears": 55,
+    "sex": "男",
+    "occupation": "长途客运司机",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "沉稳、爱抽烟",
+    "concealment": 3,
+    "concealedFact": "患者曾短暂意识丧失一次，怕被吊销从业资格，没有提",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「我开了三十年车，从来没出过事，那就是没睡好，你别写那么严重。」",
+    "categories": [
+      "神经",
+      "心血管",
+      "呼吸"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-097",
+    "name": "花姐",
+    "age": "55",
+    "ageYears": 55,
+    "sex": "女",
+    "occupation": "广场舞领队，提前退休",
+    "companion": "多人",
+    "payment": "医保",
+    "personality": "热闹、爱做主",
+    "concealment": 1,
+    "concealedFact": "患者跳舞时摔过，起初却说「没摔」",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "舞友：「她跳舞的时候就说头晕，我们劝她她不听，你好好给她查查。」",
+    "categories": [
+      "心血管",
+      "神经",
+      "外科",
+      "创伤"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-098",
+    "name": "靳叔",
+    "age": "56",
+    "ageYears": 56,
+    "sex": "男",
+    "occupation": "木匠",
+    "companion": "配偶",
+    "payment": "自费",
+    "personality": "老派、寡言",
+    "concealment": 1,
+    "concealedFact": "手指伤口用土法处理过",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "「敷了点草药，我们那边都这么弄的，是我老婆非要我来。」",
+    "categories": [
+      "外科",
+      "感染",
+      "创伤"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-099",
+    "name": "尤姐",
+    "age": "56",
+    "ageYears": 56,
+    "sex": "女",
+    "occupation": "陪读妈妈，孩子高三",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "焦虑、自责",
+    "concealment": 2,
+    "concealedFact": "患者失眠，自行服用多种助眠药与保健品",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "「我这个不重要，孩子马上高考，我不能倒，你给我开点吃了不困的药。」",
+    "categories": [
+      "神经",
+      "精神",
+      "内分泌",
+      "消化"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [
+      "多重用药"
+    ],
+    "flagDescription": "多重用药",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-100",
+    "name": "鲁总",
+    "age": "57",
+    "ageYears": 57,
+    "sex": "男",
+    "occupation": "汽修连锁店老板",
+    "companion": "子女",
+    "payment": "商保",
+    "personality": "大方、爱使唤人",
+    "concealment": 1,
+    "concealedFact": "患者没有戒成烟，起初却说自己戒了",
+    "complaintTendency": 2,
+    "adherence": "低",
+    "dialogue": "「你给我用最好的，别管报不报，我儿子在这儿付钱。」",
+    "categories": [
+      "心血管",
+      "呼吸",
+      "内分泌",
+      "消化"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-101",
+    "name": "柏姐",
+    "age": "58",
+    "ageYears": 58,
+    "sex": "女",
+    "occupation": "图书馆管理员",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "安静、有礼",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "「我把之前的病历本都带来了，按时间排好的，你看方便不方便。」",
+    "categories": [
+      "内分泌",
+      "血液",
+      "消化",
+      "神经"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-102",
+    "name": "隋师傅",
+    "age": "58",
+    "ageYears": 58,
+    "sex": "男",
+    "occupation": "电梯维保",
+    "companion": "同事",
+    "payment": "医保",
+    "personality": "谨慎、话少",
+    "concealment": 1,
+    "concealedFact": "患者在高空作业时头晕已有一年，怕丢工作，没有说",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「我这个工作不能晕，你要写头晕，我这个证就没了。」",
+    "categories": [
+      "神经",
+      "心血管",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-103",
+    "name": "齐姐",
+    "age": "59",
+    "ageYears": 59,
+    "sex": "女",
+    "occupation": "药店店员",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "自作主张、懂一点",
+    "concealment": 2,
+    "concealedFact": "患者已自行配药半年，混用了多种处方药",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「我在药店干的，什么药治什么我比你清楚，就是这回不管用了。」",
+    "categories": [
+      "消化",
+      "内分泌",
+      "中毒",
+      "肾"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [
+      "多重用药"
+    ],
+    "flagDescription": "多重用药",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-104",
+    "name": "窦叔",
+    "age": "59",
+    "ageYears": 59,
+    "sex": "男",
+    "occupation": "退伍军人，小区保安队长",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "硬气、守规矩",
+    "concealment": 1,
+    "concealedFact": "患者心口疼，起初却说是胃不舒服",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "「你说了算，我听指挥，就是别让我躺着，我躺不住。」",
+    "categories": [
+      "心血管",
+      "消化",
+      "呼吸"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-105",
+    "name": "温老师",
+    "age": "40",
+    "ageYears": 40,
+    "sex": "男",
+    "occupation": "小学校长",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "讲体面、爱绕",
+    "concealment": 1,
+    "concealedFact": "患者除了降脂药，还吃保健品，此前没有提",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "「我这个身份你懂的，家长认识我的多，能不能安排个稍微安静点的地方。」",
+    "categories": [
+      "心血管",
+      "内分泌",
+      "消化"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-106",
+    "name": "段哥",
+    "age": "41",
+    "ageYears": 41,
+    "sex": "男",
+    "occupation": "婚庆主持",
+    "companion": "朋友",
+    "payment": "自费",
+    "personality": "活跃、爱夸大",
+    "concealment": 2,
+    "concealedFact": "患者没有说清昨晚喝到几点，也没有说明喝了多少",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「昨晚我去赶场子，酒喝得多了点。也没多多少啊，你们医生不也说小酌怡情嘛。」",
+    "categories": [
+      "消化",
+      "中毒",
+      "心血管",
+      "神经"
+    ],
+    "periods": [
+      "夜班",
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-107",
+    "name": "巩姐",
+    "age": "43",
+    "ageYears": 43,
+    "sex": "女",
+    "occupation": "家具厂喷漆工",
+    "companion": "配偶",
+    "payment": "工伤",
+    "personality": "老实、怕事",
+    "concealment": 2,
+    "concealedFact": "厂里没有提供防护，患者自己也不戴口罩，怕厂子追责，没有提",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "丈夫：「厂里说该赔的赔，就是让我们别到处说，你写的时候……你按实际写吧。」",
+    "categories": [
+      "呼吸",
+      "中毒",
+      "神经",
+      "血液"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-108",
+    "name": "柳师傅",
+    "age": "44",
+    "ageYears": 44,
+    "sex": "男",
+    "occupation": "钢筋工",
+    "companion": "多人",
+    "payment": "工伤（包工头想私了）",
+    "personality": "硬撑、怕耽误工钱",
+    "concealment": 1,
+    "concealedFact": "患者把坠落高度说低了",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "工友：「就两米不到，他自己跳下来的，不算摔。」",
+    "categories": [
+      "创伤",
+      "外科",
+      "神经"
+    ],
+    "periods": [
+      "夜班",
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-109",
+    "name": "娄姐",
+    "age": "45",
+    "ageYears": 45,
+    "sex": "女",
+    "occupation": "幼儿园厨工",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "憨、话密",
+    "concealment": 1,
+    "concealedFact": "患者怕丢工作，没有说出乙肝病史",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「我这个工作要健康证的，你别写那些跟工作没关系的东西。」",
+    "categories": [
+      "消化",
+      "感染",
+      "血液"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-110",
+    "name": "詹总",
+    "age": "46",
+    "ageYears": 46,
+    "sex": "男",
+    "occupation": "茶叶店老板",
+    "companion": "配偶",
+    "payment": "自费",
+    "personality": "儒雅、爱讲养生",
+    "concealment": 2,
+    "concealedFact": "患者使用多种「养生」中药与偏方，此前没有说全",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「我平时都是调理的，很少吃西药，这次是我老婆逼我来的。」",
+    "categories": [
+      "消化",
+      "肾",
+      "内分泌",
+      "中毒"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [
+      "多重用药"
+    ],
+    "flagDescription": "多重用药",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-111",
+    "name": "郏姐",
+    "age": "46",
+    "ageYears": 46,
+    "sex": "女",
+    "occupation": "出纳",
+    "companion": "同事",
+    "payment": "医保",
+    "personality": "拘谨、爱确认",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "「你刚才说的那个药一天吃几次？我再确认一下，我怕记错。」",
+    "categories": [
+      "内分泌",
+      "消化",
+      "神经",
+      "妇产"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-112",
+    "name": "蒲师傅",
+    "age": "47",
+    "ageYears": 47,
+    "sex": "男",
+    "occupation": "燃气公司抄表员",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "老实、慢",
+    "concealment": 1,
+    "concealedFact": "患者头痛，起初解释为没睡好",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「我这个活天天爬楼，头晕一下正常的吧，就是这两天晕得有点多。」",
+    "categories": [
+      "神经",
+      "心血管",
+      "呼吸"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-113",
+    "name": "穆姐",
+    "age": "48",
+    "ageYears": 48,
+    "sex": "女",
+    "occupation": "殡仪馆工作人员",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "平静、疏离",
+    "concealment": 1,
+    "concealedFact": "患者不愿说清自己的职业，只说是「服务业」",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "「我做什么工作不重要吧，你看病就行，我这个人不太喜欢讲这些。」",
+    "categories": [
+      "消化",
+      "神经",
+      "精神",
+      "感染"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-114",
+    "name": "闻叔",
+    "age": "49",
+    "ageYears": 49,
+    "sex": "男",
+    "occupation": "化工厂操作员",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "沉稳、有主见",
+    "concealment": 2,
+    "concealedFact": "患者接触过厂里泄漏的物质，也签过保密协议",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "「厂里让我说是感冒，那我就说感冒，你看着办。」",
+    "categories": [
+      "中毒",
+      "呼吸",
+      "神经",
+      "血液"
+    ],
+    "periods": [
+      "门诊",
+      "夜班",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-115",
+    "name": "荀姐",
+    "age": "50",
+    "ageYears": 50,
+    "sex": "女",
+    "occupation": "私人诊所前台",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "精明、爱打听",
+    "concealment": 1,
+    "concealedFact": "患者曾在自己工作的诊所打过针，此前没有提",
+    "complaintTendency": 2,
+    "adherence": "低",
+    "dialogue": "「你们这里的规矩我知道一点，你不用跟我讲那些套话，直接说。」",
+    "categories": [
+      "感染",
+      "消化",
+      "内分泌",
+      "妇产"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-116",
+    "name": "熊师傅",
+    "age": "51",
+    "ageYears": 51,
+    "sex": "男",
+    "occupation": "农机手",
+    "companion": "子女",
+    "payment": "医保（异地）",
+    "personality": "直、爱笑",
+    "concealment": 1,
+    "concealedFact": "患者怕儿子责骂，含糊地说了受伤经过",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「机器夹了一下，不重，我儿子非要拉我来城里。」",
+    "categories": [
+      "创伤",
+      "外科",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-117",
+    "name": "寇姐",
+    "age": "51",
+    "ageYears": 51,
+    "sex": "女",
+    "occupation": "房东",
+    "companion": "无",
+    "payment": "自费",
+    "personality": "傲、挑剔",
+    "concealment": 1,
+    "concealedFact": "患者使用多种保健品，此前没有提",
+    "complaintTendency": 2,
+    "adherence": "低",
+    "dialogue": "「我不缺钱，我要的是你们态度好一点，刚才那个护士什么表情。」",
+    "categories": [
+      "内分泌",
+      "消化",
+      "心血管",
+      "神经"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-118",
+    "name": "彭叔",
+    "age": "52",
+    "ageYears": 52,
+    "sex": "男",
+    "occupation": "快递加盟商，负债",
+    "companion": "配偶",
+    "payment": "欠费",
+    "personality": "焦躁、抢话",
+    "concealment": 2,
+    "concealedFact": "患者想少做检查，没有说出欠费与经济状况",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「那项检查先别做，我卡里的钱不够。你先给我开药吧，检查的事以后再说。」",
+    "categories": [
+      "心血管",
+      "消化",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "医保欠费"
+    ],
+    "flagDescription": "医保欠费",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-119",
+    "name": "冉姐",
+    "age": "53",
+    "ageYears": 53,
+    "sex": "女",
+    "occupation": "保洁主管",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "干脆、能扛",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "「我年轻的时候也在医院干过卫生，你们辛苦，我配合。」",
+    "categories": [
+      "外科",
+      "消化",
+      "血液",
+      "呼吸"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-120",
+    "name": "鄂老师",
+    "age": "54",
+    "ageYears": 54,
+    "sex": "男",
+    "occupation": "中医馆按摩师",
+    "companion": "无",
+    "payment": "自费",
+    "personality": "自负、爱讲理论",
+    "concealment": 2,
+    "concealedFact": "患者曾自行放血，也服用自制药酒",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「我自己就是搞这个的，我知道我自己是什么问题，你给我开个化验就行。」",
+    "categories": [
+      "消化",
+      "中毒",
+      "心血管",
+      "神经"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-121",
+    "name": "车姐",
+    "age": "55",
+    "ageYears": 55,
+    "sex": "女",
+    "occupation": "小学食堂承包人",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "爽利、爱打圆场",
+    "concealment": 1,
+    "concealedFact": "患者自己吃过同一批剩菜，此前没有提",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "「我们食堂干干净净的，我自己吃的都是一样的，跟食堂没关系。」",
+    "categories": [
+      "消化",
+      "感染",
+      "中毒"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-122",
+    "name": "仲叔",
+    "age": "56",
+    "ageYears": 56,
+    "sex": "男",
+    "occupation": "渔具店老板，爱钓鱼",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "悠闲、慢性子",
+    "concealment": 1,
+    "concealedFact": "患者夜钓时受了寒，也有饮酒，此前没有说",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「钓了一夜鱼回来就这样，可能是着凉了，你看着开点药。」",
+    "categories": [
+      "呼吸",
+      "心血管",
+      "感染",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-123",
+    "name": "金姐",
+    "age": "57",
+    "ageYears": 57,
+    "sex": "女",
+    "occupation": "家族企业财务，照顾老母亲",
+    "companion": "多人",
+    "payment": "商保",
+    "personality": "强势、护家",
+    "concealment": 1,
+    "concealedFact": "患者怕女儿听见，没有说出家族肿瘤史",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "「我妈那个病你们医院当年就没查出来，这次你给我查仔细一点。」",
+    "categories": [
+      "消化",
+      "妇产",
+      "血液",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-124",
+    "name": "潘师傅",
+    "age": "58",
+    "ageYears": 58,
+    "sex": "男",
+    "occupation": "退休前锻工，工伤旧病",
+    "companion": "无",
+    "payment": "工伤",
+    "personality": "认命、絮叨",
+    "concealment": 1,
+    "concealedFact": "患者听力差，很多事说不清",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「你大声点，我耳朵被机器吵坏了，你说慢点我听得清。」",
+    "categories": [
+      "神经",
+      "外科",
+      "呼吸",
+      "心血管"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-125",
+    "name": "焦姐",
+    "age": "59",
+    "ageYears": 59,
+    "sex": "女",
+    "occupation": "家庭妇女，丧偶",
+    "companion": "子女",
+    "payment": "医保",
+    "personality": "依赖、爱哭",
+    "concealment": 2,
+    "concealedFact": "患者情绪低落，服用了丈夫剩下的药",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「他走了以后我就吃他剩下的那些药，都是好药，我想着扔了可惜。」",
+    "categories": [
+      "精神",
+      "神经",
+      "心血管",
+      "中毒"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [
+      "多重用药"
+    ],
+    "flagDescription": "多重用药",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-126",
+    "name": "符先生",
+    "age": "59",
+    "ageYears": 59,
+    "sex": "男",
+    "occupation": "私企退休返聘顾问",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "讲究、爱挑毛病",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 3,
+    "adherence": "中",
+    "dialogue": "「我知道你们医生忙，可我这个病拖了一天你们负责吗？我要找你们主任说话。」",
+    "categories": [
+      "心血管",
+      "消化",
+      "神经",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/03_中年.md",
+    "original": true
+  },
+  {
+    "id": "P-127",
+    "name": "周奶奶",
+    "age": "61",
+    "ageYears": 61,
+    "sex": "女",
+    "occupation": "退休纺织女工，带孙子",
+    "companion": "子女",
+    "payment": "医保",
+    "personality": "和气、爱唠",
+    "concealment": 1,
+    "concealedFact": "患者和邻居换着吃降压药，此前没有说",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「我这个药吃了十几年了，隔壁那个老太太的药跟我一样的，有时候就换着吃吃。」",
+    "categories": [
+      "心血管",
+      "内分泌",
+      "神经",
+      "消化"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [
+      "多重用药"
+    ],
+    "flagDescription": "多重用药",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-128",
+    "name": "赵师傅",
+    "age": "62",
+    "ageYears": 62,
+    "sex": "男",
+    "occupation": "退休汽修工",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "硬气、不服老",
+    "concealment": 2,
+    "concealedFact": "患者饮酒，胸口已经疼了三天，此前没有说",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「我这身体你别看年纪，扛得住，就是这两天气有点不够用。」",
+    "categories": [
+      "心血管",
+      "呼吸",
+      "消化"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-129",
+    "name": "钟老太",
+    "age": "63",
+    "ageYears": 63,
+    "sex": "女",
+    "occupation": "退休会计，独居",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "精细、要强",
+    "concealment": 2,
+    "concealedFact": "患者独居时摔过两次，怕子女把自己送去养老院，没有提",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "「我一个人住得好好的，你别写在病历上，我女儿看到又要说我。」",
+    "categories": [
+      "神经",
+      "外科",
+      "创伤",
+      "心血管"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "独居"
+    ],
+    "flagDescription": "独居",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-130",
+    "name": "蔺爷爷",
+    "age": "64",
+    "ageYears": 64,
+    "sex": "男",
+    "occupation": "退休中学教师",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "讲道理、认真",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "「我把血压都记在这个本子上了，一天两次，你看看这个走势对不对。」",
+    "categories": [
+      "心血管",
+      "内分泌",
+      "神经"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-131",
+    "name": "邬阿婆",
+    "age": "65",
+    "ageYears": 65,
+    "sex": "女",
+    "occupation": "农村来城里带孙",
+    "companion": "多人",
+    "payment": "医保（异地）",
+    "personality": "怯、听不太懂普通话",
+    "concealment": 1,
+    "concealedFact": "儿媳替患者回答，患者没有说自己吃过什么",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "儿媳：「她说的你听不懂，你问我，她就是嘴馋吃了不该吃的。」",
+    "categories": [
+      "消化",
+      "内分泌",
+      "感染",
+      "心血管"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [
+      "语言障碍"
+    ],
+    "flagDescription": "语言障碍",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-132",
+    "name": "宋叔",
+    "age": "65",
+    "ageYears": 65,
+    "sex": "男",
+    "occupation": "收废品",
+    "companion": "无",
+    "payment": "自费（未参保）",
+    "personality": "局促、忍痛",
+    "concealment": 2,
+    "concealedFact": "患者没有说清收入和受伤经过，也可能有欠费",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「我这个能不能少做点，我没有保险的，你给我看个大概就行。」",
+    "categories": [
+      "外科",
+      "创伤",
+      "感染",
+      "呼吸"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-133",
+    "name": "苏奶奶",
+    "age": "66",
+    "ageYears": 66,
+    "sex": "女",
+    "occupation": "退休小学校长",
+    "companion": "录音者",
+    "payment": "医保",
+    "personality": "讲原则、爱纠正",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 3,
+    "adherence": "高",
+    "dialogue": "女儿：「我妈当了一辈子校长，你们哪一步不规范她都看得出来，我录着的。」",
+    "categories": [
+      "心血管",
+      "内分泌",
+      "神经",
+      "消化"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-134",
+    "name": "严爷爷",
+    "age": "67",
+    "ageYears": 67,
+    "sex": "男",
+    "occupation": "退休工人，脑梗后",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "迟缓、易怒",
+    "concealment": 1,
+    "concealedFact": "老伴不说他在偷偷抽烟",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "老伴：「他不听话，我说了不听，你说他，他听医生的。」",
+    "categories": [
+      "神经",
+      "心血管",
+      "呼吸",
+      "消化"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "多重用药"
+    ],
+    "flagDescription": "多重用药",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-135",
+    "name": "龙阿婆",
+    "age": "68",
+    "ageYears": 68,
+    "sex": "女",
+    "occupation": "农民，种菜",
+    "companion": "子女",
+    "payment": "医保（异地）",
+    "personality": "节俭、怕麻烦",
+    "concealment": 2,
+    "concealedFact": "患者喷过农药，也自行喝过草药",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「地里的活总要有人做，打了点药水回来就头晕，喝了点凉茶也没好。」",
+    "categories": [
+      "中毒",
+      "神经",
+      "消化",
+      "呼吸"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-136",
+    "name": "欧阳老先生",
+    "age": "68",
+    "ageYears": 68,
+    "sex": "男",
+    "occupation": "退休干部",
+    "companion": "多人",
+    "payment": "医保",
+    "personality": "端着、客气",
+    "concealment": 1,
+    "concealedFact": "患者在吃保健品，此前没有提",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "儿子：「老人家以前在单位是有点级别的，你们主任知道的，该照顾的照顾一下。」",
+    "categories": [
+      "心血管",
+      "消化",
+      "内分泌",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-137",
+    "name": "胡奶奶",
+    "age": "69",
+    "ageYears": 69,
+    "sex": "女",
+    "occupation": "家庭妇女，与儿媳同住",
+    "companion": "子女",
+    "payment": "医保",
+    "personality": "委屈、絮叨",
+    "concealment": 2,
+    "concealedFact": "患者情绪低落，有「不想活」的念头，怕儿媳听到，没有说",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「我没什么大病，就是老了没用了，你们不用花钱给我看。」",
+    "categories": [
+      "精神",
+      "神经",
+      "消化",
+      "心血管"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-138",
+    "name": "卜师傅",
+    "age": "70",
+    "ageYears": 70,
+    "sex": "男",
+    "occupation": "退休电工，下肢瘫，失能",
+    "companion": "护工",
+    "payment": "医保",
+    "personality": "沉默、麻木",
+    "concealment": 1,
+    "concealedFact": "护工不说昨天换尿垫时发现皮肤破了",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "护工：「他不说话的，你问我，我照顾他两年了，什么都知道。」",
+    "categories": [
+      "外科",
+      "感染",
+      "肾",
+      "神经"
+    ],
+    "periods": [
+      "病区",
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-139",
+    "name": "宁阿婆",
+    "age": "70",
+    "ageYears": 70,
+    "sex": "女",
+    "occupation": "退休纺织工，认知障碍早期",
+    "companion": "子女",
+    "payment": "医保",
+    "personality": "客气、爱重复",
+    "concealment": 2,
+    "concealedFact": "患者记不清自己是否吃过药，有时会重复吃，女儿并不知道",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「药我吃过了吗？我好像吃过了……你记不记得我吃过没有？」",
+    "categories": [
+      "神经",
+      "心血管",
+      "内分泌",
+      "中毒"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "认知障碍",
+      "多重用药"
+    ],
+    "flagDescription": "认知障碍／多重用药",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-140",
+    "name": "裘爷爷",
+    "age": "71",
+    "ageYears": 71,
+    "sex": "男",
+    "occupation": "老船员，退休",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "豁达、爱讲古",
+    "concealment": 2,
+    "concealedFact": "患者每天喝半斤酒，起初只说「两口」",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「船上的人哪个不喝酒，我这算少的，一天就两口。」",
+    "categories": [
+      "消化",
+      "心血管",
+      "神经",
+      "中毒"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-141",
+    "name": "燕奶奶",
+    "age": "72",
+    "ageYears": 72,
+    "sex": "女",
+    "occupation": "退休教师，独居，子女在国外",
+    "companion": "无",
+    "payment": "商保（子女买）",
+    "personality": "体面、孤独",
+    "concealment": 1,
+    "concealedFact": "患者独居时摔倒，在地上躺了两小时，此前没有说",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "「孩子们在外面，我不想让他们知道，你别打电话给他们，我自己能签。」",
+    "categories": [
+      "神经",
+      "创伤",
+      "心血管",
+      "外科"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [
+      "独居"
+    ],
+    "flagDescription": "独居",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-142",
+    "name": "井叔",
+    "age": "72",
+    "ageYears": 72,
+    "sex": "男",
+    "occupation": "退休水电工，糖尿病二十年",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "固执、爱讲经验",
+    "concealment": 2,
+    "concealedFact": "患者自行调胰岛素剂量，脚上有伤口，却没有说",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「这糖尿病跟了我多少年了，我比你们医生还懂。我一直看着血糖自己调药。」",
+    "categories": [
+      "内分泌",
+      "感染",
+      "外科",
+      "肾",
+      "心血管"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "多重用药"
+    ],
+    "flagDescription": "多重用药",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-143",
+    "name": "詹阿婆",
+    "age": "73",
+    "ageYears": 73,
+    "sex": "女",
+    "occupation": "农村五保户，无子女",
+    "companion": "社区工作者",
+    "payment": "医保（低保）",
+    "personality": "木然、听话",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "「我没家里人，是村干部送我来的。你们说该怎么办，我听你们的。」",
+    "categories": [
+      "心血管",
+      "呼吸",
+      "感染",
+      "消化"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [
+      "独居"
+    ],
+    "flagDescription": "独居",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-144",
+    "name": "丁爷爷",
+    "age": "73",
+    "ageYears": 73,
+    "sex": "男",
+    "occupation": "退休厂办主任",
+    "companion": "子女",
+    "payment": "医保",
+    "personality": "严肃、讲程序",
+    "concealment": 1,
+    "concealedFact": "患者自行停了抗凝药，此前没有说",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "儿子：「我爸这个人一辈子办事讲规矩，你们哪个环节没做到，他会说的。」",
+    "categories": [
+      "心血管",
+      "神经",
+      "血液",
+      "消化"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-145",
+    "name": "唐奶奶",
+    "age": "74",
+    "ageYears": 74,
+    "sex": "女",
+    "occupation": "家庭妇女，多子女",
+    "companion": "多人",
+    "payment": "医保",
+    "personality": "顺从、怕吵",
+    "concealment": 1,
+    "concealedFact": "子女各说各的，谁给她吃了什么都不清楚",
+    "complaintTendency": 2,
+    "adherence": "低",
+    "dialogue": "大儿子：「你听我说，我妹她不懂，我妈的药一直是我管的，她加的那些不算。」",
+    "categories": [
+      "心血管",
+      "内分泌",
+      "神经",
+      "消化"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "多重用药"
+    ],
+    "flagDescription": "多重用药",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-146",
+    "name": "牛师傅",
+    "age": "74",
+    "ageYears": 74,
+    "sex": "男",
+    "occupation": "退休矿工，尘肺",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "喘、少话",
+    "concealment": 1,
+    "concealedFact": "患者没有戒烟，老伴替他隐瞒",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "老伴：「他戒了，戒了好几年了……好吧，偶尔抽一根，就一根。」",
+    "categories": [
+      "呼吸",
+      "心血管",
+      "感染"
+    ],
+    "periods": [
+      "病区",
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-147",
+    "name": "施阿婆",
+    "age": "75",
+    "ageYears": 75,
+    "sex": "女",
+    "occupation": "保姆退休，照顾失能老伴",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "能干、劳碌",
+    "concealment": 2,
+    "concealedFact": "患者怕住院后没人照顾老伴，一直拖着自己的病",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「我不能住院，家里那个动不了，我住院他怎么办，你给我开药就好。」",
+    "categories": [
+      "心血管",
+      "外科",
+      "消化",
+      "神经"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-148",
+    "name": "雷爷爷",
+    "age": "75",
+    "ageYears": 75,
+    "sex": "男",
+    "occupation": "退休教授",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "自负、博学",
+    "concealment": 1,
+    "concealedFact": "患者按外文文献自行调药，此前没有说",
+    "complaintTendency": 2,
+    "adherence": "低",
+    "dialogue": "「我看过原版指南，你这个用法跟指南上不一样，你解释一下。」",
+    "categories": [
+      "心血管",
+      "内分泌",
+      "神经",
+      "肾"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-149",
+    "name": "阙奶奶",
+    "age": "76",
+    "ageYears": 76,
+    "sex": "女",
+    "occupation": "农村来的，住女儿家",
+    "companion": "子女",
+    "payment": "医保（异地未备案）",
+    "personality": "拘谨、怕花钱",
+    "concealment": 1,
+    "concealedFact": "患者腹痛忍了一周才说出来",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "「我不想给女儿添麻烦，能忍就忍了，忍不住才说的。」",
+    "categories": [
+      "消化",
+      "外科",
+      "感染",
+      "心血管"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-150",
+    "name": "石爷爷",
+    "age": "76",
+    "ageYears": 76,
+    "sex": "男",
+    "occupation": "退休厨师，独居，儿子在外地",
+    "companion": "邻居",
+    "payment": "医保",
+    "personality": "乐观、贪嘴",
+    "concealment": 2,
+    "concealedFact": "患者没有控制饮酒和饮食，昨天还摔倒了",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "邻居：「他一个人住，我是隔壁的，看他今天不对劲才带他来，他家里人我不知道电话。」",
+    "categories": [
+      "内分泌",
+      "心血管",
+      "神经",
+      "创伤"
+    ],
+    "periods": [
+      "门诊",
+      "夜班",
+      "病区"
+    ],
+    "flags": [
+      "独居"
+    ],
+    "flagDescription": "独居",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-151",
+    "name": "蓬阿婆",
+    "age": "77",
+    "ageYears": 77,
+    "sex": "女",
+    "occupation": "家庭妇女，重度失能，长期卧床",
+    "companion": "子女",
+    "payment": "医保",
+    "personality": "无表情、偶尔呻吟",
+    "concealment": 2,
+    "concealedFact": "儿子不说她已两天未进食、有压疮",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "儿子：「就是吃得少，老人嘛，哪天吃得多，你别说什么营养不良。」",
+    "categories": [
+      "感染",
+      "外科",
+      "肾",
+      "神经"
+    ],
+    "periods": [
+      "病区",
+      "夜班"
+    ],
+    "flags": [
+      "认知障碍"
+    ],
+    "flagDescription": "认知障碍",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-152",
+    "name": "史爷爷",
+    "age": "77",
+    "ageYears": 77,
+    "sex": "男",
+    "occupation": "退休铁路工，认知障碍中期",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "迷糊、走失过",
+    "concealment": 2,
+    "concealedFact": "老伴瞒着子女他走失过、夜里不睡",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "老伴：「他没什么，就是记性不好，你别跟我儿子说他跑出去过。」",
+    "categories": [
+      "神经",
+      "心血管",
+      "感染",
+      "呼吸"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "认知障碍"
+    ],
+    "flagDescription": "认知障碍",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-153",
+    "name": "冷奶奶",
+    "age": "78",
+    "ageYears": 78,
+    "sex": "女",
+    "occupation": "退休工人，多病",
+    "companion": "子女",
+    "payment": "医保",
+    "personality": "忍耐、悲观",
+    "concealment": 1,
+    "concealedFact": "患者吃了六种药，却只能说出三种",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「药太多了，我记不清名字，每次都是一把一把地吃。你问我女儿吧，她知道。」",
+    "categories": [
+      "心血管",
+      "肾",
+      "内分泌",
+      "消化",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "多重用药"
+    ],
+    "flagDescription": "多重用药",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-154",
+    "name": "马老先生",
+    "age": "78",
+    "ageYears": 78,
+    "sex": "男",
+    "occupation": "退休干部，他组转入（骨科术后）",
+    "companion": "子女",
+    "payment": "医保",
+    "personality": "挑剔、爱比较",
+    "concealment": 1,
+    "concealedFact": "患者术后自行下过床，此前没有说",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "「骨科那边把我转过来是什么意思，我这个病你们内科看得了？」",
+    "categories": [
+      "外科",
+      "心血管",
+      "呼吸",
+      "血液"
+    ],
+    "periods": [
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-man",
+    "transferred": true,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-155",
+    "name": "谷阿婆",
+    "age": "79",
+    "ageYears": 79,
+    "sex": "女",
+    "occupation": "农民，欠费",
+    "companion": "子女",
+    "payment": "欠费",
+    "personality": "木讷、认命",
+    "concealment": 1,
+    "concealedFact": "儿子不提钱的事，想拖到出院",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "儿子：「你们先治，钱我回去凑，我妈这个岁数了别折腾她。」",
+    "categories": [
+      "心血管",
+      "呼吸",
+      "感染",
+      "消化"
+    ],
+    "periods": [
+      "病区",
+      "夜班"
+    ],
+    "flags": [
+      "医保欠费"
+    ],
+    "flagDescription": "医保欠费",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-156",
+    "name": "顾爷爷",
+    "age": "79",
+    "ageYears": 79,
+    "sex": "男",
+    "occupation": "退休干部，独居，与子女不和",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "孤僻、有骨气",
+    "concealment": 2,
+    "concealedFact": "患者有自伤意念，也藏了药",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「我的事我自己签，别通知我儿子，他也不会来的。」",
+    "categories": [
+      "精神",
+      "神经",
+      "心血管",
+      "中毒"
+    ],
+    "periods": [
+      "门诊",
+      "夜班",
+      "病区"
+    ],
+    "flags": [
+      "独居"
+    ],
+    "flagDescription": "独居",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-157",
+    "name": "荆奶奶",
+    "age": "80",
+    "ageYears": 80,
+    "sex": "女",
+    "occupation": "退休裁缝",
+    "companion": "孙辈",
+    "payment": "医保",
+    "personality": "慈、爱夸孙女",
+    "concealment": 1,
+    "concealedFact": "孙女不清楚奶奶平时吃什么药",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "孙女：「我爸妈在外面上班，让我陪奶奶来，药我不太清楚，我拍了照片。」",
+    "categories": [
+      "心血管",
+      "内分泌",
+      "消化",
+      "神经"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-158",
+    "name": "白老",
+    "age": "80",
+    "ageYears": 80,
+    "sex": "男",
+    "occupation": "退休老中医",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "淡然、有主见",
+    "concealment": 2,
+    "concealedFact": "患者已按自己开的方子服用了几十年，此前没有说同时还服用西药",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「我自己的方子我心里有数，你把西药开着，我配合你，中药我自己来。」",
+    "categories": [
+      "消化",
+      "肾",
+      "心血管",
+      "中毒"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [
+      "多重用药"
+    ],
+    "flagDescription": "多重用药",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-159",
+    "name": "邓阿婆",
+    "age": "81",
+    "ageYears": 81,
+    "sex": "女",
+    "occupation": "农村来的，只会方言",
+    "companion": "子女",
+    "payment": "医保（异地）",
+    "personality": "惶恐、爱抓人手",
+    "concealment": 1,
+    "concealedFact": "儿子翻译时省话",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "儿子：「她说她心口这里堵，我给你翻译的，你听我的就行。」",
+    "categories": [
+      "心血管",
+      "消化",
+      "呼吸",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [
+      "语言障碍"
+    ],
+    "flagDescription": "语言障碍",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-160",
+    "name": "鄢爷爷",
+    "age": "81",
+    "ageYears": 81,
+    "sex": "男",
+    "occupation": "退休教师，老伴刚去世",
+    "companion": "子女",
+    "payment": "医保",
+    "personality": "沉默、恍惚",
+    "concealment": 2,
+    "concealedFact": "患者食欲差，有不想活的念头，女儿并不知道",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「她走了两个月，我一个人不想做饭，吃不吃无所谓。」",
+    "categories": [
+      "精神",
+      "内分泌",
+      "消化",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-161",
+    "name": "芮奶奶",
+    "age": "82",
+    "ageYears": 82,
+    "sex": "女",
+    "occupation": "家庭妇女，养老院送来",
+    "companion": "护工",
+    "payment": "医保",
+    "personality": "淡漠、嗜睡",
+    "concealment": 2,
+    "concealedFact": "养老院护工不说她摔过、没按时给药",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "护工：「院里让我送来的，她平时挺好的，突然就这样了，具体的你打电话问院里。」",
+    "categories": [
+      "神经",
+      "感染",
+      "肾",
+      "创伤"
+    ],
+    "periods": [
+      "夜班",
+      "病区"
+    ],
+    "flags": [
+      "认知障碍"
+    ],
+    "flagDescription": "认知障碍",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-162",
+    "name": "庾爷爷",
+    "age": "82",
+    "ageYears": 82,
+    "sex": "男",
+    "occupation": "退休厂长，他组转入（神经内科）",
+    "companion": "多人",
+    "payment": "医保",
+    "personality": "迟钝、傲",
+    "concealment": 1,
+    "concealedFact": "子女不说他在那边科室拒绝过检查",
+    "complaintTendency": 2,
+    "adherence": "低",
+    "dialogue": "女儿：「那边科室说了不是他们的事，才转你们这里，你们可别再把我们转出去。」",
+    "categories": [
+      "神经",
+      "心血管",
+      "呼吸",
+      "感染"
+    ],
+    "periods": [
+      "病区"
+    ],
+    "flags": [
+      "认知障碍"
+    ],
+    "flagDescription": "认知障碍",
+    "portraitArchetype": "elder-man",
+    "transferred": true,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-163",
+    "name": "桂阿婆",
+    "age": "83",
+    "ageYears": 83,
+    "sex": "女",
+    "occupation": "农村，独居，女儿在外地",
+    "companion": "社区工作者",
+    "payment": "医保",
+    "personality": "顺从、耳背",
+    "concealment": 1,
+    "concealedFact": "患者听不清医生的话，很多问题答非所问",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "「啊？你说什么？我耳朵不好，你写下来给我看。」",
+    "categories": [
+      "心血管",
+      "呼吸",
+      "感染",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "独居"
+    ],
+    "flagDescription": "独居",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-164",
+    "name": "俞老先生",
+    "age": "83",
+    "ageYears": 83,
+    "sex": "男",
+    "occupation": "退休工程师",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "严谨、爱做表格",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "「我把每种药的名字、剂量、时间都做了表，你看，一共九种，有没有冲突的你帮我看看。」",
+    "categories": [
+      "心血管",
+      "肾",
+      "内分泌",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "多重用药"
+    ],
+    "flagDescription": "多重用药",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-165",
+    "name": "邝奶奶",
+    "age": "84",
+    "ageYears": 84,
+    "sex": "女",
+    "occupation": "家庭妇女，重度认知障碍",
+    "companion": "录音者",
+    "payment": "医保",
+    "personality": "无法交流、抗拒触碰",
+    "concealment": 1,
+    "concealedFact": "儿子不说她已经不认人半年",
+    "complaintTendency": 3,
+    "adherence": "低",
+    "dialogue": "儿子：「我妈就这样，你们哪个动作重一点我都录着，上次那家医院把她胳膊弄青了。」",
+    "categories": [
+      "神经",
+      "感染",
+      "肾",
+      "外科"
+    ],
+    "periods": [
+      "病区",
+      "夜班"
+    ],
+    "flags": [
+      "认知障碍"
+    ],
+    "flagDescription": "认知障碍",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-166",
+    "name": "仝爷爷",
+    "age": "84",
+    "ageYears": 84,
+    "sex": "男",
+    "occupation": "退休老兵",
+    "companion": "子女",
+    "payment": "医保",
+    "personality": "倔、爱讲当年",
+    "concealment": 1,
+    "concealedFact": "患者觉得老兵不该喊疼，因此疼了也不说",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「我这点算什么，当年比这重的多了，你不用照顾我。」",
+    "categories": [
+      "心血管",
+      "外科",
+      "呼吸",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-167",
+    "name": "单阿婆",
+    "age": "85",
+    "ageYears": 85,
+    "sex": "女",
+    "occupation": "家庭妇女，与老伴互相照顾",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "慈、讲不清",
+    "concealment": 1,
+    "concealedFact": "老两口都记不清用药",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "老伴：「我们两个人都吃药，有时候她的我吃了，我的她吃了，也没事。」",
+    "categories": [
+      "心血管",
+      "内分泌",
+      "神经",
+      "消化"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "多重用药"
+    ],
+    "flagDescription": "多重用药",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-168",
+    "name": "雍老先生",
+    "age": "85",
+    "ageYears": 85,
+    "sex": "男",
+    "occupation": "退休干部，他组转入（消化科）",
+    "companion": "子女",
+    "payment": "医保",
+    "personality": "讲礼、慢",
+    "concealment": 1,
+    "concealedFact": "女儿不说那边医嘱已停某药",
+    "complaintTendency": 2,
+    "adherence": "高",
+    "dialogue": "女儿：「那边医生说了什么我没记住，出院小结应该在病历里吧，你们自己看。」",
+    "categories": [
+      "消化",
+      "心血管",
+      "血液",
+      "感染"
+    ],
+    "periods": [
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-man",
+    "transferred": true,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-169",
+    "name": "阴阿婆",
+    "age": "86",
+    "ageYears": 86,
+    "sex": "女",
+    "occupation": "农村，独居，儿子失联",
+    "companion": "邻居",
+    "payment": "医保（低保）",
+    "personality": "惧、爱道歉",
+    "concealment": 2,
+    "concealedFact": "患者独居时摔倒过，也吃过过期药",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "邻居：「她儿子找不到人，我们几个邻居轮流看她，药是她自己吃的，我们不知道。」",
+    "categories": [
+      "神经",
+      "创伤",
+      "中毒",
+      "心血管"
+    ],
+    "periods": [
+      "夜班",
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "独居"
+    ],
+    "flagDescription": "独居",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-170",
+    "name": "佘爷爷",
+    "age": "86",
+    "ageYears": 86,
+    "sex": "男",
+    "occupation": "退休教师，家属要求「不告知」",
+    "companion": "子女",
+    "payment": "医保",
+    "personality": "平和、通透",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 2,
+    "adherence": "高",
+    "dialogue": "儿子：「我爸要是什么不好的病，你先跟我说，别跟他说，他年纪大了。」",
+    "categories": [
+      "消化",
+      "血液",
+      "呼吸",
+      "心血管"
+    ],
+    "periods": [
+      "病区",
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-171",
+    "name": "靖奶奶",
+    "age": "87",
+    "ageYears": 87,
+    "sex": "女",
+    "occupation": "家庭妇女，多子女互相推",
+    "companion": "多人",
+    "payment": "医保",
+    "personality": "恍惚、爱认错人",
+    "concealment": 2,
+    "concealedFact": "子女互相推，谁都不知道她吃了什么",
+    "complaintTendency": 2,
+    "adherence": "低",
+    "dialogue": "小女儿：「一直是我哥管的，我哥说是我管的，反正不是我给的药。」",
+    "categories": [
+      "神经",
+      "心血管",
+      "中毒",
+      "消化"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "认知障碍",
+      "多重用药"
+    ],
+    "flagDescription": "认知障碍／多重用药",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-172",
+    "name": "翁爷爷",
+    "age": "87",
+    "ageYears": 87,
+    "sex": "男",
+    "occupation": "退休工人，长期卧床，鼻饲",
+    "companion": "护工",
+    "payment": "医保",
+    "personality": "无反应、偶尔睁眼",
+    "concealment": 1,
+    "concealedFact": "护工不说鼻饲量与呛咳",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "护工：「今天早上吃得挺好，喂的时候有点咳，我拍拍就好了。」",
+    "categories": [
+      "呼吸",
+      "感染",
+      "肾",
+      "神经"
+    ],
+    "periods": [
+      "病区",
+      "夜班"
+    ],
+    "flags": [
+      "认知障碍"
+    ],
+    "flagDescription": "认知障碍",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-173",
+    "name": "姬阿婆",
+    "age": "88",
+    "ageYears": 88,
+    "sex": "女",
+    "occupation": "家庭妇女，儿子做小生意",
+    "companion": "子女",
+    "payment": "医保",
+    "personality": "和善、爱谢人",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "「谢谢你们，麻烦你们了，我这么大年纪还给你们添事。」",
+    "categories": [
+      "心血管",
+      "呼吸",
+      "消化",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-174",
+    "name": "濮老先生",
+    "age": "88",
+    "ageYears": 88,
+    "sex": "男",
+    "occupation": "退休科研人员，他组转入（心内科）",
+    "companion": "子女",
+    "payment": "医保",
+    "personality": "清醒、慢条斯理",
+    "concealment": 1,
+    "concealedFact": "患者自行减少了利尿剂用量，医生问到才说",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "「那个利尿的药我吃了老跑厕所，我就减了一半，应该没什么关系吧。」",
+    "categories": [
+      "心血管",
+      "肾",
+      "内分泌",
+      "呼吸"
+    ],
+    "periods": [
+      "病区"
+    ],
+    "flags": [
+      "多重用药"
+    ],
+    "flagDescription": "多重用药",
+    "portraitArchetype": "elder-man",
+    "transferred": true,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-175",
+    "name": "穗阿婆",
+    "age": "89",
+    "ageYears": 89,
+    "sex": "女",
+    "occupation": "家庭妇女，重度失能，子女有矛盾",
+    "companion": "多人",
+    "payment": "医保",
+    "personality": "无声、眼神清楚",
+    "concealment": 1,
+    "concealedFact": "子女双方互相隐瞒照护中的问题",
+    "complaintTendency": 2,
+    "adherence": "低",
+    "dialogue": "女儿：「我哥一年没来看过，现在来了倒说我照顾得不好。」",
+    "categories": [
+      "感染",
+      "外科",
+      "肾",
+      "神经"
+    ],
+    "periods": [
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-176",
+    "name": "蔚爷爷",
+    "age": "90",
+    "ageYears": 90,
+    "sex": "男",
+    "occupation": "退休教授，独居，有保姆",
+    "companion": "护工",
+    "payment": "商保（子女买）",
+    "personality": "慢、体面",
+    "concealment": 1,
+    "concealedFact": "保姆不说他夜里跌倒过",
+    "complaintTendency": 2,
+    "adherence": "高",
+    "dialogue": "保姆：「老先生夜里我不在，早上看他脸上青了一块，他说是碰的。」",
+    "categories": [
+      "神经",
+      "创伤",
+      "心血管",
+      "呼吸"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "独居"
+    ],
+    "flagDescription": "独居",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-177",
+    "name": "岳奶奶",
+    "age": "91",
+    "ageYears": 91,
+    "sex": "女",
+    "occupation": "家庭妇女，五代同堂",
+    "companion": "多人",
+    "payment": "医保",
+    "personality": "乐、爱笑",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "孙子：「奶奶九十一了，你别给她做那些受罪的检查，能吃能睡就行了。」",
+    "categories": [
+      "心血管",
+      "呼吸",
+      "消化",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-178",
+    "name": "赫爷爷",
+    "age": "93",
+    "ageYears": 93,
+    "sex": "男",
+    "occupation": "退休干部，长期卧床",
+    "companion": "子女",
+    "payment": "医保",
+    "personality": "无法交流",
+    "concealment": 1,
+    "concealedFact": "儿子自己也六十五了，记不清父亲用药",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "儿子：「我自己都六十五了，我爸的药我也记不全，护士给什么吃什么。」",
+    "categories": [
+      "呼吸",
+      "感染",
+      "肾",
+      "神经"
+    ],
+    "periods": [
+      "病区",
+      "夜班"
+    ],
+    "flags": [
+      "认知障碍",
+      "多重用药"
+    ],
+    "flagDescription": "认知障碍／多重用药",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-179",
+    "name": "郜奶奶",
+    "age": "60",
+    "ageYears": 60,
+    "sex": "女",
+    "occupation": "刚退休，跳广场舞",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "精神、爱美",
+    "concealment": 1,
+    "concealedFact": "患者使用网上买的保健品，此前没有说",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "「我才六十，你别把我当老太太，我这个是跳舞拉伤了吧？」",
+    "categories": [
+      "外科",
+      "心血管",
+      "内分泌",
+      "创伤"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-180",
+    "name": "鹿师傅",
+    "age": "61",
+    "ageYears": 61,
+    "sex": "男",
+    "occupation": "退休厨师，帮儿子看店",
+    "companion": "子女",
+    "payment": "医保",
+    "personality": "忙、爱应付",
+    "concealment": 2,
+    "concealedFact": "患者饮酒，血压高却不吃药",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「店里一忙，我就记不住吃没吃药，忘了也没再管。这么多年我都这样过的啊。」",
+    "categories": [
+      "心血管",
+      "神经",
+      "内分泌",
+      "消化"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-181",
+    "name": "童奶奶",
+    "age": "62",
+    "ageYears": 62,
+    "sex": "女",
+    "occupation": "退休居委会干部",
+    "companion": "子女",
+    "payment": "医保",
+    "personality": "热心、话密",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 2,
+    "adherence": "高",
+    "dialogue": "「你们年轻医生辛苦，我以前在居委会，你们医院的院长我都见过，配合，肯定配合。」",
+    "categories": [
+      "心血管",
+      "内分泌",
+      "妇产",
+      "消化"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-182",
+    "name": "敬爷爷",
+    "age": "63",
+    "ageYears": 63,
+    "sex": "男",
+    "occupation": "退休司机，在开网约车",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "犟、怕耽误接单",
+    "concealment": 2,
+    "concealedFact": "患者怕以后不能开车，没有说出头晕发作的情况",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「我这个不算头晕，就是站起来快了一点，你别写头晕，我还要开车。」",
+    "categories": [
+      "神经",
+      "心血管",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-183",
+    "name": "缪阿婆",
+    "age": "64",
+    "ageYears": 64,
+    "sex": "女",
+    "occupation": "农村，进城打工带孙",
+    "companion": "子女",
+    "payment": "医保（异地未备案）",
+    "personality": "拘谨、节省",
+    "concealment": 1,
+    "concealedFact": "患者不识字，看不懂药盒，此前没有说",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「我不认字，药盒上写的我看不懂，我儿子给我分好我就吃。」",
+    "categories": [
+      "内分泌",
+      "心血管",
+      "消化",
+      "感染"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-184",
+    "name": "关爷爷",
+    "age": "66",
+    "ageYears": 66,
+    "sex": "男",
+    "occupation": "退休铁路工，抽烟五十年",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "犟、爱讲道理",
+    "concealment": 2,
+    "concealedFact": "患者没有说清抽烟量和咯血情况",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「抽了五十年，好好的，你现在叫我戒，戒了我才要出事。」",
+    "categories": [
+      "呼吸",
+      "心血管",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-185",
+    "name": "焉奶奶",
+    "age": "67",
+    "ageYears": 67,
+    "sex": "女",
+    "occupation": "退休工人，儿子欠债",
+    "companion": "子女",
+    "payment": "欠费",
+    "personality": "焦虑、护子",
+    "concealment": 2,
+    "concealedFact": "患者替儿子隐瞒了欠费与家庭经济状况",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "「钱的事你别问我儿子，我来想办法，你先给我看。」",
+    "categories": [
+      "心血管",
+      "内分泌",
+      "消化",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "医保欠费"
+    ],
+    "flagDescription": "医保欠费",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-186",
+    "name": "蔡爷爷",
+    "age": "69",
+    "ageYears": 69,
+    "sex": "男",
+    "occupation": "退休教师，有心理咨询史",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "敏感、爱思考",
+    "concealment": 1,
+    "concealedFact": "患者在吃抗抑郁药，此前没有提",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "「有些事我不太想在病历上写，你知道的，我们这个年纪的人在乎这些。」",
+    "categories": [
+      "精神",
+      "神经",
+      "心血管",
+      "消化"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-187",
+    "name": "舒阿婆",
+    "age": "71",
+    "ageYears": 71,
+    "sex": "女",
+    "occupation": "农村，他组转入（妇科术后）",
+    "companion": "子女",
+    "payment": "医保（异地）",
+    "personality": "怕、爱道歉",
+    "concealment": 1,
+    "concealedFact": "女儿不说她术后没下床、腿肿",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "女儿：「妇科那边说好了，转到你们这边观察两天，我妈没什么大事的。」",
+    "categories": [
+      "妇产",
+      "心血管",
+      "外科",
+      "血液"
+    ],
+    "periods": [
+      "病区"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-woman",
+    "transferred": true,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-188",
+    "name": "康爷爷",
+    "age": "76",
+    "ageYears": 76,
+    "sex": "男",
+    "occupation": "退休工人，儿子拒绝到场",
+    "companion": "子女（电话）",
+    "payment": "医保",
+    "personality": "认命、和气",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "「我儿子说他不来，字他不签，你打电话给他吧，我说了不算。」",
+    "categories": [
+      "心血管",
+      "呼吸",
+      "外科",
+      "感染"
+    ],
+    "periods": [
+      "病区",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/04_老年.md",
+    "original": true
+  },
+  {
+    "id": "P-189",
+    "name": "小艮",
+    "age": "29",
+    "ageYears": 29,
+    "sex": "女",
+    "occupation": "孕 36 周，小学老师",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "紧张、爱问",
+    "concealment": 1,
+    "concealedFact": "患者使用网购的「安胎」保健品，此前没有说",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "「我这个周数了，什么药都不敢吃，你开的我先问一下产科可以吗？」",
+    "categories": [
+      "妇产",
+      "呼吸",
+      "感染",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [
+      "孕晚期"
+    ],
+    "flagDescription": "孕晚期（用药与影像禁忌项标为陷阱；未请产科会诊 R +15；孕产保底载体）",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-190",
+    "name": "小溥",
+    "age": "24",
+    "ageYears": 24,
+    "sex": "女",
+    "occupation": "孕 32 周，服装厂女工，外来务工",
+    "companion": "无",
+    "payment": "自费（未建卡）",
+    "personality": "怯、忍",
+    "concealment": 3,
+    "concealedFact": "患者没有建卡或产检，腹痛已经持续一天",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「我没去过医院查，厂里请假要扣钱，我想着到时候直接生就行了。」",
+    "categories": [
+      "妇产",
+      "感染",
+      "内分泌",
+      "血液"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [
+      "孕晚期",
+      "外来务工"
+    ],
+    "flagDescription": "孕晚期（同上；未建卡需完整孕史记录，漏 → D +10）＋非 flag 标记·外来务工",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-191",
+    "name": "小濯",
+    "age": "33",
+    "ageYears": 33,
+    "sex": "女",
+    "occupation": "产后 20 天，公司中层",
+    "companion": "多人",
+    "payment": "商保",
+    "personality": "疲惫、克制",
+    "concealment": 2,
+    "concealedFact": "患者情绪崩溃，有「想把孩子放下走掉」的念头",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "婆婆：「她就是月子没坐好，你给她开点药，别是那种影响奶的。」",
+    "categories": [
+      "妇产",
+      "精神",
+      "血液",
+      "感染"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [
+      "哺乳期"
+    ],
+    "flagDescription": "哺乳期（用药禁忌陷阱；处方未写哺乳注意 C +10；揭示自伤意念 → 自伤风险事件）",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-192",
+    "name": "小旬",
+    "age": "38",
+    "ageYears": 38,
+    "sex": "女",
+    "occupation": "孕 30 周，高龄，试管受孕",
+    "companion": "录音者",
+    "payment": "商保",
+    "personality": "焦虑、高度警觉",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 3,
+    "adherence": "高",
+    "dialogue": "丈夫：「这个孩子我们等了六年，你每一步都跟我们说清楚，我录着，不是不信你。」",
+    "categories": [
+      "妇产",
+      "内分泌",
+      "心血管",
+      "肾"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "孕晚期"
+    ],
+    "flagDescription": "孕晚期（同 P-189；录音者出场情绪 −5）",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-193",
+    "name": "小夔",
+    "age": "20",
+    "ageYears": 20,
+    "sex": "女",
+    "occupation": "产后 3 天出院后再来，未婚",
+    "companion": "父母",
+    "payment": "医保",
+    "personality": "沉默、抗拒",
+    "concealment": 2,
+    "concealedFact": "患者已发热几天，产后没有复查；父母在场，她不愿说起孩子的父亲",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "母亲：「她自己不听话，出了院就乱跑，你别问她那些没用的，先退烧。」",
+    "categories": [
+      "妇产",
+      "感染",
+      "血液"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [
+      "哺乳期"
+    ],
+    "flagDescription": "哺乳期（同 P-191；请家属离开后隐瞒 −1）",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-194",
+    "name": "洪师傅",
+    "age": "46",
+    "ageYears": 46,
+    "sex": "男",
+    "occupation": "建筑工地木工，外来务工",
+    "companion": "多人",
+    "payment": "自费（异地医保未备案）",
+    "personality": "憨、怕花钱",
+    "concealment": 1,
+    "concealedFact": "包工头要求患者说是自己摔的；患者也没有说出饮酒情况",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "工友：「他自己走路摔的，跟工地没关系，你别写工地，他老板说了费用他出。」",
+    "categories": [
+      "创伤",
+      "外科",
+      "感染",
+      "中毒"
+    ],
+    "periods": [
+      "夜班",
+      "门诊"
+    ],
+    "flags": [
+      "外来务工"
+    ],
+    "flagDescription": "非 flag 标记·外来务工（异地未备案按自费；按工友口径记录 D +10）",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-195",
+    "name": "小庹",
+    "age": "22",
+    "ageYears": 22,
+    "sex": "女",
+    "occupation": "电子厂流水线，外来务工",
+    "companion": "同事",
+    "payment": "医保（厂里缴）",
+    "personality": "内向、能熬",
+    "concealment": 1,
+    "concealedFact": "宿舍多人出现同样症状，厂里让患者不要说",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「我们车间就我一个请假的，别人都没事，就我体质差。」",
+    "categories": [
+      "感染",
+      "呼吸",
+      "血液",
+      "中毒"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [
+      "外来务工"
+    ],
+    "flagDescription": "非 flag 标记·外来务工（群体事件线索：问诊成功揭示后触发「上报与否」事件）",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-196",
+    "name": "巴大叔",
+    "age": "52",
+    "ageYears": 52,
+    "sex": "男",
+    "occupation": "收割季来打短工，外来务工",
+    "companion": "无",
+    "payment": "自费",
+    "personality": "木讷、听不太懂",
+    "concealment": 1,
+    "concealedFact": "患者没有说明收入，也没有提在别处就诊时曾被劝住院",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「那边医院说我得住院，可我住不起啊。我过来问问，你们这里能不能便宜些。」",
+    "categories": [
+      "消化",
+      "呼吸",
+      "心血管",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [
+      "外来务工"
+    ],
+    "flagDescription": "非 flag 标记·外来务工（自费拒检概率 +20%）",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-197",
+    "name": "艾同学",
+    "age": "23",
+    "ageYears": 23,
+    "sex": "男",
+    "occupation": "外籍留学生，中文只会简单词",
+    "companion": "同学",
+    "payment": "商保（学校统一）",
+    "personality": "礼貌、慌",
+    "concealment": 1,
+    "concealedFact": "陪同同学无法译清患者的饮食约束和病史",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "同学：「他说他这里疼，很疼，别的我也翻不出来，我英语也就这样。」",
+    "categories": [
+      "消化",
+      "感染",
+      "外科",
+      "呼吸"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [
+      "语言障碍"
+    ],
+    "flagDescription": "语言障碍（问诊 −2、安抚 −1；花 1 AP 找翻译消除；未找翻译直接处置 C +10）",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-198",
+    "name": "吉奶奶",
+    "age": "74",
+    "ageYears": 74,
+    "sex": "女",
+    "occupation": "少数民族老人，只会本族语言",
+    "companion": "孙辈",
+    "payment": "医保（异地）",
+    "personality": "慈、耳背",
+    "concealment": 1,
+    "concealedFact": "孙子替奶奶省话",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "孙子：「我奶奶说她没事，她一直说没事，其实她昨天疼得一晚上没睡。」",
+    "categories": [
+      "心血管",
+      "消化",
+      "呼吸",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "语言障碍"
+    ],
+    "flagDescription": "语言障碍（同上；孙子在场兼作翻译，「家属在场」修正不叠加）",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-199",
+    "name": "小隗",
+    "age": "31",
+    "ageYears": 31,
+    "sex": "男",
+    "occupation": "聋人，手语使用者，快递员",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "急、爱写字",
+    "concealment": 1,
+    "concealedFact": "患者写字表达时会省略一些内容",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "他在纸上写：「我听不见，你写下来，我看得懂。不用找人翻译。」",
+    "categories": [
+      "外科",
+      "创伤",
+      "消化",
+      "呼吸"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [
+      "语言障碍"
+    ],
+    "flagDescription": "语言障碍（可改用文字沟通：以文书检定代替问诊检定，DC 不变，不需翻译）",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-200",
+    "name": "戴先生",
+    "age": "44",
+    "ageYears": 44,
+    "sex": "男",
+    "occupation": "看守所在押人员，涉经济案",
+    "companion": "押送者",
+    "payment": "自费（看守所结算）",
+    "personality": "冷静、话少",
+    "concealment": 1,
+    "concealedFact": "患者怕被当成装病，没有说出既往心脏病史和在押期间的用药",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「我没病，是他们非要送我来，你随便查查写个没事就行。」",
+    "categories": [
+      "心血管",
+      "消化",
+      "神经",
+      "精神"
+    ],
+    "periods": [
+      "夜班",
+      "门诊"
+    ],
+    "flags": [
+      "被押送"
+    ],
+    "flagDescription": "被押送（问诊 −1，押送者不能离开；病历注明押送单位；拒绝出具不实证明说服 DC 14）",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-201",
+    "name": "小章",
+    "age": "19",
+    "ageYears": 19,
+    "sex": "男",
+    "occupation": "醉驾被查获，派出所押送",
+    "companion": "押送者",
+    "payment": "自费",
+    "personality": "躁、口不择言",
+    "concealment": 3,
+    "concealedFact": "患者没有说清饮酒量和吸食过什么物质",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「我就喝了两瓶啤酒，抽血？抽什么血，我不抽。」",
+    "categories": [
+      "中毒",
+      "创伤",
+      "神经",
+      "精神"
+    ],
+    "periods": [
+      "夜班"
+    ],
+    "flags": [
+      "被押送"
+    ],
+    "flagDescription": "被押送（同上；拒绝抽血需签拒绝记录，否则 C +15）",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-202",
+    "name": "小池",
+    "age": "27",
+    "ageYears": 27,
+    "sex": "女",
+    "occupation": "本院手术室护士",
+    "companion": "同事",
+    "payment": "医保",
+    "personality": "懂行、要面子",
+    "concealment": 2,
+    "concealedFact": "患者自行拿科室的药服用，也没有说清过劳情况和月经史",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「我自己就是护士，这些说明我都懂，你直接开检查吧。别告诉护士长我来看过啊。」",
+    "categories": [
+      "妇产",
+      "内分泌",
+      "消化",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [
+      "医护同行"
+    ],
+    "flagDescription": "医护同行（问诊 +1；安抚 DC +1；漏规范项被当场指出：声望 −2、R 可补救）",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-203",
+    "name": "盛主任",
+    "age": "56",
+    "ageYears": 56,
+    "sex": "男",
+    "occupation": "外院退休外科主任",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "权威、爱指挥",
+    "concealment": 1,
+    "concealedFact": "患者已给自己开过药，此前没有说",
+    "complaintTendency": 2,
+    "adherence": "低",
+    "dialogue": "「小伙子，我做了三十年外科，你这个查体顺序不对，重来。」",
+    "categories": [
+      "外科",
+      "消化",
+      "心血管",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "医护同行"
+    ],
+    "flagDescription": "医护同行（同上；查体步骤错序时对方直接纠正，不记 R）",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-204",
+    "name": "小旷",
+    "age": "33",
+    "ageYears": 33,
+    "sex": "男",
+    "occupation": "本院麻醉科医生",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "沉默、疲惫",
+    "concealment": 3,
+    "concealedFact": "患者自行使用镇静药物，也有自伤意念",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「我知道该做什么检查，你就开吧，别写太细，我们一个系统的。」",
+    "categories": [
+      "精神",
+      "中毒",
+      "神经",
+      "心血管"
+    ],
+    "periods": [
+      "夜班",
+      "门诊"
+    ],
+    "flags": [
+      "医护同行"
+    ],
+    "flagDescription": "医护同行（揭示自伤意念后触发「同行自伤」事件：上报 → 同年住院医关系 −1；不上报 → C +20）",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-205",
+    "name": "贾太太",
+    "age": "48",
+    "ageYears": 48,
+    "sex": "女",
+    "occupation": "院领导的亲戚",
+    "companion": "多人",
+    "payment": "医保",
+    "personality": "傲、客气得刻意",
+    "concealment": 1,
+    "concealedFact": "患者在别处看过病，但不满意，此前没有提",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "「你们主任跟我说了，让你多照顾一下，该做的做，不该做的就别做了，我怕折腾。」",
+    "categories": [
+      "心血管",
+      "消化",
+      "内分泌",
+      "妇产"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "关系户"
+    ],
+    "flagDescription": "关系户（说服主任优势；「主任关系」事件：加号／优先／少开检查；按要求少开 → R 照记；拒绝 → 主任关系 −1）",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-206",
+    "name": "万老板",
+    "age": "55",
+    "ageYears": 55,
+    "sex": "男",
+    "occupation": "医院设备供应商",
+    "companion": "无",
+    "payment": "自费",
+    "personality": "热络、爱送礼",
+    "concealment": 1,
+    "concealedFact": "患者饮酒，血糖高却不吃药",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「你们科的设备我供的，主任我熟，你不用客气，晚上一起吃个饭。」",
+    "categories": [
+      "内分泌",
+      "心血管",
+      "消化",
+      "中毒"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [
+      "关系户"
+    ],
+    "flagDescription": "关系户（同上；附送礼分支：接受 → 现金压力路径开启，SAN −5）",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-207",
+    "name": "小霁",
+    "age": "16",
+    "ageYears": 16,
+    "sex": "女",
+    "occupation": "主任老同学的女儿，高一",
+    "companion": "父母",
+    "payment": "商保",
+    "personality": "娇、话少",
+    "concealment": 2,
+    "concealedFact": "患者节食并催吐，父母并不知道",
+    "complaintTendency": 2,
+    "adherence": "低",
+    "dialogue": "父亲：「你们主任是我老同学，孩子的事你直接跟我说，她妈别掺和。」",
+    "categories": [
+      "儿科",
+      "内分泌",
+      "消化",
+      "精神"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [
+      "关系户"
+    ],
+    "flagDescription": "关系户（同上；儿科保底可用）",
+    "portraitArchetype": "child-girl",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-208",
+    "name": "秦律师",
+    "age": "41",
+    "ageYears": 41,
+    "sex": "女",
+    "occupation": "医疗纠纷律师",
+    "companion": "无",
+    "payment": "商保",
+    "personality": "精确、冷静",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 3,
+    "adherence": "高",
+    "dialogue": "「知情同意书我要先看一遍再签，麻烦你把拒绝检查的记录单也拿一份来。」",
+    "categories": [
+      "消化",
+      "内分泌",
+      "妇产",
+      "神经"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [
+      "律师"
+    ],
+    "flagDescription": "律师（投诉固定 3；安抚 DC +2；知情同意与拒检记录漏签 C ×2；医闹线以「函」代替吵闹）",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-209",
+    "name": "丛先生",
+    "age": "63",
+    "ageYears": 63,
+    "sex": "男",
+    "occupation": "退休法官",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "讲程序、沉稳",
+    "concealment": 1,
+    "concealedFact": "患者没有说明降压药以外的用药",
+    "complaintTendency": 3,
+    "adherence": "中",
+    "dialogue": "「我习惯把每一步都记清楚，免得日后说不明白。你按规矩办就行。」",
+    "categories": [
+      "心血管",
+      "神经",
+      "消化",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "律师"
+    ],
+    "flagDescription": "律师（同上；老年保底可用）",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-210",
+    "name": "小穰",
+    "age": "25",
+    "ageYears": 25,
+    "sex": "女",
+    "occupation": "短视频博主，做「看病记录」",
+    "companion": "录音者",
+    "payment": "自费",
+    "personality": "活泼、镜头感",
+    "concealment": 1,
+    "concealedFact": "患者在吃减肥药，此前没有说",
+    "complaintTendency": 2,
+    "adherence": "低",
+    "dialogue": "「医生你别管镜头，就当我不在拍，正常看就行，你说话自然一点。」",
+    "categories": [
+      "内分泌",
+      "消化",
+      "妇产",
+      "感染"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [
+      "自媒体"
+    ],
+    "flagDescription": "自媒体（录音 100%；处置一般或以下 → 「视频上网」事件，声望 −15、医务科通报；处置得当 声望 +3）",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-211",
+    "name": "屈老师",
+    "age": "47",
+    "ageYears": 47,
+    "sex": "男",
+    "occupation": "本地生活号主理人",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "老练、爱抓细节",
+    "concealment": 1,
+    "concealedFact": "患者把饮酒量说少了",
+    "complaintTendency": 3,
+    "adherence": "中",
+    "dialogue": "「我不针对你，我就是记录一下真实的看病流程，你们医院也需要正面宣传吧。」",
+    "categories": [
+      "消化",
+      "心血管",
+      "呼吸",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [
+      "自媒体"
+    ],
+    "flagDescription": "自媒体（同上）",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-212",
+    "name": "哈大叔",
+    "age": "58",
+    "ageYears": 58,
+    "sex": "男",
+    "occupation": "清真饮食约束，小餐馆老板",
+    "companion": "子女",
+    "payment": "医保",
+    "personality": "和善、坚持",
+    "concealment": 1,
+    "concealedFact": "患者直到开处方时才提出药物成分约束",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「我有清真饮食的要求，药里的成分也得看。这个药我能吃吗？不合适的话，麻烦你换一种。」",
+    "categories": [
+      "消化",
+      "内分泌",
+      "心血管",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "宗教约束"
+    ],
+    "flagDescription": "非 flag 标记·宗教约束（药物成分与饮食选项受限；忽视约束开药 → C +15；询问约束占 1 步）",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-213",
+    "name": "余阿姨",
+    "age": "62",
+    "ageYears": 62,
+    "sex": "女",
+    "occupation": "信教，拒绝输血",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "平静、坚定",
+    "concealment": 2,
+    "concealedFact": "患者已有三天黑便，也没有主动说明宗教约束",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "「输血我们是不接受的，别的都可以，你不用劝我，我想得很清楚。」",
+    "categories": [
+      "消化",
+      "血液",
+      "外科",
+      "心血管"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [
+      "宗教约束"
+    ],
+    "flagDescription": "非 flag 标记·宗教约束（拒绝输血需签拒绝记录，否则 C +20；强行输血 → 医闹线直接进二幕）",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-214",
+    "name": "小闾",
+    "age": "28",
+    "ageYears": 28,
+    "sex": "男",
+    "occupation": "精神分裂症稳定期，超市理货员",
+    "companion": "父母",
+    "payment": "医保",
+    "personality": "温和、迟缓",
+    "concealment": 2,
+    "concealedFact": "母亲隐瞒他最近自己停了药",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "母亲：「他很稳定的，药一直在吃，你别一听病史就把他往精神科推，他是肚子疼。」",
+    "categories": [
+      "消化",
+      "中毒",
+      "神经",
+      "精神"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [
+      "精神障碍史"
+    ],
+    "flagDescription": "非 flag 标记·精神障碍史（躯体主诉不因病史打折；跳过躯体检查 → R +25；药物相互作用陷阱）",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-215",
+    "name": "宁姐",
+    "age": "44",
+    "ageYears": 44,
+    "sex": "女",
+    "occupation": "双相障碍，自由撰稿人",
+    "companion": "无",
+    "payment": "自费",
+    "personality": "敏锐、易怒",
+    "concealment": 3,
+    "concealedFact": "患者在躁期熬夜、饮酒，也停用了药",
+    "complaintTendency": 2,
+    "adherence": "低",
+    "dialogue": "「你别用那种眼神看我，我很清醒，我只是三天没睡，这跟我的病没关系。」",
+    "categories": [
+      "精神",
+      "神经",
+      "心血管",
+      "中毒"
+    ],
+    "periods": [
+      "门诊",
+      "夜班"
+    ],
+    "flags": [
+      "精神障碍史"
+    ],
+    "flagDescription": "非 flag 标记·精神障碍史（同上；安抚失败即离院，R +10）",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-216",
+    "name": "葵爷爷",
+    "age": "70",
+    "ageYears": 70,
+    "sex": "男",
+    "occupation": "抑郁症复发，退休工人",
+    "companion": "子女",
+    "payment": "医保",
+    "personality": "沉默、迟滞",
+    "concealment": 3,
+    "concealedFact": "患者藏了药，并有自伤计划",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「我没什么，就是不想吃东西。你给我开点开胃药就行了。」",
+    "categories": [
+      "精神",
+      "内分泌",
+      "消化",
+      "中毒"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "精神障碍史"
+    ],
+    "flagDescription": "非 flag 标记·精神障碍史（揭示后进入自伤风险事件；老年保底可用）",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-217",
+    "name": "老喻",
+    "age": "66",
+    "ageYears": 66,
+    "sex": "男",
+    "occupation": "流浪人员，救助站送来",
+    "companion": "社区工作者",
+    "payment": "欠费",
+    "personality": "沉默、警惕",
+    "concealment": 2,
+    "concealedFact": "患者不愿说出身份与病史",
+    "complaintTendency": 0,
+    "adherence": "低",
+    "dialogue": "「不用问我名字，你们看好了我就走，我不住院的。」",
+    "categories": [
+      "感染",
+      "呼吸",
+      "创伤",
+      "神经"
+    ],
+    "periods": [
+      "夜班",
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "医保欠费",
+      "无家属"
+    ],
+    "flagDescription": "医保欠费（费用两难）＋非 flag 标记·无家属（签字走医务科备案；自行离院需记录，否则 D +10）",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-218",
+    "name": "小蹇",
+    "age": "35",
+    "ageYears": 35,
+    "sex": "女",
+    "occupation": "公司文员，独自租房，路人送来",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "淡、独立",
+    "concealment": 1,
+    "concealedFact": "患者长期节食，此前没有提",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「我没有可以联系的人，你就写我自己签，我清醒着的。」",
+    "categories": [
+      "内分泌",
+      "神经",
+      "心血管",
+      "妇产"
+    ],
+    "periods": [
+      "夜班",
+      "门诊"
+    ],
+    "flags": [
+      "独居",
+      "无家属"
+    ],
+    "flagDescription": "独居＋非 flag 标记·无家属（需签字步骤走本人签／医务科备案；出院评估多一步）",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-219",
+    "name": "陆师傅",
+    "age": "57",
+    "ageYears": 57,
+    "sex": "男",
+    "occupation": "个体司机，医保断缴",
+    "companion": "配偶",
+    "payment": "欠费",
+    "personality": "焦躁、爱算",
+    "concealment": 1,
+    "concealedFact": "患者上次住院的费用没有结清，医生问到才说",
+    "complaintTendency": 1,
+    "adherence": "低",
+    "dialogue": "「上次的钱我们还没结清，这次你先别开贵的，能吃药就吃药。」",
+    "categories": [
+      "心血管",
+      "消化",
+      "神经",
+      "肾"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "医保欠费"
+    ],
+    "flagDescription": "医保欠费（开检查两难：欠费仍开 → 催缴事件；不开且在规范内 → R 照记；绩效按一般计）",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-220",
+    "name": "小佴",
+    "age": "30",
+    "ageYears": 30,
+    "sex": "女",
+    "occupation": "待业，前次住院欠费未结",
+    "companion": "父母",
+    "payment": "欠费",
+    "personality": "羞、逃避",
+    "concealment": 2,
+    "concealedFact": "患者有欠费，也可能再次怀孕，父母并不知情",
+    "complaintTendency": 0,
+    "adherence": "中",
+    "dialogue": "「我妈不知道上次的事，你别在她面前说钱，我以后会还的。」",
+    "categories": [
+      "妇产",
+      "消化",
+      "血液",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊"
+    ],
+    "flags": [
+      "医保欠费"
+    ],
+    "flagDescription": "医保欠费（同上；请家属离开后隐瞒 −1）",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-221",
+    "name": "项总",
+    "age": "52",
+    "ageYears": 52,
+    "sex": "男",
+    "occupation": "上市公司高管，特需",
+    "companion": "多人",
+    "payment": "商保",
+    "personality": "客气、有压迫感",
+    "concealment": 1,
+    "concealedFact": "患者饮酒，也服用安眠药，此前没有说",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "助理：「项总下午有个会，麻烦把检查一次做完，费用不是问题，不用走医保。」",
+    "categories": [
+      "心血管",
+      "消化",
+      "内分泌",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "VIP"
+    ],
+    "flagDescription": "非 flag 标记·VIP（商保过度检查陷阱 F +8；拒绝加急 → 声望 −2；投诉直达院办，升级不经科室）",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-222",
+    "name": "梁女士",
+    "age": "39",
+    "ageYears": 39,
+    "sex": "女",
+    "occupation": "民办幼儿园投资人，向医院捐过设备",
+    "companion": "配偶",
+    "payment": "商保",
+    "personality": "优雅、挑剔",
+    "concealment": 2,
+    "concealedFact": "患者没有说明整形手术史和正在使用的药",
+    "complaintTendency": 2,
+    "adherence": "低",
+    "dialogue": "「我们给医院捐过设备，你们应该知道吧。我想找个安静点、人少点的地方看病，能安排吗？」",
+    "categories": [
+      "内分泌",
+      "妇产",
+      "消化",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "病区"
+    ],
+    "flags": [
+      "VIP"
+    ],
+    "flagDescription": "非 flag 标记·VIP（同上；院办来电事件）",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/05_特殊人群.md",
+    "original": true
+  },
+  {
+    "id": "P-223",
+    "name": "应家宝宝",
+    "age": "9 天",
+    "ageYears": 0.024657534246575342,
+    "sex": "男",
+    "occupation": "新生儿，出生后第一次回院",
+    "companion": "父母",
+    "payment": "医保",
+    "personality": "易惊、吃奶慢",
+    "concealment": 1,
+    "concealedFact": "父亲把产院让复查的那页折在手册末尾，没主动拿出来",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "父亲：「手册在这里，我只看了出院那页。后面是不是还写了什么？」",
+    "categories": [
+      "儿科",
+      "心血管",
+      "感染",
+      "消化",
+      "血液",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "infant",
+    "transferred": false,
+    "source": "11_患者实体库/06_新生儿扩展.md",
+    "original": false
+  },
+  {
+    "id": "P-224",
+    "name": "米家小囡",
+    "age": "1 天",
+    "ageYears": 0.0027397260273972603,
+    "sex": "女",
+    "occupation": "新生儿，母婴同室",
+    "companion": "父母",
+    "payment": "医保",
+    "personality": "安静、哭声细",
+    "concealment": 1,
+    "concealedFact": "父亲不知道母亲孕期用药，需联系产科核对",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "父亲：「她妈妈还在休息，产检的事我知道得不全，你们能帮我问问产科吗？」",
+    "categories": [
+      "儿科",
+      "感染",
+      "心血管",
+      "消化",
+      "内分泌",
+      "血液"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "infant",
+    "transferred": false,
+    "source": "11_患者实体库/06_新生儿扩展.md",
+    "original": false
+  },
+  {
+    "id": "P-225",
+    "name": "小晁",
+    "age": "27",
+    "ageYears": 27,
+    "sex": "男",
+    "occupation": "书店夜间理货员，合租",
+    "companion": "朋友",
+    "payment": "医保",
+    "personality": "客气、怕麻烦",
+    "concealment": 2,
+    "concealedFact": "患者咳嗽已经拖了很久，担心请病假会影响排班",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "「店里夜班就两个人，我要住几天，你给我写清楚，我好找人换。」",
+    "categories": [
+      "呼吸",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/06_新生儿扩展.md",
+    "original": false
+  },
+  {
+    "id": "P-226",
+    "name": "宗姐",
+    "age": "46",
+    "ageYears": 46,
+    "sex": "女",
+    "occupation": "广告印刷店店员，关节病长期随诊",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "耐心、记不住药名",
+    "concealment": 2,
+    "concealedFact": "患者把关节病的长期处方只叫作止痛药，没有主动列入病史",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "「我吃的都在这袋子里，哪个是止痛的、哪个是别的，我分不清，你帮我看看。」",
+    "categories": [
+      "呼吸",
+      "感染",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [
+      "多重用药"
+    ],
+    "flagDescription": "多重用药",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/06_新生儿扩展.md",
+    "original": false
+  },
+  {
+    "id": "P-227",
+    "name": "小郦",
+    "age": "42",
+    "ageYears": 42,
+    "sex": "女",
+    "occupation": "孕 35 周，社区书屋管理员",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "克制、爱确认",
+    "concealment": 1,
+    "concealedFact": "患者没有把外院产检建议带到本院，担心因资料没带齐被责备",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "「之前查的都在另一本手册，我让家里送来。今晚先要看什么，你告诉我。」",
+    "categories": [
+      "妇产",
+      "心血管",
+      "呼吸",
+      "血液"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [
+      "孕晚期"
+    ],
+    "flagDescription": "孕晚期",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/06_新生儿扩展.md",
+    "original": false
+  },
+  {
+    "id": "P-228",
+    "name": "茹奶奶",
+    "age": "79",
+    "ageYears": 79,
+    "sex": "女",
+    "occupation": "退休仓库保管员，认知障碍，养老院送诊",
+    "companion": "护工",
+    "payment": "医保",
+    "personality": "安静、反复确认",
+    "concealment": 2,
+    "concealedFact": "护工不知道白班是否给过内分泌常用药，只带了总表",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "护工：「我刚接夜班，药吃没吃得问白班。电话在这儿，我陪你一起问。」",
+    "categories": [
+      "内分泌",
+      "心血管",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [
+      "认知障碍",
+      "多重用药"
+    ],
+    "flagDescription": "认知障碍／多重用药",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/06_新生儿扩展.md",
+    "original": false
+  },
+  {
+    "id": "P-229",
+    "name": "晏师傅",
+    "age": "70",
+    "ageYears": 70,
+    "sex": "男",
+    "occupation": "退休印刷工，多个慢病处方随诊",
+    "companion": "儿子",
+    "payment": "医保",
+    "personality": "慢条斯理、迁就孩子",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "儿子：「爸的药先开好，我这阵也喘，能不能多开一份？」",
+    "categories": [
+      "呼吸"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [
+      "多重用药"
+    ],
+    "flagDescription": "多重用药；专用预设：C-010",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-230",
+    "name": "小岳",
+    "age": "23",
+    "ageYears": 23,
+    "sex": "男",
+    "occupation": "运动队队员，正在准备归队训练",
+    "companion": "教练",
+    "payment": "医保",
+    "personality": "要强、怕掉队",
+    "concealment": 2,
+    "concealedFact": "患者家中有年轻亲属曾经猝死，患者担心提起后不能归队",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "「我已经缓过来了。检查完，你能不能告诉我到底还能不能练？」",
+    "categories": [
+      "心血管"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "专用预设：C-031",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-231",
+    "name": "鲁师傅",
+    "age": "29",
+    "ageYears": 29,
+    "sex": "男",
+    "occupation": "食品厂包装工，与同班工友在食堂吃饭",
+    "companion": "同事",
+    "payment": "医保",
+    "personality": "客气、怕误工",
+    "concealment": 2,
+    "concealedFact": "雇主让同班发病的人分开说，别提同一食堂",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "同事：「我们是一起吃的，另外两个人也来了，还在外面等。」",
+    "categories": [
+      "消化",
+      "感染"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "专用预设：C-056",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-232",
+    "name": "傅阿伯",
+    "age": "84",
+    "ageYears": 84,
+    "sex": "男",
+    "occupation": "退休装订工，长期卧床，由固定护工照看",
+    "companion": "护工",
+    "payment": "医保",
+    "personality": "少言、依赖照护",
+    "concealment": 1,
+    "concealedFact": "护工没把数日没有成形便与这次稀便联系起来",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "护工：「我只记了稀的，成形的大便……好像好几天没见了。」",
+    "categories": [
+      "消化"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "专用预设：C-060",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-233",
+    "name": "雍师傅",
+    "age": "48",
+    "ageYears": 48,
+    "sex": "男",
+    "occupation": "仓库管理员，独居，聚餐后由同事送来",
+    "companion": "同事",
+    "payment": "医保",
+    "personality": "平日随和、不爱提病史",
+    "concealment": 2,
+    "concealedFact": "同事不知道常用降糖药，也不知道当晚没进食",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "同事：「以前没见他这么醉。家里没人，我去翻翻他外套口袋。」",
+    "categories": [
+      "内分泌"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [
+      "独居"
+    ],
+    "flagDescription": "独居；专用预设：C-068",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-234",
+    "name": "卓阿姨",
+    "age": "66",
+    "ageYears": 66,
+    "sex": "女",
+    "occupation": "退休售票员，独居，家中事务无人代办",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "挂心家务、反复确认",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "「要住院我就得把钥匙托给邻居，你先告诉我今天能不能回去。」",
+    "categories": [
+      "内分泌"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [
+      "独居"
+    ],
+    "flagDescription": "独居；专用预设：C-076",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-235",
+    "name": "苗奶奶",
+    "age": "76",
+    "ageYears": 76,
+    "sex": "女",
+    "occupation": "退休食堂工，认知障碍，由女儿照料",
+    "companion": "女儿",
+    "payment": "医保",
+    "personality": "寡言、反应慢",
+    "concealment": 2,
+    "concealedFact": "家人不知道甲状腺手术后长期药已停用",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "女儿：「以前脖子做过手术，药现在还有没有吃，我得回去找找。」",
+    "categories": [
+      "内分泌"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [
+      "认知障碍"
+    ],
+    "flagDescription": "认知障碍；专用预设：C-080",
+    "portraitArchetype": "elder-woman",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-236",
+    "name": "小葛",
+    "age": "20",
+    "ageYears": 20,
+    "sex": "男",
+    "occupation": "大学生，校内集中训练刚结束",
+    "companion": "同学",
+    "payment": "医保",
+    "personality": "逞强、着急回校",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "「腿疼我以为是练多了，可今天这个尿色看着真不对。」",
+    "categories": [
+      "肾",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "专用预设：C-083",
+    "portraitArchetype": "young-man",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-237",
+    "name": "祁爷爷",
+    "age": "79",
+    "ageYears": 79,
+    "sex": "男",
+    "occupation": "退休运输工，养老院常住，由护工送诊",
+    "companion": "护工",
+    "payment": "医保",
+    "personality": "温和、怕麻烦",
+    "concealment": 1,
+    "concealedFact": "照护记录把排不出来写成了没有尿",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "护工：「表上写没尿，可他一直说肚子胀。我把这两天的记录都带来了。」",
+    "categories": [
+      "肾",
+      "外科"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "专用预设：C-086",
+    "portraitArchetype": "elder-man",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-238",
+    "name": "冉师傅",
+    "age": "41",
+    "ageYears": 41,
+    "sex": "男",
+    "occupation": "工地电气维修工，工友送诊",
+    "companion": "工友",
+    "payment": "工伤",
+    "personality": "急躁、担心停工",
+    "concealment": 2,
+    "concealedFact": "工友起初没有说触电后可能从平台跌落",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "工友：「我是听到声响才回头的，他怎么落到地上的，我得再问问旁边那个人。」",
+    "categories": [
+      "外科",
+      "创伤"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "专用预设：C-118",
+    "portraitArchetype": "adult-man",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-239",
+    "name": "郁家宝宝",
+    "age": "12 天",
+    "ageYears": 0.03287671232876712,
+    "sex": "男",
+    "occupation": "新生儿，母亲 O 型、婴儿 B 型，纯母乳喂养",
+    "companion": "母亲",
+    "payment": "医保",
+    "personality": "安静、吃奶慢",
+    "concealment": 1,
+    "concealedFact": "母亲未提第二天已出现黄疸，也没按产院建议复查",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "母亲：「第二天就有点黄，我以为吃奶好就不用再查了。」",
+    "categories": [
+      "儿科",
+      "血液"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "专用预设：C-134",
+    "portraitArchetype": "infant",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-240",
+    "name": "甄家宝宝",
+    "age": "8 月",
+    "ageYears": 0.6666666666666666,
+    "sex": "男",
+    "occupation": "婴儿，父母离异，夫妻分居，由父亲单独带诊",
+    "companion": "父亲",
+    "payment": "医保",
+    "personality": "时哭时静、怕陌生人",
+    "concealment": 2,
+    "concealedFact": "父亲不知道母亲下午看过的尿布情况，双方没有及时沟通",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "父亲：「下午是孩子妈妈带的，我现在给她打电话。你要问什么，让她自己跟你说吧。」",
+    "categories": [
+      "儿科",
+      "消化"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "专用预设：C-135",
+    "portraitArchetype": "infant",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-241",
+    "name": "伍家宝宝",
+    "age": "9 天",
+    "ageYears": 0.024657534246575342,
+    "sex": "男",
+    "occupation": "新生儿，产院曾建议复查心脏超声",
+    "companion": "祖母",
+    "payment": "医保",
+    "personality": "哭声弱、吃奶慢",
+    "concealment": 1,
+    "concealedFact": "祖母把杂音复查建议当成可暂缓的小事",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "祖母：「那张复查单还在袋子里，我以为满月再来就行。」",
+    "categories": [
+      "儿科",
+      "心血管"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "专用预设：C-149",
+    "portraitArchetype": "infant",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-242",
+    "name": "荣家小囡",
+    "age": "30 小时",
+    "ageYears": 0.003424657534246575,
+    "sex": "女",
+    "occupation": "新生儿，母婴同室，母亲妊娠期糖尿病",
+    "companion": "父亲",
+    "payment": "医保",
+    "personality": "安静、哭声细",
+    "concealment": 1,
+    "concealedFact": "父亲不知道母亲孕期诊断与用药",
+    "complaintTendency": 0,
+    "adherence": "高",
+    "dialogue": "父亲：「产检一直是孩子妈妈自己去的。她用过什么药，得问她本人，或者问问产科医生。」",
+    "categories": [
+      "儿科",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "专用预设：C-153",
+    "portraitArchetype": "infant",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-243",
+    "name": "贝家宝宝",
+    "age": "5 月",
+    "ageYears": 0.4166666666666667,
+    "sex": "男",
+    "occupation": "婴儿，随母亲生活，陪同叙述需要分别核对",
+    "companion": "母亲与母亲的男友",
+    "payment": "医保",
+    "personality": "嗜睡、哭声弱",
+    "concealment": 2,
+    "concealedFact": "陪同者对受伤经过的陈述与损伤分布不一致",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "母亲：「他说是从沙发上滚下来的。我当时没在那间屋里。」",
+    "categories": [
+      "儿科",
+      "创伤",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "专用预设：C-161",
+    "portraitArchetype": "infant",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-244",
+    "name": "小滕",
+    "age": "24",
+    "ageYears": 24,
+    "sex": "女",
+    "occupation": "新入职的文员，与母亲同住",
+    "companion": "母亲",
+    "payment": "医保",
+    "personality": "紧张、顾虑隐私",
+    "concealment": 2,
+    "concealedFact": "患者不愿当着母亲说性生活和月经变化",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "「有些事我想单独跟你说，可以先让她在外面等一会儿吗？」",
+    "categories": [
+      "妇产"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "专用预设：C-162",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-245",
+    "name": "小姬",
+    "age": "27",
+    "ageYears": 27,
+    "sex": "女",
+    "occupation": "孕 33 周，日常在网店处理订单",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "克制、相信旧结果",
+    "concealment": 2,
+    "concealedFact": "患者觉得以前产检正常，没有提近期头痛和尿少",
+    "complaintTendency": 1,
+    "adherence": "中",
+    "dialogue": "「上次查还是好的，这几天头疼，我以为是没睡好。」",
+    "categories": [
+      "妇产",
+      "内分泌"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [
+      "孕晚期"
+    ],
+    "flagDescription": "孕晚期；专用预设：C-165",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-246",
+    "name": "计姐",
+    "age": "33",
+    "ageYears": 33,
+    "sex": "女",
+    "occupation": "图书发行员，顺产后 1 小时，既往有哮喘",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "疲倦、说话简短",
+    "concealment": 2,
+    "concealedFact": "产程记录没写既往哮喘，常用吸入剂在床头",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "「那个吸入的药在床头袋子里，以前喘的时候一直用。」",
+    "categories": [
+      "妇产",
+      "呼吸"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "专用预设：C-166",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-247",
+    "name": "费姐",
+    "age": "42",
+    "ageYears": 42,
+    "sex": "女",
+    "occupation": "孕 39 周，足月产程中，由配偶陪伴",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "平日沉稳、习惯核对",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "配偶：「刚才还在说话，怎么一下就这样了？你们需要我做什么？」",
+    "categories": [
+      "妇产"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [
+      "孕晚期"
+    ],
+    "flagDescription": "孕晚期；专用预设：C-167",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-248",
+    "name": "莫姐",
+    "age": "41",
+    "ageYears": 41,
+    "sex": "女",
+    "occupation": "孕 30 周，培训机构行政人员",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "谨慎、担心胎儿",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 2,
+    "adherence": "中",
+    "dialogue": "「我想治，可又怕检查影响肚子里的孩子。医生，还有别的办法吗？」",
+    "categories": [
+      "妇产",
+      "呼吸",
+      "心血管"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [
+      "孕晚期"
+    ],
+    "flagDescription": "孕晚期；专用预设：C-169",
+    "portraitArchetype": "adult-woman",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-249",
+    "name": "庞姐",
+    "age": "32",
+    "ageYears": 32,
+    "sex": "女",
+    "occupation": "剖宫产后 6 小时，平日经营文具店",
+    "companion": "配偶",
+    "payment": "医保",
+    "personality": "疲倦、信任交班",
+    "concealment": 1,
+    "concealedFact": "本人不知道手术记录中的实际失血量",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "配偶：「交班说平稳，我们就没再问。手术记录能不能再核一下？」",
+    "categories": [
+      "妇产",
+      "血液"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "专用预设：C-172",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-250",
+    "name": "小宓",
+    "age": "29",
+    "ageYears": 29,
+    "sex": "女",
+    "occupation": "顺产后 6 天，出院第 3 天，独自来院",
+    "companion": "无",
+    "payment": "医保",
+    "personality": "独立、低估症状",
+    "concealment": 1,
+    "concealedFact": "患者认为分娩已经结束，与这次头痛没有关系",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "「孩子有人带，我自己过来的。生完都出院了，这个还跟生孩子有关吗？」",
+    "categories": [
+      "妇产",
+      "神经"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [
+      "哺乳期"
+    ],
+    "flagDescription": "哺乳期；专用预设：C-174",
+    "portraitArchetype": "young-woman",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  },
+  {
+    "id": "P-251",
+    "name": "罗小芮",
+    "age": "7",
+    "ageYears": 7,
+    "sex": "女",
+    "occupation": "小学生，母亲带诊，近期因咳嗽请假",
+    "companion": "母亲",
+    "payment": "医保",
+    "personality": "怕打针、肯配合",
+    "concealment": 0,
+    "concealedFact": "",
+    "complaintTendency": 1,
+    "adherence": "高",
+    "dialogue": "母亲：「她才七岁，网上说的药，小孩子也能用吗？」",
+    "categories": [
+      "儿科",
+      "呼吸"
+    ],
+    "periods": [
+      "门诊",
+      "病区",
+      "夜班"
+    ],
+    "flags": [],
+    "flagDescription": "专用预设：C-151",
+    "portraitArchetype": "child-girl",
+    "transferred": false,
+    "source": "11_患者实体库/07_场景专用补充.md",
+    "original": false
+  }
+]

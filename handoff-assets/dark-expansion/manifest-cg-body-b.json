@@ -1,0 +1,58 @@
+[
+  {
+    "id": "END-09",
+    "title": "一桩事先张扬的凶杀案",
+    "author": "加西亚·马尔克斯",
+    "image": "END-09.webp",
+    "source": "END-09.png",
+    "prompt": "Use case: illustration-story. Asset type: original narrative game ending CG, NOT a book cover. Create exactly ONE full-bleed landscape image in 16:9 (1536x864 or equivalent).\nStyle: Original Chinese dark medical 2D pixel JRPG ending CG. One full-bleed landscape 16:9 scene, visibly deliberate pixel clusters and hard-edged sprite-like shading, cinematic environmental storytelling, anime character design. Desaturated blue gray, dirty teal and muted brown, cold institutional light, oppressive and unresolved, no warm redemption glow. No text, readable documents, numbers, captions, logos, borders, UI, watermark, photo, 3D, gore, explicit wounds, or self-harm act. Young woman protagonist has short brown bob, small teal hairclip, teal blouse and dark trousers unless the scene changes clothing. Mother: short dark-gray hair, dusty plum cardigan over cream blouse. Father: gray hair, navy jacket over gray shirt. Make people and their actual situation the subject, not a generic paperwork still life.\nScene from approved story: 伤医死亡后的封锁护士站，翻倒的椅子、地上的胸牌与未吃的盒饭，远处同事在抢救室门外。没有尸体、血腥或武器。\nDetailed requirements: The young woman protagonist has died and is absent. Show only the aftermath: sealed-off nurse station, overturned chair, blank ID badge beside unopened dinner on clean tiled floor, two shaken colleagues outside firmly CLOSED resuscitation doors. NO body, no blood, no wound, no weapon, no attacker or attack action.\nDeliberate visible pixel clusters, hard pixel edges, muted blue-gray institutional light, cinematic environmental storytelling; faces remain mature anime human characters. No text at all, no book title, no numbers, no logos, no border, no UI, no watermark.",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    },
+    "model": "built-in image_gen",
+    "license": "MIT"
+  },
+  {
+    "id": "END-10",
+    "title": "人生的枷锁",
+    "author": "威廉·萨默塞特·毛姆",
+    "image": "END-10.webp",
+    "source": "END-10.png",
+    "prompt": "Use case: illustration-story. Asset type: original narrative game ending CG, NOT a book cover. Create exactly ONE full-bleed landscape image in 16:9 (1536x864 or equivalent).\nStyle: Original Chinese dark medical 2D pixel JRPG ending CG. One full-bleed landscape 16:9 scene, visibly deliberate pixel clusters and hard-edged sprite-like shading, cinematic environmental storytelling, anime character design. Desaturated blue gray, dirty teal and muted brown, cold institutional light, oppressive and unresolved, no warm redemption glow. No text, readable documents, numbers, captions, logos, borders, UI, watermark, photo, 3D, gore, explicit wounds, or self-harm act. Young woman protagonist has short brown bob, small teal hairclip, teal blouse and dark trousers unless the scene changes clothing. Mother: short dark-gray hair, dusty plum cardigan over cream blouse. Father: gray hair, navy jacket over gray shirt. Make people and their actual situation the subject, not a generic paperwork still life.\nScene from approved story: 伤医留下手部功能障碍后，女主在康复室练习扣衬衫扣子，手边放着护具，白大褂挂在远处，不展示伤口。\nDetailed requirements: Rehabilitation room after permanent hand-function loss. Young adult Chinese woman with short brown bob and small teal hairclip sits at a table trying with visible effort to fasten the small buttons of the teal shirt she is wearing. Show her hands in the delicate task clearly. An orthopedic hand brace rests within reach on the table; her white doctor coat hangs far away. No wounds. Quiet tired concentration, no cheerful recovery celebration.\nDeliberate visible pixel clusters, hard pixel edges, muted blue-gray institutional light, cinematic environmental storytelling; faces remain mature anime human characters. No text at all, no book title, no numbers, no logos, no border, no UI, no watermark.",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    },
+    "model": "built-in image_gen",
+    "license": "MIT"
+  },
+  {
+    "id": "END-11",
+    "title": "围城",
+    "author": "钱锺书",
+    "image": "END-11.webp",
+    "source": "END-11.png",
+    "prompt": "Use case: illustration-story. Asset type: original narrative game ending CG, NOT a book cover. Create exactly ONE full-bleed landscape image in 16:9 (1536x864 or equivalent).\nStyle: Original Chinese dark medical 2D pixel JRPG ending CG. One full-bleed landscape 16:9 scene, visibly deliberate pixel clusters and hard-edged sprite-like shading, cinematic environmental storytelling, anime character design. Desaturated blue gray, dirty teal and muted brown, cold institutional light, oppressive and unresolved, no warm redemption glow. No text, readable documents, numbers, captions, logos, borders, UI, watermark, photo, 3D, gore, explicit wounds, or self-harm act. Young woman protagonist has short brown bob, small teal hairclip, teal blouse and dark trousers unless the scene changes clothing. Mother: short dark-gray hair, dusty plum cardigan over cream blouse. Father: gray hair, navy jacket over gray shirt. Make people and their actual situation the subject, not a generic paperwork still life.\nScene from approved story: 遭袭后行动障碍的女主坐在轮椅上，到达求职楼宇台阶前，母亲站在旁边找入口，冷雨将落，没有励志庆祝。\nDetailed requirements: Young adult Chinese woman with short brown bob and small teal hairclip, teal blouse and dark trousers, sits in a realistic manual wheelchair stopped in front of the STEPS of an office building where she seeks work, with a plain closed application folder on her lap. Her older mother with short dark-gray hair and dusty plum cardigan over cream blouse stands nearby looking along the building for an accessible entrance. Composition makes the physical barrier clear. Cold rain about to fall. Ordinary dignified people, no inspirational pose or celebration.\nDeliberate visible pixel clusters, hard pixel edges, muted blue-gray institutional light, cinematic environmental storytelling; faces remain mature anime human characters. No text at all, no book title, no numbers, no logos, no border, no UI, no watermark.",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    },
+    "model": "built-in image_gen",
+    "license": "MIT"
+  },
+  {
+    "id": "END-12",
+    "title": "活着",
+    "author": "余华",
+    "image": "END-12.webp",
+    "source": "END-12.png",
+    "prompt": "Use case: illustration-story. Asset type: original narrative game ending CG, NOT a book cover. Create exactly ONE full-bleed landscape image in 16:9 (1536x864 or equivalent).\nStyle: Original Chinese dark medical 2D pixel JRPG ending CG. One full-bleed landscape 16:9 scene, visibly deliberate pixel clusters and hard-edged sprite-like shading, cinematic environmental storytelling, anime character design. Desaturated blue gray, dirty teal and muted brown, cold institutional light, oppressive and unresolved, no warm redemption glow. No text, readable documents, numbers, captions, logos, borders, UI, watermark, photo, 3D, gore, explicit wounds, or self-harm act. Young woman protagonist has short brown bob, small teal hairclip, teal blouse and dark trousers unless the scene changes clothing. Mother: short dark-gray hair, dusty plum cardigan over cream blouse. Father: gray hair, navy jacket over gray shirt. Make people and their actual situation the subject, not a generic paperwork still life.\nScene from approved story: 过劳发病抢救无效后的空抢救床，护士把手机和白大褂放进个人物品袋，门外母亲弯腰坐着，没有尸体。\nDetailed requirements: After unsuccessful resuscitation due to overwork-related illness: unmistakably EMPTY resuscitation bed with rumpled sheet and switched-off dark monitor. A nurse places a smartphone and folded white doctor coat inside a clear personal-property bag. Through the open doorway the mother, short dark-gray hair and dusty plum cardigan over cream blouse, sits bent forward alone on corridor bench. Protagonist deceased and ABSENT. No body or human-shaped shape under sheets, no procedures, no revival, no gore.\nDeliberate visible pixel clusters, hard pixel edges, muted blue-gray institutional light, cinematic environmental storytelling; faces remain mature anime human characters. No text at all, no book title, no numbers, no logos, no border, no UI, no watermark.",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    },
+    "model": "built-in image_gen",
+    "license": "MIT"
+  }
+]

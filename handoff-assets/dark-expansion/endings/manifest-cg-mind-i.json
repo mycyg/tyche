@@ -1,0 +1,62 @@
+[
+  {
+    "id": "END-13",
+    "title": "变形记",
+    "author": "弗兰茨·卡夫卡",
+    "qa": "通过逐张视觉检查：成年女主短棕 bob 头和青色发夹；条纹住院服、病床、空白纸与普通护士；明确像素画，无怪物、可读文字或 UI。",
+    "prompt": "Use case: illustration-story. Asset: original Chinese dark medical 2D pixel JRPG ending CG END-13, one full-bleed landscape 16:9 illustration. A plain long-term psychiatric ward in a Chinese hospital. Adult Chinese woman, former doctor, short brown bob with small teal hairclip, wearing loose blue-gray striped inpatient pajamas, sits on the edge of her own hospital bed holding a completely blank white sheet in both hands as though trying to allocate patients to beds, uncertain exhausted expression. Her ordinary humanity is central. An empty ward corridor beyond the open doorway, bedside cabinet, simple bedding, worn walls; a quiet ordinary nurse is near the doorway checking on her without menace. The paper remains entirely blank. Deliberately visible square pixel clusters and hard-edged sprite-like shading across anime faces, fabric, and surroundings; detailed cinematic 2D pixel illustration in the visual language of mature 16-bit/32-bit JRPG narrative CGs. Desaturated navy blue-gray, dirty teal and muted brown, cold institutional light, oppressive unresolved mood. No photorealism, no smooth oil-paint brushwork, no 3D, no monsters, no horror distortion, no text, numbers, readable documents, signage, logos, watermark, borders, captions, UI, gore or restraints.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a42-085a-7022-9943-c19b359795cd/exec-887bb4f5-9680-486f-9a40-c1e6b54647a9.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-13.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-13.webp",
+    "width": 1672,
+    "height": 941,
+    "license": "MIT",
+    "generator": "built-in image_gen",
+    "webpQuality": 90
+  },
+  {
+    "id": "END-14",
+    "title": "喧哗与骚动",
+    "author": "威廉·福克纳",
+    "qa": "通过逐张视觉检查：成年女主抱旧文件望向空走廊；普通公寓、冷色反光；无怪物或幻觉实体。桌纸有不可读像素纹理，无可辨文字。",
+    "prompt": "Use case: illustration-story. Asset: original Chinese dark medical 2D pixel JRPG ending CG END-14, one full-bleed landscape 16:9 illustration. Inside a cramped ordinary Chinese apartment at dusk. An adult Chinese woman, former doctor with short brown bob and small teal hairclip, teal blouse and dark trousers, clutches old closed folders to her chest, body turned toward the open apartment entrance, uncertain strained expression because she has mistaken the doorbell for voices calling her back to the hospital nurse station. The corridor beyond the door is plainly empty and mundane. A modest desk with untidy blank papers and unmarked dark phone, worn chair, rumpled bed, an unused white doctor coat over chair. Ambiguous cold rectangular reflections from the corridor on the apartment wall only, nothing supernatural and no visible imaginary people. Mature anime character design rendered entirely as deliberate 2D pixel clusters with hard-edged sprite-like shading, detailed cinematic JRPG narrative CG matching a desaturated dark Chinese medical drama. Desaturated navy, blue-gray, dirty teal and muted brown, dim cold domestic light, isolation and continuing illness. No photorealism, no smooth oil painting, no 3D, no monsters, demons, ghosts, gore, no captions, letters, numbers, readable paperwork, UI, logos, watermark or borders.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a42-085a-7022-9943-c19b359795cd/exec-281af7a0-63cc-480f-acfa-827236d9aceb.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-14.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-14.webp",
+    "width": 1672,
+    "height": 941,
+    "license": "MIT",
+    "generator": "built-in image_gen",
+    "webpQuality": 90
+  },
+  {
+    "id": "END-15",
+    "title": "局外人",
+    "author": "阿尔贝·加缪",
+    "qa": "通过逐张视觉检查：母亲收衣、空椅、同事持空白信封，女主缺席；悲伤克制，无遗体、自伤动作、方法或工具、遗书、死亡解脱意象。墙面小纸有不可读像素纹理，无可辨文字。",
+    "prompt": "Use case: illustration-story. Asset: original Chinese dark medical 2D pixel JRPG ending CG END-15, one full-bleed landscape 16:9. A fictional, non-graphic aftermath of a character's death: her older Chinese mother quietly packs ordinary clothes in the deceased adult daughter's small dorm room. The mother has short dark-gray hair and wears a dusty plum cardigan over a cream blouse; she sits beside the unoccupied bed folding the daughter's muted teal blouse, shoulders heavy, eyes tired with restrained grief. A prominently empty chair beside the desk makes the daughter's permanent absence clear. The daughter herself is completely absent, no figure, no spirit, no reflection. An adult Chinese male colleague with short dark hair in plain dark clothes waits at the open doorway holding an ordinary blank sealed envelope, uncertain and sorrowful; it is returned borrowed money. A half-packed box contains mundane folded clothes. Day-to-day life left unfinished, sorrow with dignity, no melodrama or aestheticized death. All people and environment rendered in mature anime 2D pixel-art JRPG style with deliberate visible square pixel clusters, crisp contours, hard-edged sprite-like shading. Desaturated navy blue-gray, dirty teal and muted brown, cold overcast light, unresolved grief. No photo, no 3D, no smooth oil painting. Absolutely no body, corpse, injuries, blood, self-harm actions, methods, tools or equipment, suicide note, written letter, death scene, rooftop, falling, wings, soul, flowers of rebirth, heavenly light, release or redemption imagery. No text, numbers, readable documents, logos, watermark, borders or UI.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a42-085a-7022-9943-c19b359795cd/exec-f38c18ee-e382-4201-94df-2e53ae687b8a.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-15.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-15.webp",
+    "width": 1672,
+    "height": 941,
+    "license": "MIT",
+    "generator": "built-in image_gen",
+    "webpQuality": 90
+  },
+  {
+    "id": "END-16",
+    "title": "荒原",
+    "author": "T. S. 艾略特",
+    "qa": "通过逐张视觉检查：楼梯间平视安全门，女主与护士均紧靠入口，围墙完全遮挡外部落差；无边缘或高度视角、攀爬、坠落、自伤动作。表情疲惫无胜利光。生成女主外加白大褂，未影响剧情。",
+    "prompt": "Use case: illustration-story. Asset: original Chinese dark medical 2D pixel JRPG ending CG END-16, one full-bleed landscape 16:9. A fictional psychological crisis with another person already providing companionship, subdued and unresolved. Camera positioned securely INSIDE a dim hospital stairwell landing looking horizontally at the open heavy safety doorway. At the wide flat sheltered threshold, only a short step outside the doorway, stands an exhausted adult Chinese woman doctor with short brown bob and small teal hairclip, teal blouse and dark trousers. She turns her fatigued face toward a female Chinese nurse colleague in plain light-blue scrubs who is immediately beside the open door and stays with her, attentive and serious. Both women are grouped tightly near the doorway, well away from any rooftop perimeter. The only exterior visible through the door is a small area of flat level paving and a solid tall opaque wall which blocks all views beyond; no visible skyline or height. Emphasize the doorframe, ordinary concrete stairwell walls and their tired faces at eye level. No smiling, triumphant or comforting fantasy ending: the protagonist's work, health and home remain uncertain. Original mature anime 2D pixel JRPG narrative illustration, deliberate square pixel clusters and hard-edged sprite-like shading throughout, cinematic restrained environmental storytelling, desaturated navy, dirty teal, blue-gray, muted brown, cold gray light without victory glow. No photo, no 3D, no smooth oil painting. No edges, ledges, height or drop perspectives, climbing, falling, foot close-ups, self-harm tools, injuries, blood, or implementation of harm. No text, numbers, signage, logos, watermark, borders, captions or UI.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a42-085a-7022-9943-c19b359795cd/exec-09b02f77-2ae9-41cf-9ad7-184a7e0e795b.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-16.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-16.webp",
+    "width": 1672,
+    "height": 941,
+    "license": "MIT",
+    "generator": "built-in image_gen",
+    "webpQuality": 90
+  }
+]

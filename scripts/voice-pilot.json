@@ -1,0 +1,6 @@
+[
+  {"id":"pilot-nurse","speaker":"nurse","text":"先核对床号和姓名。家属刚送来的药也看一下，别漏了院外用药。"},
+  {"id":"pilot-chief","speaker":"chief","text":"床位紧，不代表风险已经排除。出院记录上是谁的名字，谁就要把依据说清楚。"},
+  {"id":"pilot-hero","speaker":"hero","text":"我先看患者。检查回报出来之前，暂缓出院。"},
+  {"id":"pilot-narrator","speaker":"narrator","text":"你是南屏医院的住院医师。接下来的十四天，由你接诊、值夜班，也由你为每一次处置签字。"}
+]

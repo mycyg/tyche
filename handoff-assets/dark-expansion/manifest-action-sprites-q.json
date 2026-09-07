@@ -1,0 +1,210 @@
+{
+  "generator": "built-in image_gen",
+  "license": "MIT",
+  "callCount": 4,
+  "assets": [
+    {
+      "key": "conflict-actions",
+      "type": "actions",
+      "group": "conflict",
+      "rows": 3,
+      "columns": 8,
+      "roleOrder": [
+        "security",
+        "investigator",
+        "relative-conflict"
+      ],
+      "actionOrder": {
+        "security": [
+          "radio",
+          "stop-hand",
+          "escort-right",
+          "alert-standing"
+        ],
+        "investigator": [
+          "notebook-writing",
+          "show-blank-credential",
+          "questioning",
+          "take-folder"
+        ],
+        "relative-conflict": [
+          "phone-recording",
+          "upset-talking",
+          "sit-waiting",
+          "hand-papers"
+        ]
+      },
+      "dimensions": {
+        "width": 1536,
+        "height": 1024
+      },
+      "qa": {
+        "status": "usable-with-notes",
+        "alpha": {
+          "mode": "RGBA",
+          "extrema": [
+            0,
+            254
+          ],
+          "cornerAlpha": 0,
+          "genuineTransparency": true,
+          "notes": "Preview shows dark RGB stored beneath transparent pixels; background is genuinely transparent."
+        },
+        "layout": "3 rows x 8 columns, all complete figures and correct role order. Wide gesture arms in security row column 6 and investigator row column 6 reach toward or slightly beyond nominal equal-cell right boundary; atlas extraction must account for prop/hand bounds.",
+        "identity": "Three role identities maintained. Guard has tie, female investigator light shirt. Proportions slightly taller than the existing conflict-walk reference.",
+        "directions": "Security escort pair columns 5-6 correctly faces canvas right. No wrong direction found.",
+        "motion": "All 12 actions recognizable in correct paired order. Investigator notebook pair columns 1-2 has subtle hand movement and appears nearly duplicate at overview size.",
+        "content": "No text, grid, weapon or physical attack."
+      },
+      "prompt": "Use case: stylized-concept. Asset type: production 2D pixel JRPG sprite sheet. Canvas 1536x1024 PNG, exactly 3 equal rows by 8 equal columns, 24 full-body isolated sprites. Genuine transparent alpha background, no painted checkerboard, no floor, no shadows, no grid lines or text. Crisp hard-edged small pixel clusters, dark pixel outline, limited desaturated colors, chibi anime adults about 2.7 heads tall, slight overhead RPG viewpoint. Each 192px-wide by 341px-high cell has one complete head-to-foot character around 100px wide and 200px tall, centered with broad empty gutters, same foot anchor per row. No sprite touches any cell boundary. Maintain identical face, hair, costume and scale across each row. NO weapons, violence, physical attacks, logos, captions or UI. Primary request: conflict-actions. Row 1 is an adult male security guard about 45 in plain navy uniform and navy cap, no real insignia. Columns 1-2 holding a radio near mouth then lowering it slightly; columns 3-4 open-palm stop gesture, hand low then raised; columns 5-6 facing RIGHT with profile nose pointing to canvas RIGHT, a calm escorting directional hand gesture without another person, arm bent then extended right; columns 7-8 alert upright standing, arms resting then one hand raised to chest. Row 2 is an adult female investigator about 40, dark brown tied-back hair in low bun, gray jacket and black trousers. Columns 1-2 writing in small notebook, distinct hand/pencil movement; columns 3-4 showing a blank credential, low then raised; columns 5-6 questioning with open hand, arm bent then extended; columns 7-8 taking a closed document folder, reaching then holding. Row 3 is an ordinary adult male family member about 45 with untidy short black hair, muted brown jacket, gray shirt, dark trousers. Columns 1-2 phone recording with phone below then at eye level; columns 3-4 upset talking gesture with open hands low then lifted, NOT an attack; columns 5-6 seated waiting on small stool, hands on knees then one hand moved; columns 7-8 handing blank papers, papers held close then extended. Every paired action must change limbs and prop position visibly, not merely blinking. Keep all stools and objects within respective cells. Render exactly this 24-cell order.",
+      "sourcePath": "handoff-assets/dark-expansion/characters/conflict-actions.png",
+      "generatedOriginalPath": "/Users/apple/.codex/generated_images/01a07a68-b6c3-7523-9a7c-09f300b0adeb/exec-e42ba41d-41fb-4b69-b0dd-e8d779c56550.png",
+      "license": "MIT"
+    },
+    {
+      "key": "livelihood-walk",
+      "type": "walk",
+      "group": "livelihood",
+      "rows": 3,
+      "columns": 8,
+      "roleOrder": [
+        "delivery",
+        "factory",
+        "street"
+      ],
+      "actionOrder": [
+        "down-frame-1",
+        "down-frame-2",
+        "left-frame-1",
+        "left-frame-2",
+        "right-frame-1",
+        "right-frame-2",
+        "back-frame-1",
+        "back-frame-2"
+      ],
+      "dimensions": {
+        "width": 1536,
+        "height": 1024
+      },
+      "qa": {
+        "status": "usable-with-motion-limitations",
+        "alpha": {
+          "mode": "RGBA",
+          "extrema": [
+            0,
+            254
+          ],
+          "cornerAlpha": 0,
+          "genuineTransparency": true,
+          "notes": "Preview shows dark RGB stored beneath transparent pixels; background is genuinely transparent."
+        },
+        "layout": "Correct 3 x 8 figure count, complete heads and feet, broad spacing.",
+        "identity": "Same brown-bob adult female protagonist with teal clip and yellow/blue/charcoal outfits across rows. Factory cap maintained. Street row adds a small crossbody belongings bag. Bodies are taller than requested 2.7-head map-sprite reference.",
+        "directions": "All three rows correctly follow front/front, left/left, right/right, back/back. No left-right reversal or front/back error found.",
+        "motion": "Arm and foot differences exist, but several pairs remain near-identical silhouettes/contact poses, especially left-profile columns 3-4. Cannot certify a clean alternating two-contact walk cycle from the source sheet.",
+        "content": "No text, grid, weapon or physical attack."
+      },
+      "prompt": "Use case: stylized-concept. Asset type: production 2D pixel JRPG sprite sheet. Canvas 1536x1024 PNG, exactly 3 equal rows by 8 equal columns, 24 full-body isolated sprites. Genuine transparent alpha background, no painted checkerboard, no floor, no shadows, no grid lines or text. Crisp hard-edged small pixel clusters, dark pixel outline, limited desaturated colors, chibi anime adults about 2.7 heads tall, slight overhead RPG viewpoint. Each 192px-wide by 341px-high cell has one complete head-to-foot character around 100px wide and 200px tall, centered with broad empty gutters, same foot anchor per row. No sprite touches any cell boundary. Maintain identical face, hair, costume and scale across each row. NO weapons, violence, physical attacks, logos, captions or UI. Primary request: livelihood-walk. All three rows are THE SAME adult Chinese woman protagonist about 30 with short brown bob haircut and small teal hairclip; recognizable adult female face. Row 1 delivery outfit: worn unbranded yellow rain jacket, black trousers, dark shoes, plain dark delivery backpack, bob and teal clip visible with hood DOWN. Row 2 factory outfit: faded blue industrial coverall and plain blue work cap with brown bob and teal clip visible, dark shoes, NO white coat. Row 3 street outfit: worn charcoal gray jacket and dark trousers, slightly unkempt same brown bob with small teal hairclip, dark shoes, dignified ordinary woman. EVERY ROW MUST FOLLOW EXACT SAME WALK DIRECTIONS: columns 1 and 2 are FRONT, facing camera/down, two alternating left/right contact steps. Columns 3 and 4 are LEFT PROFILE, nose and toes visibly point toward LEFT edge of canvas, two alternating steps. Columns 5 and 6 are RIGHT PROFILE, nose and toes visibly point toward RIGHT edge of canvas, two alternating steps. Columns 7 and 8 are BACK VIEW, face entirely hidden, two alternating steps. This is a genuine two-frame walking gait: opposite foot advances and opposite arm swings for second frame of each pair. Do not duplicate identical poses; do not just blink. Row identity, face, hair and outfit remain exact. Render exactly 24 sprites, no extras.",
+      "sourcePath": "handoff-assets/dark-expansion/characters/livelihood-walk.png",
+      "generatedOriginalPath": "/Users/apple/.codex/generated_images/01a07a68-b6c3-7523-9a7c-09f300b0adeb/exec-37cc1b19-d37d-4ec9-b9db-762ea4ed93cf.png",
+      "license": "MIT"
+    },
+    {
+      "key": "livelihood-actions",
+      "type": "actions",
+      "group": "livelihood",
+      "rows": 3,
+      "columns": 8,
+      "roleOrder": [
+        "delivery",
+        "factory",
+        "street"
+      ],
+      "actionOrder": {
+        "delivery": [
+          "hand-food-bag",
+          "check-phone",
+          "lean-resting",
+          "lift-backpack"
+        ],
+        "factory": [
+          "screwdriver-assembly",
+          "lift-parts-bin",
+          "rub-wrist",
+          "sit-break"
+        ],
+        "street": [
+          "sit-ground-waiting",
+          "adjust-belongings-bag",
+          "hold-bowl",
+          "stand-tired"
+        ]
+      },
+      "dimensions": {
+        "width": 1536,
+        "height": 1024
+      },
+      "qa": {
+        "status": "usable-with-identity-and-motion-notes",
+        "alpha": {
+          "mode": "RGBA",
+          "extrema": [
+            0,
+            254
+          ],
+          "cornerAlpha": 0,
+          "genuineTransparency": true,
+          "notes": "Preview shows dark RGB stored beneath transparent pixels; background is genuinely transparent."
+        },
+        "layout": "Correct 3 x 8 count, figures and props complete within sheet. Broad cell gutters.",
+        "identity": "Same brown-bob protagonist with teal clip and expected outfits. Factory row columns 5-6 (rub wrist) omit the blue cap seen in remaining factory cells, an outfit-continuity error. More compact chibi proportions than livelihood-walk.",
+        "directions": "Front and three-quarter action views as requested; no required directional action reversed.",
+        "motion": "All 12 actions present and correctly paired. Delivery handoff pair mostly lifts the bag rather than clearly extending toward recipient. Factory screwdriver pair and street bowl pair have subtle changes. Remaining pairs have clear limb/prop/posture changes.",
+        "content": "No text, grid, weapon, physical attack or humiliation caricature."
+      },
+      "prompt": "Use case: stylized-concept. Asset type: pixel JRPG animation source sheet named livelihood-actions. Canvas 1536x1024, exact 3 rows x 8 columns, 24 isolated full-body characters in equally sized cells. BACKGROUND MUST BE REAL TRANSPARENT PNG ALPHA, transparent empty canvas, absolutely no colored backdrop, no gradients, no painted checkerboard, no floor, no shadows. Hard pixel edges, chunky deliberate pixel clusters, dark pixel outline. Tiny CHIBI 2.7-head-height bodies: large heads, compact torsos, short legs, reference classic RPG map sprites, NOT fashion illustrations or long-legged people. Each sprite occupies only central 110x220px of its 192x341px cell leaving wide empty margins. No text, grid, watermark, logos, weapons or violence. Keep every prop, head and foot completely inside its cell. All characters depict the SAME adult female protagonist age 30, short brown bob, small teal hairclip, same face throughout. Row 1 outfit: worn yellow rain jacket without logos, hood down, black trousers, dark shoes and plain delivery backpack. Columns 1-2 hand over a plain food bag, held close then arm extended; 3-4 check phone, phone lowered then lifted while other finger taps; 5-6 leaning forward resting, hands on thighs then one hand on lower back (no furniture or background); 7-8 lift plain delivery backpack, holding low then raised to waist. Row 2 outfit: faded blue industrial coverall, plain blue cap with brown bob and teal clip visible, dark shoes, NO white coat. Columns 1-2 assembly with small hand screwdriver and compact part held in hands, distinct screwdriver rotation; 3-4 lift a small parts bin, low then raised; 5-6 rub tired wrist, different hand and wrist positions; 7-8 sitting break on tiny plain stool, straight then leaning forward with hands on knees. Row 3 outfit: worn charcoal jacket, dark trousers and shoes, slightly unkempt same brown bob and teal hairclip, dignified woman. Columns 1-2 sitting waiting on ground, knees bent with hands on knees then on lap; 3-4 adjust a small cloth belongings bag, hand reaching then pulling its strap; 5-6 hold a plain small bowl, near chest then slightly extended; 7-8 stand leaning tired, shoulders slumped then one hand rubs neck. Every two-frame pair must have genuine visible limb motion while face hair outfit stay fixed. All actions are front or three-quarter view. Exactly 8 figures per row, no additional props outside cells.",
+      "sourcePath": "handoff-assets/dark-expansion/characters/livelihood-actions.png",
+      "generatedOriginalPath": "/Users/apple/.codex/generated_images/01a07a68-b6c3-7523-9a7c-09f300b0adeb/exec-c555b5f0-551a-4e23-953e-9fd124475b54.png",
+      "license": "MIT"
+    },
+    {
+      "key": "conflict-portraits",
+      "type": "portraits",
+      "group": "conflict",
+      "rows": 3,
+      "columns": 3,
+      "roleOrder": [
+        "security",
+        "investigator",
+        "relative-conflict"
+      ],
+      "actionOrder": [
+        "tired-neutral",
+        "arguing-angry",
+        "withdrawn-hurt"
+      ],
+      "dimensions": {
+        "width": 1254,
+        "height": 1254
+      },
+      "qa": {
+        "status": "passed-visual-check",
+        "alpha": {
+          "mode": "RGB",
+          "genuineTransparency": false,
+          "notes": "Solid dark teal background is intended for portraits."
+        },
+        "layout": "Correct 3 x 3 portrait grid, complete heads, upper-body crops and dark teal gutters, no visible grid lines.",
+        "identity": "Adult male security guard, adult female investigator, and adult male family member maintain face and outfit across expressions. Mature anime anatomy, no chibi proportions.",
+        "directions": "Expression columns exactly tired-neutral, arguing-angry, withdrawn-hurt.",
+        "motion": "Static expression sheet; all three expressions visibly distinct in every row.",
+        "content": "No text, UI, weapon or physical attack.",
+        "notes": "Generator returned native 1254 x 1254 despite requested 1536 x 1536; source preserved without resize."
+      },
+      "prompt": "Use case: illustration-story. Asset type: dialogue portrait sheet conflict-portraits. Original mature anime upper-body character art, clean expressive linework, restrained flat shaded muted colors. 1536x1536 square PNG. Exactly 3 rows x 3 equal columns, 9 portraits, solid uniform dark teal background #062c35 with wide dark-teal gutters. Every cell contains complete head and upper torso, consistent waist-up crop; no missing heads, no chibi proportions, no child faces, no caricature. Row 1 same adult MALE SECURITY GUARD about45 across all columns, plain navy uniform and cap without real insignia, short dark hair, ordinary mature clean-shaven face. Row 2 same adult FEMALE INVESTIGATOR about40 across all columns, tied-back dark brown hair in low bun, gray jacket and black blouse, mature adult face. Row 3 same adult MALE FAMILY MEMBER about45 across all columns, untidy short black hair, brown jacket over gray shirt, ordinary human face, not monstrous. EACH ROW columns in exact order: column1 tired neutral with closed mouth and exhausted eyes; column2 arguing and angry, brows tightened, mouth speaking, open-palm conversational gesture, no violence; column3 withdrawn and hurt, mouth closed, lowered eyes, folded inward shoulders. Preserve each identity and outfit across the 3 expressions. Portrait style is restrained Japanese-style visual novel character drawing with adult realistic anatomy, crisp clean contours and subtle flat shadows. No scenery, gradients, lettering, readable papers, labels, text, UI, frame, border, grid lines, logo or watermark. No weapon or attacking gesture. Keep hands and clothing fully within each equal cell, separated from adjacent portraits by dark teal space.",
+      "sourcePath": "handoff-assets/dark-expansion/characters/conflict-portraits.png",
+      "generatedOriginalPath": "/Users/apple/.codex/generated_images/01a07a68-b6c3-7523-9a7c-09f300b0adeb/exec-e34babae-1203-4eba-b5e1-105b52ed2477.png",
+      "license": "MIT"
+    }
+  ]
+}

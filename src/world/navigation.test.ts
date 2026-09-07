@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { BED_PLACES, PROPS, paintProp, paintWorldMap } from './scene';
 import { CORRIDOR, ROOMS, ROOM_OBSTACLES, placeRect } from './layout';
-import { WORLD, SPAWN, findPath, move, roomName, walkable, type Point } from './navigation';
+import { WORLD, SPAWN, findPath, followPath, move, roomName, walkable, type Point } from './navigation';
 
 function reachable(target: Point) {
   expect(walkable(target), JSON.stringify(target)).toBe(true);
@@ -20,6 +20,13 @@ function reachable(target: Point) {
 }
 
 describe('expanded ward navigation', () => {
+  it('replays real subpixel movement across every room at 25–240 Hz without sticking on a doorway',()=>{
+    for(const hz of [25,30,50,60,90,120,144,240])for(const room of ROOMS){
+      let point={x:132,y:176};const path=findPath(point,room.interaction);
+      for(let frame=0;frame<hz*40&&path.length;frame++){point=followPath(point,path,WORLD.speed/hz);expect(walkable(point),`${hz}Hz ${room.id}`).toBe(true);}
+      expect(path,`${hz}Hz ${room.id} at ${JSON.stringify(point)}`).toHaveLength(0);expect(point).toEqual(room.interaction);
+    }
+  },15000);
   it('keeps safe movement resolution and the original nurse-station spawn', () => {
     expect(WORLD).toEqual({ width: 1536, height: 512, speed: 105, radius: 5, cell: 8 });
     expect(SPAWN).toEqual({ x: 406, y: 273, facing: 0 });

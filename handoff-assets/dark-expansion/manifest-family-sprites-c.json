@@ -1,0 +1,132 @@
+[
+  {
+    "key": "family-walk",
+    "file": "characters/family-walk.png",
+    "rows": 4,
+    "columns": 8,
+    "group": "family",
+    "roleOrder": [
+      "mother",
+      "father",
+      "partner-male",
+      "partner-female"
+    ],
+    "actionOrder": [
+      "down-left-contact",
+      "down-right-contact",
+      "left-left-contact",
+      "left-right-contact",
+      "right-left-contact",
+      "right-right-contact",
+      "up-left-contact",
+      "up-right-contact"
+    ],
+    "prompt": "Use case: stylized-concept. Asset type: Original 2D pixel JRPG production sprite atlas. Reference 1 map sprite style only, reference 2 mother's facial identity and short haircut, reference 3 rightmost man father's identity only. Chibi anime people about 2.7 heads tall, crisp small pixel clusters, slight overhead RPG viewpoint matching map reference. Genuinely transparent PNG alpha; no painted checkerboard, no floor, no shadows, no text, no labels, no grid lines. Canvas landscape 1536x1024. EXACTLY FOUR ROWS AND EIGHT COLUMNS (32 cells), equal cells and wide transparent gutters. Each full head and feet entirely within its own cell, fixed foot anchor per row. Consistent body scale and costume across cells. Row 1 mother: adult Chinese woman about 55, short dark-gray hair cut around ears, NO bun, dusty plum cardigan over cream blouse, black trousers. Row 2 father: adult Chinese man about 60, short gray hair, navy jacket over gray shirt, black trousers. Row 3 partner-male: adult Chinese man about 30, short black hair, muted brown knit top, dark trousers. Row 4 partner-female: adult Chinese woman about 30, shoulder-length straight black hair, muted brown knit top, dark trousers. WALK atlas: every row the same identity in all 8 columns. Columns 1 and 2 face DOWN toward viewer: left-foot-forward contact pose then right-foot-forward contact pose. Columns 3 and 4 face LEFT: left-leg-forward stride then right-leg-forward stride. Columns 5 and 6 face RIGHT: left-leg-forward stride then right-leg-forward stride. Columns 7 and 8 face UP BACK TO VIEWER: left-foot-forward then right-foot-forward. Opposite arms visibly swing forward/back with legs. Each neighboring frame is a different real gait pose, not identical idle stances. Four directions must be unmistakable. Keep identities and clothes exactly as defined, no additional people or rows.",
+    "model": "built-in image_gen",
+    "license": "MIT",
+    "dimensions": {
+      "width": 1536,
+      "height": 1024
+    },
+    "qa": {
+      "alpha": "absent-painted-checkerboard-background-needs-local-extraction",
+      "notes": "All 4 roles and 8 columns present. Column 3 faces right although the brief requests left; can horizontally flip that column when slicing. Down/up gait differences are weak."
+    }
+  },
+  {
+    "key": "family-actions",
+    "file": "characters/family-actions.png",
+    "rows": 4,
+    "columns": 8,
+    "group": "family",
+    "roleOrder": [
+      "mother",
+      "father",
+      "partner-male",
+      "partner-female"
+    ],
+    "actionOrder": [
+      "sitting-waiting-1",
+      "sitting-waiting-2",
+      "phone-call-1",
+      "phone-call-2",
+      "standing-argument-1",
+      "standing-argument-2",
+      "carrying-box-1",
+      "carrying-box-2"
+    ],
+    "prompt": "Use case: stylized-concept. Asset type: Original 2D pixel JRPG production sprite atlas. Reference 1 map sprite style only, reference 2 mother's facial identity and short haircut, reference 3 rightmost man father's identity only. Chibi anime people about 2.7 heads tall, crisp small pixel clusters, slight overhead RPG viewpoint matching map reference. Genuinely transparent PNG alpha; no painted checkerboard, no floor, no shadows, no text, no labels, no grid lines. Canvas landscape 1536x1024. EXACTLY FOUR ROWS AND EIGHT COLUMNS (32 cells), equal cells and wide transparent gutters. Each full head and feet entirely within its own cell, fixed foot anchor per row. Consistent body scale and costume across cells. Row 1 mother: adult Chinese woman about 55, short dark-gray hair cut around ears, NO bun, dusty plum cardigan over cream blouse, black trousers. Row 2 father: adult Chinese man about 60, short gray hair, navy jacket over gray shirt, black trousers. Row 3 partner-male: adult Chinese man about 30, short black hair, muted brown knit top, dark trousers. Row 4 partner-female: adult Chinese woman about 30, shoulder-length straight black hair, muted brown knit top, dark trousers. ACTION atlas: every row the same identity in all 8 columns. Columns 1-2 sitting waiting on a small stool: first hands on knees upright, second torso leaning forward with forearms moved and one foot slid out. Columns 3-4 making phone call: first phone held to ear with free hand lowered, second leaning head and free hand raised expressively; keep phone. Columns 5-6 standing argument gestures: first one bent arm lifted toward chest, second both hands extended outward palms expressing disagreement and torso leaning forward. Columns 7-8 carrying a plain cardboard box: first box held at waist with left-foot-forward, second box lifted to chest with right-foot-forward, visibly changing both arms and legs. Four action pairs across every row, exactly two genuine motion frames per action, pose changes clearly visible at game scale; blinking alone is insufficient. Same outfit throughout; no furniture other than small stool in first two columns, no large background scenery.",
+    "model": "built-in image_gen",
+    "license": "MIT",
+    "dimensions": {
+      "width": 1536,
+      "height": 1024
+    },
+    "qa": {
+      "alpha": "absent-painted-checkerboard-background-needs-local-extraction",
+      "notes": "All 4 rows and action pairs present with visible pose changes; no extra rows."
+    }
+  },
+  {
+    "key": "family-portraits",
+    "file": "characters/family-portraits.png",
+    "rows": 4,
+    "columns": 3,
+    "group": "family",
+    "roleOrder": [
+      "mother",
+      "father",
+      "partner-male",
+      "partner-female"
+    ],
+    "actionOrder": [
+      "tired-neutral",
+      "arguing-angry",
+      "withdrawn-hurt"
+    ],
+    "prompt": "Use case: stylized-concept. Asset type: Original Chinese anime dialogue portrait atlas. Input reference 1 is the mother's exact mature face, short dark-gray ear-length hair (NO hair bun), dusty plum cardigan over cream blouse. Input reference 2 rightmost man only is father's exact mature face, short gray hair, navy jacket over gray shirt. Create EXACTLY THREE COLUMNS AND FOUR ROWS, 12 equal cells, portrait canvas 1536x2048, each cell upper-body bust with complete head and shoulders and dark teal background, generous dark teal gutters, no drawn grid or borders. Row 1 mother adult woman about 55 as reference. Row 2 father adult man about 60 as reference. Row 3 partner-male adult Chinese man about 30, short black hair, muted brown knit top. Row 4 partner-female adult Chinese woman about 30, shoulder-length straight black hair, muted brown knit top. Columns for EVERY row: 1 tired neutral expression facing viewer; 2 arguing/angry with eyebrows knitted, mouth speaking and one hand gesturing within cell; 3 withdrawn and hurt with downward gaze and closed posture. Original anime clean linework and flat shaded colors matching supplied reference portraits, mature human faces, no chibi, no caricature. Consistent identities and outfits across each row. Solid dark teal background throughout. No text, logos, UI, watermarks, border or props crossing cells, no missing heads. Exactly four identities, exactly 12 portraits.",
+    "model": "built-in image_gen",
+    "license": "MIT",
+    "dimensions": {
+      "width": 1086,
+      "height": 1448
+    },
+    "qa": {
+      "alpha": "not-required-solid-dark-teal",
+      "notes": "All 4 roles and 3 expressions present; mother's short haircut and father's identity match references."
+    }
+  },
+  {
+    "key": "conflict-walk",
+    "file": "characters/conflict-walk.png",
+    "rows": 3,
+    "columns": 8,
+    "group": "conflict",
+    "roleOrder": [
+      "security",
+      "investigator",
+      "relative-conflict"
+    ],
+    "actionOrder": [
+      "down-left-contact",
+      "down-right-contact",
+      "left-left-contact",
+      "left-right-contact",
+      "right-left-contact",
+      "right-right-contact",
+      "up-left-contact",
+      "up-right-contact"
+    ],
+    "prompt": "Use case: stylized-concept. Asset type: Original 2D pixel JRPG walking sprite atlas. Input reference is map sprite pixel style only. Chibi anime adults about 2.7 heads tall, crisp small pixel clusters, slight overhead RPG viewpoint. Genuinely transparent PNG alpha, empty transparent backdrop, no painted checkerboard, no floor, no shadows, no labels, no grid lines. Landscape canvas 1536x1024, EXACTLY EIGHT COLUMNS AND THREE ROWS = 24 equal cells. Generous empty gutters, each whole body complete head and feet within its cell, fixed foot anchor. Row 1 security: adult Chinese man about 45, navy security uniform and cap, no real insignia. Row 2 investigator: adult Chinese woman about 40, tied-back dark hair, gray jacket, black trousers. Row 3 relative-conflict: adult Chinese man about 45, untidy short black hair, brown jacket, gray shirt, dark trousers, ordinary face not monstrous, no weapon. Every row only that one identity repeated eight times. EXACT column direction and gait order: 1 facing DOWN left leg forward right arm forward; 2 facing DOWN right leg forward left arm forward; 3 facing LEFT nose pointing to canvas left left leg extended forward right arm forward; 4 facing LEFT nose pointing to canvas left right leg extended forward left arm forward; 5 facing RIGHT nose pointing canvas right left leg forward right arm forward; 6 facing RIGHT nose pointing canvas right right leg forward left arm forward; 7 facing UP back visible left leg forward right arm forward; 8 facing UP back visible right leg forward left arm forward. Stride pairs must show truly alternating legs and opposite arm swings, substantial movement readable at small map scale, not idle replicas or blinking. Columns 3 AND 4 both look to LEFT; columns 5 AND 6 both look to RIGHT. Keep hair, outfit, body scale and identity constant. No extra rows or people, no weapons or attacks.",
+    "model": "built-in image_gen",
+    "license": "MIT",
+    "dimensions": {
+      "width": 1536,
+      "height": 1024
+    },
+    "qa": {
+      "alpha": "absent-painted-checkerboard-background-needs-local-extraction",
+      "notes": "All 3 rows and 8 columns present, direction pairs correct, visible alternating arm and leg poses; generous top and bottom empty space."
+    }
+  }
+]

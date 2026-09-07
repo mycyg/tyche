@@ -1,0 +1,87 @@
+{
+  "generator": "built-in image_gen",
+  "generationCalls": 4,
+  "license": "MIT",
+  "assets": [
+    {
+      "id": "END-37",
+      "title": "一九八四",
+      "author": "乔治·奥威尔",
+      "prompt": "Use case: illustration-story. Asset type: original Chinese dark medical pixel JRPG ending CG. One full-bleed landscape 16:9 image, 1536x864 preferred. Visibly deliberate crisp square pixel clusters, hard-edged sprite-like shading, anime character design, cinematic environmental storytelling. Desaturated blue gray, dirty teal, dark forest green and muted earthy brown; restrained institutional lighting. Adult Chinese woman protagonist with short brown bob and small teal hairclip, teal blouse and dark trousers. Human situation is the subject. No readable text, letters, numbers, book titles, captions, logos, borders, UI, watermark, photograph, 3D, gore, wounds or self-harm. All paper surfaces blank or indistinct abstract pixel lines.\nScene: inside a hospital administrative office, protagonist seated in three-quarter view close to a worn filing cabinet, deliberately sliding a thick folder of withheld original complaints onto an inner shelf and starting to close the cabinet. The office desk holds a small neatly selected stack for submission, contrasting with the hidden originals. Through the slats of interior venetian blinds across the office partition, two adult patient relatives sit waiting in the corridor with a bag. Her expression is tired, guarded, complicit, not kind or triumphant. Tight cold institutional atmosphere, slightly elevated wide composition showing protagonist, open cabinet and waiting relatives. No celebratory or redemption light. No security monitor UI.",
+      "sourcePath": "/Users/apple/.codex/generated_images/01a07a67-e0a1-7842-9b14-096485e626b5/exec-de3d2e92-5f02-4b07-bb03-ca38a0c3a9da.png",
+      "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-37.png",
+      "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-37.webp",
+      "width": 1672,
+      "height": 941,
+      "licenseMIT": true,
+      "qa": {
+        "method": "view_image",
+        "status": "passed",
+        "notes": "人物、柜中留存材料与百叶窗外等待家属均清晰；冷光像素风一致；无可读文本。",
+        "originalDimensionsPreserved": true,
+        "aspectRatio": "approximately 16:9 (generated native size)",
+        "webpQuality": 90
+      }
+    },
+    {
+      "id": "END-38",
+      "title": "复活",
+      "author": "列夫·托尔斯泰",
+      "prompt": "Use case: illustration-story. Asset type: original Chinese dark medical pixel JRPG ending CG. One full-bleed landscape 16:9 image, 1536x864 preferred. Visibly deliberate crisp square pixel clusters, hard-edged sprite-like shading, anime character design, cinematic environmental storytelling. Desaturated blue gray, dirty teal, dark forest green and muted earthy brown; restrained institutional lighting. Adult Chinese woman protagonist with short brown bob and small teal hairclip, teal blouse and dark trousers. Human situation is the subject. No readable text, letters, numbers, book titles, captions, logos, borders, UI, watermark, photograph, 3D, gore, wounds or self-harm. All paper surfaces blank or indistinct abstract pixel lines.\nScene: years after eventual acquittal, protagonist now visibly older and weary, brown bob slightly longer but still recognizable teal hairclip, wearing a worn dark teal coat. Alone outside glass doors of her former hospital department, she holds an open court judgment document and envelope at waist height, looking through glass at the vacated department. Inside, empty worn floors, bare wall rectangles from removed fittings, one abandoned desk and no staff or patients. Muted reflection of her face in the glass emphasizes years of loss. Wide framing makes empty department and her real presence legible; paper must have no readable writing. Cool dusty daylight, no victory, no crowd, no resurrection symbolism.",
+      "sourcePath": "/Users/apple/.codex/generated_images/01a07a67-e0a1-7842-9b14-096485e626b5/exec-60294b52-7e1e-482d-b302-40bc335d554d.png",
+      "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-38.png",
+      "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-38.webp",
+      "width": 1672,
+      "height": 941,
+      "licenseMIT": true,
+      "qa": {
+        "method": "view_image",
+        "status": "passed",
+        "notes": "疲惫主角手持文书隔玻璃面对空科室，反光与搬迁痕迹清晰；无庆祝；文书仅抽象行纹。",
+        "originalDimensionsPreserved": true,
+        "aspectRatio": "approximately 16:9 (generated native size)",
+        "webpQuality": 90
+      }
+    },
+    {
+      "id": "END-39",
+      "title": "地下室手记",
+      "author": "陀思妥耶夫斯基",
+      "prompt": "Use case: illustration-story. Asset type: original Chinese dark medical pixel JRPG ending CG. One full-bleed landscape 16:9 image, 1536x864 preferred. Visibly deliberate crisp square pixel clusters, hard-edged sprite-like shading, anime character design, cinematic environmental storytelling. Desaturated blue gray, dirty teal, dark forest green and muted earthy brown. Adult Chinese woman protagonist with short brown bob and small teal hairclip, teal blouse and dark trousers. Human situation is the subject. No readable text, letters, numbers, book titles, captions, logos, borders, UI, watermark, photograph, 3D, gore, wounds or self-harm. All paper surfaces blank or indistinct abstract pixel lines.\nScene: after disciplinary proceedings and reinstatement, the protagonist works entirely alone in a basement hospital records room. Wide cinematic three-quarter view, seated at a cramped desk among heavy tall shelves of medical folders. A single old computer with softly glowing screen and no readable interface, stacks of patient records, telephone and her own translucent medicine bag with plain packets occupy the desk. She is tired and physically depleted, looking down at a medical record while one hand rests beside the medicine bag. White clinical coat draped on chair. Exposed ceiling pipes and a doorway with narrow stairs leading upward make basement location evident. Cold overhead fluorescent light and small desk pool of light; dim but all essential objects visible. No heartwarming return-to-work celebration. Lonely overtime with distant empty stairway.",
+      "sourcePath": "/Users/apple/.codex/generated_images/01a07a67-e0a1-7842-9b14-096485e626b5/exec-54bb69d4-3240-45cf-b7cd-55ac9a2b8eee.png",
+      "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-39.png",
+      "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-39.webp",
+      "width": 1672,
+      "height": 941,
+      "licenseMIT": true,
+      "qa": {
+        "method": "view_image",
+        "status": "passed",
+        "notes": "资料室楼梯、管道、病历、个人药袋和独坐主角清晰；屏幕和标签为不可读像素纹理；无游戏UI。",
+        "originalDimensionsPreserved": true,
+        "aspectRatio": "approximately 16:9 (generated native size)",
+        "webpQuality": 90
+      }
+    },
+    {
+      "id": "END-40",
+      "title": "平凡的世界",
+      "author": "路遥",
+      "prompt": "Use case: illustration-story. Asset type: original Chinese dark medical pixel JRPG ending CG. One full-bleed landscape 16:9 image, 1536x864 preferred. Visibly deliberate crisp square pixel clusters, hard-edged sprite-like shading, anime character design, cinematic environmental storytelling. Desaturated blue gray, dirty teal, dark forest green and muted earthy brown. Adult Chinese woman protagonist with short brown bob and small teal hairclip, teal blouse and dark trousers. Human situation is the subject. No readable text, letters, numbers, book titles, captions, logos, borders, UI, watermark, photograph, 3D, gore, wounds or self-harm. All paper surfaces blank or indistinct abstract pixel lines.\nScene: an ordinary early evening on an urban Chinese public bus. The adult protagonist wears a plain muted teal blouse, sitting by a wide window, her practical dark work bag resting on her lap. A folded white doctor's coat is clearly visible inside the partly open bag. She can finally leave work at a predictable time: expression quietly tired and calm, with agency but no broad smile. Normal bus seats, vertical grab pole, window framing passing ordinary apartment buildings and subdued trees. Medium-wide intimate view with protagonist as clear focal point and daylight outside. Natural soft late-afternoon gray daylight mildly warmer than hospital fluorescents, but preserve overall desaturated blue-gray, dark green and earthy brown pixel palette. No golden glow, triumphant sunshine, sparkles, family reunion, cheering, fantasy redemption or celebration. No readable advertisements, destination signs or signage. Quiet ordinary time after work.",
+      "sourcePath": "/Users/apple/.codex/generated_images/01a07a67-e0a1-7842-9b14-096485e626b5/exec-46ad6db4-aa90-4db9-abf0-2b3a4a9cb87a.png",
+      "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-40.png",
+      "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-40.webp",
+      "width": 1672,
+      "height": 941,
+      "licenseMIT": true,
+      "qa": {
+        "method": "view_image",
+        "status": "passed",
+        "notes": "公交靠窗、青色上衣、工作袋内白大褂清晰；普通疲惫神情与克制自然傍晚光；无金光凯旋或幸福团圆。",
+        "originalDimensionsPreserved": true,
+        "aspectRatio": "approximately 16:9 (generated native size)",
+        "webpQuality": 90
+      }
+    }
+  ]
+}

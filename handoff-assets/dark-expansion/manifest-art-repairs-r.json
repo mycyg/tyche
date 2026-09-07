@@ -1,0 +1,102 @@
+[
+  {
+    "generator": "built-in image_gen",
+    "license": "MIT",
+    "id": "END-12",
+    "type": "cg",
+    "title": "活着",
+    "author": "余华",
+    "sceneKey": "failed-resuscitation",
+    "prompt": "Use case: precise-object-edit. Asset type: dark narrative pixel JRPG ending CG, landscape banner.\nImage 1 is the edit target. Make one localized character identity repair only.\nScene: aftermath of the young woman protagonist's death after failed resuscitation. The woman packing belongings must clearly be a DIFFERENT hospital nurse, never the protagonist.\nReplace ONLY the head/hairstyle/face of the foreground nurse holding the clear property bag: adult woman about 40, distinctly mature longer/angular face, black LONG hair fully gathered into a neat bun at the back, plain white nurse cap, absolutely no teal hairclip and no brown bob. Keep her existing teal hospital scrubs, body position, hands and action unchanged. She packs the deceased protagonist's white coat and black smartphone into the same clear bag.\nPreserve all other pixels/composition as closely as possible: empty resuscitation bed with rumpled sheets, powered-off black monitor, equipment, belongings bag, older mother sitting bent forward in the corridor through the door, cold dark teal/gray light and perspective, original deliberate hard-edged pixel clusters and anime JRPG rendering, original wide aspect ratio. Exactly these two visible people: mature nurse and seated older mother. No living protagonist, no corpse, no blood, no injury, no text, captions, logo, UI or watermark. Do not brighten or restyle.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a69-f5b0-7160-83c2-3ad7bff7fccf/exec-777556d7-9a77-4a35-b847-6c07e584a0de.png",
+    "editTarget": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/source/retained/END-12-before-repair-r.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-12.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-12.webp",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    },
+    "webpQuality": 90,
+    "qa": {
+      "status": "passed",
+      "method": "view_image inspected original and generated output; sharp verified file format and dimensions",
+      "checks": [
+        "护士黑长发盘髻、白护士帽、无青发夹，脸型与女主明确区分",
+        "空抢救床、熄灭监护仪、手机与白大褂物品袋、门外母亲坐姿保留",
+        "冷暗像素 JRPG 横幅构图保留；无尸体、血腥、文字或 UI"
+      ]
+    },
+    "replacement": "仅替换护士头部身份；对应 PNG 覆盖为内置图像工具编辑原件，WebP 由该新 PNG 以 sharp quality 90 编码。原 PNG 与 WebP 留存 source/retained/END-12-before-repair-r.*。"
+  },
+  {
+    "generator": "built-in image_gen",
+    "license": "MIT",
+    "id": "END-18",
+    "type": "cg",
+    "title": "玩偶之家",
+    "author": "亨里克·易卜生",
+    "sceneKey": "partner-separation",
+    "prompt": "Use case: precise-object-edit. Asset type: dark narrative pixel JRPG ending CG, landscape banner.\nImage 1 is the edit target. Make only a localized removal of the two unwanted parents.\nThis is a breakup between two adult women: KEEP the young woman protagonist foreground right with short brown bob and small teal hairclip, teal blouse and dark trousers, downcast posture. KEEP her female partner in the center doorway, shoulder-length straight black hair, muted brown knit sweater and dark trousers, facing away as she leaves with the dark wheeled suitcase.\nREMOVE the older gray-haired man and older short-gray-haired woman standing on the LEFT, together with anything worn/held belonging specifically to them. Reconstruct their occupied area as the same empty worn apartment interior, matching wall, floor, shadows, existing coat rack and perspective. Preserve the moving cartons at lower left: these belong to the breakup move and MUST remain.\nPreserve key on the right entry cabinet, half-empty shoe shelf, moving boxes, threshold suitcase, distance between the two remaining women, rainy cold stairwell, gloomy palette, original wide crop and deliberate crisp pixel JRPG shading. Exactly TWO people remain; absolutely no parents, bystanders, extra faces, portraits, happy romance or family gathering. No text, logos, captions, UI or watermark. Keep all non-target composition and objects unchanged.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a69-f5b0-7160-83c2-3ad7bff7fccf/exec-0de15e40-77d6-45a8-9351-d75fc2d3e743.png",
+    "editTarget": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/source/retained/END-18-before-repair-r.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-18.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-18.webp",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    },
+    "webpQuality": 90,
+    "qa": {
+      "status": "passed",
+      "method": "view_image inspected original and generated output; sharp verified file format and dimensions",
+      "checks": [
+        "画面仅保留短棕 bob 青发夹女主与黑齐肩发棕毛衣女性伴侣",
+        "年长男女移除，原区域恢复空公寓墙面与空间",
+        "钥匙、搬家箱、门口行李、两位女性距离及冷雨夜像素构图保留",
+        "保持分手离开语义；无文字、UI 或多余人物"
+      ]
+    },
+    "replacement": "仅移除多余父母并重建其所在公寓区域；对应 PNG 覆盖为内置图像工具编辑原件，WebP 由该新 PNG 以 sharp quality 90 编码。原 PNG 与 WebP 留存 source/retained/END-18-before-repair-r.*。"
+  },
+  {
+    "generator": "built-in image_gen",
+    "license": "MIT",
+    "key": "livelihood-portraits",
+    "type": "portraits",
+    "title": "生计角色对话头像",
+    "prompt": "Use case: illustration-story. Asset type: original anime upper-body dialogue portrait sheet for a serious Chinese JRPG.\nProduce one square image organized as EXACTLY 3 equal rows by 3 equal columns, nine independent portraits on the same flat solid dark teal background. All nine depict the SAME adult woman protagonist, about 30, short brown bob haircut and a small teal hairclip, mature natural human proportions, consistent facial identity. Clean ink linework and flat shaded colors, high quality anime character illustration, NOT chibi, NOT pixel sprites, no childlike face, no caricature.\nROW 1: delivery worker, worn unbranded yellow rain jacket, hood down, brown bob and teal hairclip clearly visible, plain delivery backpack straps visible at shoulders only.\nROW 2: factory worker, faded blue industrial coverall, matching plain blue work cap, brown bob and small teal hairclip visible below cap, no white coat.\nROW 3: street survival, worn charcoal gray jacket, slightly unkempt short brown bob and small teal hairclip, dignified ordinary adult face.\nWithin EVERY row: column 1 tired neutral calm expression; column 2 arguing/angry expression with tense eyebrows and open mouth; column 3 withdrawn, hurt and sad expression, eyes downcast, shoulders slightly drawn inward.\nComposition: each cell must independently contain one complete head with hair/cap, neck and shoulders, upper torso down to mid chest. Generous consistent dark teal padding above every head and between all portraits. Align face scale and framing across all nine. Heads, shoulders, clothing and hands must never cross cell boundaries. No drawn panel lines or borders. No text, words, labels, numbers, logos, brand marks, UI, watermark, furniture, scenery, speech bubbles or props extending into neighboring cells. Exact 3 by 3 layout with all nine heads clearly visible.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a69-f5b0-7160-83c2-3ad7bff7fccf/exec-a4c8e7ce-07f1-4fde-8325-fd3a67d55801.png",
+    "file": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/characters/livelihood-portraits.png",
+    "dimensions": {
+      "width": 1254,
+      "height": 1254
+    },
+    "rows": 3,
+    "columns": 3,
+    "cellDimensions": {
+      "width": 418,
+      "height": 418
+    },
+    "rowOrder": [
+      "delivery",
+      "factory",
+      "street"
+    ],
+    "columnOrder": [
+      "tired-neutral",
+      "arguing-angry",
+      "withdrawn-hurt"
+    ],
+    "qa": {
+      "status": "passed",
+      "method": "view_image inspected full sheet; sharp verified PNG format and original dimensions",
+      "checks": [
+        "3 行 × 3 列完整上半身 anime 头像，同一成年女主短棕 bob 与青发夹",
+        "黄色无品牌配送雨衣、蓝工服与帽、旧炭灰外套分行明确",
+        "各行疲惫平静、争论、退缩难过三表情清晰",
+        "九个头部与肩部均在格内，深青背景，无 chibi、文字、logo 或 UI"
+      ]
+    },
+    "replacement": "新生成原尺寸 PNG，未缩放未裁切，供主任务按 418 × 418 像素等格切片。"
+  }
+]

@@ -1,0 +1,78 @@
+[
+  {
+    "id": "END-17",
+    "title": "家",
+    "author": "巴金",
+    "prompt": "Use case: illustration-story. Asset type: original dark Chinese medical-life 2D pixel JRPG ending CG. One full-bleed landscape 16:9 scene. Visibly deliberate pixel clusters, hard-edged sprite-like shading, refined anime adult character designs and rich cinematic environment. Muted desaturated navy blue gray, dirty teal and brown, cold light, emotionally oppressive and unresolved. Mother age 55, short dark-gray hair, dusty plum cardigan over cream blouse. Father age 60, gray hair, navy jacket over gray shirt. Protagonist when present is young adult Chinese woman, short brown bob, small teal hairclip, teal blouse and dark trousers. No text of any kind, no letters, readable documents, numbers, book titles, logos, captions, borders, UI, watermark. Not photography or 3D. No gore, weapons or explicit wounds. No sunlight, warm redemption glow, optimism or reconciliation. Original composition, do not copy any existing game. Scene: aftermath of younger brother's wedding banquet, all guests gone. Foreground a conspicuous empty chair and an untouched porcelain place setting still neatly wrapped. In the distance the mother and father silently clearing round banquet tables, avoiding each other's gaze; mother holds a small unused gift bag meant for her absent daughter, father gathers remaining bottles. Faded red fabric wedding decorations hang unlit and sagging, with no symbols or characters anywhere. The daughter never arrived and MUST NOT appear. Wide view through empty chairs toward separated parents, rain-dark windows and partly extinguished overhead lights. Ordinary strained human faces, grief and family rupture rather than an abandoned horror building.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a4f-7d68-7ea1-aefd-d0291df23b4a/exec-e0c643a1-4362-41f5-8889-4d5a4b555e9d.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-17.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-17.webp",
+    "width": 1672,
+    "height": 941,
+    "licenseMIT": true,
+    "tool": "built-in image_gen",
+    "webpQuality": 90,
+    "qa": {
+      "status": "pass_with_minor_deviation",
+      "viewedWith": "view_image",
+      "notes": "空席、未动餐具、熄暗红饰和父母收场清楚，女主未出现。父母在中景而非远处。暗色像素纹理，无可读文字、UI、血腥。"
+    }
+  },
+  {
+    "id": "END-18",
+    "title": "玩偶之家",
+    "author": "亨里克·易卜生",
+    "prompt": "Use case: illustration-story. Asset type: original dark Chinese medical-life 2D pixel JRPG ending CG. One full-bleed landscape 16:9 scene. Visibly deliberate pixel clusters, hard-edged sprite-like shading, refined anime adult character designs and rich cinematic environment. Muted desaturated navy blue gray, dirty teal and brown, cold light, emotionally oppressive and unresolved. Mother age 55, short dark-gray hair, dusty plum cardigan over cream blouse. Father age 60, gray hair, navy jacket over gray shirt. Protagonist when present is young adult Chinese woman, short brown bob, small teal hairclip, teal blouse and dark trousers. No text of any kind, no letters, readable documents, numbers, book titles, logos, captions, borders, UI, watermark. Not photography or 3D. No gore, weapons or explicit wounds. No sunlight, warm redemption glow, optimism or reconciliation. Original composition, do not copy any existing game. Scene: final move-out from a small shared Chinese apartment on a rainy night. Protagonist stands still inside the doorway, exhausted and looking down toward the key left on the shoe cabinet, her adult female partner with black shoulder-length straight hair and plain brown sweater has her back turned and is carrying her suitcase away into the cold dim stairwell. A couple of packed moving boxes by the threshold; shoe cabinet half empty, one pair of shoes remains. Show both adults clearly with realistic restrained anatomy, separate silhouettes, no embrace, the small single key in clear foreground. Doorway between them and rain on distant stairwell window create an irreversible separation. Do not emphasize gender or sexualize either woman.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a4f-7d68-7ea1-aefd-d0291df23b4a/exec-bd3ba5bc-33bb-4f78-9fb3-ad833a2b987f.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-18.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-18.webp",
+    "width": 1672,
+    "height": 941,
+    "licenseMIT": true,
+    "tool": "built-in image_gen",
+    "webpQuality": 90,
+    "qa": {
+      "status": "review_required",
+      "viewedWith": "view_image",
+      "notes": "女主、背向离开的成年女性伴侣、钥匙、行李箱、纸箱和雨夜楼梯符合主要情节；但模型额外画出父母，属于未要求的人物，未宣称完全符合。纸箱角落有小型模糊装运图案，无可读文字。未追加重生成，遵守四次调用上限。"
+    }
+  },
+  {
+    "id": "END-19",
+    "title": "父与子",
+    "author": "伊凡·屠格涅夫",
+    "prompt": "Use case: illustration-story. Asset type: original dark Chinese medical-life 2D pixel JRPG ending CG. One full-bleed landscape 16:9 scene. Visibly deliberate pixel clusters, hard-edged sprite-like shading, refined anime adult character designs and rich cinematic environment. Muted desaturated navy blue gray, dirty teal and brown, cold light, emotionally oppressive and unresolved. Mother age 55, short dark-gray hair, dusty plum cardigan over cream blouse. Father age 60, gray hair, navy jacket over gray shirt. Protagonist when present is young adult Chinese woman, short brown bob, small teal hairclip, teal blouse and dark trousers. No text of any kind, no letters, readable documents, numbers, book titles, logos, captions, borders, UI, watermark. Not photography or 3D. No gore, weapons or explicit wounds. No sunlight, warm redemption glow, optimism or reconciliation. Original composition, do not copy any existing game. Scene: family argument has ended in estrangement, modest cramped old Chinese apartment with a small rectangular dining table. The young adult daughter sits at one end, hands lowered, visibly shut out, her phone put away. Mother at far side of table turns her head away in wounded silence. Father has pushed back his chair and is standing and walking away toward an adjoining dark room, back half-turned to the women. Three untouched bowls, chopsticks still laid down and modest cooling dishes on the table. A small grocery gift bag near the door has been rejected. Cold overhead fluorescent light isolates each face; show three people clearly with meaningful distance, no shouting cartoon poses, no reconciliatory gestures.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a4f-7d68-7ea1-aefd-d0291df23b4a/exec-6a691b80-a2c6-4bb9-bc06-3210b087e8aa.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-19.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-19.webp",
+    "width": 1672,
+    "height": 941,
+    "licenseMIT": true,
+    "tool": "built-in image_gen",
+    "webpQuality": 90,
+    "qa": {
+      "status": "pass",
+      "viewedWith": "view_image",
+      "notes": "女主与母亲坐在未动饭桌旁，母亲避开目光，父亲背向离开；三人身份和疏远气氛清晰。无可读文字、UI、血腥和温暖收束。"
+    }
+  },
+  {
+    "id": "END-20",
+    "title": "长日将尽",
+    "author": "石黑一雄",
+    "prompt": "Use case: illustration-story. Asset type: original dark Chinese medical-life 2D pixel JRPG ending CG. One full-bleed landscape 16:9 scene. Visibly deliberate pixel clusters, hard-edged sprite-like shading, refined anime adult character designs and rich cinematic environment. Muted desaturated navy blue gray, dirty teal and brown, cold light, emotionally oppressive and unresolved. Mother age 55, short dark-gray hair, dusty plum cardigan over cream blouse. The deceased father in the photograph only: age 60, gray hair, navy jacket over gray shirt. Protagonist when present is young adult Chinese woman, short brown bob, small teal hairclip, teal blouse and dark trousers. No text of any kind, no letters, readable documents, numbers, book titles, logos, captions, borders, UI, watermark. Not photography or 3D. No gore, weapons or explicit wounds. No sunlight, warm redemption glow, optimism or reconciliation. Original composition, do not copy any existing game. Scene: father has died and his daughter missed the farewell. Back at an old Chinese family apartment after the farewell has ended, mother with her back turned to daughter carefully puts a framed black-and-white portrait of her deceased gray-haired husband into a wooden cabinet. Portrait is visible as an ordinary head-and-shoulders monochrome face only, no lettering, not a book. An unused tea cup sits on the table nearby. Daughter has just arrived and stands at a distance by the door, white medical coat draped over one forearm, small dark phone loose in other hand, face tired and stunned. Only these two living women appear; father appears ONLY inside the small photograph. Dim cold evening illumination, heavy silence, missed goodbye and ongoing distance. No body, funeral spectacle or supernatural elements.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a4f-7d68-7ea1-aefd-d0291df23b4a/exec-6f94151f-cebd-4f2f-b1c4-5f3f88007245.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-20.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-20.webp",
+    "width": 1672,
+    "height": 941,
+    "licenseMIT": true,
+    "tool": "built-in image_gen",
+    "webpQuality": 90,
+    "qa": {
+      "status": "pass",
+      "viewedWith": "view_image",
+      "notes": "母亲背向女主收起父亲黑白遗照，茶杯在桌上，女主手臂搭白大褂，父亲只在照片中出现，无遗体。暗色像素与二次元形象，无可读文字、UI、血腥和温暖收束。"
+    }
+  }
+]

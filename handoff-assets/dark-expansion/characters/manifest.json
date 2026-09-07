@@ -1,0 +1,4262 @@
+{
+  "license": "MIT",
+  "atlases": [
+    {
+      "id": "family-walk",
+      "file": "family-walk-atlas.webp",
+      "png": "family-walk-atlas.png",
+      "rows": 4,
+      "columns": 8,
+      "cellWidth": 128,
+      "cellHeight": 128,
+      "sourceRowCuts": [
+        0,
+        256,
+        512,
+        762,
+        1024
+      ],
+      "sourceColumnCuts": [
+        [
+          0,
+          192,
+          384,
+          576,
+          768,
+          960,
+          1152,
+          1344,
+          1536
+        ],
+        [
+          0,
+          192,
+          384,
+          576,
+          768,
+          960,
+          1152,
+          1344,
+          1536
+        ],
+        [
+          0,
+          192,
+          384,
+          576,
+          768,
+          960,
+          1152,
+          1344,
+          1536
+        ],
+        [
+          0,
+          192,
+          384,
+          576,
+          768,
+          960,
+          1152,
+          1344,
+          1536
+        ]
+      ],
+      "background": "border-connected-light-matte-removed",
+      "frames": [
+        {
+          "role": "mother",
+          "row": 0,
+          "col": 0,
+          "rect": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            51,
+            26,
+            104,
+            209
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "mother",
+          "row": 0,
+          "col": 1,
+          "rect": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            226,
+            25,
+            104,
+            209
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "mother",
+          "row": 0,
+          "col": 2,
+          "rect": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            451,
+            31,
+            100,
+            201
+          ],
+          "flippedHorizontally": true
+        },
+        {
+          "role": "mother",
+          "row": 0,
+          "col": 3,
+          "rect": [
+            384,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            617,
+            29,
+            98,
+            204
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "mother",
+          "row": 0,
+          "col": 4,
+          "rect": [
+            512,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            814,
+            29,
+            98,
+            202
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "mother",
+          "row": 0,
+          "col": 5,
+          "rect": [
+            640,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            991,
+            34,
+            96,
+            196
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "mother",
+          "row": 0,
+          "col": 6,
+          "rect": [
+            768,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            1187,
+            28,
+            100,
+            205
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "mother",
+          "row": 0,
+          "col": 7,
+          "rect": [
+            896,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            1368,
+            28,
+            100,
+            205
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "father",
+          "row": 1,
+          "col": 0,
+          "rect": [
+            0,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            56,
+            273,
+            97,
+            211
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "father",
+          "row": 1,
+          "col": 1,
+          "rect": [
+            128,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            229,
+            272,
+            101,
+            212
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "father",
+          "row": 1,
+          "col": 2,
+          "rect": [
+            256,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            454,
+            275,
+            96,
+            204
+          ],
+          "flippedHorizontally": true
+        },
+        {
+          "role": "father",
+          "row": 1,
+          "col": 3,
+          "rect": [
+            384,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            618,
+            275,
+            92,
+            205
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "father",
+          "row": 1,
+          "col": 4,
+          "rect": [
+            512,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            821,
+            276,
+            93,
+            203
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "father",
+          "row": 1,
+          "col": 5,
+          "rect": [
+            640,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            994,
+            279,
+            93,
+            199
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "father",
+          "row": 1,
+          "col": 6,
+          "rect": [
+            768,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            1190,
+            273,
+            95,
+            211
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "father",
+          "row": 1,
+          "col": 7,
+          "rect": [
+            896,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            1373,
+            273,
+            93,
+            211
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-male",
+          "row": 2,
+          "col": 0,
+          "rect": [
+            0,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            54,
+            519,
+            100,
+            212
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-male",
+          "row": 2,
+          "col": 1,
+          "rect": [
+            128,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            231,
+            519,
+            102,
+            212
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-male",
+          "row": 2,
+          "col": 2,
+          "rect": [
+            256,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            453,
+            520,
+            98,
+            207
+          ],
+          "flippedHorizontally": true
+        },
+        {
+          "role": "partner-male",
+          "row": 2,
+          "col": 3,
+          "rect": [
+            384,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            617,
+            522,
+            95,
+            207
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-male",
+          "row": 2,
+          "col": 4,
+          "rect": [
+            512,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            818,
+            520,
+            96,
+            208
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-male",
+          "row": 2,
+          "col": 5,
+          "rect": [
+            640,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            993,
+            524,
+            94,
+            203
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-male",
+          "row": 2,
+          "col": 6,
+          "rect": [
+            768,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            1190,
+            522,
+            95,
+            209
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-male",
+          "row": 2,
+          "col": 7,
+          "rect": [
+            896,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            1372,
+            522,
+            96,
+            209
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-female",
+          "row": 3,
+          "col": 0,
+          "rect": [
+            0,
+            384,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            50,
+            763,
+            107,
+            215
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-female",
+          "row": 3,
+          "col": 1,
+          "rect": [
+            128,
+            384,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            225,
+            763,
+            105,
+            215
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-female",
+          "row": 3,
+          "col": 2,
+          "rect": [
+            256,
+            384,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            451,
+            767,
+            100,
+            208
+          ],
+          "flippedHorizontally": true
+        },
+        {
+          "role": "partner-female",
+          "row": 3,
+          "col": 3,
+          "rect": [
+            384,
+            384,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            618,
+            767,
+            97,
+            209
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-female",
+          "row": 3,
+          "col": 4,
+          "rect": [
+            512,
+            384,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            814,
+            767,
+            100,
+            208
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-female",
+          "row": 3,
+          "col": 5,
+          "rect": [
+            640,
+            384,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            988,
+            769,
+            99,
+            205
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-female",
+          "row": 3,
+          "col": 6,
+          "rect": [
+            768,
+            384,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            1190,
+            766,
+            97,
+            211
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-female",
+          "row": 3,
+          "col": 7,
+          "rect": [
+            896,
+            384,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            1371,
+            766,
+            97,
+            211
+          ],
+          "flippedHorizontally": false
+        }
+      ]
+    },
+    {
+      "id": "family-actions",
+      "file": "family-actions-atlas.webp",
+      "png": "family-actions-atlas.png",
+      "rows": 4,
+      "columns": 8,
+      "cellWidth": 192,
+      "cellHeight": 128,
+      "sourceRowCuts": [
+        0,
+        275,
+        531,
+        779,
+        1024
+      ],
+      "sourceColumnCuts": [
+        [
+          0,
+          196,
+          389,
+          579,
+          776,
+          960,
+          1160,
+          1344,
+          1536
+        ],
+        [
+          0,
+          192,
+          386,
+          576,
+          781,
+          960,
+          1163,
+          1344,
+          1536
+        ],
+        [
+          0,
+          192,
+          391,
+          576,
+          769,
+          960,
+          1154,
+          1344,
+          1536
+        ],
+        [
+          0,
+          192,
+          386,
+          576,
+          768,
+          960,
+          1152,
+          1344,
+          1536
+        ]
+      ],
+      "background": "border-connected-light-matte-removed",
+      "frames": [
+        {
+          "role": "mother",
+          "row": 0,
+          "col": 0,
+          "rect": [
+            0,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            94,
+            44,
+            102,
+            230
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "mother",
+          "row": 0,
+          "col": 1,
+          "rect": [
+            192,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            279,
+            63,
+            110,
+            212
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "mother",
+          "row": 0,
+          "col": 2,
+          "rect": [
+            384,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            477,
+            46,
+            102,
+            227
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "mother",
+          "row": 0,
+          "col": 3,
+          "rect": [
+            576,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            649,
+            53,
+            127,
+            221
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "mother",
+          "row": 0,
+          "col": 4,
+          "rect": [
+            768,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            857,
+            55,
+            103,
+            218
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "mother",
+          "row": 0,
+          "col": 5,
+          "rect": [
+            960,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1017,
+            57,
+            143,
+            217
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "mother",
+          "row": 0,
+          "col": 6,
+          "rect": [
+            1152,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1221,
+            55,
+            107,
+            218
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "mother",
+          "row": 0,
+          "col": 7,
+          "rect": [
+            1344,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1390,
+            57,
+            108,
+            216
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "father",
+          "row": 1,
+          "col": 0,
+          "rect": [
+            0,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            93,
+            303,
+            97,
+            228
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "father",
+          "row": 1,
+          "col": 1,
+          "rect": [
+            192,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            272,
+            317,
+            114,
+            214
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "father",
+          "row": 1,
+          "col": 2,
+          "rect": [
+            384,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            475,
+            304,
+            99,
+            225
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "father",
+          "row": 1,
+          "col": 3,
+          "rect": [
+            576,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            645,
+            307,
+            136,
+            223
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "father",
+          "row": 1,
+          "col": 4,
+          "rect": [
+            768,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            855,
+            309,
+            103,
+            220
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "father",
+          "row": 1,
+          "col": 5,
+          "rect": [
+            960,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1013,
+            312,
+            150,
+            217
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "father",
+          "row": 1,
+          "col": 6,
+          "rect": [
+            1152,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1219,
+            309,
+            98,
+            219
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "father",
+          "row": 1,
+          "col": 7,
+          "rect": [
+            1344,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1388,
+            309,
+            104,
+            219
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-male",
+          "row": 2,
+          "col": 0,
+          "rect": [
+            0,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            90,
+            555,
+            97,
+            221
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-male",
+          "row": 2,
+          "col": 1,
+          "rect": [
+            192,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            279,
+            573,
+            112,
+            206
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-male",
+          "row": 2,
+          "col": 2,
+          "rect": [
+            384,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            479,
+            556,
+            95,
+            219
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-male",
+          "row": 2,
+          "col": 3,
+          "rect": [
+            576,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            649,
+            558,
+            120,
+            217
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-male",
+          "row": 2,
+          "col": 4,
+          "rect": [
+            768,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            860,
+            560,
+            90,
+            215
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-male",
+          "row": 2,
+          "col": 5,
+          "rect": [
+            960,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1019,
+            562,
+            135,
+            213
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-male",
+          "row": 2,
+          "col": 6,
+          "rect": [
+            1152,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1221,
+            557,
+            98,
+            218
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-male",
+          "row": 2,
+          "col": 7,
+          "rect": [
+            1344,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1388,
+            559,
+            104,
+            215
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-female",
+          "row": 3,
+          "col": 0,
+          "rect": [
+            0,
+            384,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            93,
+            796,
+            89,
+            203
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-female",
+          "row": 3,
+          "col": 1,
+          "rect": [
+            192,
+            384,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            284,
+            810,
+            102,
+            191
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-female",
+          "row": 3,
+          "col": 2,
+          "rect": [
+            384,
+            384,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            481,
+            797,
+            93,
+            202
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-female",
+          "row": 3,
+          "col": 3,
+          "rect": [
+            576,
+            384,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            653,
+            798,
+            113,
+            201
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-female",
+          "row": 3,
+          "col": 4,
+          "rect": [
+            768,
+            384,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            861,
+            801,
+            89,
+            198
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-female",
+          "row": 3,
+          "col": 5,
+          "rect": [
+            960,
+            384,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1018,
+            802,
+            133,
+            197
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-female",
+          "row": 3,
+          "col": 6,
+          "rect": [
+            1152,
+            384,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1222,
+            800,
+            95,
+            199
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "partner-female",
+          "row": 3,
+          "col": 7,
+          "rect": [
+            1344,
+            384,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1390,
+            802,
+            97,
+            197
+          ],
+          "flippedHorizontally": false
+        }
+      ]
+    },
+    {
+      "id": "conflict-walk",
+      "file": "conflict-walk-atlas.webp",
+      "png": "conflict-walk-atlas.png",
+      "rows": 3,
+      "columns": 8,
+      "cellWidth": 128,
+      "cellHeight": 128,
+      "sourceRowCuts": [
+        0,
+        341,
+        682,
+        1024
+      ],
+      "sourceColumnCuts": [
+        [
+          0,
+          192,
+          384,
+          579,
+          768,
+          960,
+          1152,
+          1344,
+          1536
+        ],
+        [
+          0,
+          192,
+          384,
+          582,
+          768,
+          960,
+          1152,
+          1344,
+          1536
+        ],
+        [
+          0,
+          192,
+          384,
+          580,
+          768,
+          960,
+          1152,
+          1344,
+          1536
+        ]
+      ],
+      "background": "border-connected-light-matte-removed",
+      "frames": [
+        {
+          "role": "security",
+          "row": 0,
+          "col": 0,
+          "rect": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            78,
+            159,
+            88,
+            181
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "security",
+          "row": 0,
+          "col": 1,
+          "rect": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            268,
+            159,
+            91,
+            181
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "security",
+          "row": 0,
+          "col": 2,
+          "rect": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            493,
+            163,
+            86,
+            174
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "security",
+          "row": 0,
+          "col": 3,
+          "rect": [
+            384,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            650,
+            163,
+            86,
+            176
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "security",
+          "row": 0,
+          "col": 4,
+          "rect": [
+            512,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            836,
+            163,
+            88,
+            176
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "security",
+          "row": 0,
+          "col": 5,
+          "rect": [
+            640,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            1001,
+            163,
+            87,
+            174
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "security",
+          "row": 0,
+          "col": 6,
+          "rect": [
+            768,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            1212,
+            160,
+            87,
+            181
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "security",
+          "row": 0,
+          "col": 7,
+          "rect": [
+            896,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            1394,
+            160,
+            88,
+            181
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "investigator",
+          "row": 1,
+          "col": 0,
+          "rect": [
+            0,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            78,
+            419,
+            85,
+            183
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "investigator",
+          "row": 1,
+          "col": 1,
+          "rect": [
+            128,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            273,
+            419,
+            89,
+            183
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "investigator",
+          "row": 1,
+          "col": 2,
+          "rect": [
+            256,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            488,
+            428,
+            94,
+            171
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "investigator",
+          "row": 1,
+          "col": 3,
+          "rect": [
+            384,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            647,
+            428,
+            91,
+            173
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "investigator",
+          "row": 1,
+          "col": 4,
+          "rect": [
+            512,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            829,
+            431,
+            92,
+            171
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "investigator",
+          "row": 1,
+          "col": 5,
+          "rect": [
+            640,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            995,
+            431,
+            94,
+            169
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "investigator",
+          "row": 1,
+          "col": 6,
+          "rect": [
+            768,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            1215,
+            425,
+            81,
+            179
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "investigator",
+          "row": 1,
+          "col": 7,
+          "rect": [
+            896,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            1396,
+            428,
+            81,
+            178
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "relative-conflict",
+          "row": 2,
+          "col": 0,
+          "rect": [
+            0,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            78,
+            683,
+            85,
+            185
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "relative-conflict",
+          "row": 2,
+          "col": 1,
+          "rect": [
+            128,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            273,
+            683,
+            85,
+            185
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "relative-conflict",
+          "row": 2,
+          "col": 2,
+          "rect": [
+            256,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            494,
+            686,
+            86,
+            178
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "relative-conflict",
+          "row": 2,
+          "col": 3,
+          "rect": [
+            384,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            651,
+            686,
+            85,
+            181
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "relative-conflict",
+          "row": 2,
+          "col": 4,
+          "rect": [
+            512,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            833,
+            686,
+            86,
+            181
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "relative-conflict",
+          "row": 2,
+          "col": 5,
+          "rect": [
+            640,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            994,
+            687,
+            85,
+            178
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "relative-conflict",
+          "row": 2,
+          "col": 6,
+          "rect": [
+            768,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            1214,
+            686,
+            83,
+            184
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "relative-conflict",
+          "row": 2,
+          "col": 7,
+          "rect": [
+            896,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            1396,
+            687,
+            82,
+            183
+          ],
+          "flippedHorizontally": false
+        }
+      ]
+    },
+    {
+      "id": "conflict-actions",
+      "file": "conflict-actions-atlas.webp",
+      "png": "conflict-actions-atlas.png",
+      "rows": 3,
+      "columns": 8,
+      "cellWidth": 192,
+      "cellHeight": 128,
+      "sourceRowCuts": [
+        0,
+        341,
+        678,
+        1024
+      ],
+      "sourceColumnCuts": [
+        [
+          0,
+          192,
+          384,
+          576,
+          768,
+          990,
+          1204,
+          1344,
+          1536
+        ],
+        [
+          0,
+          192,
+          384,
+          576,
+          768,
+          979,
+          1189,
+          1344,
+          1536
+        ],
+        [
+          0,
+          192,
+          384,
+          578,
+          782,
+          960,
+          1182,
+          1344,
+          1536
+        ]
+      ],
+      "background": "original-alpha-preserved",
+      "frames": [
+        {
+          "role": "security",
+          "row": 0,
+          "col": 0,
+          "rect": [
+            0,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            43,
+            16,
+            132,
+            297
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "security",
+          "row": 0,
+          "col": 1,
+          "rect": [
+            192,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            234,
+            17,
+            133,
+            296
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "security",
+          "row": 0,
+          "col": 2,
+          "rect": [
+            384,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            424,
+            13,
+            144,
+            300
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "security",
+          "row": 0,
+          "col": 3,
+          "rect": [
+            576,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            628,
+            13,
+            137,
+            300
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "security",
+          "row": 0,
+          "col": 4,
+          "rect": [
+            768,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            834,
+            17,
+            156,
+            296
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "security",
+          "row": 0,
+          "col": 5,
+          "rect": [
+            960,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1027,
+            17,
+            177,
+            296
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "security",
+          "row": 0,
+          "col": 6,
+          "rect": [
+            1152,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1222,
+            16,
+            116,
+            297
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "security",
+          "row": 0,
+          "col": 7,
+          "rect": [
+            1344,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1383,
+            16,
+            114,
+            297
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "investigator",
+          "row": 1,
+          "col": 0,
+          "rect": [
+            0,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            47,
+            353,
+            111,
+            297
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "investigator",
+          "row": 1,
+          "col": 1,
+          "rect": [
+            192,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            236,
+            353,
+            116,
+            297
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "investigator",
+          "row": 1,
+          "col": 2,
+          "rect": [
+            384,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            448,
+            348,
+            114,
+            301
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "investigator",
+          "row": 1,
+          "col": 3,
+          "rect": [
+            576,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            632,
+            346,
+            128,
+            304
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "investigator",
+          "row": 1,
+          "col": 4,
+          "rect": [
+            768,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            822,
+            352,
+            157,
+            298
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "investigator",
+          "row": 1,
+          "col": 5,
+          "rect": [
+            960,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1004,
+            352,
+            185,
+            298
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "investigator",
+          "row": 1,
+          "col": 6,
+          "rect": [
+            1152,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1199,
+            351,
+            128,
+            299
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "investigator",
+          "row": 1,
+          "col": 7,
+          "rect": [
+            1344,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1384,
+            348,
+            110,
+            301
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "relative-conflict",
+          "row": 2,
+          "col": 0,
+          "rect": [
+            0,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            38,
+            682,
+            133,
+            300
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "relative-conflict",
+          "row": 2,
+          "col": 1,
+          "rect": [
+            192,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            221,
+            679,
+            138,
+            303
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "relative-conflict",
+          "row": 2,
+          "col": 2,
+          "rect": [
+            384,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            410,
+            679,
+            168,
+            303
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "relative-conflict",
+          "row": 2,
+          "col": 3,
+          "rect": [
+            576,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            602,
+            679,
+            180,
+            303
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "relative-conflict",
+          "row": 2,
+          "col": 4,
+          "rect": [
+            768,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            817,
+            704,
+            134,
+            272
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "relative-conflict",
+          "row": 2,
+          "col": 5,
+          "rect": [
+            960,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1004,
+            705,
+            178,
+            271
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "relative-conflict",
+          "row": 2,
+          "col": 6,
+          "rect": [
+            1152,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1205,
+            682,
+            120,
+            300
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "relative-conflict",
+          "row": 2,
+          "col": 7,
+          "rect": [
+            1344,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1371,
+            684,
+            153,
+            298
+          ],
+          "flippedHorizontally": false
+        }
+      ]
+    },
+    {
+      "id": "livelihood-walk",
+      "file": "livelihood-walk-atlas.webp",
+      "png": "livelihood-walk-atlas.png",
+      "rows": 3,
+      "columns": 8,
+      "cellWidth": 128,
+      "cellHeight": 128,
+      "sourceRowCuts": [
+        0,
+        341,
+        683,
+        1024
+      ],
+      "sourceColumnCuts": [
+        [
+          0,
+          192,
+          384,
+          586,
+          768,
+          960,
+          1152,
+          1344,
+          1536
+        ],
+        [
+          0,
+          192,
+          384,
+          588,
+          768,
+          960,
+          1152,
+          1344,
+          1536
+        ],
+        [
+          0,
+          192,
+          384,
+          582,
+          768,
+          960,
+          1152,
+          1344,
+          1536
+        ]
+      ],
+      "background": "original-alpha-preserved",
+      "frames": [
+        {
+          "role": "delivery",
+          "row": 0,
+          "col": 0,
+          "rect": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            28,
+            17,
+            134,
+            316
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "delivery",
+          "row": 0,
+          "col": 1,
+          "rect": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            234,
+            17,
+            130,
+            316
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "delivery",
+          "row": 0,
+          "col": 2,
+          "rect": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            435,
+            18,
+            151,
+            309
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "delivery",
+          "row": 0,
+          "col": 3,
+          "rect": [
+            384,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            606,
+            18,
+            142,
+            312
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "delivery",
+          "row": 0,
+          "col": 4,
+          "rect": [
+            512,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            798,
+            20,
+            150,
+            311
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "delivery",
+          "row": 0,
+          "col": 5,
+          "rect": [
+            640,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            985,
+            22,
+            154,
+            307
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "delivery",
+          "row": 0,
+          "col": 6,
+          "rect": [
+            768,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            1189,
+            24,
+            133,
+            306
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "delivery",
+          "row": 0,
+          "col": 7,
+          "rect": [
+            896,
+            0,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            1370,
+            20,
+            134,
+            313
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "factory",
+          "row": 1,
+          "col": 0,
+          "rect": [
+            0,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            32,
+            354,
+            126,
+            324
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "factory",
+          "row": 1,
+          "col": 1,
+          "rect": [
+            128,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            240,
+            354,
+            121,
+            324
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "factory",
+          "row": 1,
+          "col": 2,
+          "rect": [
+            256,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            435,
+            354,
+            153,
+            320
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "factory",
+          "row": 1,
+          "col": 3,
+          "rect": [
+            384,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            609,
+            354,
+            144,
+            323
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "factory",
+          "row": 1,
+          "col": 4,
+          "rect": [
+            512,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            804,
+            354,
+            152,
+            323
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "factory",
+          "row": 1,
+          "col": 5,
+          "rect": [
+            640,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            984,
+            354,
+            161,
+            322
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "factory",
+          "row": 1,
+          "col": 6,
+          "rect": [
+            768,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            1194,
+            359,
+            120,
+            319
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "factory",
+          "row": 1,
+          "col": 7,
+          "rect": [
+            896,
+            128,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            1376,
+            357,
+            124,
+            321
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "street",
+          "row": 2,
+          "col": 0,
+          "rect": [
+            0,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            33,
+            695,
+            132,
+            319
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "street",
+          "row": 2,
+          "col": 1,
+          "rect": [
+            128,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            235,
+            692,
+            127,
+            322
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "street",
+          "row": 2,
+          "col": 2,
+          "rect": [
+            256,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            435,
+            695,
+            147,
+            309
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "street",
+          "row": 2,
+          "col": 3,
+          "rect": [
+            384,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            606,
+            692,
+            146,
+            317
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "street",
+          "row": 2,
+          "col": 4,
+          "rect": [
+            512,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            805,
+            695,
+            152,
+            316
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "street",
+          "row": 2,
+          "col": 5,
+          "rect": [
+            640,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            988,
+            695,
+            157,
+            313
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "street",
+          "row": 2,
+          "col": 6,
+          "rect": [
+            768,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            1197,
+            695,
+            122,
+            315
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "street",
+          "row": 2,
+          "col": 7,
+          "rect": [
+            896,
+            256,
+            128,
+            128
+          ],
+          "anchor": [
+            64,
+            122
+          ],
+          "sourceRect": [
+            1377,
+            695,
+            127,
+            315
+          ],
+          "flippedHorizontally": false
+        }
+      ]
+    },
+    {
+      "id": "livelihood-actions",
+      "file": "livelihood-actions-atlas.webp",
+      "png": "livelihood-actions-atlas.png",
+      "rows": 3,
+      "columns": 8,
+      "cellWidth": 192,
+      "cellHeight": 128,
+      "sourceRowCuts": [
+        0,
+        341,
+        683,
+        1024
+      ],
+      "sourceColumnCuts": [
+        [
+          0,
+          192,
+          384,
+          576,
+          768,
+          960,
+          1152,
+          1344,
+          1536
+        ],
+        [
+          0,
+          192,
+          384,
+          576,
+          768,
+          960,
+          1152,
+          1344,
+          1536
+        ],
+        [
+          0,
+          192,
+          384,
+          576,
+          768,
+          960,
+          1152,
+          1344,
+          1536
+        ]
+      ],
+      "background": "original-alpha-preserved",
+      "frames": [
+        {
+          "role": "delivery",
+          "row": 0,
+          "col": 0,
+          "rect": [
+            0,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            37,
+            38,
+            123,
+            283
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "delivery",
+          "row": 0,
+          "col": 1,
+          "rect": [
+            192,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            230,
+            38,
+            123,
+            283
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "delivery",
+          "row": 0,
+          "col": 2,
+          "rect": [
+            384,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            419,
+            38,
+            131,
+            284
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "delivery",
+          "row": 0,
+          "col": 3,
+          "rect": [
+            576,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            605,
+            38,
+            146,
+            284
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "delivery",
+          "row": 0,
+          "col": 4,
+          "rect": [
+            768,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            795,
+            80,
+            142,
+            242
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "delivery",
+          "row": 0,
+          "col": 5,
+          "rect": [
+            960,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            974,
+            58,
+            173,
+            264
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "delivery",
+          "row": 0,
+          "col": 6,
+          "rect": [
+            1152,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1191,
+            41,
+            120,
+            281
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "delivery",
+          "row": 0,
+          "col": 7,
+          "rect": [
+            1344,
+            0,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1377,
+            35,
+            125,
+            287
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "factory",
+          "row": 1,
+          "col": 0,
+          "rect": [
+            0,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            24,
+            365,
+            132,
+            293
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "factory",
+          "row": 1,
+          "col": 1,
+          "rect": [
+            192,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            220,
+            365,
+            130,
+            293
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "factory",
+          "row": 1,
+          "col": 2,
+          "rect": [
+            384,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            419,
+            372,
+            125,
+            287
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "factory",
+          "row": 1,
+          "col": 3,
+          "rect": [
+            576,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            609,
+            364,
+            129,
+            293
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "factory",
+          "row": 1,
+          "col": 4,
+          "rect": [
+            768,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            798,
+            373,
+            124,
+            286
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "factory",
+          "row": 1,
+          "col": 5,
+          "rect": [
+            960,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            991,
+            376,
+            119,
+            283
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "factory",
+          "row": 1,
+          "col": 6,
+          "rect": [
+            1152,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1186,
+            379,
+            123,
+            277
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "factory",
+          "row": 1,
+          "col": 7,
+          "rect": [
+            1344,
+            128,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1372,
+            423,
+            127,
+            233
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "street",
+          "row": 2,
+          "col": 0,
+          "rect": [
+            0,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            36,
+            764,
+            137,
+            215
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "street",
+          "row": 2,
+          "col": 1,
+          "rect": [
+            192,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            228,
+            761,
+            132,
+            218
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "street",
+          "row": 2,
+          "col": 2,
+          "rect": [
+            384,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            416,
+            759,
+            131,
+            219
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "street",
+          "row": 2,
+          "col": 3,
+          "rect": [
+            576,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            610,
+            687,
+            131,
+            297
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "street",
+          "row": 2,
+          "col": 4,
+          "rect": [
+            768,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            800,
+            689,
+            124,
+            294
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "street",
+          "row": 2,
+          "col": 5,
+          "rect": [
+            960,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            991,
+            692,
+            126,
+            291
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "street",
+          "row": 2,
+          "col": 6,
+          "rect": [
+            1152,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1177,
+            713,
+            133,
+            268
+          ],
+          "flippedHorizontally": false
+        },
+        {
+          "role": "street",
+          "row": 2,
+          "col": 7,
+          "rect": [
+            1344,
+            256,
+            192,
+            128
+          ],
+          "anchor": [
+            96,
+            122
+          ],
+          "sourceRect": [
+            1372,
+            691,
+            129,
+            292
+          ],
+          "flippedHorizontally": false
+        }
+      ]
+    }
+  ],
+  "portraits": [
+    {
+      "id": "family-portraits",
+      "file": "family-portraits.webp",
+      "png": "family-portraits.png",
+      "rows": 4,
+      "columns": 3,
+      "width": 1086,
+      "height": 1448,
+      "frames": [
+        {
+          "role": "mother",
+          "expression": "tired-neutral",
+          "row": 0,
+          "col": 0,
+          "rect": [
+            0,
+            0,
+            362,
+            362
+          ]
+        },
+        {
+          "role": "mother",
+          "expression": "arguing-angry",
+          "row": 0,
+          "col": 1,
+          "rect": [
+            362,
+            0,
+            362,
+            362
+          ]
+        },
+        {
+          "role": "mother",
+          "expression": "withdrawn-hurt",
+          "row": 0,
+          "col": 2,
+          "rect": [
+            724,
+            0,
+            362,
+            362
+          ]
+        },
+        {
+          "role": "father",
+          "expression": "tired-neutral",
+          "row": 1,
+          "col": 0,
+          "rect": [
+            0,
+            362,
+            362,
+            362
+          ]
+        },
+        {
+          "role": "father",
+          "expression": "arguing-angry",
+          "row": 1,
+          "col": 1,
+          "rect": [
+            362,
+            362,
+            362,
+            362
+          ]
+        },
+        {
+          "role": "father",
+          "expression": "withdrawn-hurt",
+          "row": 1,
+          "col": 2,
+          "rect": [
+            724,
+            362,
+            362,
+            362
+          ]
+        },
+        {
+          "role": "partner-male",
+          "expression": "tired-neutral",
+          "row": 2,
+          "col": 0,
+          "rect": [
+            0,
+            724,
+            362,
+            362
+          ]
+        },
+        {
+          "role": "partner-male",
+          "expression": "arguing-angry",
+          "row": 2,
+          "col": 1,
+          "rect": [
+            362,
+            724,
+            362,
+            362
+          ]
+        },
+        {
+          "role": "partner-male",
+          "expression": "withdrawn-hurt",
+          "row": 2,
+          "col": 2,
+          "rect": [
+            724,
+            724,
+            362,
+            362
+          ]
+        },
+        {
+          "role": "partner-female",
+          "expression": "tired-neutral",
+          "row": 3,
+          "col": 0,
+          "rect": [
+            0,
+            1086,
+            362,
+            362
+          ]
+        },
+        {
+          "role": "partner-female",
+          "expression": "arguing-angry",
+          "row": 3,
+          "col": 1,
+          "rect": [
+            362,
+            1086,
+            362,
+            362
+          ]
+        },
+        {
+          "role": "partner-female",
+          "expression": "withdrawn-hurt",
+          "row": 3,
+          "col": 2,
+          "rect": [
+            724,
+            1086,
+            362,
+            362
+          ]
+        }
+      ]
+    },
+    {
+      "id": "conflict-portraits",
+      "file": "conflict-portraits.webp",
+      "png": "conflict-portraits.png",
+      "rows": 3,
+      "columns": 3,
+      "width": 1254,
+      "height": 1254,
+      "frames": [
+        {
+          "role": "security",
+          "expression": "tired-neutral",
+          "row": 0,
+          "col": 0,
+          "rect": [
+            0,
+            0,
+            418,
+            418
+          ]
+        },
+        {
+          "role": "security",
+          "expression": "arguing-angry",
+          "row": 0,
+          "col": 1,
+          "rect": [
+            418,
+            0,
+            418,
+            418
+          ]
+        },
+        {
+          "role": "security",
+          "expression": "withdrawn-hurt",
+          "row": 0,
+          "col": 2,
+          "rect": [
+            836,
+            0,
+            418,
+            418
+          ]
+        },
+        {
+          "role": "investigator",
+          "expression": "tired-neutral",
+          "row": 1,
+          "col": 0,
+          "rect": [
+            0,
+            418,
+            418,
+            418
+          ]
+        },
+        {
+          "role": "investigator",
+          "expression": "arguing-angry",
+          "row": 1,
+          "col": 1,
+          "rect": [
+            418,
+            418,
+            418,
+            418
+          ]
+        },
+        {
+          "role": "investigator",
+          "expression": "withdrawn-hurt",
+          "row": 1,
+          "col": 2,
+          "rect": [
+            836,
+            418,
+            418,
+            418
+          ]
+        },
+        {
+          "role": "relative-conflict",
+          "expression": "tired-neutral",
+          "row": 2,
+          "col": 0,
+          "rect": [
+            0,
+            836,
+            418,
+            418
+          ]
+        },
+        {
+          "role": "relative-conflict",
+          "expression": "arguing-angry",
+          "row": 2,
+          "col": 1,
+          "rect": [
+            418,
+            836,
+            418,
+            418
+          ]
+        },
+        {
+          "role": "relative-conflict",
+          "expression": "withdrawn-hurt",
+          "row": 2,
+          "col": 2,
+          "rect": [
+            836,
+            836,
+            418,
+            418
+          ]
+        }
+      ]
+    },
+    {
+      "id": "livelihood-portraits",
+      "file": "livelihood-portraits.webp",
+      "png": "livelihood-portraits.png",
+      "rows": 3,
+      "columns": 3,
+      "width": 1254,
+      "height": 1254,
+      "frames": [
+        {
+          "role": "delivery",
+          "expression": "tired-neutral",
+          "row": 0,
+          "col": 0,
+          "rect": [
+            0,
+            0,
+            418,
+            418
+          ]
+        },
+        {
+          "role": "delivery",
+          "expression": "arguing-angry",
+          "row": 0,
+          "col": 1,
+          "rect": [
+            418,
+            0,
+            418,
+            418
+          ]
+        },
+        {
+          "role": "delivery",
+          "expression": "withdrawn-hurt",
+          "row": 0,
+          "col": 2,
+          "rect": [
+            836,
+            0,
+            418,
+            418
+          ]
+        },
+        {
+          "role": "factory",
+          "expression": "tired-neutral",
+          "row": 1,
+          "col": 0,
+          "rect": [
+            0,
+            418,
+            418,
+            418
+          ]
+        },
+        {
+          "role": "factory",
+          "expression": "arguing-angry",
+          "row": 1,
+          "col": 1,
+          "rect": [
+            418,
+            418,
+            418,
+            418
+          ]
+        },
+        {
+          "role": "factory",
+          "expression": "withdrawn-hurt",
+          "row": 1,
+          "col": 2,
+          "rect": [
+            836,
+            418,
+            418,
+            418
+          ]
+        },
+        {
+          "role": "street",
+          "expression": "tired-neutral",
+          "row": 2,
+          "col": 0,
+          "rect": [
+            0,
+            836,
+            418,
+            418
+          ]
+        },
+        {
+          "role": "street",
+          "expression": "arguing-angry",
+          "row": 2,
+          "col": 1,
+          "rect": [
+            418,
+            836,
+            418,
+            418
+          ]
+        },
+        {
+          "role": "street",
+          "expression": "withdrawn-hurt",
+          "row": 2,
+          "col": 2,
+          "rect": [
+            836,
+            836,
+            418,
+            418
+          ]
+        }
+      ]
+    }
+  ]
+}

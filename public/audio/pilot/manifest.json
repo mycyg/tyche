@@ -1,0 +1,54 @@
+{
+  "pilot-nurse": {
+    "text": "先核对床号和姓名。家属刚送来的药也看一下，别漏了院外用药。",
+    "speaker": "nurse",
+    "voice": "serena",
+    "file": "pilot-nurse.mp3",
+    "seconds": 5.68,
+    "textSha256": "7429d705288764a391565ecab84a8ddfb540c227a6c79de78e85a43074a03294",
+    "sha256": "c6eb8de105be20531c19b1a5990b60b4e8e7e6b8d98256baf7e45272ddd29f91",
+    "sourcePeak": 0.49674,
+    "sourceClipping": 0.0,
+    "model": "Qwen3-TTS-12Hz-1.7B-CustomVoice-8bit",
+    "qa": "signal-checked"
+  },
+  "pilot-chief": {
+    "text": "床位紧，不代表风险已经排除。出院记录上是谁的名字，谁就要把依据说清楚。",
+    "speaker": "chief",
+    "voice": "aiden",
+    "file": "pilot-chief.mp3",
+    "seconds": 8.08,
+    "textSha256": "3a68d4a6dcb0ba51ffe9206cfdfe95a3fce8a858558b4551841ca171fd049b97",
+    "sha256": "61c0194392070ec9c3d24d3e2802d418e54216a69ed6aeb6c25a0c9df8d1f705",
+    "sourcePeak": 0.71316,
+    "sourceClipping": 0.0,
+    "model": "Qwen3-TTS-12Hz-1.7B-CustomVoice-8bit",
+    "qa": "signal-checked"
+  },
+  "pilot-hero": {
+    "text": "我先看患者。检查回报出来之前，暂缓出院。",
+    "speaker": "hero",
+    "voice": "vivian",
+    "file": "pilot-hero.mp3",
+    "seconds": 4.16,
+    "textSha256": "d9c44b6374bed6ecef30b27c5e9418d7b35235ef713ab698b9d714af44cf1d90",
+    "sha256": "1abfd6308e51c5738ad174d2c1d905dff33e94964051efb3e7facacf24fba768",
+    "sourcePeak": 0.6618,
+    "sourceClipping": 0.0,
+    "model": "Qwen3-TTS-12Hz-1.7B-CustomVoice-8bit",
+    "qa": "signal-checked"
+  },
+  "pilot-narrator": {
+    "text": "你是南屏医院的住院医师。接下来的十四天，由你接诊、值夜班，也由你为每一次处置签字。",
+    "speaker": "narrator",
+    "voice": "serena",
+    "file": "pilot-narrator.mp3",
+    "seconds": 9.12,
+    "textSha256": "76122410a9aedd82a3501ac041996eedbba71a0649f413166d90e3faceba3717",
+    "sha256": "5efbda4f223a153eb799f38bad651adeae0808adad7f9e5bbcb72b84edef19e6",
+    "sourcePeak": 0.43576,
+    "sourceClipping": 0.0,
+    "model": "Qwen3-TTS-12Hz-1.7B-CustomVoice-8bit",
+    "qa": "signal-checked"
+  }
+}

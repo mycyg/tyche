@@ -1,35 +1,53 @@
 import { CASES } from "./catalog";
+import {CLINICAL_ENTRY_STAY,clinicalAdmissionDay,clinicalEntryLocation,underObservation}from './clinical-admission';
 import presenceA from '../patient-presence-a.json';
 import presenceB from '../patient-presence-b.json';
 import { RULES } from "./rules";
-import { random, shuffled } from "./random";
+import {isPlayerResponsibleForPatient,clinicalTeamLabel}from '../content/events/clinical-ownership';
+import {playerEarlyDischargeSource}from './discharge-responsibility';
+import {dischargeReadiness}from './discharge-readiness';
+import { runRandom, runShuffled } from './run-random';
 import { STORIES, conditionMet } from "./stories";
+import { beginClinical,clinicalCard } from './clinical';
+import { projectClinicalText } from '../content/clinical/player-copy';
+import { pickPreset, instantiatePatientPreset, presetCard } from './presets';
+import {PRESET_BY_ID}from '../content/patients';
 import type { Card, Run, Option, Patient, HazardInput, Story } from "./types";
 
-export const patientCase = (p: Patient) =>
-  CASES.find((x) => x.id === p.caseId)!;
+export const patientCase = (p: Patient) => {
+  const clinical=p.preset ?? CASES.find((x) => x.id === p.caseId)!;
+  if(p.preset)return {...p.preset,title:PRESET_BY_ID.get(p.caseId)?.title??p.preset.title};
+  if(!clinical)return clinical;
+  // Project only role-bound chart text. The source identity and medical
+  // quantities stay in provenance; the other same-name patient stays separate.
+  const project=(text:string)=>projectClinicalText(p.caseId,text,p);
+  return {...clinical,
+    complaint:project(p.caseId==='C020'?'第六天夜班，护士巡视时发现患者无反应。':clinical.complaint),
+    history:clinical.history.map(project),findings:clinical.findings.map(project)};
+};
 const familyNames = ['顾', '乔', '陆', '宋', '陶', '叶', '邵', '方', '白', '江', '孟', '程', '徐', '邱', '齐', '温'];
 const givenNames = {
   男: ['知远', '明川', '文景', '亦舟', '怀安', '承礼', '启林', '修平', '景初', '若衡', '闻溪', '书成'],
   女: ['清禾', '知夏', '静宜', '若晴', '安宁', '书瑶', '映秋', '念慈', '佳音', '晓棠', '舒然', '云笙'],
 };
+export const patientNamePool=(sex:string)=>familyNames.flatMap(last=>givenNames[sex==='男'?'男':'女'].map(first=>last+first));
 function newPatientName(r: Run, caseId: string, uid: string, sex: string) {
   const base = [...presenceA, ...presenceB].find(p => p.caseId === caseId)?.name;
   if (base && !r.patients.some(p => p.caseId === caseId || p.name === base)) return base;
-  const pool = familyNames.flatMap(last => givenNames[sex === '男' ? '男' : '女'].map(first => last + first));
-  const start = Math.floor(random(r.seed, `${uid}:name`) * pool.length);
+  const pool = patientNamePool(sex);
+  const start = Math.floor(runRandom(r, `${uid}:name`) * pool.length);
   return Array.from({ length: pool.length }, (_, i) => pool[(start + i) % pool.length])
     .find(name => !r.patients.some(p => p.name === name)) ?? pool[start];
 }
 export const awaitingBed = (r: Run, p: Patient) => p.active && !p.inpatient && !!r.facts[`awaiting-bed:${p.uid}`];
 export function nextFreeBed(r: Run): number {
-  const occupied = new Set(r.patients.filter(p => p.active && p.inpatient && p.damage < 3).map(p => p.bed));
+  const occupied = new Set(r.patients.filter(p => p.active && p.inpatient && (p.damage < 3 || p.caseId==='C020'&&p.clinical&&!p.clinical.outcomeId&&!p.clinical.flags.includes('body_transferred'))).map(p => p.bed));
   return Array.from({ length: RULES.ward.capacity }, (_, i) => RULES.ward.firstBed + i).find(bed => !occupied.has(bed)) ?? 0;
 }
 export function assignBed(r: Run, p: Patient) {
   p.bed = nextFreeBed(r);
   p.inpatient = p.bed > 0;
-  if (p.inpatient) delete r.facts[`awaiting-bed:${p.uid}`];
+  if (p.inpatient) {delete r.facts[`awaiting-bed:${p.uid}`];delete r.facts[`observation:${p.uid}`];}
   else r.facts[`awaiting-bed:${p.uid}`] = { day: r.day, source: 'ward-capacity', sequence: r.journal.length };
 }
 const option = (
@@ -50,17 +68,18 @@ const hazard = (
 ): HazardInput => ({ type, weight, reason, norm, causal });
 
 export function makeWardCard(r: Run, p: Patient): Card {
+  if(!isPlayerResponsibleForPatient(r,p))return {id:`ward:${p.uid}:${r.day}`,kind:'ward',scope:{kind:'patient',id:p.uid},patientId:p.uid,caseId:p.caseId,title:`${p.name} · ${clinicalTeamLabel(r,p)}`,text:'这位患者仍由原主管组负责。你需要先完成交班接管，才能调整诊疗安排。',options:[{id:`ward:${p.uid}:${r.day}:team-record`,label:'查看主管组与现有交班记录',ap:0,minutes:0,cost:0,effects:{},result:'主管组没有变更，本次没有接管诊疗。'}]};
   const c = patientCase(p);
   const stay = r.day - p.admitted + 1;
   const over = stay > p.expectedDays;
   const prefix = `ward:${p.uid}:${r.day}`;
-  const ready = p.stability >= RULES.ward.stabilityNeed;
+  const readiness=dischargeReadiness(p),ready=readiness.ready;
   const choices: Option[] = [
     option(
       `${prefix}:review`,
       "床旁监测、复核并解释后续安排",
       1,
-      "完成床旁监测，核对恢复情况，解释继续观察的依据并留下下一次评估时间。",
+      "你完成床旁监测，核对了患者的恢复情况，向家属解释为什么还要观察，并约好下一次评估的时间。",
       {
         stability: RULES.ward.reviewStability,
         patience: RULES.ward.explanationGain,
@@ -75,7 +94,7 @@ export function makeWardCard(r: Run, p: Patient): Card {
       ready ? "完成出院评估与随访交接" : "风险未排除，仍办理出院",
       ready ? 1 : 0,
       ready
-        ? "出院条件逐项确认，警示症状与复诊时间交到家属手里。床位腾了出来。"
+        ? "你逐项确认了出院条件，把需要警惕的症状和复诊时间交给家属。患者离院后，床位空了出来。"
         : "你决定今天出院。家属录下了这次谈话，带走出院小结和你的解释。",
       ready
         ? {
@@ -112,7 +131,7 @@ export function makeWardCard(r: Run, p: Patient): Card {
   ];
   if (awaitingBed(r, p)) choices.splice(1, 1, option(
     `${prefix}:transfer`, '落实接收科室与转接交班', RULES.ward.transferAp,
-    '确认接收团队，交接现有处置和风险后完成院内转接；原有记录与损害继续保留。',
+    '你确认了接收团队，交接现有处置和风险后，完成院内转接。患者此前的诊疗记录和损害仍保留。',
     { discharge: true, plannedDischarge: true, care: true }, RULES.ward.transferMinutes, RULES.ward.transferCost,
   ));
   if (over)
@@ -121,7 +140,7 @@ export function makeWardCard(r: Run, p: Patient): Card {
         `${prefix}:appeal`,
         "整理超期依据，申请预算例外",
         RULES.ward.appealAp,
-        "审核接受了这次住院必要性说明，追加病组预算；继续住院仍需每日复核。",
+        "审核人员认可了你对住院必要性的说明，追加了病组预算。患者继续住院，你仍需每天复核病情。",
         {
           bill: -Math.round(p.initialBudget * RULES.ward.appealGrantRate),
           care: true,
@@ -143,7 +162,7 @@ export function makeWardCard(r: Run, p: Patient): Card {
           flags: [`appeal-denied:${p.uid}:${r.day}`],
         },
         failureText:
-          "申请材料收到，但审核认为依据不足。本次未追加预算。家属问还要等多久。",
+          "审核人员收下申请，但认为依据不足，没有追加预算。家属问你还要等多久。",
       },
     });
   return {
@@ -151,7 +170,7 @@ export function makeWardCard(r: Run, p: Patient): Card {
     kind: "ward",
     title: `${p.bed ? `${p.bed} 床` : '留观区'} · ${over ? "观察超期" : "床旁随访"}`,
     actor: "nurse",
-    text: `${p.name} · ${c.title}。${awaitingBed(r, p) ? '病区满床，暂在留观区等待床位或院内转接。' : ''}接诊观察第 ${stay} 天，预计 ${p.expectedDays} 天。${ready ? "当前已达到出院评估条件。" : "风险尚未排除，仍需持续评估。"}${over ? "审核开始收紧额度，家属又来问费用。" : "现有治疗仍需逐日复核。"}${p.patience < 30 ? "家属要求留下完整谈话。" : ""}`,
+    text: `${p.name}的${p.inpatient?'住院':'留观'}记录：第 ${stay} 天，预计 ${p.expectedDays} 天。${awaitingBed(r, p) ? '病区满床，暂在留观区等待床位或院内转接。' : underObservation(r,p)?'患者仍在急诊留观，今天需要复评病情和后续去向。':''}${readiness.reason}${over ? "审核开始收紧额度，家属又来问费用。" : "现有治疗仍需逐日复核。"}${p.patience < 30 ? "家属要求留下完整谈话。" : ""}`,
     options: choices,
     scope: { kind: "patient", id: p.uid },
     patientId: p.uid,
@@ -161,6 +180,7 @@ export function makeWardCard(r: Run, p: Patient): Card {
 
 export function readmissionCard(r: Run, p: Patient): Card {
   const id = `return:${p.uid}`;
+  const recorded=!!r.facts[`family-record:${p.uid}`];
   return {
     id,
     kind: "audit",
@@ -169,13 +189,13 @@ export function readmissionCard(r: Run, p: Patient): Card {
     scope: { kind: "patient", id: p.uid },
     patientId: p.uid,
     caseId: p.caseId,
-    text: `${p.name}出院后病情恶化，经急诊抢救${p.bed ? `安排至${p.bed}床` : '暂留观察区，等待病床或转接'}。家属把出院谈话录音发给医务科，另向受理窗口提交举报。「昨天不是说可以走了吗？」`,
+    text: `${p.name}出院后病情恶化，经急诊抢救${p.bed ? `安排至${p.bed}床` : '暂留观察区，等待病床或转接'}。家属把${recorded?'出院谈话录音':'出院小结'}交给医务科，另向受理窗口提交举报。「当时不是说可以走了吗？」`,
     options: [
       option(
         `${id}:rescue`,
         "参与抢救，提交出院决策依据",
         2,
-        "患者交给二线继续救治。你的原始评估与谈话记录送进卷宗，实际伤害仍需调查。",
+        "你把患者交给二线继续救治，将原始评估与谈话记录交给调查人员。患者受到的实际伤害仍要调查。",
         {
           stamina: -8,
           san: -5,
@@ -189,9 +209,9 @@ export function readmissionCard(r: Run, p: Patient): Card {
       ),
       option(
         `${id}:explain`,
-        "配合复核，不否认原有录音",
+        recorded?"配合复核，提交原有录音与出院依据":"配合复核，提交原有出院依据",
         1,
-        "你承认当时作过出院决定，向家属说明调查流程。原件已经签收。",
+        "你说明当时作出出院决定的依据，向家属解释复核流程。医务科已经签收原件。",
         { emotion: -10, patience: 5, flags: [`return-cooperated:${p.uid}`] },
         20,
       ),
@@ -199,7 +219,7 @@ export function readmissionCard(r: Run, p: Patient): Card {
         `${id}:tamper`,
         "覆盖风险记录，改写出院依据",
         0,
-        "覆盖操作留下日志。家属带走的出院小结与院内新记录出现差异。",
+        "你覆盖了风险记录，修改日志里留下了这次操作。家属带走的出院小结与院内的新记录已经对不上了。",
         {
           flags: [`tampered:${p.uid}`],
           hazards: [
@@ -237,7 +257,7 @@ const QUICK = [
   },
   {
     title: "没有签名的交班",
-    text: "交班纸上留着一行空白。上一班已经在电梯里。",
+    text: "交班单上还空着一行，上一班的医生已经进了电梯。",
     good: "电话核实并补交接记录",
     fast: "原样收下，不再核实",
     risk: "未核实未完成事项即接管医嘱",
@@ -270,7 +290,7 @@ const QUICK = [
 ] as const;
 
 export function makeQuickCard(r: Run, index: number): Card {
-  const t = shuffled(QUICK, r.seed, `quick:${r.day}`)[index % QUICK.length];
+  const t = runShuffled(r, QUICK, `quick:${r.day}`)[index % QUICK.length];
   const id = `quick:${r.day}:${index}`;
   return {
     id,
@@ -284,7 +304,7 @@ export function makeQuickCard(r: Run, index: number): Card {
         `${id}:full`,
         t.good,
         1,
-        "该核对的内容落在了纸上。你返回诊室，下一位已经等在门口。",
+        "你核对了相关内容，写好记录后返回诊室。下一位患者已经等在门口。",
         {
           stamina: -3,
           reputation: 1,
@@ -353,7 +373,7 @@ const NIGHT = [
   ],
 ] as const;
 export function makeNightCard(r: Run, index: number, p: Patient): Card {
-  const t = shuffled(NIGHT, r.seed, `night:${r.day}`)[index % NIGHT.length];
+  const t = runShuffled(r, NIGHT, `night:${r.day}`)[index % NIGHT.length];
   const id = `night:${r.day}:${index}`;
   return {
     id,
@@ -371,12 +391,9 @@ export function makeNightCard(r: Run, index: number, p: Patient): Card {
         2,
         "你到床旁完成评估和处置，把后续监测交给接班人员。",
         {
-          stamina: -8,
-          san: -3,
           care: true,
           stability: 1,
           mitigate: 1,
-          income: RULES.nightPay,
         },
         70,
         220,
@@ -392,7 +409,6 @@ export function makeNightCard(r: Run, index: number, p: Patient): Card {
           stability: 1,
           care: true,
           mitigate: 1,
-          income: 60,
         },
         85,
         400,
@@ -426,7 +442,7 @@ export function storyCard(r: Run, story: Story): Card {
       dc: 13,
       failure: { stamina: -5, emotion: -7, flags: ["family-aid-pending"] },
       failureText:
-        "缓缴材料收下，救助尚未获批。窗口要求补交证明，母亲在长椅上等你。",
+        "窗口工作人员收下了缓缴材料，还要求你补交证明，救助申请尚未获批。母亲坐在长椅上等你。",
     };
   }
   if (story.id === "record-3") {
@@ -486,7 +502,7 @@ export function restCard(day: number): Card {
     id,
     kind: "rest",
     title: "灯还亮着",
-    text: "病区交到了下一班手里。值班室门口，有外卖袋，也有你没回的电话。",
+    text: "你把病区的工作交给下一班，回到值班室。外卖袋放在门口，手机上还有没回的电话。",
     scope: { kind: "personal", id: "self" },
     options: [
       option(
@@ -501,7 +517,7 @@ export function restCard(day: number): Card {
         `${id}:family`,
         "给家里打一通完整的电话",
         1,
-        "电话打到电量提醒响起。这次没有在半句话里挂断。",
+        "你和家里人一直聊到手机提醒电量不足，把想说的话说完才挂断。",
         {
           san: 5,
           emotion: 10,
@@ -541,22 +557,26 @@ export function createPatient(
   caseId: string,
   suffix = "focus",
 ): Patient {
-  const c = CASES.find((x) => x.id === caseId)!;
   const uid = `D${r.day}-${caseId}-${suffix}`;
-  const inpatient = !c.dipGroup.includes("门诊") && c.id !== "C020" && !suffix.startsWith('night');
+  const period=suffix.startsWith('night')?'夜班':suffix.startsWith('quick')?'门诊':suffix.startsWith('census')||suffix.startsWith('handover')?'病区':undefined;
+  const instance = instantiatePatientPreset(r, caseId, uid,period);
+  const c = instance?.definition ?? CASES.find((x) => x.id === caseId)!;
+  const entry=instance?undefined:clinicalEntryLocation(c.id);
+  const inpatient = entry?entry==='ward':!/门诊|门急诊|急诊/.test(c.dipGroup)&&!suffix.startsWith('night');
   const bed = inpatient ? nextFreeBed(r) : 0;
-  const name = newPatientName(r, caseId, uid, c.sex);
+  const name = instance?.entity.name ?? newPatientName(r, caseId, uid, c.sex);
   const p: Patient = {
     uid,
     caseId,
     name,
+    ...(instance ? { entityId:instance.entity.id, preset:instance.definition } : {}),
     bed,
-    admitted: r.day,
+    admitted: clinicalAdmissionDay(c.id,r.day),
     expectedDays:
-      RULES.ward.expectedMin + Math.floor(random(r.seed, `${uid}:stay`) * (RULES.ward.expectedMax - RULES.ward.expectedMin + 1)),
+      instance?.definition.expectedDays ?? (CLINICAL_ENTRY_STAY[c.id]??1)-1+RULES.ward.expectedMin + Math.floor(runRandom(r, `${uid}:stay`) * (RULES.ward.expectedMax - RULES.ward.expectedMin + 1)),
     budget: c.budget,
     initialBudget: c.budget,
-    spent: c.baseCost,
+    spent: inpatient ? 0 : instance?c.baseCost:Math.round(c.budget*RULES.billing.outpatientBaseRate),
     charged: 0,
     stability: 0,
     patience: RULES.ward.initialPatience,
@@ -569,6 +589,8 @@ export function createPatient(
     planned: false,
     settled: false,
   };
+  if(!instance)p.dailyBaseCost=Math.ceil(c.budget*RULES.billing.inpatientBaseRate/Math.max(1,p.expectedDays));
+  if(entry==='observation')r.facts[`observation:${uid}`]={day:r.day,source:'clinical-entry',sequence:r.journal.length};
   if (inpatient && !bed) r.facts[`awaiting-bed:${uid}`] = { day: r.day, source: 'ward-capacity', sequence: r.journal.length };
   return p;
 }
@@ -578,26 +600,29 @@ export function buildDay(r: Run): Card[] {
   const initialRun = r.day === 1 && r.patients.length === 0;
   for (const p of r.patients.filter(p => awaitingBed(r, p) && p.damage < 3)) if (nextFreeBed(r)) assignBed(r, p);
   for (const p of r.patients.filter(
-    (x) => x.readmitted && !r.facts[`seen:return:${x.uid}`],
+    (x) => x.readmitted && !!playerEarlyDischargeSource(r,x) && !r.facts[`seen:return:${x.uid}`],
   ))
     cards.push(readmissionCard(r, p));
   // More crowded wards create more work, not merely larger dice DCs.
-  for (const p of r.patients.filter(
-    (x) => x.active && (x.inpatient || awaitingBed(r, x)) && x.admitted < r.day,
-  ))
-    cards.push(makeWardCard(r, p));
-  const order = shuffled(
+  for(const p of r.patients.filter(x=>x.active&&x.admitted<r.day&&isPlayerResponsibleForPatient(r,x))){
+    const unfinished=p.clinical&&!p.clinical.outcomeId?clinicalCard(r,p):p.preset&&p.presetNode&&!p.presetResolved?presetCard(r,p,p.presetNode,p.inpatient?'clinical':'quick'):undefined;
+    if(unfinished){
+      // Resume the saved node. An inherited night UID is not a new night shift.
+      unfinished.kind=p.inpatient?'clinical':'quick';unfinished.shiftPhase=p.inpatient?'查房':'门诊';
+      cards.push(unfinished);
+    }else if(p.inpatient||awaitingBed(r,p)||underObservation(r,p))cards.push(makeWardCard(r,p));
+  }
+  const order = runShuffled(
+    r,
     CASES.filter((x) => x.id !== "C020"),
-    r.seed,
     "clinical-deck",
   );
-  const selected =
-    r.day === 14 && r.patients.some((x) => x.damage === 3)
-      ? CASES.find((x) => x.id === "C020")!
-      : order[(r.day - 1) % order.length];
+  const selected = order[(r.day - 1) % order.length];
   const patient = createPatient(r, selected.id);
   r.patients.push(patient);
-  for (const [stepIndex, step] of selected.steps.entries()) {
+  const graphEntry = beginClinical(r, patient);
+  if (graphEntry) cards.push(graphEntry);
+  else for (const [stepIndex, step] of selected.steps.entries()) {
     const card: Card = {
       ...structuredClone(step),
       id: `${patient.uid}:${step.id}`,
@@ -614,7 +639,7 @@ export function buildDay(r: Run): Card[] {
     if (stepIndex === 0) for (const o of card.options.filter(o => o.ap > 0 && !o.effects.hazards?.length)) {
       o.check = { skill: selected.id === 'C020' ? 'record' : 'observe', dc: 10 + Math.floor(r.day / 3),
         purpose: selected.id === 'C020' ? '能否一次核清善后记录' : '能否一次核清病史与记录',
-        failureHint: '仍会完成核查，但额外消耗 1 行动和 3 体力。',
+        failureHint: '你仍会完成核查，但额外消耗 1 点行动值和 3 点体力。',
         failure: { ...o.effects, ap: -1, stamina: (o.effects.stamina ?? 0) - 3 },
         failureText: `${o.result} 为核实这些信息，你又做了一轮补核，消耗额外一个行动。` };
     }
@@ -623,19 +648,25 @@ export function buildDay(r: Run): Card[] {
   const censusCases = order.filter(c => c.id !== selected.id && !c.dipGroup.includes('门诊'));
   const handovers = initialRun ? RULES.ward.initialCensus : RULES.ward.arrivals[r.day - 1];
   for (let i = 0; i < handovers; i++) {
-    const c = censusCases[(r.day + i) % censusCases.length];
+    const c = pickPreset(r, '病区', `handover:${r.day}:${i}`) ?? censusCases[(r.day + i) % censusCases.length];
     const p = createPatient(r, c.id, initialRun ? `census${i}` : `handover${i}`);
     p.settled = true;
     p.stability = initialRun && i < RULES.ward.initialStableCount ? RULES.ward.stabilityNeed : RULES.ward.handoverStability;
     if (initialRun) p.admitted = r.day - RULES.ward.initialStay + 1;
     r.patients.push(p);
     const card = makeWardCard(r, p);
-    card.text = `${initialRun ? '原班已完成急性期处置，交接持续观察与康复评估。' : '接收已完成初步处置的住院交接，后续观察由本班跟进。'}${card.text}`;
+    card.text = `${initialRun ? '原班医生已完成急性期处置，交班时请你继续观察，并评估患者的恢复情况。' : '你接收了住院患者的交班，原班已完成初步处置，接下来由你继续观察。'}${card.text}`;
     cards.push(card);
+    if (!initialRun && i === 0 && p.preset) {
+      p.settled = false;
+      const entry = presetCard(r, p, undefined, 'clinical');
+      if (entry) cards.push(entry);
+    }
   }
   if (awaitingBed(r, patient)) cards.push(makeWardCard(r, patient));
   const due = STORIES.filter(
     (s) =>
+      (!['shift','cash','record','research'].includes(s.chain)||Object.keys(r.facts).some(key=>key.startsWith(`seen:${s.chain}-`))) &&
       s.day <= r.day &&
       !r.facts[`seen:${s.id}`] &&
       (!s.after || r.facts[`seen:${s.after}`]) &&
@@ -647,33 +678,52 @@ export function buildDay(r: Run): Card[] {
       conditionMet(r.facts, s.when, r.cash, r.relations),
   );
   // Old deadlines take precedence; independent equal-day scenes are seeded.
-  const stories = shuffled(due, r.seed, `story:${r.day}`)
+  const stories = runShuffled(r, due, `story:${r.day}`)
     .sort((a, b) => a.day - b.day)
     .slice(0, r.day < 4 ? 2 : 4);
   for (const story of stories) cards.push(storyCard(r, story));
-  for (let i = 1; i < RULES.patientCount[r.day - 1]; i++)
-    cards.push(makeQuickCard(r, i - 1));
+  for (let i = 1; i < RULES.patientCount[r.day - 1]; i++) {
+    const preset = pickPreset(r, '门诊', `${r.day}:${i}`);
+    if (preset) {
+      const p = createPatient(r, preset.id, `quick${i}`); r.patients.push(p);
+      const entry = presetCard(r, p); if(entry) cards.push(entry);
+    } else cards.push(makeQuickCard(r, i - 1));
+  }
   const night = RULES.nightDays.indexOf(r.day as never);
   if (night >= 0) {
     r.nightBudget = RULES.nightBudget[night];
     r.nightMinutes = r.nightBudget;
     for (let i = 0; i < RULES.nightCases[night]; i++) {
       // Each emergency has its own patient; unrelated routine patients do not inherit it.
+      // The source's D6 ward emergency occupies one existing night slot.
+      // It is a separate pre-existing inpatient, never a renamed prior death.
+      if(r.day===6&&i===0){
+        const emergency=createPatient(r,'C020',`night${i}`);
+        r.patients.push(emergency);
+        const card=beginClinical(r,emergency);
+        if(!card)throw new Error('C020 requires its complete authored clinical graph');
+        card.kind='night';card.shiftPhase='夜班';
+        const location=emergency.bed?`${emergency.bed} 床`:'留观区';
+        card.text=`第六天夜班，${location}的${emergency.name}被护士发现无反应。男，74 岁，住院第 9 天。${emergency.bed?'':'住院床已满，患者在留观区接受观察，尚未分配正式床号。'}\n22:10 最后一次巡视时尚能应答；22:35 呼叫无反应，监护屏显示心率 0，血氧无读数。妻子在门外等候。请先到床旁核实并处理，死因仍待查明。${card.text?`\n${card.text}`:''}`;
+        cards.push(card);
+        continue;
+      }
+      const nightPreset = pickPreset(r, '夜班', `${r.day}:${i}`);
       const emergency = createPatient(
         r,
-        order[(r.day + i + 3) % order.length].id,
+        nightPreset?.id ?? order[(r.day + i + 3) % order.length].id,
         `night${i}`,
       );
       emergency.bed = 0;
       emergency.inpatient = false;
       r.patients.push(emergency);
-      const card = makeNightCard(r, i, emergency);
-      for (const o of card.options.filter(o => !o.effects.hazards?.length)) o.check = {
+      const card = presetCard(r, emergency, undefined, 'night') ?? makeNightCard(r, i, emergency);
+      if (!card.presetNode) for (const o of card.options.filter(o => !o.effects.hazards?.length)) o.check = {
         skill: 'clinical', dc: 11 + Math.floor(r.day / 3),
         purpose: '能否按计划完成急救与支援协调',
-        failureHint: '仍会执行所选处置，但额外消耗 1 行动和 3 体力。',
-        failure: { ...o.effects, ap: -1, stamina: (o.effects.stamina ?? 0) - 3 },
-        failureText: `${o.result} 反复核对和追加支援占用了额外一个行动。` };
+        failureHint: '你仍会执行所选处置，但额外消耗 3 点体力。',
+        failure: { ...o.effects, stamina: (o.effects.stamina ?? 0) - 3 },
+        failureText: `${o.result} 你又与支援人员核对了一遍安排，额外消耗了体力。` };
       cards.push(card);
     }
   } else {

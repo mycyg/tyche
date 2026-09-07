@@ -1,0 +1,82 @@
+[
+  {
+    "id": "END-05",
+    "title": "伪君子",
+    "author": "莫里哀",
+    "prompt": "Use case: illustration-story. Asset type: original ending CG for a Chinese dark medical 2D pixel JRPG. One full-bleed landscape 16:9 scene. Original anime character designs with visibly deliberate crisp pixel clusters, hard-edged sprite-like shading and dense authentic pixel environmental textures; no smooth painting, no photo, no 3D. Desaturated blue gray, dirty teal, muted brown; cold institutional fluorescent light, oppressive, exhausted and unresolved. Young adult Chinese woman protagonist, short brown bob and a small teal hairclip, subdued anime face, wearing plain gray-blue detention shirt and trousers, never a white coat while detained. Make the people and their actual personal consequences the focal point. No text whatsoever, no legible documents, no letters or numbers, no book titles, no logos, no borders, no UI, no watermark, no gore, no wounds, no self-harm act, no sunlight or warm redemption glow. Scene: after a trial for concealment of evidence, inside a detention center legal document consultation room. A thick glass window divides the frame spatially. The young woman sits behind the glass on the detained side, shoulders collapsed, hands inert on a bare ledge, looking with shame and worry at the lawyer beyond. On the outside, a weary adult Chinese lawyer in a dark suit is closing a plain folder and gathering two visibly distinct sets of original medical records and altered duplicate papers into a case. Papers show only blank fields and indistinct gray blocks, absolutely no text. Behind the woman a heavy barred institutional door and worn blue-gray plaster make detention unmistakable. Medium-wide cinematic composition shows both faces, the glass separation, document gathering, and locking door. The lawyer is leaving; she must remain confined.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a2d-63dd-7b60-ae95-e9b932c03b20/exec-dae48409-1b19-41d1-b0ec-abdbffa84e41.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-05.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-05.webp",
+    "width": 1672,
+    "height": 941,
+    "license": "MIT",
+    "qa": {
+      "status": "usable",
+      "notes": "已逐张目视检查。玻璃后女主、律师收拢两组材料与锁闭门清楚；灰蓝拘押服、短棕发、青色发夹、冷色像素纹理符合。病历仅抽象色块，无可读文字。无阻断问题。",
+      "nativeSize": "1672×941；保留工具原生尺寸，近似16:9，未裁切或拉伸。",
+      "webpQuality": 90,
+      "generator": "built-in image_gen",
+      "callsForAsset": 1
+    }
+  },
+  {
+    "id": "END-06",
+    "title": "奥赛罗",
+    "author": "威廉·莎士比亚",
+    "prompt": "Use case: illustration-story. Asset type: original ending CG for a Chinese dark medical 2D pixel JRPG. One full-bleed landscape 16:9 scene. Original anime character designs with visibly deliberate crisp pixel clusters, hard-edged sprite-like shading and dense authentic pixel environmental textures; no smooth painting, no photo, no 3D. Desaturated blue gray, dirty teal, muted brown; cold institutional fluorescent light, oppressive, exhausted and unresolved. Young adult Chinese woman protagonist, short brown bob and a small teal hairclip, subdued anime face, wearing plain gray-blue detention shirt and trousers, never a white coat while detained. Make the people and their actual personal consequences the focal point. No text whatsoever, no legible documents, no letters or numbers, no book titles, no logos, no borders, no UI, no watermark, no gore, no wounds, no self-harm act, no sunlight or warm redemption glow. Scene: having borne criminal responsibility after signing for someone else and participating in a medical disposal decision, the young woman sits alone at a narrow fixed metal desk in a cramped prison cell. A single blank application form and a short blunt pencil lie before her, her hand paused beside them, staring at the unfilled paper. The neighboring iron bars dominate the other part of the frame and separate her from a long inaccessible corridor of cold light; the gate visibly locked. A narrow bare institutional bed recedes behind her. Medium-wide composition, heroine in three-quarter profile with her teal clip clearly visible, her face and restrained hands readable, prison architecture closes around her. Make the paper completely blank. This is quiet imprisonment and the futility of asking, not a hopeful act of writing.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a2d-63dd-7b60-ae95-e9b932c03b20/exec-c984d1ce-c4ec-43e0-9c5c-5502faae1ac6.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-06.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-06.webp",
+    "width": 1672,
+    "height": 941,
+    "license": "MIT",
+    "qa": {
+      "status": "usable",
+      "notes": "已逐张目视检查。空白纸、钝铅笔、窄桌、铁栏及无法进入的通道清楚，拘押服和主角特征一致，无可读文字或明显解剖错误。无阻断问题。",
+      "nativeSize": "1672×941；保留工具原生尺寸，近似16:9，未裁切或拉伸。",
+      "webpQuality": 90,
+      "generator": "built-in image_gen",
+      "callsForAsset": 1
+    }
+  },
+  {
+    "id": "END-07",
+    "title": "群魔",
+    "author": "陀思妥耶夫斯基",
+    "prompt": "Use case: illustration-story. Asset type: original ending CG for a Chinese dark medical 2D pixel JRPG. One full-bleed landscape 16:9 scene. Original anime character designs with visibly deliberate crisp pixel clusters, hard-edged sprite-like shading and dense authentic pixel environmental textures; no smooth painting, no photo, no 3D. Desaturated blue gray, dirty teal, muted brown; cold institutional fluorescent light, oppressive, exhausted and unresolved. Young adult Chinese woman protagonist, short brown bob and a small teal hairclip, subdued anime face, wearing plain gray-blue detention shirt and trousers, never a white coat while detained. Make the people and their actual personal consequences the focal point. No text whatsoever, no legible documents, no letters or numbers, no book titles, no logos, no borders, no UI, no watermark, no gore, no wounds, no self-harm act, no sunlight or warm redemption glow. Scene: former hospital colleagues now co-defendants in a joint crime wait to be called from separate detention holding cubicles. The young woman occupies the nearest glass-fronted locked cubicle; she turns her eyes toward a familiar adult Chinese former colleague, a tired middle-aged man in plain gray detention clothes sitting in the next separate cubicle. Another adult colleague sits further back, also isolated in their own cubicle. She sees him through the thick glass partitions, but nobody greets or gestures to anyone. Hands folded, faces averted, recognition and estrangement. Strong angled cinematic composition through repeated individual detention compartments, thick steel door frames, barred transoms and hard overhead fluorescents make criminal custody unmistakable. Keep heroine face and teal hairclip readable, other faces distinct; no ghost duplicates or reflections confused with extra people. No paperwork still life. The silent distance between former colleagues carries the consequence.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a2d-63dd-7b60-ae95-e9b932c03b20/exec-956d4048-b934-4318-8aad-1b6e69bf78fa.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-07.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-07.webp",
+    "width": 1672,
+    "height": 941,
+    "license": "MIT",
+    "qa": {
+      "status": "usable",
+      "notes": "已逐张目视检查。三名成年人分别置于独立玻璃拘押隔间，无人打招呼；主角目光朝向旧同事，气氛压抑。无阻断问题。",
+      "nativeSize": "1672×941；保留工具原生尺寸，近似16:9，未裁切或拉伸。",
+      "webpQuality": 90,
+      "generator": "built-in image_gen",
+      "callsForAsset": 1
+    }
+  },
+  {
+    "id": "END-08",
+    "title": "城堡",
+    "author": "弗兰茨·卡夫卡",
+    "prompt": "Use case: illustration-story. Asset type: original ending CG for a Chinese dark medical 2D pixel JRPG. One full-bleed landscape 16:9 scene. Original anime character designs with visibly deliberate crisp pixel clusters, hard-edged sprite-like shading and dense authentic pixel environmental textures; no smooth painting, no photo, no 3D. Desaturated blue gray, dirty teal, muted brown; cold institutional fluorescent light, oppressive, exhausted and unresolved. Young adult Chinese woman protagonist, short brown bob and a small teal hairclip, subdued anime face, wearing plain gray-blue detention shirt and trousers, never a white coat while detained. Make the people and their actual personal consequences the focal point. No text whatsoever, no legible documents, no letters or numbers, no book titles, no logos, no borders, no UI, no watermark, no gore, no wounds, no self-harm act, no sunlight or warm redemption glow. Scene: after being stopped at the airport, the young woman has been transferred to a detention facility. In the near foreground on the public side, her mother, an older Chinese woman with short dark-gray hair, dusty plum cardigan over cream blouse, sadly retrieves a travel suitcase and her daughter's folded white doctor's coat from the property-return counter. The counter has a plain glass service window and an anonymous staff member behind it, no signage or text. Mother clearly holds the white coat against her chest while taking the suitcase handle. Farther down the corridor, the young woman in gray-blue detention clothing can only watch through the small barred glass opening of a heavy locked door. Frame both mother's exhausted face and the distant daughter's short brown hair with teal clip visibly. The suitcase and returned coat tell of an interrupted departure and a lost profession, with mother and daughter unable to approach each other. Cold blue-gray detention interior, institutional geometry separates them. White coat must be with the mother, never worn by the detained daughter. Full scene, no split-screen, no captions.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a2d-63dd-7b60-ae95-e9b932c03b20/exec-e765e0bc-9f57-48a8-905d-ced1a05cb22a.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-08.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-08.webp",
+    "width": 1672,
+    "height": 941,
+    "license": "MIT",
+    "qa": {
+      "status": "usable",
+      "notes": "已逐张目视检查。母亲抱白大褂并握行李箱，女主穿拘押服隔门望见，领取窗口可见。轻微构图差异：女主门窗位于画面右侧而非走廊尽头，隔离关系仍明确；无阻断问题。",
+      "nativeSize": "1672×941；保留工具原生尺寸，近似16:9，未裁切或拉伸。",
+      "webpQuality": 90,
+      "generator": "built-in image_gen",
+      "callsForAsset": 1
+    }
+  }
+]

@@ -1,0 +1,100 @@
+.check-breakdown { margin:12px 0; border-top:1px solid #7184a755; padding-top:8px; }
+.check-breakdown summary { min-height:44px; display:list-item; cursor:pointer; color:#e9d39e; line-height:1.6; }
+.check-breakdown section { margin:8px 0 16px; }
+.check-breakdown h4 { margin:0 0 6px; font-size:14px; }
+.check-breakdown dl { margin:0; font-size:14px; }
+.check-breakdown dl>div { display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding:4px 0; }
+.check-breakdown dt { min-width:0; overflow-wrap:anywhere; }
+.check-breakdown dd { margin:0; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.check-breakdown__total { border-top:1px solid #7184a755; margin-top:5px; font-weight:600; }
+
+/* Reading size changes text and its reserved layout, never the world camera
+   zoom. Menus scroll; patient beds remain outside the HUD's own layout band. */
+.large-text .rpg-dialogue .dialogue-text { font-size:20px; line-height:1.75; }
+.large-text .rpg-dialogue .dialogue-option>span,
+.large-text .rpg-dialogue .dialogue-next,
+.large-text .rpg-dialogue .dialogue-record { font-size:18px; }
+.large-text .rpg-dialogue .choice-cost,
+.large-text .rpg-dialogue .dialogue-option small,
+.large-text .clinical-action-help,
+.large-text .clinical-action-help strong { font-size:15px; line-height:1.7; }
+.large-text .rpg-dialogue .dialogue-heading h2 { font-size:18px; }
+.large-text .rpg-dialogue .dialogue-heading button { min-width:44px; min-height:44px; }
+.large-text .dialogue-body { grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
+.large-text .dialogue-option { align-items:start; min-height:52px; }
+.large-text .rpg-dialogue .dialogue-main { overscroll-behavior:contain; }
+.large-text .modal p,
+.large-text .modal .small,
+.large-text .modal .feedback-text,
+.large-text .check-explanation p,
+.large-text .payment-explanation p,
+.large-text .check-breakdown { font-size:18px; line-height:1.75; }
+.large-text .check-breakdown :is(h4,dl),
+.large-text .check-explanation h3,
+.large-text .payment-explanation h3 { font-size:18px; }
+.large-text .modal :is(button,summary,input,select),
+.large-text .guide-manual :is(p,dt,dd,summary,button),
+.large-text .schedule :is(p,button,dt,dd,small),
+.large-text .archive-library :is(p,button,small) { font-size:18px; line-height:1.6; }
+.large-text .guide-resource-key { grid-template-columns:1fr; }
+.large-text .record-book { font-size:18px; grid-template-columns:minmax(140px,200px) minmax(0,1fr); }
+.large-text .record-book .record-book__paper :is(p,dt,dd,h4),
+.large-text .record-book :is(button,.record-book__note-meta,.record-book__page-turn),
+.large-text .record-book .record-book__index-heading { font-size:18px; line-height:1.75; }
+.large-text .record-book :is(small,.record-book__kicker,.record-book__bed) { font-size:15px; }
+.large-text .record-book__tabs { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.large-text .record-book__paper-heading { flex-wrap:wrap; }
+.large-text .bedside-view :is(.bedside-nameplate,.bedside-tools button,.bedside-back,.bedside-note p) { font-size:18px; }
+.large-text .bedside-view :is(.bedside-nameplate span,.bedside-note small) { font-size:15px; line-height:1.6; }
+.large-text .bedside-nameplate { max-width:calc(100% - 150px); }
+.large-text .bedside-tools { flex-wrap:wrap; }
+.large-text .world-guide :is(.guide-strip-copy p,.guide-caption,.guide-strip button,.context-guide) { font-size:15px; }
+.large-text .world-guide .guide-strip-copy strong { font-size:17px; }
+.large-text .world-guide .guide-strip { flex-wrap:wrap; }
+.large-text .world-guide .guide-milestones { display:none; }
+.large-text .world-stage.world-stage-readable { --hud-space:142px; }
+.large-text .world-stage .rpg-hud { height:74px; }
+.large-text .world-stage .rpg-vitals { gap:4px; }
+.large-text .world-stage .rpg-meter { height:21px; }
+.large-text .world-stage .rpg-meter>span { width:42px; font-size:14px; }
+.large-text .world-stage .rpg-meter>b { font-size:14px; line-height:21px; }
+.large-text .world-stage .rpg-meter small { font-size:12px; }
+.large-text .world-stage .rpg-ap { height:64px; }
+.large-text .world-stage .rpg-ap strong { font-size:15px; }
+.large-text .world-stage .rpg-ap strong b { font-size:23px; }
+.large-text .world-stage .rpg-wallet strong { font-size:18px; }
+.large-text .world-stage .rpg-wallet small { font-size:13px; }
+.large-text .world-stage.world-stage-readable .rpg-location { top:99px; height:30px; }
+.large-text .world-stage .rpg-location :is(b,span,small) { font-size:14px; }
+.large-text .world-stage.world-stage-readable .rpg-quest-button { top:90px; }
+.large-text .world-stage .rpg-quest-button button { font-size:15px; }
+.large-text .world-stage .rpg-tools span { font-size:13px; }
+.large-text .world-stage .rpg-nearby { font-size:15px; }
+.large-text .world-stage .rpg-menu-row { flex-wrap:wrap; }
+.large-text .world-stage .rpg-menu-row b { font-size:18px; }
+.large-text .world-stage .rpg-menu-row small { font-size:15px; }
+.large-text .world-stage :is(.map-room,.map-room small,.world-perception-message) { font-size:15px; }
+.large-text .world-stage .world-placard b { font-size:15px; }
+.large-text .world-stage .world-placard small { font-size:12px; }
+@media (max-width:820px) and (orientation:portrait) {
+ .large-text .world-stage.world-stage-readable { --hud-space:190px; }
+ .large-text .world-stage .rpg-hud { height:auto; }
+ .large-text .world-stage .rpg-ap { height:40px; }
+ .large-text .world-stage .rpg-wallet { height:40px; }
+ .large-text .world-stage.world-stage-readable .rpg-location { top:152px; }
+ .large-text .world-stage.world-stage-readable .rpg-quest-button { top:139px; }
+ .large-text .world-stage .dialogue-body { display:block; }
+ .large-text .record-book { grid-template-columns:minmax(0,1fr); }
+ .large-text .record-book__registration { grid-template-columns:1fr; }
+ .large-text .bedside-nameplate { max-width:calc(100% - 120px); }
+ .large-text .hospital-map-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+}
+@media (orientation:landscape) and (max-height:600px) {
+ .large-text .world-stage.world-stage-readable { --hud-space:138px; }
+ .large-text .world-stage.world-stage-readable .rpg-location { top:99px; }
+ .large-text .world-stage.world-stage-readable .rpg-quest-button { top:89px; }
+ .large-text .world-stage .rpg-vitals { width:220px; }
+ .large-text .world-stage .rpg-wallet { height:60px; }
+ .large-text .world-guide .guide-strip-copy p { display:none; }
+ .large-text .dialogue-portrait { display:none; }
+}

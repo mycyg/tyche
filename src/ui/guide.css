@@ -18,6 +18,15 @@
 .guide-route strong { color: #ffe1a1; }
 .guide-route p { margin: 2px 0; }
 .guide-note { color: #c9d6de; font-size: .9rem; }
+.guide-first-shift summary { min-height: 44px; cursor: pointer; color: #ffe1a1; }
+.guide-resource-key { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.guide-resource-key > div { padding: 12px; border: 1px solid #627084; background: #172439; }
+.guide-resource-key dt { color: #ffe1a1; font-weight: 700; }
+.guide-resource-key dd { margin: 4px 0 0; }
+.handbook-topics { display: flex; flex-wrap: wrap; gap: 8px; }
+.handbook-topics button { min-height: 44px; padding: 8px 12px; }
+.handbook-topics button[aria-pressed=true] { outline: 2px solid #edce8a; }
+.handbook-topics button:focus-visible,.guide-first-shift summary:focus-visible,.schedule button:focus-visible { outline: 2px solid #ffe1a1; outline-offset: 3px; }
 .guide-terms { border-top: 1px solid #657380; margin: 18px 0; padding-top: 12px; }
 .guide-terms summary { cursor: pointer; min-height: 44px; display: list-item; }
 .guide-terms dl { margin-top: 6px; }
@@ -26,4 +35,32 @@
 .guide-terms dd { margin: 3px 0 0; }
 .guide-manual-actions { flex-wrap: wrap; }
 .guide-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.handbook-search { display: grid; gap: 8px; margin: 20px 0; color: #ffe1a1; }
+.handbook-search input { width: 100%; min-height: 44px; }
+.handbook-chapters details { padding: 12px 0; border-top: 1px solid #657380; }
+.handbook-chapters summary { color: #ffe1a1; cursor: pointer; min-height: 36px; }
+.handbook-chapters p { line-height: 1.8; }
+.context-guide { display: flex; align-items: center; gap: 12px; background: #182438; padding: 8px 14px; border-top: 1px solid #9a8560; color: #efe9dc; font-size: 13px; }
+.context-guide strong { color: #ffe1a1; }
+.context-guide p { margin: 3px 0; }
+.context-guide > div { flex: 1; }
+.context-guide button { flex: 0 0 auto; min-height: 40px; }
+.schedule-grid { display: grid; grid-template-columns: repeat(7, minmax(0,1fr)); gap: 8px; }
+.schedule-grid button { display: grid; align-content: start; gap: 5px; padding: 12px 8px; min-height: 85px; border: 1px solid #6b7788; }
+.schedule-grid button.is-night { background: #273351; }
+.schedule-grid button[aria-pressed=true] { outline: 2px solid #edce8a; }
+.schedule-grid button.is-today b { color: #ffe1a1; }
+.schedule-grid span,.schedule-grid small { font-size: 12px; }
+.schedule-detail,.schedule-borrow { margin: 18px 0; padding: 14px; background: #172439; border: 1px solid #627084; }
+.schedule p { line-height: 1.8; }
+.audio-volume { display: grid; grid-template-columns: minmax(90px,1fr) 2fr 45px; gap: 10px; align-items: center; font-size: 13px; }
+.audio-volume input { min-width: 0; padding: 0; }
+.audio-setting { padding-bottom: 12px; border-bottom: 1px solid #516078; }
+.audio-setting .setting-row { border: 0; }
+.dialogue-heading .voice-replay { width: auto; font-size: 12px; padding-inline: 10px; }
+.clinical-report { border-bottom: 1px solid #9a967e; padding: 12px 0; }
+.report-prose { white-space: pre-line; }
+.graph-continue { margin: 12px 0; }
+@media (max-width:650px) { .schedule-grid { grid-template-columns:repeat(4,minmax(0,1fr)); } .context-guide { font-size:12px; gap:8px; } .context-guide p { max-height:3.3em; overflow:auto; } }
 @media (max-width: 650px) { .guide-strip { gap: 8px; padding: 8px 10px; flex-wrap: wrap; } .guide-strip-copy { flex-basis: calc(100% - 110px); } .guide-milestones { order: 3; flex-basis: 100%; } .guide-strip-actions { gap: 4px; } .guide-strip button { padding-inline: 10px; } }
+@media (max-width: 420px) { .guide-resource-key { grid-template-columns: 1fr; } .schedule-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } }

@@ -1,8 +1,10 @@
 import { act, availableOptions, currentCard, newMeta, startRun } from '../src/game/engine';
 import { random } from '../src/game/random';
+import { worldCoffeeOffering } from '../src/world/refreshments';
 import type { Action, Option, Run } from '../src/game/types';
 export function select(r: Run, policy: 'random' | 'careful' | 'reckless'): Option {
   const opts = availableOptions(r);
+  if (!opts.length) throw new Error(`No available choice: ${JSON.stringify({seed:r.seed,day:r.day,card:currentCard(r),patient:r.patients.find(p=>p.uid===currentCard(r)?.patientId)?.clinical})}`);
   if (policy === 'random') return opts[Math.floor(random(r.seed, `policy:${r.cursor}:${r.day}`) * opts.length)];
   const score = (o: Option) => {
     const e = o.effects, h = e.hazards?.reduce((n, x) => n + x.weight * (x.type === 'R' ? 5 : 2), 0) ?? 0;
@@ -25,10 +27,10 @@ export function runSimulation(seed: string, policy: 'random' | 'careful' | 'reck
   const meta = newMeta();
   if (veteran) { meta.caps = { stamina: 3, san: 3, emotion: 3 }; meta.cashRank = 3; for (const key of Object.keys(meta.skills)) (meta.skills as Record<string, number>)[key] = 3; }
   let r = startRun(seed, '模拟医生', veteran ? ['T11', 'T16', 'T17'] : ['T06', 'T16', 'T24'], meta), steps = 0;
-  while (r.phase !== 'ending' && steps++ < 900) {
+  while (r.phase !== 'ending' && steps++ < 2400) {
     let a: Action;
     if (r.phase === 'play') {
-      if (policy === 'careful' && r.vitals.stamina < Math.min(32, r.caps.stamina - 12) && r.coffee < 2) a = { type: 'coffee' };
+      if (policy === 'careful' && r.vitals.stamina < Math.min(32, r.caps.stamina - 12) && r.coffee < 2 && worldCoffeeOffering(r).allowed&&!r.facts[`leave:${r.day}`]) a = { type: 'coffee' };
       else a = { type: 'choose', id: select(r, policy).id };
     } else if (r.phase === 'feedback') a = { type: 'continue' };
     else if (r.phase === 'roll') a = { type: 'ack-roll' };
@@ -41,7 +43,7 @@ export function runSimulation(seed: string, policy: 'random' | 'careful' | 'reck
     const next = act(r, a); if (next === r) throw new Error(`Stuck ${seed} ${r.phase}: ${JSON.stringify(a)}`); r = next;
     if (Object.values(r.vitals).some(n => !Number.isFinite(n)) || r.ap < 0 || r.debt < 0) throw new Error(`Invalid resources: ${seed}`);
   }
-  if (steps >= 900) throw new Error(`Run did not terminate: ${seed}`);
+  if (steps >= 2400) throw new Error(`Run did not terminate: ${JSON.stringify({seed,day:r.day,phase:r.phase,card:currentCard(r),last:r.journal.slice(-8)})}`);
   return { r, steps };
 }
 if (process.argv[1]?.endsWith('simulate.ts')) {

@@ -1,0 +1,10 @@
+{
+  "license": "MIT",
+  "endingCount": 40,
+  "endings": "endings/manifest.json",
+  "endingText": "content/ending-prose.json",
+  "characters": "characters/manifest.json",
+  "mapFrames": 160,
+  "portraits": 30,
+  "voice": "Deferred to the receiving developer; no revised audio generated."
+}

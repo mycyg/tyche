@@ -1,0 +1,86 @@
+[
+  {
+    "id": "END-25",
+    "title": "高老头",
+    "author": "奥诺雷·德·巴尔扎克",
+    "prompt": "Use case: illustration-story. Asset: original ending CG for a Chinese dark medical 2D pixel JRPG. One full-bleed landscape 16:9 scene, no collage. Anime character design rendered throughout in visibly deliberate crisp square pixel clusters, hard-edged sprite-like shading and rich pixel texture; not smooth painting. Desaturated blue gray, dirty teal, muted brown, cold light, oppressive unresolved sadness without warm redemption glow. Protagonist: young adult Chinese woman, short brown bob, small teal hairclip, tired mature anime face, teal blouse and dark trousers. No readable text, letters, book titles, numbers, captions, logos, borders, UI, watermark; no photo, 3D, gore, wounds or self-harm. People and actual situation must be the subject. Scene: After her apartment has been auctioned to repay debts, her debt is still unpaid. Inside a stripped empty apartment, she stands beside the open door, handing a small ring of ordinary keys to an unseen person's hand extending in from the hallway. The recipient's body is outside the composition. Show the key transfer clearly with anatomically natural hands. A few closed cardboard moving cartons sit on the bare floor, removed curtains folded across one box; naked window, dust rectangles where furniture stood. Wide eye-level composition, heroine in three-quarter profile, her glance turning back toward the emptied room. Cold overcast daylight, no welcoming future, no nostalgic golden light. No auction sign or readable documents.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a5c-f82d-7661-a316-3658f3054519/exec-aeb42eca-c583-41ff-b429-cc84718f97e9.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-25.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-25.webp",
+    "width": 1672,
+    "height": 941,
+    "licenseMIT": true,
+    "qa": {
+      "inspected": true,
+      "method": "view_image, each PNG once",
+      "status": "accepted",
+      "observations": "已使用 view_image 检查 PNG 一遍。空房、纸箱、拆下窗帘、门口交钥匙清晰；收钥匙的人仅手及前臂进入画面。短棕 bob、青色发夹、青色衬衣，表情疲惫；无可读文字、UI、logo、边框、血腥或自伤。",
+      "dimensions": "Generated at 1672 × 941 (~16:9, not mathematically exact 16:9); original dimensions retained.",
+      "generation": "built-in image_gen; one call for this asset; four total calls in this batch; no local model and no regeneration.",
+      "conversion": "Original PNG copied without modification; WebP encoded with sharp quality 90, no resize."
+    }
+  },
+  {
+    "id": "END-26",
+    "title": "被侮辱与被损害的",
+    "author": "陀思妥耶夫斯基",
+    "prompt": "Use case: illustration-story. Asset: original ending CG for a Chinese dark medical 2D pixel JRPG. One full-bleed landscape 16:9 scene, no collage. Anime character design rendered throughout in visibly deliberate crisp square pixel clusters, hard-edged sprite-like shading and rich pixel texture; not smooth painting. Desaturated blue gray, dirty teal, muted brown, cold light, oppressive unresolved sadness without warm redemption glow. Protagonist: young adult Chinese woman, short brown bob, small teal hairclip, tired mature anime face, teal blouse and dark trousers. No readable text, letters, book titles, numbers, captions, logos, borders, UI, watermark; no photo, 3D, gore, wounds or self-harm. People and actual situation must be the subject. Scene: Debt collection telephone calls have cost her the probationary office job. She is just outside an office doorway, walking slowly out with a cardboard box of her personal belongings held in both arms: plain mug, plain notebook, folded cardigan. Her defeated gaze is downward. Behind her through the open doorway, the supervisor at a desk is visibly returning a black wired landline receiver to its base, and one adult coworker averts their gaze. Medium-wide cinematic shot with heroine prominent, office desk and telephone distinct behind her. Low cubicles, dull fluorescent ceiling, institutional blue-gray and dark olive, tired urban office corridor. Show dismissal and social discomfort, no comforting gestures, no joyful new beginning. All papers blank, screens off or flat unmarked, no text or UI.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a5c-f82d-7661-a316-3658f3054519/exec-81a418ef-4d40-4c45-8986-87942da44c69.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-26.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-26.webp",
+    "width": 1672,
+    "height": 941,
+    "licenseMIT": true,
+    "qa": {
+      "inspected": true,
+      "method": "view_image, each PNG once",
+      "status": "accepted",
+      "observations": "已使用 view_image 检查 PNG 一遍。主角抱个人用品盒走出办公室，负责人手持座机听筒正在放回，同事背向避开目光。人物身份与冷暗像素风一致；无可读文字、logo、边框、血腥或自伤。",
+      "dimensions": "Generated at 1672 × 941 (~16:9, not mathematically exact 16:9); original dimensions retained.",
+      "generation": "built-in image_gen; one call for this asset; four total calls in this batch; no local model and no regeneration.",
+      "conversion": "Original PNG copied without modification; WebP encoded with sharp quality 90, no resize."
+    }
+  },
+  {
+    "id": "END-27",
+    "title": "项链",
+    "author": "居伊·德·莫泊桑",
+    "prompt": "Use case: illustration-story. Asset: original ending CG for a Chinese dark medical 2D pixel JRPG. One full-bleed landscape 16:9 scene, no collage. Anime character design rendered throughout in visibly deliberate crisp square pixel clusters, hard-edged sprite-like shading and rich pixel texture; not smooth painting. Desaturated blue gray, dirty teal, muted brown, cold light, oppressive unresolved sadness without warm redemption glow. Protagonist: young adult Chinese woman, short brown bob, small teal hairclip, tired mature anime face, teal blouse and dark trousers. No readable text, letters, book titles, numbers, captions, logos, borders, UI, watermark; no photo, 3D, gore, wounds or self-harm. People and actual situation must be the subject. Scene: After selling her car to meet overdue payments, she waits alone beneath a small city bus shelter in cold rain. An unmistakably empty parking bay occupies the near foreground, wet white painted outline without any lettering or numbers; the shelter is beyond it on the same street, not a collage. The woman, fully visible at medium distance, wears a worn charcoal coat over her teal blouse, shoulders drawn in, and pushes blank vehicle-transfer sheets deeper into a plain document envelope to shield them from rain. Her bus has already gone; street feels desolate, cold blurred city lights in far distance. Angular square-pixel raindrops and puddle reflections, wide environmental composition, dark overcast blue gray and dirty teal. Keep heroine sufficiently large to recognize brown bob and teal hairclip. Bus route placard is blank. No readable papers, money numbers, phone UI, uplifting sunrise, car or warm glowing shelter.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a5c-f82d-7661-a316-3658f3054519/exec-8bde2e90-ca2e-4423-a786-0555f271ed31.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-27.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-27.webp",
+    "width": 1672,
+    "height": 941,
+    "licenseMIT": true,
+    "qa": {
+      "inspected": true,
+      "method": "view_image, each PNG once",
+      "status": "accepted",
+      "observations": "已使用 view_image 检查 PNG 一遍。雨中公交站、前景空车位、文件袋和交接纸清晰；主角比例较小但发型与发夹可辨。站牌为空白，城市光线阴冷；无可读文字、UI、logo、边框、血腥或自伤。",
+      "dimensions": "Generated at 1672 × 941 (~16:9, not mathematically exact 16:9); original dimensions retained.",
+      "generation": "built-in image_gen; one call for this asset; four total calls in this batch; no local model and no regeneration.",
+      "conversion": "Original PNG copied without modification; WebP encoded with sharp quality 90, no resize."
+    }
+  },
+  {
+    "id": "END-32",
+    "title": "套中人",
+    "author": "安东·契诃夫",
+    "prompt": "Use case: illustration-story. Asset: original ending CG for a Chinese dark medical 2D pixel JRPG. One full-bleed landscape 16:9 scene, no collage. Anime character design rendered throughout in visibly deliberate crisp square pixel clusters, hard-edged sprite-like shading and rich pixel texture; not smooth painting. Desaturated blue gray, dirty teal, muted brown, cold light, oppressive unresolved sadness without warm redemption glow. Protagonist: young adult Chinese woman, short brown bob, small teal hairclip, tired mature anime face, teal blouse and dark trousers. No readable text, letters, book titles, numbers, captions, logos, borders, UI, watermark; no photo, 3D, gore, wounds or self-harm. People and actual situation must be the subject. Scene: The former doctor now survives on piecework medical-record data entry in a crowded outsourced office. Tight claustrophobic three-quarter side view of her seated in a narrow cubicle, wearing a worn teal blouse. She looks exhausted, one hand on the keyboard while the other holds her own plain case-file photocopies beside it; an overstuffed personal document bag is wedged under her desk. Stacks of other people's medical record scan printouts, suggested through unlettered gray blocks and tiny unrecognizable scan marks, crowd the keyboard. Computer screen gives cold gray-blue light but is blank and has no UI or readable content. A cheap document scanner, narrow partitions, backs of two seated adult coworkers and repeating crowded workstations establish outsourcing, not a clinical consultation. Only harsh cold fluorescent light, dark desaturated blue gray and dirty olive, clear pixel clusters and anime face. Nobody smiles, no career triumph, no white coat, no named folders, no readable text.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a5c-f82d-7661-a316-3658f3054519/exec-6e93b798-acbf-4d74-88e3-16e149f2bdbd.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-32.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-32.webp",
+    "width": 1672,
+    "height": 941,
+    "licenseMIT": true,
+    "qa": {
+      "inspected": true,
+      "method": "view_image, each PNG once",
+      "status": "accepted_with_notes",
+      "observations": "已使用 view_image 检查 PNG 一遍。拥挤工位、扫描仪、病历堆、空白发光屏幕、手持资料与桌下个人案卷袋清晰。纸张带有不可辨认的类文字纹理，无可读语句或数字。背景成人同事多于提示词所述两人；自己的案卷与他人病历的归属需结合剧情理解。无 logo、边框、血腥或自伤。",
+      "dimensions": "Generated at 1672 × 941 (~16:9, not mathematically exact 16:9); original dimensions retained.",
+      "generation": "built-in image_gen; one call for this asset; four total calls in this batch; no local model and no regeneration.",
+      "conversion": "Original PNG copied without modification; WebP encoded with sharp quality 90, no resize."
+    }
+  }
+]

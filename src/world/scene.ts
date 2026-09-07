@@ -79,6 +79,13 @@ export const BED_PLACES = ROOMS.filter(room => room.kind === 'ward').flatMap((ro
   wardBeds.map((bed, slot) => ({ ...bed, bed: 5 + index * 4 + slot, x: bed.x + room.target.x,
     target: { x: bed.target.x + room.target.x, y: bed.target.y } })));
 
+// Only a documented corridor admission creates this bed. It is not included
+// in the twelve routine bed slots, and absent furniture has no collision.
+export const CORRIDOR_BED_PLACE = {bed:17,x:994,y:208,width:64,height:64,depth:281,target:{x:1064,y:268}};
+export const CORRIDOR_BED_OBSTACLE = {x:1004,y:222,w:43,h:55};
+export const CORRIDOR_BED_PROP:Prop = {id:'corridor-admission-bed',x:1000,y:205,w:52,h:75,depth:280,
+  source:{x:35,y:30,w:52,h:75}};
+
 // Observation and emergency beds are not counted as inpatient capacity.
 export const TEMPORARY_BEDS = ROOMS.filter(room => room.kind === 'er').flatMap(room =>
   [39, 169].map((x, slot) => ({ room: room.id, x: x + room.target.x, y: 341,

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "END-01",
+    "title": "罪与罚",
+    "author": "陀思妥耶夫斯基",
+    "image": "END-01.webp",
+    "source": "END-01.png",
+    "prompt": "Use case: stylized-concept. Asset type: original game ending CG, single full-bleed 16:9 landscape scene, no cover design. Original Chinese dark medical 2D pixel JRPG ending CG. One full-bleed landscape 16:9 scene, visibly deliberate pixel clusters and hard-edged sprite-like shading, cinematic environmental storytelling, anime character design. Desaturated blue gray, dirty teal and muted brown, cold institutional light, oppressive and unresolved, no warm redemption glow. No text, readable documents, numbers, captions, logos, borders, UI, watermark, photo, 3D, gore, explicit wounds, or self-harm act. Young woman protagonist has short brown bob, small teal hairclip. Ordinary Chinese young adult woman, restrained tired face, wearing plain gray-blue prison clothing with no insignia. Mother: short dark-gray hair, dusty plum cardigan over cream blouse. Make people and their actual situation the subject, not a generic paperwork still life. Render exactly one cinematic widescreen scene, preferably 1536x864. Absolutely no book title or lettering.\nScene, exact narrative: 医疗事故实刑后的会见室，女主和母亲隔着玻璃用电话说话，母亲抱着没送进去的衣服。\nWide side view inside a prison visiting room, young imprisoned woman and her mother seated facing one another on opposite sides of a thick security glass partition, both holding separate black corded telephone receivers; mother cradles a bundle of folded everyday clothes she was not allowed to hand over. Clearly distinct visitor side and locked custodial side, fixed institutional stools, secure door and empty booths receding in the background. Mother and daughter remain visually prominent; eyes exhausted, bodily restraint. Both people are behind their respective side of the glass, no touching across it. No smiles.",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    },
+    "model": "built-in image_gen",
+    "license": "MIT"
+  },
+  {
+    "id": "END-02",
+    "title": "审判",
+    "author": "弗兰茨·卡夫卡",
+    "image": "END-02.webp",
+    "source": "END-02.png",
+    "prompt": "Use case: stylized-concept. Asset type: original game ending CG, single full-bleed 16:9 landscape scene, no cover design. Original Chinese dark medical 2D pixel JRPG ending CG. One full-bleed landscape 16:9 scene, visibly deliberate pixel clusters and hard-edged sprite-like shading, cinematic environmental storytelling, anime character design. Desaturated blue gray, dirty teal and muted brown, cold institutional light, oppressive and unresolved, no warm redemption glow. No text, readable documents, numbers, captions, logos, borders, UI, watermark, photo, 3D, gore, explicit wounds, or self-harm act. Young woman protagonist has short brown bob, small teal hairclip. Ordinary Chinese young adult woman, restrained tired face, wearing plain gray-blue prison clothing with no insignia. Mother: short dark-gray hair, dusty plum cardigan over cream blouse. Make people and their actual situation the subject, not a generic paperwork still life. Render exactly one cinematic widescreen scene, preferably 1536x864. Absolutely no book title or lettering.\nScene, exact narrative: 提前出院事件判刑后，拘押区的女主低头看膝上的文件，远处走廊被铁门截断，只有冷光。\nWide view into a locked holding area after sentencing. The imprisoned protagonist sits small but prominent on a bolted bench, head lowered toward several blank papers resting directly across her knees. A deep institutional corridor behind her ends at a firmly closed heavy barred gate, clear locking hardware, no visible route out. Gray-blue plain prison tunic and trousers. The architecture and closed gate visibly establish actual confinement; figure and her folded exhausted posture are the emotional focal point. Cold fluorescent lighting only, empty oppressive silence. No desk or office still life.",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    },
+    "model": "built-in image_gen",
+    "license": "MIT"
+  },
+  {
+    "id": "END-03",
+    "title": "金钱",
+    "author": "埃米尔·左拉",
+    "image": "END-03.webp",
+    "source": "END-03.png",
+    "prompt": "Use case: stylized-concept. Asset type: original game ending CG, single full-bleed 16:9 landscape scene, no cover design. Original Chinese dark medical 2D pixel JRPG ending CG. One full-bleed landscape 16:9 scene, visibly deliberate pixel clusters and hard-edged sprite-like shading, cinematic environmental storytelling, anime character design. Desaturated blue gray, dirty teal and muted brown, cold institutional light, oppressive and unresolved, no warm redemption glow. No text, readable documents, numbers, captions, logos, borders, UI, watermark, photo, 3D, gore, explicit wounds, or self-harm act. Young woman protagonist has short brown bob, small teal hairclip. Ordinary Chinese young adult woman, restrained tired face, wearing plain gray-blue prison clothing with no insignia. Mother: short dark-gray hair, dusty plum cardigan over cream blouse. Make people and their actual situation the subject, not a generic paperwork still life. Render exactly one cinematic widescreen scene, preferably 1536x864. Absolutely no book title or lettering.\nScene, exact narrative: 因回扣入狱，女主在拘押走廊里面，门外的透明物品袋装着手表和证件，脸与过去的生活分隔。\nWide cinematic custodial corridor view. The protagonist stands on the locked INSIDE of a closed barred gate, tired face and short brown bob visible between the bars. On the OUTSIDE of the gate, on a narrow property-processing shelf in the near foreground, a sealed transparent personal-property bag contains one wristwatch and one blank identity card. Camera emphasizes separation between her face behind bars and former possessions beyond reach, actual physical loss of freedom. No readable ID information, no numbers on watch, no insignia. The human figure dominates the story, props secondary. Cold overhead institutional lamp, corridor depth.",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    },
+    "model": "built-in image_gen",
+    "license": "MIT"
+  },
+  {
+    "id": "END-04",
+    "title": "死魂灵",
+    "author": "尼古拉·果戈理",
+    "image": "END-04.webp",
+    "source": "END-04.png",
+    "prompt": "Use case: stylized-concept. Asset type: original game ending CG, single full-bleed 16:9 landscape scene, no cover design. Original Chinese dark medical 2D pixel JRPG ending CG. One full-bleed landscape 16:9 scene, visibly deliberate pixel clusters and hard-edged sprite-like shading, cinematic environmental storytelling, anime character design. Desaturated blue gray, dirty teal and muted brown, cold institutional light, oppressive and unresolved, no warm redemption glow. No text, readable documents, numbers, captions, logos, borders, UI, watermark, photo, 3D, gore, explicit wounds, or self-harm act. Young woman protagonist has short brown bob, small teal hairclip. Ordinary Chinese young adult woman, restrained tired face, wearing plain gray-blue prison clothing with no insignia. Mother: short dark-gray hair, dusty plum cardigan over cream blouse. Make people and their actual situation the subject, not a generic paperwork still life. Render exactly one cinematic widescreen scene, preferably 1536x864. Absolutely no book title or lettering.\nScene, exact narrative: 虚假医保申报案件后的押解等候区，女主与旧同事穿灰色拘押服，隔着座位背向彼此。\nWide cinematic view of a courthouse custodial escort waiting area. The young woman protagonist and two ordinary adult former colleagues are all in plain gray-blue custodial clothing, seated apart on separate rows of bolted metal seats, turning their backs or shoulders toward one another and avoiding eye contact. The protagonist is foreground three-quarter view with short brown bob and teal clip, tired lowered eyes; old colleagues sit farther away with backs visible. A closed metal barred gate clearly seals the waiting area, secure institutional corridor beyond. Three adults isolated by empty seats and forced confinement. No celebratory reunion or office work, no documents as main subject, no guard insignia. Cold overhead fluorescent light.",
+    "dimensions": {
+      "width": 1672,
+      "height": 941
+    },
+    "model": "built-in image_gen",
+    "license": "MIT"
+  }
+]

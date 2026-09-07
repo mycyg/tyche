@@ -1,0 +1,94 @@
+[
+  {
+    "id": "END-33",
+    "title": "幻灭",
+    "author": "奥诺雷·德·巴尔扎克",
+    "prompt": "Use case: illustration-story. Asset: original Chinese dark medical 2D pixel JRPG ending CG, one full-bleed 16:9 landscape image. Scene: a drab Chinese hospital recruitment waiting hall beside a glass service window and an open entrance looking onto pouring rain. A clerk behind the glass slides rejected qualification photocopies back through the slot toward the young adult Chinese WOMAN protagonist; she holds a worn document envelope to her body, collects the papers and turns her shoulders away in resignation. Her feminine anime face, short brown bob and small teal hairclip are clearly visible; teal blouse and dark trousers, tired downcast eyes. Several adult applicants continue queuing behind her, looking past her toward the counter. Make the returned papers and the separation of woman and institution legible through hands, bodies, glass and composition, not text. Wide cinematic eye-level three-quarter composition, people are principal subjects, rain darkens the doorway and wet pavement. Style: deliberate visible pixel clusters, hard-edged sprite-like shading and crisp pixel texture across anime characters and environment, high craft original 2D pixel art, not photo, not 3D, not smooth vector. Desaturated blue-gray, dirty teal, muted brown, cold institutional fluorescent lighting, oppressive unresolved mood. Documents contain only indistinct tiny abstract marks, no readable text or numbers. No text, book titles, captions, logos, borders, UI, watermark, warm redemption glow, celebration, gore or self-harm.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a5d-c0d4-7320-a86c-bb195b354f07/exec-3e69265c-29c4-4b65-8877-e558c32557ae.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-33.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-33.webp",
+    "width": 1672,
+    "height": 941,
+    "license": "MIT",
+    "qa": {
+      "status": "pass",
+      "method": "view_image visual inspection; sharp native metadata verification",
+      "narrative": "退件窗口、等待队伍、门外雨景明确；女主短棕 bob 与青发夹身份一致，表情失落。",
+      "style": "原创暗黑 2D 像素 JRPG；anime 成年女性女主，蓝灰、墨绿与土褐冷色。",
+      "constraints": "无可读文字、书名、数字、UI、logo、边框、水印、血腥或自伤；纸面和背景标签仅不可读像素笔画。",
+      "nativeDimensionsPreserved": true,
+      "aspectRatioNote": "原生 1672×941，近似 16:9；未裁剪或缩放。",
+      "webpQuality": 90,
+      "builtInImageGen": true
+    }
+  },
+  {
+    "id": "END-34",
+    "title": "动物农场",
+    "author": "乔治·奥威尔",
+    "prompt": "Use case: illustration-story. Asset: original Chinese dark medical 2D pixel JRPG ending CG, full-bleed 16:9 landscape. Scene: a cramped Chinese hospital senior doctor's office under harsh cold fluorescent light. The protagonist is a young adult Chinese WOMAN with visibly feminine anime face, short brown bob, small teal hairclip, teal blouse, dark trousers, a white medical coat open over blouse. She has gained this office by suppressing problems and shifting blame to juniors. Seated upright behind a broad battered director-style desk, she deliberately shoves a risky signature document toward a tense young ADULT male newcomer in a plain white medical coat standing on the visitor side, and points firmly at the blank signing area. A pen lies by his hand. Her narrowed tired eyes look directly at him, mouth tight and impatient, commanding and morally compromised; his shoulders are hunched, hand withdrawn, anxious gaze on her, unequal power relationship unmistakable. This is coercing a junior to assume responsibility, never caring instruction or friendly mentorship. Desk is a spatial barrier between them; cold blinds and worn filing cabinets behind her, doorway shadow of somebody waiting outside. Medium-wide cinematic composition with both faces and entire hand exchange clear. Original dark 2D pixel art, anime characters with crisp deliberate visible pixel clusters and hard-edged sprite shading throughout, not smooth illustration, not photo or 3D. Desaturated blue-gray, dirty teal, muted brown; no golden light, smiles, hugs, celebration. Paper has abstract indistinct marks only, no readable writing. No text, numbers, book titles, captions, logos, UI, border, watermark, gore or self-harm.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a5d-c0d4-7320-a86c-bb195b354f07/exec-2ac51c81-3c24-4801-b115-b641d0e17e80.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-34.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-34.webp",
+    "width": 1672,
+    "height": 941,
+    "license": "MIT",
+    "qa": {
+      "status": "pass",
+      "method": "view_image visual inspection; sharp native metadata verification",
+      "narrative": "女主在桌后冷脸指向签字页，新人手势退缩且紧张；施压关系明确，无温暖带教或庆祝。",
+      "style": "原创暗黑 2D 像素 JRPG；anime 成年女性女主，蓝灰、墨绿与土褐冷色。",
+      "constraints": "无可读文字、书名、数字、UI、logo、边框、水印、血腥或自伤；纸面和背景标签仅不可读像素笔画。",
+      "nativeDimensionsPreserved": true,
+      "aspectRatioNote": "原生 1672×941，近似 16:9；未裁剪或缩放。",
+      "webpQuality": 90,
+      "builtInImageGen": true
+    }
+  },
+  {
+    "id": "END-35",
+    "title": "名利场",
+    "author": "威廉·梅克皮斯·萨克雷",
+    "prompt": "Use case: illustration-story. Asset: original Chinese dark medical 2D pixel JRPG ending CG, one full-bleed 16:9 landscape image. Scene: cramped hospital office at night. Young adult Chinese WOMAN protagonist, visibly feminine anime face, short brown bob, small teal hairclip, teal blouse and dark trousers beneath an open white medical coat, sits exhausted at her worn desk. Ye Ming, an adult Chinese female pharmaceutical representative in muted charcoal business clothes with dark hair neatly tied back, stands close to the doorway end of the desk. She has just placed a carefully packed refined compartment lunch box in front of the protagonist, its food visible. With her other hand she slides a folder of new business requirements alongside an unmistakable unopened plain brown payment envelope toward the protagonist. These three objects—lunch box, list inside folder, payment envelope—are distinct and visible. Protagonist accepts the folder wearily, gaze on the new obligation, a hand resting by the lunch box. Representative has an intent guarded expression and waits for compliance; neither smiles. Transactional dependency and continuing corruption, uneasy care used as pressure, no romantic or friendly celebration. Medium-wide cinematic composition, both adult women's faces clear, office shadows and cold fluorescent overhead light. Hard-edged deliberate visible pixel clusters throughout, crisp sprite-like pixel shading, anime character design, original 2D pixel art. Desaturated blue-gray, dirty teal, muted brown. Abstract tiny marks on list only, no readable words or numbers. No book title, captions, logo, UI, borders, watermark, photo, 3D, smooth vector, golden light, smiles, hugging, victory poses, gore or self-harm.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a5d-c0d4-7320-a86c-bb195b354f07/exec-50c018a9-bcfb-422d-8898-541c62706917.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-35.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-35.webp",
+    "width": 1672,
+    "height": 941,
+    "license": "MIT",
+    "qa": {
+      "status": "pass",
+      "method": "view_image visual inspection; sharp native metadata verification",
+      "narrative": "叶茗递出新业务名单，盒饭与未拆付款信封清晰；两名成年女性神情冷淡，利益约束明确。",
+      "style": "原创暗黑 2D 像素 JRPG；anime 成年女性女主，蓝灰、墨绿与土褐冷色。",
+      "constraints": "无可读文字、书名、数字、UI、logo、边框、水印、血腥或自伤；纸面和背景标签仅不可读像素笔画。",
+      "nativeDimensionsPreserved": true,
+      "aspectRatioNote": "原生 1672×941，近似 16:9；未裁剪或缩放。",
+      "webpQuality": 90,
+      "builtInImageGen": true
+    }
+  },
+  {
+    "id": "END-36",
+    "title": "红与黑",
+    "author": "司汤达",
+    "prompt": "Use case: illustration-story. Asset: original Chinese dark medical 2D pixel JRPG ending CG, one full-bleed 16:9 landscape. Scene: cramped senior hospital office, moral corruption after sacrificing a colleague to preserve a position. The protagonist is a young adult Chinese WOMAN with clearly feminine anime face, short brown bob, small teal hairclip, teal blouse and dark trousers beneath an open medical coat. She now sits in the recently vacated colleague's large worn office chair at his senior workstation, expression cold, tired and compromised, looking down at a new signature document. Tang Ji, a middle-aged Chinese male supervisor with short dark hair, gray temples and a charcoal jacket over office shirt, stands beside her chair, looming, and firmly places another folder on her desk while pointing at its blank signature field. His posture shows he still directs her; she receives the folder without pleasure. In prominent foreground beside and partly under the desk sits the displaced colleague's open brown cardboard box of personal belongings: plain mug, folded dark cardigan, small empty-looking photo frame turned away, notebooks with blank spines. The woman's shoe nudges the box aside to make room, a quiet callous gesture. The office is narrow, blind slats block outside light, old cabinets crowd the desk. Medium-wide cinematic composition makes woman, supervisor and abandoned box equally meaningful, no generic paperwork still life. Original dark 2D pixel art with anime character design, crisp visibly deliberate pixel clusters, hard edged sprite-like shading across all surfaces. Desaturated blue-gray, dirty teal, muted brown, oppressive cold institutional lighting. No warmth, redemption glow, smile, hug, congratulation or celebration. No readable text, numbers, book titles, captions, logos, borders, UI, watermarks, photographs as medium, 3D, smooth vector, gore or self-harm.",
+    "sourcePath": "/Users/apple/.codex/generated_images/01a07a5d-c0d4-7320-a86c-bb195b354f07/exec-eb8e34ac-a4b3-4447-8ede-cbdf03df3d97.png",
+    "pngPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-36.png",
+    "webpPath": "/Users/apple/Desktop/开发项目/塞博LLM会梦到电子人吗/open-source/tyche/handoff-assets/dark-expansion/endings/END-36.webp",
+    "width": 1672,
+    "height": 941,
+    "license": "MIT",
+    "qa": {
+      "status": "pass",
+      "method": "view_image visual inspection; sharp native metadata verification",
+      "narrative": "唐济俯身指示新文件；女主坐在高级旧椅上，前景旧同事个人物品纸箱突出，冷光无笑容。",
+      "style": "原创暗黑 2D 像素 JRPG；anime 成年女性女主，蓝灰、墨绿与土褐冷色。",
+      "constraints": "无可读文字、书名、数字、UI、logo、边框、水印、血腥或自伤；纸面和背景标签仅不可读像素笔画。",
+      "nativeDimensionsPreserved": true,
+      "aspectRatioNote": "原生 1672×941，近似 16:9；未裁剪或缩放。",
+      "webpQuality": 90,
+      "builtInImageGen": true
+    }
+  }
+]

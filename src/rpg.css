@@ -54,7 +54,10 @@
 .rpg-dialogue .dialogue-portrait { width:174px; flex-shrink:0; align-self:stretch; position:relative; overflow:hidden; border-right:1px solid #a4b6ce56; background:linear-gradient(145deg,#394e69,#102344); }
 .dialogue-portrait .portrait { width:100%; height:100%; min-height:195px; background-size:342.857% auto; background-position:var(--portrait-x) 6%; filter:none; border:0; }
 .dialogue-main { flex:1; min-width:0; padding:18px 23px; }.dialogue-heading { display:flex; align-items:center; gap:14px; margin:0 0 10px; }.dialogue-heading h2 { margin:0; font-size:15px; color:#f8dca2; font-weight:600; }.dialogue-heading>span { font-size:12px; color:#b0c1d7; }.dialogue-heading button { margin-left:auto; width:34px; height:34px; min-height:34px; border:0; background:transparent; color:#afc0d3; font-size:22px; }
+.dialogue-narration { color:#bdc8dc; }.dialogue-speech { color:#fff2d5; }
 .dialogue-body { display:grid; grid-template-columns:minmax(0,1fr) minmax(220px,.85fr); gap:22px; align-items:start; }.dialogue-text { font-size:17px; line-height:1.8; margin:0; letter-spacing:.035em; max-height:25vh; overflow:auto; }.dialogue-options { display:grid; gap:4px; }.dialogue-option { width:100%; padding:9px 12px; min-height:46px; border:1px solid transparent; background:transparent; display:flex; gap:10px; color:#f6edda; text-align:left; align-items:center; }.dialogue-option>b { color:#dcc79a; font-size:14px; width:12px; }.dialogue-option>span { flex:1; font-size:14px; }.dialogue-option small { display:block; font:10px/1.7 var(--mono); color:#a5bdd3; margin-top:4px; }.dialogue-option .costs { margin-top:2px; font-size:11px; display:flex; gap:8px; }.dialogue-option:focus-visible { outline-offset:0; }
+.clinical-action-help { margin:8px 0 12px; padding:8px 10px; border-left:2px solid #ccba8e; background:#080f2080; color:#c9d4df; font-size:12px; line-height:1.65; }
+.clinical-action-help strong { color:#e6d9b7; font-size:12px; }.clinical-action-help p { margin:3px 0 0; }
 .dialogue-result { display:flex; flex-direction:column; align-items:flex-end; justify-content:space-between; gap:8px; }.dialogue-result .delta-list { margin:0; justify-content:flex-start; font-size:12px; }.dialogue-next { background:transparent; border:1px solid #a8b7cb; min-height:44px; padding:9px 20px; color:#ffe1a8; font-size:14px; }.dialogue-record { border:0; background:none; color:#b5cce3; font-size:12px; margin-top:10px; padding:6px 0; text-decoration:underline; text-underline-offset:4px; }
 .rpg-title { min-height:100dvh; height:100dvh; display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative; text-align:center; background:#0b1629; }
 .rpg-title-background { position:absolute; inset:0; background-image:linear-gradient(#04091756,#0a13216b 50%,#040912dd),url('/art/ward-map.webp'); background-size:cover; background-position:center; image-rendering:pixelated; }
@@ -70,9 +73,6 @@
   .rpg-location { left:10px; top:121px; padding:6px 10px; gap:4px 8px; }.rpg-location b { font-size:12px; }.rpg-location>span,.rpg-location small { font-size:10px; }.rpg-quest-button { right:10px; top:184px; }.rpg-quest-button button { font-size:11px; padding:6px 9px; min-height:35px; }.rpg-quest-button b { margin-left:6px; }.rpg-tools { right:10px; top:232px; flex-direction:column; }.rpg-tools button { width:43px; height:48px; font-size:19px; }.rpg-tools span { font-size:10px; }
   .rpg-controls { left:23px; right:24px; bottom:max(43px,env(safe-area-inset-bottom)); }.joystick { width:112px; height:112px; }.rpg-interact { width:87px; height:87px; }.rpg-nearby { bottom:179px; max-width:82%; width:max-content; font-size:12px; padding:7px 13px; }.rpg-controls-hint { display:none; }
   .rpg-dialogue { bottom:max(12px,env(safe-area-inset-bottom)); left:10px; right:10px; min-height:190px; border-width:2px; max-height:58dvh; }.rpg-dialogue .dialogue-portrait { width:91px; }.dialogue-portrait .portrait { background-size:510% auto; background-position:var(--portrait-x) 0; min-height:190px; }.dialogue-main { padding:13px 13px 12px; max-height:56dvh; overflow:auto; }.dialogue-heading { gap:7px; margin-bottom:6px; flex-wrap:wrap; }.dialogue-heading h2 { font-size:13px; }.dialogue-heading>span { display:none; }.dialogue-heading button { width:28px; height:28px; font-size:20px; }.dialogue-body { display:block; }.dialogue-text { font-size:15px; line-height:1.75; max-height:none; overflow:visible; }.dialogue-options { margin-top:11px; }.dialogue-option { padding:8px 0; border-top:1px solid #8ba2c53d; min-height:49px; gap:8px; }.dialogue-option>span { font-size:13px; }.dialogue-option small { font-size:10px; }.dialogue-result { margin-top:12px; }.dialogue-next { min-height:40px; font-size:12px; }.rpg-title-subtitle { font-size:12px; letter-spacing:.12em; }.rpg-title small { font-size:10px; }
-}
-@media (orientation:landscape) and (max-height:600px) {
-  .rpg-hud { top:max(7px,env(safe-area-inset-top)); gap:10px; left:max(12px,env(safe-area-inset-left)); right:max(12px,env(safe-area-inset-right)); flex-wrap:nowrap; }.rpg-avatar { width:48px; height:53px; }.rpg-avatar img { width:470px; height:470px; left:-152px; }.rpg-vitals { width:200px; }.rpg-ap { margin:0; }.rpg-wallet { height:auto; min-width:130px; max-width:190px; flex-direction:column; gap:2px; }.rpg-location { top:74px; padding:4px 8px; display:flex; align-items:center; gap:8px; left:max(12px,env(safe-area-inset-left)); }.rpg-location small { display:none; }.rpg-location>span,.rpg-location b { font-size:11px; }.rpg-quest-button { top:74px; right:12px; }.rpg-quest-button button { min-height:31px; padding:4px 8px; font-size:11px; }.rpg-tools { top:120px; right:12px; gap:5px; flex-direction:row; }.rpg-tools button { width:39px; height:44px; }.rpg-controls { bottom:max(18px,env(safe-area-inset-bottom)); left:28px; right:28px; }.joystick { width:94px; height:94px; }.joystick-knob { width:40px; height:40px; }.joystick-cross { width:65px; height:65px; }.rpg-interact { width:77px; height:77px; }.rpg-nearby { bottom:26px; font-size:12px; }.rpg-controls-hint { display:none; }.rpg-dialogue { bottom:max(9px,env(safe-area-inset-bottom)); min-height:142px; max-height:56dvh; }.rpg-dialogue .dialogue-portrait { width:110px; }.dialogue-portrait .portrait { min-height:145px; background-size:342.857% auto; }.dialogue-main { padding:9px 14px; max-height:54dvh; overflow:auto; }.dialogue-heading { margin-bottom:4px; }.dialogue-heading h2 { font-size:12px; }.dialogue-body { display:grid; gap:16px; grid-template-columns:1.15fr 1fr; }.dialogue-text { font-size:14px; line-height:1.65; }.dialogue-options { margin:0; }.dialogue-option { padding:5px 6px; min-height:37px; }.dialogue-option>span { font-size:12px; }.dialogue-option small { font-size:9px; }.rpg-title-menu { padding:4px 0; }.rpg-title-menu button { min-height:36px; padding:5px; font-size:14px; }.rpg-title-logo { font-size:54px; margin:0; }.rpg-title-subtitle { margin-bottom:12px; }.rpg-title small { margin-top:12px; font-size:9px; max-width:550px; }.rpg-title a { font-size:9px; margin-top:5px; }
 }
 @media (prefers-reduced-motion:reduce) { .rpg-meter i { transition:none; } }
 .reduce-motion .rpg-meter i { transition:none; }
@@ -144,6 +144,44 @@
   .dialogue-patient .patient-portrait { width:190%; }
 }
 @media (orientation:landscape) and (max-height:600px) {
+  .rpg-hud { top:max(6px,env(safe-area-inset-top)); gap:10px; left:max(12px,env(safe-area-inset-left)); right:max(12px,env(safe-area-inset-right)); flex-wrap:nowrap; }
+  .rpg-avatar { width:42px; height:47px; }
+  .rpg-avatar img { width:430px; height:430px; left:-139px; }
+  .rpg-vitals { width:195px; }
+  .rpg-ap { margin:0; height:45px; }
+  .rpg-wallet { height:45px; min-width:110px; max-width:190px; flex-direction:column; gap:2px; flex:0 1 170px; }
+  .rpg-location { top:61px; padding:4px 8px; display:flex; align-items:center; gap:8px; left:max(12px,env(safe-area-inset-left)); height:26px; }
+  .rpg-location small { display:none; }
+  .rpg-location>span,.rpg-location b { font-size:11px; }
+  .rpg-quest-button { top:61px; right:12px; }
+  .rpg-quest-button button { min-height:26px; padding:4px 8px; font-size:11px; }
+  .rpg-tools { top:120px; right:15px; gap:5px; flex-direction:column; left:auto; bottom:142px; transform:none; }
+  .rpg-tools button { width:39px; height:37px; font-size:15px; }
+  .rpg-controls { bottom:34px; left:13px; right:11px; }
+  .joystick { width:87px; height:87px; display:grid; }
+  .joystick-knob { width:40px; height:40px; }
+  .joystick-cross { width:65px; height:65px; }
+  .rpg-interact { width:79px; height:79px; border-radius:50%; }
+  .rpg-nearby { bottom:10px; font-size:11px; max-width:65%; }
+  .rpg-controls-hint { display:none; }
+  .rpg-dialogue { bottom:max(9px,env(safe-area-inset-bottom)); min-height:142px; max-height:56dvh; }
+  .rpg-dialogue .dialogue-portrait { width:110px; }
+  .dialogue-portrait .portrait { min-height:149px; background-size:342.857% auto; }
+  .dialogue-main { padding:9px 14px; max-height:54dvh; overflow:auto; }
+  .dialogue-heading { margin-bottom:4px; }
+  .dialogue-heading h2 { font-size:12px; }
+  .dialogue-body { display:grid; gap:16px; grid-template-columns:1.15fr 1fr; }
+  .dialogue-text { font-size:14px; line-height:1.65; }
+  .dialogue-options { margin:0; }
+  .dialogue-option { padding:5px 6px; min-height:37px; }
+  .dialogue-option>span { font-size:12px; }
+  .dialogue-option small { font-size:9px; }
+  .rpg-title-menu { padding:4px 0; }
+  .rpg-title-menu button { min-height:36px; padding:5px; font-size:14px; }
+  .rpg-title-logo { font-size:54px; margin:0; }
+  .rpg-title-subtitle { margin-bottom:12px; }
+  .rpg-title small { margin-top:12px; font-size:9px; max-width:550px; }
+  .rpg-title a { font-size:9px; margin-top:5px; }
   .world-guide .guide-milestones { display:none; }
   .world-guide .guide-strip-copy p { margin:0; }
   .world-guide .guide-strip { padding-block:4px; }
@@ -151,7 +189,17 @@
   .world-stage:not(.with-dialogue) .rpg-tools { top:calc(var(--hud-space) + var(--guide-space,0px) + 7px); bottom:auto; }
   .world-stage:not(.with-dialogue) .rpg-tools button:last-child { display:none; }
   .world-stage:not(.with-dialogue) .rpg-controls { bottom:15px; }
+  .world-stage { --hud-space:93px; --control-space:10px; }
+  .world-viewport { left:112px; right:103px; border:2px solid #71809b; }
+  .world-vignette { left:112px; right:103px; }
+  .rpg-tools span { font-size:9px; }
+  .world-stage.with-dialogue { --control-space:173px; }
+  .world-stage.with-dialogue .world-viewport,.world-stage.with-dialogue .world-vignette { left:0; right:0; }
+  .world-stage.with-dialogue .rpg-dialogue { height:151px; max-height:151px; bottom:10px; }
+  .world-stage.with-dialogue .dialogue-main { max-height:147px; }
+  .world-stage:not(.with-dialogue) .rpg-tools { top:calc(var(--hud-space) + var(--guide-space,0px) + 7px); bottom:112px; overflow-y:auto; overscroll-behavior:contain; touch-action:pan-y; justify-content:flex-start; padding-block:2px; }
+  .world-stage:not(.with-dialogue) .rpg-tools button { flex:0 0 44px; min-width:44px; min-height:44px; }
+  .world-stage:not(.with-dialogue) .rpg-tools button:last-child { display:flex; }
+  .world-stage:not(.with-dialogue) .rpg-tools span { font-size:11px; }
 }
-@media (orientation:landscape) and (max-height:600px) {
-  .world-stage { --hud-space:93px; --control-space:10px; }.world-viewport { left:112px; right:103px; border:2px solid #71809b; }.world-vignette { left:112px; right:103px; }.rpg-hud { top:max(6px,env(safe-area-inset-top)); gap:10px; }.rpg-avatar { width:42px; height:47px; }.rpg-avatar img { width:430px; height:430px; left:-139px; }.rpg-vitals { width:195px; }.rpg-ap { height:45px; }.rpg-wallet { flex:0 1 170px; min-width:110px; height:45px; }.rpg-location { top:61px; height:26px; }.rpg-quest-button { top:61px; }.rpg-quest-button button { min-height:26px; font-size:11px; }.rpg-controls { left:13px; right:11px; bottom:34px; }.joystick { width:87px; height:87px; display:grid; }.rpg-interact { width:79px; height:79px; border-radius:50%; }.rpg-tools { left:auto; right:15px; bottom:142px; transform:none; flex-direction:column; gap:5px; }.rpg-tools button { height:37px; width:39px; font-size:15px; }.rpg-tools span { font-size:9px; }.rpg-nearby { bottom:10px; max-width:65%; font-size:11px; }.world-stage.with-dialogue { --control-space:173px; }.world-stage.with-dialogue .world-viewport,.world-stage.with-dialogue .world-vignette { left:0; right:0; }.world-stage.with-dialogue .rpg-dialogue { height:151px; max-height:151px; bottom:10px; }.world-stage.with-dialogue .dialogue-main { max-height:147px; }.dialogue-portrait .portrait { min-height:149px; }.dialogue-text { font-size:14px; }.rpg-controls-hint { display:none; }
-}
+.clinical-step-warning { display:block; margin-top:.45rem; color:#f2ce8f; font-size:.86em; line-height:1.55; }

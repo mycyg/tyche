@@ -233,7 +233,7 @@ export function Dice({ roll, motion, toss, onToss, onDone, onImpact }: Props) {
         <canvas ref={canvas} width="280" height="240" aria-hidden="true" hidden={fallback} />
         {fallback && <span class="tyche-dice__fallback" aria-hidden="true">{settled ? roll.face : "?"}</span>}
       </button>
-      <p class="tyche-dice__hint">{settled ? "命运已定" : toss ? "等待骰子落定…" : "拖动松手甩出 · 也可点击骰子"}</p>
+      <p class="tyche-dice__hint">{settled ? "骰子点数已确定" : toss ? "等待骰子落定…" : "拖动松手甩出 · 也可点击骰子"}</p>
     </div>
   );
 }

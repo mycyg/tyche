@@ -10,3 +10,9 @@ artifacts/
 playwright-report/
 test-results/
 output/
+# generated / heavy sources kept local
+handoff-assets/**/*.png
+handoff-assets/**/*.wav
+handoff-assets/**/qa/
+public/audio/voice/
+tsconfig.tsbuildinfo

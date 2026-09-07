@@ -1,4 +1,5 @@
 import type { ComponentChildren } from "preact";
+import {version as gameVersion}from '../../package.json';
 import { useEffect, useRef, useState } from "preact/hooks";
 import {
   act,
@@ -9,8 +10,21 @@ import {
   upgrade,
 } from "../game/engine";
 import { auditScore, liability } from "../game/endings";
+import { ENDING_DEFINITIONS } from '../game/endings';
+import type { UpgradeKind } from '../game/engine';
 import { patientCase } from "../game/cards";
-import { actionMinutes, patientPayment, previewCheckModifier } from "../game/costs";
+import { actionMinutes, patientPayment, previewCheckModifier,previewCheckSources,checkDifficultySources,optionAp, checkDifficulty } from "../game/costs";
+import {CheckBreakdown}from './CheckBreakdown';
+import { talentContext, liveCap } from '../game/traits';
+import { talentRerollsRemaining, drawTalentPool, talentCheck } from '../game/talents';
+import { checkContext } from '../game/traits';
+import { patientCheckAdjustment } from '../game/patient-director';
+import { patientCheckParties } from '../game/patient-checks';
+import {clinicalActionHelp,clinicalChoiceHelp} from './clinical-help';
+import {paymentCopy} from './payment-copy';
+import {scheduledChoiceWork}from './scheduled-work';
+import {feedbackSource,feedbackVoiceActor}from './feedback-source';
+import {displayNumber}from '../game/display-number';
 import { CASES, DEBUFFS, TALENTS } from "../game/catalog";
 import {
   ACTORS,
@@ -19,7 +33,7 @@ import {
   SKILL_LABELS,
   VITAL_LABELS,
 } from "../game/rules";
-import { shuffled } from "../game/random";
+import { shuffled, random } from "../game/random";
 import {
   decode,
   emptySave,
@@ -36,31 +50,40 @@ import type {
   Run,
   Skill,
   Vital,
+  Patient,
 } from "../game/types";
 import { Dice } from "./Dice";
-import { cue } from "./audio";
+import { cue, bindAudioLifecycle, configureAudio, setMusicScene, narrate, narrateDialogue, stopVoice } from "./audio";
+import { dialogueSegments } from './dialogue-voice';
+import { clinicalVoiceActor } from './clinical-voice';
 import { registerGameTools } from "./WebMCP";
 import { WorldStage } from "../world/WorldStage";
+import { worldCoffeeOffering,worldNapOffering } from '../world/refreshments';
 import { walkable } from "../world/navigation";
 import { Bedside, PatientPortrait } from "../world/Bedside";
+import {incomeCoverage}from '../game/income-coverage';
 import { RecordBook, type RecordPage } from "./RecordBook";
-import { TALENT_GUIDE } from "./copy";
-import { GuideSteps, GuideManual, initialGuideState, parseGuide, reduceGuide, type GuideEvent } from "./Guide";
+import { TALENT_GUIDE, choiceResourceCopy, visibleChoiceEffects } from "./copy";
+import { GuideSteps, GuideManual, ContextGuide, initialGuideState, parseGuide, reduceGuide, type GuideEvent } from "./Guide";
+import { Schedule } from './Schedule';
+import { ArchiveLibrary } from './ArchiveLibrary';
+import { patientAgeLabel } from '../content/clinical/identity';
+import { operationCheckPurpose } from '../content/clinical/check-copy';
 
 const money = (n: number) => `¥${Math.round(n).toLocaleString("zh-CN")}`;
 const dayName = (n: number) =>
-  n === 15 ? "鉴定庭" : `第 ${String(n).padStart(2, "0")} 天`;
+  n === 15 ? "医疗纠纷复核" : `第 ${String(n).padStart(2, "0")} 天`;
 const KIND = {
   clinical: "接诊",
   ward: "病区",
   story: "来访",
   quick: "门诊",
   night: "夜班",
-  rest: "交班之后",
+  rest: "日终",
   audit: "旧事回院",
 };
 const FICTION =
-  "本作人物、医院、制度、病例与结局均为虚构，不构成医疗、法律或财务建议。含医疗事故、债务、精神崩溃与刑事判决情节。";
+  "本作人物、医院、制度、病例与结局均为虚构，不构成医疗、法律或财务建议。含医疗事故、债务、抑郁、精神崩溃与刑事判决情节。";
 function deviceStorage() {
   try {
     return window.localStorage;
@@ -128,6 +151,7 @@ function Portrait({
 }) {
   const data = ACTORS[actor];
   if (!data) return null;
+  if(data.portrait==='mother')return <div class={`portrait ${small?'portrait-small':''}`} role="img" aria-label="母亲，来电" style={{backgroundImage:`url(${import.meta.env.BASE_URL}art/mother.webp)`,backgroundSize:'cover',backgroundPosition:'center top'}} />;
   const map: Record<string, [string, string]> = {
     tang: ["a", "2.94%"],
     jiang: ["a", "50%"],
@@ -153,13 +177,13 @@ function Portrait({
 function Title({ save, begin, resume, archive, settings }: { save: Save; begin: () => void; resume: () => void; archive: () => void; settings: () => void }) {
   const active = save.run && save.run.phase !== 'ending';
   return <main class="rpg-title"><div class="rpg-title-background" aria-hidden="true" />
-    <div class="rpg-title-content"><h1 class="rpg-title-logo">TYCHE</h1><p class="rpg-title-subtitle">十四天轮转。第十五天，鉴定庭。</p>
+    <div class="rpg-title-content"><h1 class="rpg-title-logo">TYCHE</h1><p class="rpg-title-subtitle">你是一名住院医师，今天起要接手病区的诊疗和值班工作。<br/>十四天后，患者的结局和你的处置记录会一起接受复核。</p>
       <nav class="rpg-title-menu" aria-label="主菜单">
-        {active && <button onClick={resume}>继续轮转 · 第 {save.run!.day} 天</button>}
-        <button onClick={begin}>新的轮转</button>
+        {active && <button aria-label={`继续轮转 · 第 ${save.run!.day} 天`} onClick={resume}>继续轮转 · 第 {save.run!.day} 天</button>}
+        <button aria-label="新的轮转" onClick={begin}>新的轮转</button>
         {save.run?.phase === 'ending' && <button onClick={resume}>上一份结局</button>}
-        <button onClick={archive}>轮回档案</button><button onClick={settings}>设置与存档</button>
-      </nav><small>{FICTION}</small><a href="https://github.com/mycyg/tyche" target="_blank" rel="noreferrer">GitHub · MIT</a>
+        <button onClick={archive}>结局与成长</button><button onClick={settings}>设置与存档</button>
+      </nav><small>{FICTION}</small><a href="https://github.com/mycyg/tyche" target="_blank" rel="noreferrer">GitHub · MIT · v{gameVersion}</a>
     </div></main>;
 }
 
@@ -186,12 +210,10 @@ function Setup({
   const [picks, setPicks] = useState<string[]>([]),
     [redraws, setRedraws] = useState(0),
     [difficulty, setDifficulty] = useState<Run["difficulty"]>("rotation");
-  const talentOrder = shuffled(
-    TALENTS,
-    seed,
-    `talents:${redraws}`,
-  );
-  const offered=talentOrder.filter((t) => !picks.includes(t.id)).slice(0, 6 - picks.length);
+  let draw=0;
+  const slots=meta.fourthSlot?4:3,maxRedraws=5+(meta.extraRedraws??0);
+  const talentOrder=drawTalentPool(()=>random(seed,`talents:${redraws}:${draw++}`),TALENTS.length).map(id=>TALENTS.find(t=>t.id===id)!);
+  const offered=talentOrder.filter((t) => !picks.includes(t.id)).slice(0, 9 - picks.length);
   const cards = [
     ...picks.map((id) => TALENTS.find((t) => t.id === id)!),
     ...offered,
@@ -199,7 +221,7 @@ function Setup({
   function toggle(id: string) {
     if (picks.includes(id)) setPicks(picks.filter((x) => x !== id));
     else if (
-      picks.length < 3 &&
+      picks.length < slots &&
       picks.filter(
         (x) =>
           TALENTS.find((t) => t.id === x)!.family ===
@@ -219,9 +241,9 @@ function Setup({
       <div class="setup-intro">
         <div>
           <p class="eyebrow">BEFORE THE FIRST SHIFT</p>
-          <h1>你的名字在值班表上。</h1>
+          <h1>今天开始，你管这组病人。</h1>
           <p>
-            「先从五床看起。这层楼，你得接住。」
+            「先到护士站交班，核对哪几床还需要处理。有情况叫二线，别自己硬扛。」
             <br />
             唐济指了一下护士站，转身去了办公室。
           </p>
@@ -256,20 +278,20 @@ function Setup({
             }
           >
             <option value="rotation">住院医 · 高难度</option>
-            <option value="attending">主治 · 检定难度 +2</option>
+            <option value="attending" disabled={!meta.attendingUnlocked}>{meta.attendingUnlocked?'主治 · 检定难度 +2，经验 ×1.5':'主治 · 在永久成长中用 20 悟性解锁'}</option>
           </select>
         </label>
       </div>
       <div class="section-line">
-        <h2>带上什么，留下什么</h2>
-        <span>天赋 {picks.length} / 3</span>
+        <h2>选择你的天赋</h2>
+        <span>天赋 {picks.length} / {slots}</span>
       </div>
-      <p class="muted small">选三项本领带进这次轮转，同类最多两项。点「选入」后仍可取消；重抽只更换未选中的天赋。</p>
+      <p class="muted small">从九张卡里最多选三项本领{meta.fourthSlot?'，也可以带上第四项':''}，同类最多两项。每项都有代价，请看清本领与限制。选入后仍可取消；重抽只更换未选中的卡。</p>
       <div class="talent-grid">
         {cards.map((t) => {
           const picked=picks.includes(t.id), explanation=TALENT_GUIDE[t.id];
           const familyFull=picks.filter(id=>TALENTS.find(t=>t.id===id)?.family===t.family).length>=2;
-          const blocked=!picked&&(picks.length>=3||familyFull);
+          const blocked=!picked&&(picks.length>=slots||familyFull);
           return <article
             key={t.id}
             class={`talent-card ${picked ? "chosen" : ""}`}
@@ -279,25 +301,25 @@ function Setup({
               <span>{picked ? "■ 已选入" : ""}</span>
             </span>
             <h3>{t.name}</h3>
-            <p class="talent-summary">{explanation?.summary??t.benefit}</p>
+            {explanation?.summary&&explanation.summary!==t.benefit&&<p class="talent-summary">{explanation.summary}</p>}
             <p class="talent-benefit"><b>本领</b> {t.benefit}</p>
             <p class="price"><b>代价</b> {t.price}</p>
             {explanation && <details class="talent-details"><summary>具体会怎样？</summary><p>{explanation.use}</p><p>{explanation.tradeoff}</p></details>}
-            <button class="talent-select" aria-pressed={picked} disabled={blocked} onClick={()=>toggle(t.id)}>{picked?'取消选择':blocked?familyFull?'同类已选满两项':'已选满三项':'选入'}<span class="sr-only"> · {t.name}</span></button>
+            <button class="talent-select" aria-pressed={picked} disabled={blocked} onClick={()=>toggle(t.id)}>{picked?'取消选择':blocked?familyFull?'同类已选满两项':'天赋槽已满':'选入'}<span class="sr-only"> · {t.name}</span></button>
           </article>;
         })}
       </div>
       <div class="setup-footer">
         <button
           class="secondary"
-          disabled={redraws >= 5}
+          disabled={redraws >= maxRedraws}
           onClick={() => setRedraws(redraws + 1)}
         >
-          重抽未锁定项 · {5 - redraws}
+          重抽未锁定项 · 剩 {maxRedraws - redraws} 次
         </button>
         <button
           class="primary"
-          disabled={picks.length !== 3 || !seed.trim()}
+          disabled={picks.length < 3 || picks.length>slots || !seed.trim()}
           onClick={() => begin(name, seed, picks, difficulty)}
         >
           接过胸牌 →
@@ -306,12 +328,12 @@ function Setup({
       <details class="help">
         <summary>上班之前</summary>
         <p>
-          每天 10 行动值。最多预支明天 4 点，每点使三项上限各扣
-          1。行动值不够仍能继续，每点透支扣 5 体力，并使三项上限各扣
-          2。第十四天不能预支。
+          你每天有 10 点基础行动值，最多预支明天的 4 点。每预支一点，体力、精神和情绪上限各减
+          1 点。行动值不足时仍可继续处置，但每透支一点，就扣 5 点体力，三项上限还会各减
+          2 点。第十四天不能预支。
         </p>
         <p>
-          病组预算以病人为单位结算，超支部分由你垫付。借贷按日计息，连续两天收入不够支付利息会结束本局。私人借款单列，不会自动免除。
+          病组预算以病人为单位结算，超支部分由你垫付。借贷按日计息，连续两次结算时，近期实际日均收入都不够支付当天利息，会结束本局。私人借款单列，不会自动免除。
         </p>
         <p>
           住院时间会带来费用与床位压力。未排除风险就出院，可能导致患者回院、家属录音与举报。
@@ -321,7 +343,7 @@ function Setup({
           选两项，掷出 20 可解除一项可恢复状态。
         </p>
         <p>
-          SAN、体力、情绪归零有不同后果。来到鉴定庭后，隐患与对应责任公开。结局解锁带来经验，用于下一周目的属性成长。
+          体力、精神和情绪分别记录，各自影响你的工作。状态耗尽会中断值班，甚至结束本局；十四天后将复核本局的处置与病历。探索病例和不同结局可获得经验，提高以后新局的能力。
         </p>
         <p>已有经验 {meta.xp}。姓名只保存在当前设备，不上传。</p>
       </details>
@@ -339,8 +361,8 @@ function Stats({ r }: { r: Run }) {
           <div>
             <span>{VITAL_LABELS[key]}</span>
             <span class="mono">
-              {r.vitals[key]}
-              <small>/{r.caps[key]}</small>
+              {displayNumber(r.vitals[key])}
+              <small>/{displayNumber(r.caps[key])}</small>
             </span>
           </div>
           <div
@@ -379,7 +401,7 @@ function Board({ r }: { r: Run }) {
               <div class="bed-heading">
                 <span class="bed-number">{p.bed ? `${p.bed} 床` : "加床"}</span>
                 <span>
-                  {c.age<1?'婴儿':`${c.age} 岁`} · {c.sex}
+                  {patientAgeLabel(c.age)} · {c.sex}
                 </span>
                 {over && <b>超期</b>}
               </div>
@@ -432,96 +454,119 @@ function Cost({
   r: Run;
   detail?: boolean;
 }) {
-  const overflow = Math.max(0, o.ap - r.ap);
   const card = currentCard(r);
+  const ap = optionAp(r,o,card);
   const patient = r.patients.find(p => p.uid === card?.patientId);
   const payment = patient ? patientPayment(r, patient, o) : undefined;
   const minutes = actionMinutes(r, o, card);
+  const visibleEffects=visibleChoiceEffects(r,o.effects,card);
   return (
     <div class="choice-cost">
-      <span>{o.ap > 0 ? `消耗 ${o.ap} 行动` : "不消耗行动"}</span>
+      <span>{card?.kind === 'night' ? '夜班 · 按分钟计时' : ap > 0 ? `消耗 ${ap} 点行动值` : "不消耗行动"}</span>
       {minutes > 0 && <span>耗时 {minutes} 分钟</span>}
+      {choiceResourceCopy(r,o,card).map((row,i)=><span key={`resource-${i}`} class={row.danger?'danger':''}>{row.text}</span>)}
+      {scheduledChoiceWork(r,o).map((text,i)=><span key={`scheduled-${i}`} class="danger">{text}</span>)}
       {payment && payment.treatment > 0 && <span>诊疗记账 {money(payment.treatment)}</span>}
       {payment && (payment.treatment > 0 || payment.personal > 0) && <span class={payment.personal ? "danger" : ""}>{o.check && o.effects.bill ? "审核通过后自付" : "本次自付"} {money(payment.personal)}</span>}
-      {!!o.effects.cash && (
-        <span class={o.effects.cash < 0 ? "" : "positive"}>
-          个人余额 {o.effects.cash > 0 ? "+" : "−"}
-          {money(Math.abs(o.effects.cash))}
+      {!!visibleEffects.cash && (
+        <span class={visibleEffects.cash < 0 ? "danger" : "positive"}>
+          {o.check&&card&&'authoredEventId'in card?'通过后个人余额':'个人余额'} {visibleEffects.cash > 0 ? "+" : "−"}
+          {money(Math.abs(visibleEffects.cash))}
         </span>
       )}
-      {!!o.effects.income && <span>收入 +{money(o.effects.income)}</span>}
+      {!!visibleEffects.income && <span>{o.check?'通过后收入':'收入'} +{money(visibleEffects.income)}{r.debt>0?'（先还信用债）':''}</span>}
       {o.check && (
         <span class="check-tag">
-          {SKILL_LABELS[o.check.skill]}检定
+          {o.chanceCheck?'事件概率掷骰':`${SKILL_LABELS[o.check.skill]}检定`}
         </span>
       )}
-      {overflow > 0 && (
-        <span class="danger">
-          透支 {overflow} 点
-          {detail
-            ? ` · 体力 −${overflow * RULES.overtimeStamina} · 三项上限各 −${overflow * RULES.overtimeCapLoss}`
-            : ""}
-        </span>
-      )}
+      {detail&&<span>「操作体力」与行动值分别扣除；标注「另扣」的代价还要相加。</span>}
     </div>
   );
 }
 function CheckPreview({ o, r }: { o: Option; r: Run }) {
   if (!o.check) return null;
-  const check = o.check, modifier = previewCheckModifier(r,o,currentCard(r));
-  const clinical = ["clinical", "night"].includes(currentCard(r)?.kind ?? "");
-  const purpose = check.purpose ?? (clinical
-    ? "能否一次完成这次核查"
-    : ({ observe:"能否发现对方遗漏的信息",clinical:"能否按计划完成处置",record:"材料能否通过审核",persuade:"对方是否接受这项请求",comfort:"对方是否接受你的解释",endure:"能否承受这一轮压力" }[check.skill]));
+  if(o.chanceCheck)return <section class="check-explanation" aria-label="事件概率掷骰"><h3>事件概率掷骰</h3><p>掷一枚二十面骰。点数达到 {o.chanceCheck.successAtLeast} 就通过，通过概率为 {(21-o.chanceCheck.successAtLeast)*5}%。</p><p class="small muted">这次只看骰子点数，不加能力，不触发大成功或大失败，也不能使用重掷。</p><p class="check-stakes"><b>未通过：</b>{o.check.failureHint??o.check.failureText}</p></section>;
+  const check = o.check,card=currentCard(r),modifier = previewCheckModifier(r,o,card);
+  const patient=r.patients.find(p=>p.uid===card?.patientId),adjustment=patient?patientCheckAdjustment(r,patient,o):undefined;
+  const checkRules=talentCheck(talentContext(r),{...checkContext(r,card,o),advantage:adjustment?.advantage,disadvantage:adjustment?.disadvantage});
+  const purpose = operationCheckPurpose(o);
   return <section class="check-explanation" aria-label="检定规则">
     <h3>{SKILL_LABELS[check.skill]}检定 · {purpose}</h3>
-    <p>掷一枚二十面骰，得到 1—20 点。<strong>点数 {modifier >= 0 ? "+" : "−"} {Math.abs(modifier)} ≥ {check.dc + (r.difficulty === "attending" ? 2 : 0)}</strong> 就通过。</p>
-    <p class="small muted">{SKILL_LABELS[check.skill]}加成 {modifier >= 0 ? "+" : ""}{modifier}。掷出 20 必过，掷出 1 必败。{check.skill === "comfort" && r.debuffs.includes("B11") ? "录音焦虑：掷两次，取较低点数。" : ""}</p>
-    <p class="check-stakes"><b>未通过：</b>{check.failureHint ?? (clinical ? "仍会完成所选行动，但额外消耗 1 行动和 3 体力。" : check.failureText)}</p>
+    {adjustment?.automaticFailure?<p class="warning-line">患者无法独立提供可靠病史，现场没有可以核实的陪同者。这种问法无法取得可靠信息，掷出 20 也不会凭空得到答案。</p>:<><p>掷一枚二十面骰，得到 1—20 点。<strong>点数 {modifier >= 0 ? "+" : "−"} {Math.abs(modifier)} ≥ {checkDifficulty(r,o,card)}</strong> 就通过。</p>
+    <p class="small muted">{SKILL_LABELS[check.skill]}加成 {modifier >= 0 ? "+" : ""}{modifier}。掷出 20 必过，{r.talents.includes('T22')?'你的天赋使 1 和 2 都算大失败':'掷出 1 必败'}。{checkRules.advantage?'本次有优势：掷两次，取较高点数。':checkRules.disadvantage?'本次有劣势：掷两次，取较低点数。':''}</p></>}
+    {patientCheckParties(r,patient,o)&&<p>现场有两拨家属，双方要分别检定，均通过才算取得同意。有一方通过，不代表另一方同意；重掷会同时重掷双方的点数。</p>}
+    <CheckBreakdown modifiers={previewCheckSources(r,o,card)} difficulty={checkDifficultySources(r,o,card)}/>
+    {!!checkRules.reasons.length&&<p class="small muted">{checkRules.reasons.join('；')}。</p>}
+    <p class="check-stakes"><b>未通过：</b>{check.failureHint ?? check.failureText}</p>
+    <p class="small muted">{check.skill==='endure'?`抗压大失败另扣 ${RULES.critical.sanLoss} 点精神。`:'大失败还会留下本次诊疗、沟通或记录的额外缺项。'}掷骰、接受点数及执行选择合算一次费用；重掷不再另收行动和费用。</p>
   </section>;
 }
 function PaymentPreview({ o, r }: { o: Option; r: Run }) {
   const patient = r.patients.find(p => p.uid === currentCard(r)?.patientId);
   if (!patient || (!o.cost && !o.effects.bill)) return null;
-  const payment = patientPayment(r, patient, o);
+  const {payment,allowance,cash,approval} = paymentCopy(r, patient, o);
   return <section class="payment-explanation" aria-label="费用去向">
     <h3>费用去向 · {patient.name}</h3>
-    <p>患者累计诊疗费 {money(patient.spent)} → {money(payment.spent)}<br />病组预算 {money(patient.budget)}{payment.budget !== patient.budget && ` → ${money(payment.budget)}（审核通过后）`}</p>
-    <p>{payment.personal > 0 ? `超出预算的部分由你承担，本次从个人余额扣 ${money(payment.personal)}。` : payment.refund > 0 ? `审核通过后退还已垫费用 ${money(payment.refund)}。` : "费用仍在预算内，本次不扣个人余额。"}</p>
-    <small>诊疗费计入该患者的病组账本，不是医生收入。{o.check && o.effects.bill ? "若审核未通过，维持原预算。" : ""}</small>
+    <p>患者累计诊疗费 {money(patient.spent)} → {money(payment.spent)}<br />病组基础预算 {money(patient.budget)}<br />{allowance}</p>
+    <p>{cash}</p>
+    <small>诊疗费计入该患者的病组账本，不是医生收入。{approval ? "若申请未通过，不追加预算。" : ""}</small>
   </section>;
 }
-function Dialogue({ actor, title, text, close, children, patient }: { actor?: string; title: string; text: string; close?: () => void; children?: ComponentChildren; patient?:{caseId:string;name:string} }) {
+function Dialogue({ actor, title, text, close, children, patient, speechActor }: { actor?: string; title: string; text: string; close?: () => void; children?: ComponentChildren; patient?:Patient;speechActor?:string }) {
   const el = useRef<HTMLElement>(null);
-  useEffect(() => { const listener = (e: KeyboardEvent) => { if(e.key === 'Escape' && close) { e.preventDefault(); e.stopPropagation(); close(); } }; const first = el.current?.querySelector<HTMLElement>('button'); first?.focus({preventScroll:true}); window.addEventListener('keydown',listener); return () => window.removeEventListener('keydown',listener); }, []);
+  const voiceActor=speechActor??actor??(patient?clinicalVoiceActor(patient.caseId,patientCase(patient).sex):'narrator');
+  const speech=dialogueSegments(text,voiceActor);
+  useEffect(() => { void narrateDialogue(text, voiceActor); return stopVoice; }, [text, voiceActor]);
+  useEffect(() => { const listener = (e: KeyboardEvent) => { if(e.defaultPrevented||document.querySelector('dialog[open]'))return;if(e.key === 'Escape' && close) { e.preventDefault(); e.stopPropagation(); close(); } }; const first = el.current?.querySelector<HTMLElement>('button'); first?.focus({preventScroll:true}); window.addEventListener('keydown',listener); return () => window.removeEventListener('keydown',listener); }, []);
   return <section class="rpg-dialogue" ref={el} role="dialog" aria-label={title}>
-    {actor && ACTORS[actor] ? <div class="dialogue-portrait"><Portrait actor={actor} /></div> : patient && <div class="dialogue-portrait dialogue-patient"><PatientPortrait caseId={patient.caseId} name={patient.name} /></div>}
-    <div class="dialogue-main"><div class="dialogue-heading"><h2>{actor && ACTORS[actor] ? ACTORS[actor].name : title}</h2>{actor && <span>{title}</span>}{close && <button onClick={close} aria-label="结束交谈">×</button>}</div>
-      <div class="dialogue-body"><p class="dialogue-text">{text}</p><div>{children}</div></div>
+    {actor && ACTORS[actor] ? <div class="dialogue-portrait"><Portrait actor={actor} /></div> : patient && <div class="dialogue-portrait dialogue-patient"><PatientPortrait caseId={patient.caseId} name={patient.name} patient={patient} /></div>}
+    <div class="dialogue-main"><div class="dialogue-heading"><h2>{title}</h2>{actor && ACTORS[actor] && <span>{ACTORS[actor].name}</span>}<button class="voice-replay" onClick={()=>void narrateDialogue(text, voiceActor)} aria-label="重听这段话">重听</button>{close && <button onClick={close} aria-label="结束交谈">×</button>}</div>
+      <div class="dialogue-body"><p class="dialogue-text">{speech.map((part,i)=><span key={i} class={part.speaker==='narrator'?'dialogue-narration':'dialogue-speech'}>{part.text}</span>)}</p><div>{children}</div></div>
     </div></section>;
 }
 function RpgScene({ r, onSelect, close, records }: { r:Run; onSelect:(id:string)=>void; close:()=>void; records:()=>void }) {
   const card = currentCard(r); if(!card) return null;
   const patient = r.patients.find(p=>p.uid === card.patientId);
+  const help=clinicalActionHelp(r,card);
   return <Dialogue actor={card.actor} patient={patient} title={patient ? patient.name+' · '+card.title : card.title} text={card.text} close={close}>
-    <div class="dialogue-options">{availableOptions(r).map((o,i)=><button class="dialogue-option" key={o.id} onClick={()=>onSelect(o.id)}><b>{i+1}</b><span>{o.label}<Cost o={o} r={r} /></span></button>)}</div>
+    {help&&<aside class="clinical-action-help" aria-label="本组操作说明"><strong>本组操作</strong><p>{help}</p></aside>}
+    <div class="dialogue-options">{availableOptions(r).filter(o=>o.interaction!=='graph-continue').map((o,i)=><button class="dialogue-option" key={o.id} onClick={()=>onSelect(o.id)}><b>{i+1}</b><span>{o.label}<Cost o={o} r={r} /><ClinicalChoiceNotice r={r} o={o}/></span></button>)}</div>
+    {availableOptions(r).filter(o=>o.interaction==='graph-continue').map(o=><button class="dialogue-next graph-continue" key={o.id} onClick={()=>onSelect(o.id)}>{o.label} ▸</button>)}
     {patient && <button class="dialogue-record" onClick={records}>翻开床头病历夹</button>}
   </Dialogue>;
+}
+function ClinicalChoiceNotice({r,o}:{r:Run;o:Option}) {
+  const text=clinicalChoiceHelp(r,currentCard(r),o);
+  return text?<small class="clinical-step-warning">{text}</small>:null;
+}
+function RecoveryPrompt({r,action,close,confirm}:{r:Run;action:'coffee'|'nap';close:()=>void;confirm:()=>void}) {
+  const offer=action==='coffee'?worldCoffeeOffering(r):worldNapOffering(r);
+  const text=[offer.text,`现在体力 ${r.vitals.stamina}/${liveCap(r,'stamina')}。恢复不超过上限，也不会补回行动值或已经降低的上限。`].join('\n');
+  useEffect(()=>{void narrate(text);return stopVoice;},[text]);
+  return <Modal title={action==='coffee'?'值班室 · 咖啡':'值班室 · 午睡'} close={close}>
+    <p class="feedback-text">{text}</p>
+    {action==='coffee'&&r.cash<worldCoffeeOffering(r).price&&<p class="warning-line">个人余额不足，确认购买后需要另行处理支付缺口，不会自动替你贷款。</p>}
+    <div class="modal-actions"><button class="secondary" onClick={close}>先不使用</button><button class="primary" disabled={!offer.allowed||r.phase!=='play'} onClick={confirm}>{action==='coffee'?'确认购买这一杯':'确认午睡'}</button></div>
+  </Modal>;
 }
 
 function RollView({
   r,
   done,
+  reroll,
   motion,
   sound,
 }: {
   r: Run;
   done: () => void;
+  reroll: () => void;
   motion: boolean;
   sound: boolean;
 }) {
   const [toss, setToss] = useState<{x:number;y:number} | null>(null),
     [settled, setSettled] = useState(false);
+  const [partyIndex,setPartyIndex]=useState(0);
   const thrown = useRef(false);
   const cast = !!toss;
   function throwDice(velocity = {x:.6,y:-.9}) {
@@ -530,25 +575,29 @@ function RollView({
     cue(sound,"dice");
     setToss(velocity);
   }
-  const roll = r.roll!;
+  const overall = r.roll!,party=overall.group?.members[partyIndex];
+  const roll = party?{...overall,...party,second:party.dice[1],advantage:party.mode==='advantage'}:overall;
+  const moreParties=!!overall.group&&partyIndex<overall.group.members.length-1;
+  function nextParty(){thrown.current=false;setToss(null);setSettled(false);setPartyIndex(partyIndex+1);}
   return (
     <Modal title={roll.label}>
       <div class="roll-content">
         <p class="eyebrow">
-          {roll.kind === "day" ? `${dayName(r.day)} / 结束检定` : "命运检定"}
+          {party?`多人安抚 · ${party.party}（${partyIndex+1}/2）`:roll.kind === "day" ? `${dayName(r.day)} / 日终检定` : roll.chance?'事件概率掷骰':"能力检定"}
         </p>
-        <Dice roll={roll} motion={motion && !settled} toss={toss}
+        <Dice key={`${overall.id}:${overall.revision??0}:${partyIndex}`} roll={roll} motion={motion && !settled} toss={toss}
           onToss={throwDice} onImpact={()=>cue(sound,"dice")}
           onDone={() => setSettled(true)} />
         <div class="roll-math">
           <span>{settled ? roll.face : "骰子点数"}</span>
-          <span>
+          {!roll.chance&&<span>
             {roll.modifier >= 0 ? "+" : "−"} {Math.abs(roll.modifier)}
-          </span>
+          </span>}
           <span>{settled && roll.face+roll.modifier<roll.dc?'＜':'≥'}</span>
           <b>{roll.dc}</b>
         </div>
-        <p class="muted small">二十面骰：1—20 点；加成后达到门槛就通过。<br />掷出 20 必过 · 掷出 1 必败</p>
+        <p class="muted small">{roll.chance?`只看自然点数，达到 ${roll.dc} 即通过。通过概率 ${(21-roll.dc)*5}%，本次不能重掷。`:roll.blockedReason??<>二十面骰：1—20 点；加成后达到门槛就通过。<br />掷出 20 必过 · {r.talents.includes('T22')?'你的「再来一次」让 1 和 2 都算大失败':'掷出 1 必败'}</>}</p>
+        {!roll.chance&&<CheckBreakdown modifiers={roll.modifierSources} difficulty={roll.difficultySources}/>}
         {settled && (
           <div
             class={`roll-result ${roll.success ? "positive" : "danger"}`}
@@ -556,9 +605,9 @@ function RollView({
           >
             <b>{roll.face}</b>
             <span>
-              {roll.face === 20
+              {roll.chance?(roll.success?'通过':'未通过'):roll.blockedReason?'缺少可靠信息来源':roll.critical==='success'||roll.face===20&&roll.success
                 ? "大成功"
-                : roll.face === 1
+                : roll.critical==='failure'||roll.face === 1
                   ? "大失败"
                   : roll.success
                     ? "成功"
@@ -566,10 +615,11 @@ function RollView({
             </span>
             <small>
               总值 {roll.face + roll.modifier} / 难度 {roll.dc}
-              {roll.second !== undefined ? " · 安抚取低" : ""}
+              {roll.second !== undefined ? roll.advantage?' · 优势：两次取高':' · 劣势：两次取低' : ""}
             </small>
           </div>
         )}
+        {overall.group&&<div class="small" aria-label="两拨家属的意见">{overall.group.members.map((member,index)=><p key={member.party}>{member.party}：{index<partyIndex||index===partyIndex&&settled?`${member.success?'同意':'尚未同意'} · 骰点 ${member.dice.join('、')}${member.mode==='advantage'?'（取高）':member.mode==='disadvantage'?'（取低）':''}，能力修正 ${member.modifier>=0?'+':''}${member.modifier}，要求 ${member.dc}`:'等待掷骰'}</p>)}{settled&&!moreParties&&<p class={overall.success?'positive':'danger'}>{overall.success?'双方均已同意。':'仍有家属未同意，不能按达成一致处理。'}</p>}</div>}
         {!cast ? (
           <button
             class="primary full"
@@ -580,9 +630,9 @@ function RollView({
             掷二十面骰
           </button>
         ) : settled ? (
-          <button class="primary full" onClick={done}>
-            接受结果 →
-          </button>
+          <><button class="primary full" onClick={moreParties?nextParty:done}>
+            {moreParties?'继续与第二拨家属沟通 →':'接受结果 →'}
+          </button>{!moreParties&&!roll.chance&&!roll.blockedReason&&r.pendingCheck&&(talentRerollsRemaining(talentContext(r))+(r.metaRerolls??0)>0)&&<button class="secondary full" onClick={reroll}>{overall.group?'使用 1 次重掷 · 双方都重新掷骰':'使用 1 次重掷 · 必须接受新点数'}</button>}</>
         ) : (
           <button class="secondary full" onClick={() => setSettled(true)}>
             直接看点数
@@ -600,7 +650,7 @@ function Dossier({ r, compact = false }: { r: Run; compact?: boolean }) {
     <div class="dossier">
       <div class="dossier-totals">
         <span>
-          审查值 <b>{auditScore(r)}</b>
+          复核风险 <b>{auditScore(r)}</b>
         </span>
         <span>
           隐患 <b>{r.hazards.length}</b>
@@ -641,13 +691,13 @@ function Dossier({ r, compact = false }: { r: Run; compact?: boolean }) {
             {hs.map((h) => (
               <div class="hazard" key={h.id}>
                 <span class="hazard-day">
-                  D{String(h.day).padStart(2, "0")} · {h.type} {h.weight}
+                  第 {h.day} 天 · {{R:'诊疗',C:'沟通',D:'病历',F:'费用'}[h.type]}风险 {h.weight}
                 </span>
                 <h4>{h.reason}</h4>
                 <p>当时的选择：{h.choice}</p>
                 <p class="norm">制度依据：{h.norm}</p>
                 {h.causal && (
-                  <small>因果事项 · 仍与本名患者的实际结局对应</small>
+                  <small>这一事项需要结合该患者的实际损害判断责任。</small>
                 )}
               </div>
             ))}
@@ -660,12 +710,11 @@ function Dossier({ r, compact = false }: { r: Run; compact?: boolean }) {
 function Tribunal({ r, dispatch }: { r: Run; dispatch: (a: Action) => void }) {
   return (
     <main class="tribunal-page">
-      <p class="eyebrow">DAY 15 / THE INQUIRY</p>
-      <h1>现在，逐条读出。</h1>
+      <p class="eyebrow">第十五天 · 医疗纠纷复核</p>
+      <h1>核对这十四天的处置</h1>
       <p class="tribunal-lead">
-        桌上没有骰盅。只有这一轮留下的记录。
-        <br />
-        有关同事、项目和病人的材料，分卷放在你面前。
+        医务科把相关病历、费用记录和同事说明放在你面前。
+        需要核对的事项已经逐项列出。
       </p>
       <Dossier r={r} />
       <section class="last-question">
@@ -710,6 +759,7 @@ function EndingView({
   share: () => void;
 }) {
   const e = r.ending!;
+  useEffect(()=>{void narrate([e.title,e.decision,e.epilogue,...e.annexes].join('\n'));return stopVoice;},[e.id]);
   return (
     <main class="ending-page">
       <div class="ending-room" aria-hidden="true" />
@@ -728,11 +778,14 @@ function EndingView({
         <div class="epilogue">{e.epilogue}</div>
         {r.roll?.kind === "tribunal" && (
           <p class="court-roll">
-            立案 d20：{r.roll.face} / 门槛 {r.roll.dc} ·{" "}
+            刑事程序检定：骰点 {r.roll.face} / 要求 {r.roll.dc} ·{" "}
             {r.roll.success ? "未移交刑事程序" : "移交刑事程序"}
           </p>
         )}
-        <footer>本作人物、机构、制度、病例与结局均属虚构。</footer>
+        <footer>
+          <p>本作人物、机构、制度、病例与结局均属虚构。</p>
+          {['X20','X21','X22','X23','X24','X25','X26'].includes(e.id)&&<p>参考资源 · <a href="https://www.nhc.gov.cn/yzygj/c100068/202412/49a1a65386cd4be582d4702fd0926ee8.shtml" target="_blank" rel="noopener noreferrer">全国统一心理援助热线 12356</a></p>}
+        </footer>
       </article>
       {e.annexes.length > 0 && (
         <section class="annexes">
@@ -811,32 +864,9 @@ function Archive({
   change,
 }: {
   meta: Meta;
-  change: (kind: "skill" | "cap" | "cash", key?: string) => void;
+  change: (kind: UpgradeKind, key?: string) => void;
 }) {
-  const names: Record<string, string> = {
-    X01: "一年",
-    X02: "缓刑",
-    X06: "统方",
-    X07: "暂停执业",
-    X09: "追回",
-    X11: "原件",
-    X14: "调解",
-    X17: "值班室",
-    X20: "抢救室",
-    X21: "病假条",
-    X22: "值班室的窗",
-    X24: "接走",
-    X25: "解除劳动合同",
-    X26: "白噪音",
-    X28: "利息",
-    X29: "催收",
-    X31: "提桶",
-    X32: "离职后的询问",
-    X33: "下一站",
-    X34: "联络人",
-    X35: "延期",
-    X36: "带组",
-  };
+  const names=Object.fromEntries(ENDING_DEFINITIONS.map(e=>[e.id,e.title]));
   return (
     <div class="archive">
       <div class="archive-summary">
@@ -850,6 +880,16 @@ function Archive({
         </span>
       </div>
       <p class="small muted">成长从下一局开始生效。旧档案留在当前设备。</p>
+      <h3>悟性 · 可用 {meta.insight??0}</h3>
+      <p class="small muted">完成重点病例且未留下严重问题、收录新资料、获得新结局和完成最终复核，都能获得悟性。经验用于提升基础属性，悟性用于解锁新的开局选择。</p>
+      <div class="upgrade-grid">
+        {([
+          ['fourth-slot','第四个天赋槽',RULES.meta.fourthSlotCost,!!meta.fourthSlot,'开局可多选一项天赋'],
+          ['redraw','开局多重抽一次',RULES.meta.redrawCost,(meta.extraRedraws??0)>=RULES.meta.redrawMax,`已增加 ${meta.extraRedraws??0} 次，最多增加 5 次`],
+          ['reroll-token','每局一枚重掷令牌',RULES.meta.rerollCost,!!meta.rerollToken,'每个新局额外获得一次重掷'],
+          ['attending','主治难度',RULES.meta.attendingCost,!!meta.attendingUnlocked,'所有检定难度 +2，经验 ×1.5'],
+        ] as const).map(([kind,label,cost,full,detail])=><button class="upgrade" key={kind} disabled={full||(meta.insight??0)<cost} onClick={()=>change(kind)}><span>{label}</span><small>{detail}</small><small>{full?'已解锁':`${cost} 悟性`}</small></button>)}
+      </div>
       <h3>留下的本领</h3>
       <div class="upgrade-grid">
         {(Object.keys(SKILL_LABELS) as Skill[]).map((key) => (
@@ -866,6 +906,7 @@ function Archive({
           </button>
         ))}
       </div>
+      <button class="upgrade" disabled={(meta.depressionRank??0)>=RULES.meta.depressionMax||meta.xp<RULES.meta.depressionCost} onClick={()=>change('depression')}><span>开局压力积累 −{(meta.depressionRank??0)*5}</span><small>{(meta.depressionRank??0)>=RULES.meta.depressionMax?'已满':'3 经验 · 开局抑郁倾向再减 5'}</small></button>
       <h3>多撑一会</h3>
       <div class="upgrade-grid">
         {(Object.keys(VITAL_LABELS) as Vital[]).map((key) => (
@@ -901,6 +942,7 @@ function Archive({
           </div>
         ))}
       </div>
+      <ArchiveLibrary meta={meta}/>
     </div>
   );
 }
@@ -912,29 +954,37 @@ export function App() {
   ref.current = save;
   const [view, setView] = useState<"title" | "setup" | "game">("title");
   const [panel, setPanel] = useState<
-    "settings" | "archive" | "journal" | "ward" | "character" | "handbook" | null
+    "settings" | "archive" | "journal" | "ward" | "character" | "handbook" | "schedule" | null
   >(null);
+  const [handbookQuery,setHandbookQuery]=useState('');
   const [warning, setWarning] = useState(initial.warning),
     [selected, setSelected] = useState<string | null>(null);
   const [imported, setImported] = useState<Save | null>(null),
     [replacement, setReplacement] = useState<Run | null>(null);
   const [notice, setNotice] = useState("");
+  const [utility,setUtility]=useState<'coffee'|'nap'|null>(null);
   const [encounter, setEncounter] = useState<string | null>(null);
   const [bedside,setBedside]=useState<string|null>(null);
   const [recordPatient,setRecordPatient]=useState<string|undefined>();
   const [recordPage,setRecordPage]=useState<RecordPage>('admission');
-  const [speaker, setSpeaker] = useState<string | undefined>();
   const [ambient, setAmbient] = useState<{title:string;text:string;actor?:string}|null>(null);
   const r = save.run;
+  useEffect(bindAudioLifecycle, []);
+  useEffect(() => configureAudio(save.settings), [save.settings]);
+  useEffect(() => {
+    const night = r && r.queue.slice(r.cursor).some(c=>c.kind==='night') && !r.queue.slice(r.cursor).some(c=>!['night','rest'].includes(c.kind));
+    const good = r?.ending && ['X33','X34','X36'].includes(r.ending.id);
+    setMusicScene(view !== 'game' ? 'title' : r?.phase === 'ending' ? good ? 'ending-calm' : 'ending-dark' : r?.phase === 'tribunal' ? 'inquiry' : r && r.vitals.san < 30 ? 'fracture' : night ? 'night' : r && r.day >= 9 ? 'pressure' : 'day');
+  }, [view, r?.day, r?.phase, r?.cursor, r?.vitals.san]);
   const guide=parseGuide(save.guide??{version:1,enabled:false,seen:[]});
   const welcome=view==='game'&&r?.phase==='play'&&guide.enabled&&!guide.seen.includes('welcome-seen');
   function commit(next: Save) {
     ref.current = next;
     setSave(next);
     const storage = deviceStorage();
-    setWarning(
-      storage ? persist(next, storage) : "浏览器存储不可用。请导出存档。",
-    );
+    const error=storage ? persist(next, storage) : "浏览器存储不可用。请导出存档。";
+    setWarning(error);
+    return !error;
   }
   function dispatch(a: Action): Run | null {
     const previous = ref.current.run;
@@ -957,6 +1007,7 @@ export function App() {
         meta: next.ending ? reward(ref.current.meta, next) : ref.current.meta,
       });
       setSelected(null);
+      setUtility(null);
     }
     return next;
   }
@@ -988,16 +1039,18 @@ export function App() {
   useEffect(() => {
     const listener = (e: KeyboardEvent) => {
       if (
+        e.defaultPrevented || e.repeat || e.altKey || e.ctrlKey || e.metaKey || document.querySelector('dialog[open]') ||
         (e.target as HTMLElement)?.matches("input,textarea,select") ||
         panel ||
         selected ||
+        utility ||
         view !== "game" ||
         r?.phase !== "play" || !encounter || !!ambient ||
         encounter !== (currentCard(r)?.patientId ?? currentCard(r)?.id)
       )
         return;
-      if (/^[1-4]$/.test(e.key)) {
-        const o = availableOptions(r)[Number(e.key) - 1];
+      if (/^[1-9]$/.test(e.key)) {
+        const o = availableOptions(r).filter(o=>o.interaction!=='graph-continue')[Number(e.key) - 1];
         if (o) {
           e.preventDefault();
           setSelected(o.id);
@@ -1006,14 +1059,15 @@ export function App() {
     };
     window.addEventListener("keydown", listener);
     return () => window.removeEventListener("keydown", listener);
-  }, [r, view, panel, selected, encounter, ambient]);
+  }, [r, view, panel, selected, utility, encounter, ambient]);
   function begin(
     name: string,
     seed: string,
     ids: string[],
     difficulty: Run["difficulty"],
   ) {
-    const next = startRun(seed, name, ids, save.meta, difficulty);
+    const identity=`${seed}:${Array.from(crypto.getRandomValues(new Uint32Array(4)),n=>n.toString(36)).join('-')}`;
+    const next = startRun(seed, name, ids, save.meta, difficulty, identity);
     if (r && r.phase !== "ending") setReplacement(next);
     else {
       commit({ ...save, run: next, guide:save.guide??initialGuideState() });
@@ -1052,20 +1106,25 @@ export function App() {
     r?.phase === "play"
       ? availableOptions(r).find((x) => x.id === selected)
       : undefined;
+  useEffect(()=>{if(chosen){void narrate(chosen.label,'hero');return stopVoice;}},[chosen?.id]);
   const game = r && view === "game";
   const activeCard = r ? currentCard(r) : undefined;
-  const talking = !!(r?.phase === "play" && activeCard && encounter === (activeCard.patientId ?? activeCard.id));
+  const feedbackCard=r?feedbackSource(r):undefined;
+  const talking = !!(r?.phase === "play" && activeCard && (r.emergency||encounter === (activeCard.patientId ?? activeCard.id)));
   function observeGuide(event:GuideEvent) {
     const before=parseGuide(ref.current.guide??{version:1,enabled:false,seen:[]});
     const after=reduceGuide(before,{type:'observe',event});
     if(after!==before) commit({...ref.current,guide:after});
   }
   function closeEncounter(){setEncounter(null);setBedside(null);setAmbient(null);}
+  function openHandbook(topic=''){setHandbookQuery(topic);setPanel('handbook');}
+  function openSchedule(){observeGuide('schedule-open');setPanel('schedule');}
+  function openRecoveryGuide(){observeGuide('recovery-open');openHandbook('体力');}
   function openRecords(patientId?:string,page:RecordPage='admission') {
     setRecordPatient(patientId);setRecordPage(page);setPanel('journal');
     if(patientId || ref.current.run?.patients.length) observeGuide('chart-open');
   }
-  function visit(card: Card) { dispatch({type:"focus",id:card.id}); setEncounter(card.patientId ?? card.id); setBedside(ref.current.run?.patients.some(p=>p.uid===card.patientId&&p.active)?card.patientId??null:null); setSpeaker(card.actor); setAmbient(null); }
+  function visit(card: Card) { dispatch({type:"focus",id:card.id}); setEncounter(card.patientId ?? card.id); setBedside(ref.current.run?.patients.some(p=>p.uid===card.patientId&&p.active)?card.patientId??null:null); setAmbient(null); }
   function continueFeedback() {
     const next=dispatch({type:'continue'});
     if(next?.phase==='play' && encounter!==(currentCard(next)?.patientId??currentCard(next)?.id)) closeEncounter();
@@ -1093,16 +1152,16 @@ export function App() {
       {game && (
         r.phase === 'ending' ? <div class="rpg-terminal"><button class="secondary rpg-terminal-back" onClick={()=>setView('title')}>返回标题</button><EndingView r={r} meta={save.meta} next={()=>setView('setup')} archive={()=>setPanel('archive')} share={()=>void share()} /></div>
         : r.phase === 'tribunal' ? <div class="rpg-terminal"><Tribunal r={r} dispatch={dispatch} /></div>
-        : <WorldStage r={r} motion={save.settings.motion} dialogueOpen={talking || !!ambient || r.phase === 'feedback' || welcome} frozen={r.phase !== 'play' || !!panel || !!selected || talking || !!ambient || !!bedside || welcome || !!replacement || !!imported}
+        : <WorldStage r={r} motion={save.settings.motion} visualInterference={save.settings.visualInterference} dialogueOpen={talking || !!ambient || r.phase === 'feedback' || welcome} frozen={r.phase !== 'play' || !!panel || !!selected || !!utility || talking || !!ambient || !!bedside || welcome || !!replacement || !!imported}
             onEncounter={visit} onPatient={id=>{setBedside(id);setEncounter(null);setAmbient(null);}} onBedNear={()=>observeGuide('bed-near')}
-            guide={guide.enabled&&!talking&&!ambient&&!bedside&&!welcome&&r.phase==='play'?<GuideSteps state={guide} onOpenManual={()=>setPanel('handbook')} onSkip={()=>commit({...ref.current,guide:reduceGuide(guide,{type:'skip'})})}/>:undefined}
-            onAmbient={(title,text,actor)=>{setAmbient({title,text,actor});setSpeaker(actor);}} onMenu={p=>p==='journal'?openRecords():setPanel(p)} onAction={a=>{closeEncounter();setSpeaker(undefined);dispatch(a);}}
+            guide={!talking&&!ambient&&!bedside&&!welcome&&r.phase==='play'?<>{guide.enabled&&<GuideSteps state={guide} onOpenManual={()=>openHandbook()} onOpenSchedule={openSchedule} onOpenRecovery={openRecoveryGuide} onSkip={()=>commit({...ref.current,guide:reduceGuide(guide,{type:'skip'})})}/>}<ContextGuide r={r} open={openHandbook}/></>:undefined}
+            onAmbient={(title,text,actor)=>{setAmbient({title,text,actor});}} onMenu={p=>p==='journal'?openRecords():p==='schedule'?openSchedule():setPanel(p)} onAction={a=>{closeEncounter();if(a.type==='coffee'||a.type==='nap'){observeGuide('recovery-open');setUtility(a.type);}else dispatch(a);}}
             onPosition={savePosition} onTitle={()=>setView('title')}>
           {bedside && <Bedside r={r} patientId={bedside} motion={save.settings.motion} onRecords={page=>openRecords(bedside,page)} onClose={closeEncounter} />}
           {talking && <RpgScene r={r} onSelect={setSelected} close={closeEncounter} records={()=>openRecords(activeCard?.patientId)} />}
-          {welcome && <Dialogue actor="nurse" title="第一班 · 带教" text="“先去五床。走近患者，按 E 或点交互。床头夹先翻一翻，没查过的，别当成正常。今天做什么，由你决定。”"><div class="dialogue-result"><button class="dialogue-next" onClick={()=>observeGuide('welcome-seen')}>先去看患者 ▸</button><button class="text-button" onClick={()=>commit({...ref.current,guide:reduceGuide(guide,{type:'skip'})})}>我熟悉操作，跳过指引</button></div></Dialogue>}
+          {welcome && <Dialogue actor="nurse" title="第一班 · 带教" text="“先看右上角的当班待办，点一项就能走过去。走近人物或病床，按 E，也可以点右下角的交互键。接诊前先翻床头病历夹；没查过的，别当成正常。排班和状态不明白，就翻值班手册。”"><div class="dialogue-result"><button class="dialogue-next" onClick={()=>observeGuide('welcome-seen')}>开始值班 ▸</button><button class="text-button" onClick={()=>commit({...ref.current,guide:reduceGuide(guide,{type:'skip'})})}>我熟悉操作，跳过指引</button></div></Dialogue>}
           {ambient && <Dialogue actor={ambient.actor} title={ambient.title} text={ambient.text} close={()=>setAmbient(null)}><div class="dialogue-result"><button class="dialogue-next" onClick={()=>setAmbient(null)}>结束交谈 ▸</button></div></Dialogue>}
-          {r.phase === 'feedback' && r.feedback && <Dialogue actor={speaker} patient={r.patients.find(p=>p.uid===bedside)} title={r.feedback.title} text={r.feedback.text}><div class="dialogue-result"><div class="delta-list">{r.feedback.changes.map((t,i)=><span key={i}>{t}</span>)}</div><button class="dialogue-next" onClick={continueFeedback}>{r.feedback.next === 'check' ? '结束本日 · 掷骰' : r.feedback.next === 'day' ? r.day === 14 ? '前往鉴定庭 ▸' : '迎接下一天 ▸' : '继续 ▸'}</button></div></Dialogue>}
+          {r.phase === 'feedback' && r.feedback && <Dialogue actor={feedbackCard?.actor} speechActor={feedbackVoiceActor(r)} patient={r.patients.find(p=>p.uid===feedbackCard?.patientId)} title={r.feedback.title} text={r.feedback.text}><div class="dialogue-result"><div class="delta-list">{r.feedback.changes.map((t,i)=><span key={i}>{t}</span>)}</div><button class="dialogue-next" onClick={continueFeedback}>{r.feedback.next === 'check' ? '结束本日 · 掷骰' : r.feedback.next === 'day' ? r.day === 14 ? '参加医疗纠纷复核 ▸' : '迎接下一天 ▸' : '继续 ▸'}</button></div></Dialogue>}
         </WorldStage>
       )}
       {warning && (
@@ -1118,19 +1177,22 @@ export function App() {
           {notice}
         </div>
       )}
+      {game&&r&&utility&&<RecoveryPrompt r={r} action={utility} close={()=>setUtility(null)} confirm={()=>{const action=utility;setUtility(null);dispatch({type:action});}}/>}
       {chosen && r && (
         <Modal title="确认这次选择" close={() => setSelected(null)}>
           <p class="confirm-choice">{chosen.label}</p>
           <Cost o={chosen} r={r} detail />
+          <ClinicalChoiceNotice r={r} o={chosen}/>
+          <p class="small muted">{currentCard(r)?.kind==='night'?'这次按夜班分钟结算，不扣白班行动值。':'行动值决定能安排多少事务，体力反映做完这些事有多疲劳。'} 阅读说明、打开病历和停下来考虑都不计时。</p>
           <PaymentPreview o={chosen} r={r} />
           <CheckPreview o={chosen} r={r} />
-          {Math.max(0, chosen.ap - r.ap) > 0 && (
+          {currentCard(r)?.kind!=='night'&&Math.max(0, optionAp(r,chosen,currentCard(r)) - r.ap) > 0 && (
             <p class="warning-line">
-              这次行动会透支身体，三项上限在本局内无法通过睡眠恢复。
+              这次行动会透支身体，三项上限在本局内无法通过睡眠恢复。当前值高于新上限时，会先降到新上限，再扣本次体力；因此满体力时，实际下降可能多于标出的体力消耗。
             </p>
           )}
           <p class="small muted">
-            确认后留下记录；返回标题或刷新不改变已经掷出的结果。
+            {chosen.check?'先掷骰，接受点数后执行并结算。返回标题或刷新不会改变已经掷出的点数。':'确认后执行并留下记录，已执行的选择不能撤回。'}
           </p>
           <div class="modal-actions">
             <button class="secondary" onClick={() => setSelected(null)}>
@@ -1147,7 +1209,7 @@ export function App() {
       )}
       {game && r.phase === "roll" && r.roll && (
         <RollView
-          key={r.roll.id}
+          key={`${r.roll.id}:${r.roll.revision??0}`}
           r={r}
           motion={
             save.settings.motion &&
@@ -1155,14 +1217,15 @@ export function App() {
           }
           sound={save.settings.sound}
           done={() => dispatch({ type: "ack-roll" })}
+          reroll={()=>dispatch({type:'reroll'})}
         />
       )}
       {game && r.phase === "debuff" && (
         <Modal title="夜里留下的东西">
           <p class="feedback-text">
             {r.roll?.face === 1
-              ? "这一夜，你没能撑住。三项中留下两项。"
-              : "这一夜没能缓过来。三项中留下一个。"}
+              ? "你没能缓过这一夜的疲劳，需要从下面三项持续状态中选两项。"
+              : "你这一夜没有缓过来，需要从下面三项持续状态中选一项。"}
           </p>
           <p class="eyebrow">还需选择 {r.debuffPicks} 项</p>
           <div class="debuff-choices">
@@ -1185,7 +1248,7 @@ export function App() {
       {game && r.phase === "funding" && (
         <Modal title="余额不足">
           <p class="feedback-text">
-            待补差额 <strong>{money(-r.cash)}</strong>
+            资金缺口 <strong>{money(-r.cash)}</strong>
             。已提交的处置与费用记录留在账上。
           </p>
           <p class="small">
@@ -1238,7 +1301,7 @@ export function App() {
             姜蓉扶住你，把凳子拉到身后。「别站着了。」
           </p>
           <p class="small muted">
-            第一次体力归零。体力上限 −20，恢复至上限的一半；再次归零将结束轮转。
+            你的体力第一次降到零。体力上限减少 20 点，当前体力恢复到上限的一半；再次归零就会结束轮转。
           </p>
           <div class="choices">
             <button
@@ -1259,7 +1322,7 @@ export function App() {
               class="choice"
               onClick={() => dispatch({ type: "collapse", method: "clinic" })}
             >
-              <b>去做评估 · ¥600</b>
+              <b>自付 ¥600，去做评估</b>
               <small>解除胃痛</small>
             </button>
           </div>
@@ -1275,6 +1338,7 @@ export function App() {
               ward: "住院部",
               character: r?.name ?? "值班医生",
               handbook:"值班手册",
+              schedule:"本次轮转 · 排班表",
             }[panel]
           }
           close={() => setPanel(null)}
@@ -1289,9 +1353,10 @@ export function App() {
             />
           )}
           {panel === "ward" && (r ? <Board r={r} /> : <p>还没有开始轮转。</p>)}
+          {panel === 'schedule' && r && <Schedule r={r} borrow={()=>{setPanel(null);dispatch({type:'borrow'});}} handbook={()=>openHandbook('排班')} />}
           {panel === "journal" &&
             (r ? <><RecordBook r={r} initialPatient={recordPatient} initialPage={recordPage}/><details class="help"><summary>值班日记 · 其他经历</summary><Timeline r={r}/></details></> : <p>还没有记录。</p>)}
-          {panel==='handbook' && <GuideManual onClose={()=>setPanel(null)}/>}
+          {panel==='handbook' && <GuideManual key={handbookQuery} initialQuery={handbookQuery} onClose={()=>setPanel(null)}/>}
           {panel === "character" && r && (
             <div class="character-stats">
               <Stats r={r} />
@@ -1311,7 +1376,7 @@ export function App() {
                 ))}
               </div>
               <p>
-                声望 {r.reputation} / 100 · 抑郁 {r.depression} / 100
+                声望 {displayNumber(r.reputation)} / 100 · 抑郁倾向 {displayNumber(r.depression)} / 100
               </p>
               <p>
                 私人借款 {money(r.privateDebt)} · 待收款 {money(r.receivable)}
@@ -1319,18 +1384,19 @@ export function App() {
               <p>
                 当日收入 {money(r.income)} · 当日利息 {money(r.interest)}
               </p>
+              <p>{incomeCoverage(r).days?`近期实际日均收入 ¥${incomeCoverage(r).daily.toLocaleString('zh-CN',{maximumFractionDigits:2})}（${incomeCoverage(r).days} 个结算日）`:'近期平均收入待结算'} · 连续未覆盖利息 {r.uncoveredDays}/{RULES.debtGrace} 日</p>
               <h3>天赋</h3>
               {r.talents.map((id) => {
                 const t = TALENTS.find((t) => t.id === id);
                 return (
                   t && (
                     <p key={id}>
-                      <b>{t.name}</b>　{TALENT_GUIDE[t.id]?.summary??t.benefit}<br/><small>本领：{t.benefit}。代价：{t.price}。</small>
+                      <b>{t.name}</b><br/><small>本领：{TALENT_GUIDE[id].summary}<br/>代价：{TALENT_GUIDE[id].tradeoff}<br/>{TALENT_GUIDE[id].use}</small>
                     </p>
                   )
                 );
               })}
-              <h3>身上留下的东西</h3>
+              <h3>持续状态与不适</h3>
               {r.debuffs.length === 0 && (
                 <p class="muted">暂时没有持续不适。</p>
               )}
@@ -1348,21 +1414,34 @@ export function App() {
           )}
           {panel === "settings" && (
             <div class="settings">
+              <h3>声音</h3>
+              {(['music', 'voice', 'sound'] as const).map(channel => {
+                const label = {music:'背景音乐', voice:'对白与文字朗读', sound:'操作音效'}[channel];
+                const key = `${channel}Volume` as 'musicVolume' | 'voiceVolume' | 'soundVolume';
+                const defaultLevel = {music:.4, voice:.85, sound:.5}[channel];
+                return <div class="audio-setting" key={channel}>
+                  <label class="setting-row"><span>{label}</span><input type="checkbox" checked={save.settings[channel] !== false} onChange={e=>commit({...save,settings:{...save.settings,[channel]:e.currentTarget.checked}})} /></label>
+                  <label class="audio-volume"><span>{label}音量</span><input type="range" min="0" max="100" step="5" value={Math.round((save.settings[key] ?? defaultLevel)*100)} onInput={e=>commit({...save,settings:{...save.settings,[key]:Number(e.currentTarget.value)/100}})} /><output>{Math.round((save.settings[key] ?? defaultLevel)*100)}%</output></label>
+                </div>;
+              })}
+              <button class="secondary full" onClick={()=>void narrate('先核对床号和姓名。家属刚送来的药也看一下，别漏了院外用药。','nurse')}>试听语音</button>
+              <p class="small muted">对白播放时，音乐会降低音量。字幕始终保留；关掉声音不影响选择和检定。</p>
+              <h3>画面与阅读</h3>
               <label class="setting-row">
-                <span>音效</span>
+                <span>低精神状态的画面与环境干扰</span>
                 <input
                   type="checkbox"
-                  checked={save.settings.sound}
+                  checked={save.settings.visualInterference !== false}
                   onChange={(e) => {
                     const value = e.currentTarget.checked;
                     commit({
                       ...save,
-                      settings: { ...save.settings, sound: value },
+                      settings: { ...save.settings, visualInterference: value },
                     });
-                    cue(value);
                   }}
                 />
               </label>
+              <p class="small muted">关闭环境干扰可避免画面变暗和异常人影，状态数值与检定规则不变。检查的重要结果不会被隐藏。</p>
               <label class="setting-row">
                 <span>角色、骰子与界面动效</span>
                 <input
@@ -1398,8 +1477,9 @@ export function App() {
               <p class="small muted">
                 存档只保存在此设备的浏览器中。更换设备或清理网站数据之前，请先导出。
               </p>
-              {view === "game" && <button class="secondary full" onClick={() => { setPanel(null); setView("title"); }}>保存并返回标题</button>}
-              <button class="secondary full" onClick={()=>setPanel('handbook')}>翻开值班手册</button>
+              {view === "game" && <button class="secondary full" onClick={() => { if(!commit(ref.current)){setNotice('本次进度未能写入浏览器，请先导出存档。');return;}setPanel(null); setView("title"); }}>{warning?'重试保存并返回标题':'保存并返回标题'}</button>}
+              {r && <button class="secondary full" onClick={openSchedule}>查看排班表</button>}
+              <button class="secondary full" onClick={()=>openHandbook()}>翻开值班手册</button>
               {r && <button class="secondary full" onClick={()=>{commit({...ref.current,guide:initialGuideState()});closeEncounter();setPanel(null);setView('game');}}>重新开启上岗指引</button>}
               <button
                 class="secondary full"
@@ -1430,8 +1510,7 @@ export function App() {
               <details class="help">
                 <summary>操作与规则</summary>
                 <p>
-                  点击选项后确认；键盘 1—4 选择当前选项，Esc
-                  关闭可返回的窗口。手机可横屏或竖屏游玩。游戏没有现实时间倒计时，可以随时停下阅读。
+                  WASD / 方向键移动，E / 空格交互，J 打开病历；1—9 选择当前编号选项，确认后执行。Esc 关闭最上层可返回窗口，在病区打开设置。手机可横屏或竖屏游玩。游戏没有现实时间倒计时，可以停下阅读。
                 </p>
                 <p>
                   骰子结果在选择提交时确定。刷新或退出不会重掷。相同轮转码在相同天赋、成长和选择下可重现事件。

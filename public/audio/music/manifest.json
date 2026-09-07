@@ -1,0 +1,90 @@
+{
+  "title": {
+    "file": "title.mp3",
+    "seconds": 56.471,
+    "sha256": "4d12b8dc02ac6c78961f56524659cdaf150f9d4d174464a9d2eaf4d3c2b8bc7e",
+    "bpm": 68,
+    "peak": 0.4202,
+    "rms": 0.085,
+    "composer": "Tyche original score",
+    "license": "MIT",
+    "instrumental": true
+  },
+  "day": {
+    "file": "day.mp3",
+    "seconds": 43.636,
+    "sha256": "7559f5bda02ccce027b5ea78dc6a0b9fe1b7d138216b85408eacdebc4ffaa1c0",
+    "bpm": 88,
+    "peak": 0.39543,
+    "rms": 0.085,
+    "composer": "Tyche original score",
+    "license": "MIT",
+    "instrumental": true
+  },
+  "night": {
+    "file": "night.mp3",
+    "seconds": 36.923,
+    "sha256": "cc71603e052556f9676378ccb041dce07bf25fdb7d5c675bbb7606084ff2c0b5",
+    "bpm": 104,
+    "peak": 0.36839,
+    "rms": 0.085,
+    "composer": "Tyche original score",
+    "license": "MIT",
+    "instrumental": true
+  },
+  "pressure": {
+    "file": "pressure.mp3",
+    "seconds": 34.286,
+    "sha256": "330ed1ff0680a4fba8e95bddce30396d1c6be6f19e9977dbb220472f3c9b398c",
+    "bpm": 112,
+    "peak": 0.33208,
+    "rms": 0.085,
+    "composer": "Tyche original score",
+    "license": "MIT",
+    "instrumental": true
+  },
+  "fracture": {
+    "file": "fracture.mp3",
+    "seconds": 53.333,
+    "sha256": "cae8313b26d982082c8679176c8a71558f5cf2842cb214675ab791e0ad0b8c1f",
+    "bpm": 72,
+    "peak": 0.42142,
+    "rms": 0.085,
+    "composer": "Tyche original score",
+    "license": "MIT",
+    "instrumental": true
+  },
+  "inquiry": {
+    "file": "inquiry.mp3",
+    "seconds": 64.0,
+    "sha256": "c065d950ccde42849c82850eeebdf9791f3381836e2e9d4a699accf576d0a52c",
+    "bpm": 60,
+    "peak": 0.43906,
+    "rms": 0.085,
+    "composer": "Tyche original score",
+    "license": "MIT",
+    "instrumental": true
+  },
+  "ending-calm": {
+    "file": "ending-calm.mp3",
+    "seconds": 58.182,
+    "sha256": "31ac302a835c5467c8fb53570ff0b11b0792f67e406cf27644eeb309ab7cbcac",
+    "bpm": 66,
+    "peak": 0.40494,
+    "rms": 0.085,
+    "composer": "Tyche original score",
+    "license": "MIT",
+    "instrumental": true
+  },
+  "ending-dark": {
+    "file": "ending-dark.mp3",
+    "seconds": 73.846,
+    "sha256": "52f56a0df78f70de7ac72d09ad87cfbc1d3b63c6736caf7fe07fe0d7f841a2b4",
+    "bpm": 52,
+    "peak": 0.4198,
+    "rms": 0.085,
+    "composer": "Tyche original score",
+    "license": "MIT",
+    "instrumental": true
+  }
+}

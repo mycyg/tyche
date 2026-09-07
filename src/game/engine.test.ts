@@ -10,7 +10,7 @@ import { conditionMet } from './stories';
 import { runSimulation } from '../../scripts/simulate';
 import type { Card, Run } from './types';
 const fresh = () => startRun('fixed-test', '程医生', ['T06', 'T16', 'T11']);
-const rest = (r: Run): Run => { r.phase = 'play'; r.queue = [{ id: 'test-rest', kind: 'rest', scope: { kind: 'personal', id: 'self' }, title: '睡觉', text: '睡觉', options: [{ id: 'sleep', label: '睡觉', ap: 0, cost: 0, minutes: 0, result: '醒来', effects: { emotion: 10 } }] }]; r.cursor = 0; return r; };
+const rest = (r: Run): Run => { r.phase = 'play'; r.shiftPhase='日终';r.queue = [{ id: 'test-rest', kind: 'rest', scope: { kind: 'personal', id: 'self' }, title: '睡觉', text: '睡觉', options: [{ id: 'sleep', label: '睡觉', ap: 0, cost: 0, minutes: 0, result: '醒来', effects: { emotion: 10 } }] }]; r.cursor = 0; return r; };
 function cycleDay(r: Run): Run {
   r = act(rest(r), { type: 'choose', id: 'sleep' }); r = act(r, { type: 'continue' });
   if (r.phase === 'roll') r = act(r, { type: 'ack-roll' });
@@ -40,15 +40,33 @@ describe('resources and provenance', () => {
   it('checks known facts, not adjacent names or unrelated patients', () => { expect(conditionMet({ 'helped:a': {} }, { all: ['helped:b'] })).toBe(false); expect(conditionMet({ 'helped:a': {} }, { all: ['helped:a'], none: ['consumed:a'] })).toBe(true); });
 });
 describe('early discharge and distinct endpoints', () => {
-  it('risk remains visible until clinical stability is established', () => { const r = fresh(), p = r.patients[0]; p.stability = 0; const c = makeWardCard(r, p); expect(c.options.find(o => o.effects.discharge)?.effects.plannedDischarge).not.toBe(true); p.stability = 2; expect(makeWardCard(r, p).options.find(o => o.effects.discharge)?.effects.plannedDischarge).toBe(true); });
+  it('after completed care, risk remains visible until clinical stability is established', () => {
+    const r=fresh(),p=r.patients.find(p=>p.uid.includes('census'))!;
+    expect(p.settled).toBe(true);expect(p.presetNode).toBeUndefined();p.stability=0;
+    expect(makeWardCard(r,p).options.find(o=>o.effects.discharge)?.effects.plannedDischarge).not.toBe(true);
+    p.stability=2;expect(makeWardCard(r,p).options.find(o=>o.effects.discharge)?.effects.plannedDischarge).toBe(true);
+  });
   it('premature discharge returns the same patient, not a new random case', () => {
     let r = fresh(); r.seed = Array.from({ length: 100 }, (_, i) => `return-${i}`).find(seed => random(seed, `return:${r.patients[0].uid}`) < .8)!;
     const p = r.patients[0]; p.stability = 0; const c = makeWardCard(r, p); r.queue = [c]; r.cursor = 0;
     const id = c.options.find(o => o.effects.discharge)!.id; r = act(r, { type: 'choose', id }); r = cycleDay(r);
     const returned = r.patients.find(x => x.uid === p.uid)!; expect(returned.readmitted).toBe(true); expect(returned.damage).toBe(2); expect(r.hazards.some(h => h.scope.id === p.uid && h.type === 'R')).toBe(true); expect(r.queue.some(x => x.id === `return:${p.uid}`)).toBe(true);
   });
-  it('past injury does not make a clinically stable patient impossible to discharge', () => { const r = fresh(), p = r.patients[0]; p.damage = 2; p.stability = 3; expect(makeWardCard(r, p).options.find(x => x.effects.discharge)?.effects.plannedDischarge).toBe(true); });
-  it('mental collapse and physical collapse are different', () => { let r = fresh(); r.vitals.san = 0; r = act(r, { type: 'choose', id: availableOptions(r)[0].id }); expect(r.ending?.category).toBe('精神'); let b = fresh(); b.vitals.stamina = 0; b = act(b, { type: 'choose', id: availableOptions(b)[0].id }); expect(b.phase).toBe('collapse'); });
+  it('past injury requires completed follow-up but is not erased by a safe discharge', () => {
+    const r=fresh(),p=r.patients.find(p=>p.uid.includes('census'))!;p.damage=2;p.stability=3;
+    expect(makeWardCard(r,p).options.find(o=>o.effects.discharge)?.effects.plannedDischarge).not.toBe(true);
+    p.mitigated=2;
+    expect(makeWardCard(r,p).options.find(o=>o.effects.discharge)?.effects.plannedDischarge).toBe(true);
+    expect(p.damage).toBe(2);
+  });
+  it('mental and physical exhaustion open different real acute scenes before any ending', () => {
+    const results = (['san','stamina'] as const).map(vital=>{
+      let r=rest(fresh());r.vitals[vital]=0;r=act(r,{type:'choose',id:'sleep'});
+      expect(r.phase).toBe('play');expect(r.ending).toBeUndefined();expect(r.emergency?.vital).toBe(vital);
+      expect(availableOptions(r).length).toBeGreaterThan(1);return r.queue[r.cursor].id;
+    });
+    expect(results[0]).not.toBe(results[1]);
+  });
   it('project records alone cannot manufacture a clinical criminal case', () => { const r = fresh(); r.facts['paper-submitted-false'] = { day: 8, source: 'paper', sequence: 0 }; r.hazards.push({ id: 'project', type: 'D', weight: 100, reason: '不实研究', norm: '真实性', causal: false, day: 8, scope: { kind: 'project', id: 'study' }, choiceId: 'paper', choice: '提交' }); expect(tribunalEnding(r, 'facts').category).toBe('行政'); expect(r.patients.every(p => p.damage === 0)).toBe(true); });
   it('emotion leave cannot be used for borrowing', () => { let r = fresh(); r.facts[`leave:${r.day}`] = { day: r.day, source: 'leave', sequence: 0 }; expect(act(r, { type: 'borrow' })).toBe(r); });
 });
@@ -60,17 +78,24 @@ describe('persistence and growth', () => {
   it('permanent growth has prices and caps', () => { let m = newMeta(); m.xp = 100; for (let i = 0; i < 5; i++) m = upgrade(m, 'skill', 'clinical'); expect(m.skills.clinical).toBe(3); expect(m.xp).toBe(91); expect(startRun('x', '', [], m).skills.clinical).toBe(3); });
 });
 describe('whole-run state machine', () => {
-  it('finishes different strategies without hangs or NaN', () => { for (let i = 0; i < 10; i++) for (const p of ['random', 'careful', 'reckless'] as const) { const { r, steps } = runSimulation(`test-${i}`, p); expect(r.phase).toBe('ending'); expect(steps).toBeLessThan(900); expect(new Set(r.committed).size).toBe(r.committed.length); } }, 60000);
+  it.each(Array.from({length:10},(_,i)=>(['random','careful','reckless'] as const).map(policy=>[i,policy] as const)).flat())('finishes seed %i with %s strategy without hangs or duplicate commits', async (i,policy) => {
+    const {r,steps}=runSimulation(`test-${i}`,policy);
+    expect(r.phase).toBe('ending');expect(steps).toBeLessThan(2400);
+    expect(new Set(r.committed).size).toBe(r.committed.length);
+    for(const value of [...Object.values(r.vitals),r.cash,r.debt])expect(Number.isFinite(value)).toBe(true);
+    await new Promise(resolve=>setTimeout(resolve,0));
+  },60000);
 });
 
 describe('twelve-bed census and safe handover', () => {
-  it('starts a new run with one focus patient and three real ongoing patients', () => {
+  it('starts a new run with one focus patient and five real ongoing patients', () => {
     const r = fresh();
-    expect(r.patients).toHaveLength(4);
-    expect(r.queue.filter(c => c.kind === 'clinical')).toHaveLength(4);
+    expect(r.patients).toHaveLength(6);
+    expect(r.queue.filter(c => c.kind === 'clinical')).toHaveLength(1);
+    expect(r.queue.find(c=>c.kind==='clinical')?.clinicalGraph).toBeDefined();
     const ongoing = r.patients.filter(p => p.uid.includes('census'));
     expect(ongoing).toHaveLength(RULES.ward.initialCensus);
-    expect(ongoing.map(p => p.stability)).toEqual([2, 1, 1]);
+    expect(ongoing.map(p => p.stability)).toEqual([2, 2, 1, 1, 1]);
     for (const p of ongoing) {
       expect(p.inpatient).toBe(true);
       expect(r.day - p.admitted + 1).toBe(2);
@@ -93,7 +118,12 @@ describe('twelve-bed census and safe handover', () => {
     const previous = r.patients.filter(p => p.inpatient);
     const cards = buildDay(r);
     expect(r.patients.filter(p => p.uid.startsWith('D9-') && p.uid.includes('handover'))).toHaveLength(RULES.ward.arrivals[8]);
-    for (const p of previous) expect(cards.some(c => c.kind === 'ward' && c.patientId === p.uid)).toBe(true);
+    for (const p of previous) {
+      const pending=cards.find(c=>c.patientId===p.uid&&(c.kind==='ward'||c.kind==='clinical'));
+      expect(pending,p.uid).toBeDefined();
+      if(p.clinical&&!p.clinical.outcomeId)expect(pending!.clinicalGraph?.nodeId).toBe(p.clinical.nodeId);
+      else expect(pending!.kind).toBe('ward');
+    }
     expect(new Set(r.patients.map(p => p.name)).size).toBe(r.patients.length);
   });
   function fullWard() {
@@ -113,7 +143,7 @@ describe('twelve-bed census and safe handover', () => {
     expect(card.options.some(o => o.effects.care && !o.effects.discharge)).toBe(true);
   });
   it('discharge releases a bed and the next admission can reuse it', () => {
-    let r = fullWard(); const p = r.patients[4]; p.stability = 2;
+    let r = fullWard(); const p = r.patients[4]; p.stability = 2;p.settled=true; // Completed-care boundary fixture.
     const card = makeWardCard(r, p); r.queue = [card]; r.cursor = 0;
     r = act(r, { type: 'choose', id: card.options.find(o => o.effects.plannedDischarge)!.id });
     expect(r.patients[4].bed).toBe(0); expect(r.patients[4].active).toBe(false);
@@ -136,7 +166,10 @@ describe('twelve-bed census and safe handover', () => {
   });
   it('the actual next-day return flow keeps a full ward free of duplicate beds', () => {
     let r = fullWard(); const p = r.patients[0];
-    p.active = false; p.bed = 0; p.dischargedDay = 1; p.planned = false;
+    p.stability = 0;
+    const card = makeWardCard(r,p);r.queue=[card];r.cursor=0;
+    r=act(r,{type:'choose',id:card.options.find(o=>o.effects.discharge)!.id});
+    expect(r.patients[0]).toMatchObject({active:false,bed:0,dischargedDay:1,planned:false});
     r.patients.push(createPatient(r, 'C015', 'replacement'));
     r.seed = Array.from({ length: 100 }, (_, i) => `full-return-${i}`).find(seed => random(seed, `return:${p.uid}`) < RULES.ward.earlyReturnChance)!;
     r = cycleDay(r);
@@ -185,7 +218,7 @@ describe('clinical departures and historical severity', () => {
       let r=clinical('C003');r.cursor=3;r.patients[0].damage=damage;
       const before=r.income;r=act(r,{type:'choose',id:'C003-s4-a'});
       expect(r.patients[0].damage).toBe(damage);expect(r.patients[0].mitigated).toBe(1);
-      expect(r.income).toBe(before);
+      expect(r.income).toBe(before+(damage===1?RULES.performance.ordinary:0));
     }
   });
   it('night and ward mitigation preserve severe harm and its causal evidence', () => {

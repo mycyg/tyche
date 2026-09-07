@@ -1,3 +1,8 @@
+import type { ClinicalGraphState } from '../content/clinical/types';
+import type { InstantiatedPreset } from '../content/patients/types';
+import type { EventPhase } from '../content/events/types';
+import type { AuthoredDirectorState } from './director';
+import type { TalentMemory, TalentOperation, TalentActor, TalentCheckContext } from './talents';
 export type Vital = "stamina" | "san" | "emotion";
 export type Relation = "chief" | "nurse" | "peer" | "family";
 export type Skill =
@@ -22,6 +27,8 @@ export interface Hazard extends HazardInput {
   scope: Scope;
   choiceId: string;
   choice: string;
+  originalWeight?:number;
+  mitigations?:{source:string;day:number;amount:number}[];
 }
 export interface Effects {
   stamina?: number;
@@ -35,6 +42,9 @@ export interface Effects {
   privateDebt?: number;
   receivable?: number;
   income?: number;
+  cashPressure?:number;
+  apAllowance?:number;
+  hazardRelief?:Partial<Record<HazardType,number>>;
   depression?: number;
   flags?: string[];
   clear?: string[];
@@ -65,7 +75,14 @@ export interface Check {
   failureText: string;
 }
 export interface Option {
+  chanceCheck?: {successAtLeast:number};
+  talentAction?: 'chart-review'|'full-review'|'norm-quote'|'relative-loan'|'transfer'|'conceal'|'counselling'|'gastroscopy'|'family-clear'|'leave-group'|'day-off'|'late-record';
+  talentTarget?: string;
+  automatic?:boolean;
+  mechanics?: { operation:TalentOperation; checkOperation?:TalentOperation; actor?:TalentActor; quality?:'correct'|'neutral'|'incorrect'; unsignedConsent?:boolean; consultWaitMinutes?:number };
   id: string;
+  interaction?: 'hallucination' | 'recheck' | 'transfer' | 'graph-continue' | 'ability' | 'defer';
+  clinicalChoice?: string;
   label: string;
   ap: number;
   minutes: number;
@@ -108,6 +125,10 @@ export interface Story extends Scene {
   variants?: { when: Condition; text: string }[];
 }
 export interface Card extends Scene {
+  billing?: 'spending';
+  shiftPhase?: EventPhase;
+  clinicalGraph?: {caseId: string; nodeId: string};
+  presetNode?: string;
   kind: "clinical" | "ward" | "story" | "quick" | "night" | "rest" | "audit";
   actor?: string;
   scope: Scope;
@@ -117,6 +138,11 @@ export interface Card extends Scene {
   chain?: string;
 }
 export interface Patient {
+  clinical?: ClinicalGraphState;
+  entityId?: string;
+  preset?: InstantiatedPreset;
+  presetNode?: string;
+  presetResolved?: boolean;
   uid: string;
   caseId: string;
   name: string;
@@ -126,7 +152,11 @@ export interface Patient {
   budget: number;
   initialBudget: number;
   spent: number;
+  /** New admissions retain the quoted daily basis; old bills are not repriced. */
+  dailyBaseCost?:number;
   charged: number;
+  /** Settled shortfall principal exempt from a later B24 surcharge. */
+  budgetSurchargeExempt?:number;
   stability: number;
   patience: number;
   damage: number;
@@ -145,7 +175,14 @@ export interface Fact {
   source: string;
   sequence: number;
 }
+export interface DeferredPatientWork {
+  patientId:string;source:string;created:number;due:number;
+  reason:'ap-empty'|'half-leave';cards:Card[];
+}
 export interface Entry {
+  operation?: NonNullable<Option['mechanics']>['operation'];
+  clinicalChoice?: string;
+  talentAction?: Option['talentAction'];
   id: string;
   day: number;
   title: string;
@@ -154,7 +191,26 @@ export interface Entry {
   scope: Scope;
   flags: string[];
 }
+export interface PatientCheckMember {
+  party:string;
+  dice:number[];
+  mode:'normal'|'advantage'|'disadvantage';
+  face:number;
+  modifier:number;
+  dc:number;
+  success:boolean;
+  critical:'success'|'failure'|null;
+}
+export interface CheckTerm {id:string;label:string;value:number;}
 export interface Roll {
+  modifierSources?:CheckTerm[];
+  difficultySources?:CheckTerm[];
+  group?:{rule:'all';members:[PatientCheckMember,PatientCheckMember]};
+  chance?: boolean;
+  blockedReason?: string;
+  advantage?:boolean;
+  critical?:'success'|'failure'|null;
+  revision?:number;
   id: string;
   kind: "day" | "choice" | "tribunal";
   face: number;
@@ -165,12 +221,14 @@ export interface Roll {
   second?: number;
 }
 export interface Feedback {
+  sourceCardId?: string;
   title: string;
   text: string;
   changes: string[];
   next: "play" | "check" | "day" | "ending";
 }
 export interface Ending {
+  annexIds?: string[];
   id: string;
   title: string;
   category: string;
@@ -180,6 +238,19 @@ export interface Ending {
   court: boolean;
 }
 export interface Meta {
+  clinicalPatients?:string[];
+  entities?:string[];
+  debuffs?:string[];
+  extraRedraws?:number;
+  depressionRank?:number;
+  insight?:number;
+  usedTalents?:string[];
+  attendingUnlocked?:boolean;
+  fourthSlot?:boolean;
+  rerollToken?:boolean;
+  trapArchive?:boolean;
+  archiveTraps?:string[];
+  seedHistory?:{runId:string;caseId:string;trapId:string}[];
   schema: 1;
   xp: number;
   runs: number;
@@ -192,6 +263,18 @@ export interface Meta {
   cashRank: number;
 }
 export interface Run {
+  emergency?: { cardId:string; vital:Vital; resolved:boolean; occurred?:{day:number;phase:EventPhase}; resume:{phase:ResumePhase;roll?:Roll;feedback?:Feedback;pendingCheck?:Run['pendingCheck']} };
+  sanBreaks?:number;
+  talentMemory?:TalentMemory;
+  priorSeeds?:{runId:string;caseId:string;trapId:string}[];
+  metaRerolls?:number;
+  archiveTraps?:string[];
+  budgetCharges?:{day:number;amount:number;patientId:string;source:string}[];
+  incomeHistory?:{day:number;amount:number}[];
+  deferredWork?:DeferredPatientWork[];
+  pendingCheck?:{kind:'choice'|'day';day:number;cardId?:string;optionId?:string;context:TalentCheckContext;rerolls:number};
+  authored?: AuthoredDirectorState;
+  shiftPhase?: EventPhase;
   schema: 1;
   id: string;
   seed: string;
@@ -246,14 +329,16 @@ export interface Run {
   streak: number;
   ending?: Ending;
   tribunalResponse?: string;
-  pendingResume?: "feedback" | "roll";
+  pendingResume?: ResumePhase;
   world?: { x: number; y: number; facing: number; day: number };
 }
+export type ResumePhase = 'play' | 'feedback' | 'roll' | 'debuff' | 'tribunal';
 export type Action =
   | { type: "focus"; id: string }
   | { type: "choose"; id: string }
   | { type: "continue" }
   | { type: "ack-roll" }
+  | { type: "reroll" }
   | { type: "debuff"; id: string }
   | { type: "borrow" }
   | { type: "coffee" }
