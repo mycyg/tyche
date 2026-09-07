@@ -1,9 +1,0 @@
-{
-  "schema": 1,
-  "sourceHash": "e8f8010cc8c6be082ce16c07bff19c3bd6002ae0d366136663b62221c589d25a",
-  "traceFiles": [
-    "run-00000.json"
-  ],
-  "branchFiles": [],
-  "complete": false
-}

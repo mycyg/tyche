@@ -17,9 +17,15 @@ import {patientPlacard,placardPosition} from './placards';
 import {worldCamera} from './camera';
 import {worldCoffeeOffering,worldNapOffering} from './refreshments';
 import {observeLayout} from './observe-layout';
+import {wardCast} from './npc-schedule';
+import {createWardLife,actorAction,actorStep,restingInBed,type NpcActor} from './npc-runtime';
+import {ATLASES,actionFrame,walkFrame} from './npc-art';
 import './world-stage.css';
 
-interface Target extends Point { id: string; label: string; actor?: string; patientId?: string; waitingPatients?:Patient[]; cards?: Card[]; action?: 'coffee' | 'nap' | 'borrow' | 'journal' | 'ward' | 'schedule'; text?: string }
+interface Target extends Point { id: string; label: string; actor?: string; npc?: string; patientId?: string; waitingPatients?:Patient[]; cards?: Card[]; action?: 'coffee' | 'nap' | 'borrow' | 'journal' | 'ward' | 'schedule'; text?: string }
+/** Fallback positions and idle-sheet rows for the five people who carry cards.
+ * The live route in `npc-schedule` moves them; these keep the map complete
+ * while the walking atlas is still decoding. */
 const PEOPLE = [
   { id: 'chief', x: 638, y: 159, cell: 0 },
   { id: 'nurse', x: 397, y: 183, cell: 1 },
@@ -33,7 +39,7 @@ export function worldTargets(r: Run): Target[] {
   const encounters = availableEncounters(r);
   const occupants = worldOccupants(r, encounters);
   const waiting=worldWaitingPatients(r,encounters);
-  const targets: Target[] = PEOPLE.map(p => ({ ...p, actor: p.id, label: ACTORS[p.id].name,
+  const targets: Target[] = PEOPLE.map(p => ({ ...p, actor: p.id, npc: p.id, label: ACTORS[p.id].name,
     text: ({ chief: '“这层楼还有人等着住院呢。病人能不能出院，你得评估清楚，再签字。”', nurse: '“病历夹都放在床头了。你先核对患者的情况，没问过的病史还得问，也别把没查清的结果写成正常啊。”', peer: '李恂把手机扣在桌上。“你今天还有几位患者没看完啊？”', research: '周乔抬头看了一眼钟。“我还得整理数据，病历也没写完。今天又不知道要忙到几点。”', rep: '“有需要，随时找我。”叶茗收起手机，没有离开走廊。' } as Record<string, string>)[p.id] }));
   targets.push(
     { id: 'phone', x: 54, y: 270, label: '走廊电话', actor: r.facts['father-deceased']||r.authored?.activeFacts['father-deceased']?'mother':'father', text: r.facts['family-accident']||r.authored?.activeFacts['家庭-车祸'] ? '通话记录里，家里的号码排在最上面。' : '屏幕上有家里的号码。你把音量调高了一格。' },
@@ -107,6 +113,13 @@ export function WorldStage(props: Props) {
   const occupantsRef=useRef(occupants);occupantsRef.current=occupants;
   const waiting=useMemo(()=>worldWaitingPatients(r,availableEncounters({...r,phase:'play'})),[r]);
   const waitingRef=useRef(waiting);waitingRef.current=waiting;
+  const cast=useMemo(()=>wardCast(r,occupants),[r,occupants]);
+  const castRef=useRef(cast);castRef.current=cast;
+  const life=useRef(createWardLife()).current;
+  const hold=useRef<{id:string;at:Point;since:number}|null>(null);
+  /** Names, markers, click areas and route ends all read the live position, so
+   * a card never stays behind at the spot its owner left. */
+  const livePoint=(t:Target):Point=>{const a=t.npc?life.byId.get(t.npc):undefined;return a?{x:a.x,y:a.y}:t;};
   const placards=useRef(new Map<string,HTMLButtonElement>());
   const [ready, setReady] = useState(false), [failed, setFailed] = useState(false);
   const [nearby, setNearby] = useState<Target | null>(null), [room, setRoom] = useState('南屏医院 · 住院部');
@@ -122,6 +135,8 @@ export function WorldStage(props: Props) {
   const engine = useRef({ interact: (_t?: Target) => {}, navigate: (_t: Target) => {} });
   const open = (t: Target) => {
     if (latest.current.frozen || latest.current.r.phase !== 'play') return;
+    // The character stops and turns to the doctor for as long as they talk.
+    hold.current = t.npc ? { id: t.npc, at: { x: state.current.x, y: state.current.y }, since: performance.now() } : null;
     latest.current.onPosition({ x:state.current.x, y:state.current.y, facing:state.current.facing, day:latest.current.r.day });
     if(t.waitingPatients?.length)setSelection(t);
     else if (t.cards?.length === 1) latest.current.onEncounter(t.cards[0]);
@@ -172,17 +187,58 @@ export function WorldStage(props: Props) {
     const c = canvas.current!, container = frame.current!;
     const ctx = c.getContext('2d', { alpha: false });
     if (!ctx) { setFailed(true); return; }
+    const load = (src: string) => { const img = new Image(); img.src = `${import.meta.env.BASE_URL}art/${src}`; return img; };
     const sources = ['ward-map.webp', 'hero-walk.webp', 'npc-idle.webp', 'bed-patients.webp','extended-bed-patients.webp'];
-    const images = sources.map(src => { const img = new Image(); img.src = `${import.meta.env.BASE_URL}art/${src}`; return img; });
-    let stopped = false, raf = 0, width = 1, height = 1, last = 0, wasMoving = false, lastNear = '', lastRoom = '', lastTick = 0;
+    const images = sources.map(load);
+    // The four ward sheets arrive with the map; the family, conflict and
+    // patient sheets stream in behind it and only their own people wait.
+    const atlases = new Map(ATLASES.map(a => [a.id, load(a.file)] as const));
+    const drawable = (img?: HTMLImageElement) => !!img?.complete && img.naturalWidth > 0;
+    let stopped = false, raf = 0, width = 1, height = 1, last = 0, wasMoving = false, lastNear = '', lastRoom = '', lastTick = 0, lastFollow = 0, follows = 0;
     const resize = () => { width = container.clientWidth; height = container.clientHeight; if(c.width!==Math.round(width))c.width = Math.round(width); if(c.height!==Math.round(height))c.height = Math.round(height); };
     const stopObserving = observeLayout(container,resize); resize();
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const nearest = () => targetsRef.current.filter(t => distance(state.current, t) < 45).sort((a, b) => distance(state.current, a) - distance(state.current, b))[0];
-    const interact = (target?: Target) => { if (!blocked.current) { const t = target ?? nearest(); if (t && distance(state.current, t) < 52) openRef.current(t); } };
+    const nearest = () => targetsRef.current.filter(t => distance(state.current, livePoint(t)) < 45).sort((a, b) => distance(state.current, livePoint(a)) - distance(state.current, livePoint(b)))[0];
+    const interact = (target?: Target) => { if (!blocked.current) { const t = target ?? nearest(); if (t && distance(state.current, livePoint(t)) < 52) openRef.current(t); } };
     const obstacles=()=>corridorBedInUse(latest.current.r)?[CORRIDOR_BED_OBSTACLE]:[];
-    const navigate = (t: Target) => { state.current.path = findPath(state.current, t,obstacles()); state.current.destination = t.id; if (distance(state.current, t) < 30) interact(t); };
+    const navigate = (t: Target) => { const to=livePoint(t); follows = 0; state.current.path = findPath(state.current, to,obstacles()); state.current.destination = t.id; if (distance(state.current, to) < 30) interact(t); };
     engine.current = { interact, navigate };
+    // Depth entries are reused between frames so a busy floor allocates nothing
+    // per frame beyond the movement step itself.
+    interface Layer { depth: number; kind: 0 | 1 | 2 | 3; index: number }
+    const layers: Layer[] = [], layerPool: Layer[] = [], propList = [...PROPS];
+    const byDepth = (a: Layer, b: Layer) => a.depth - b.depth;
+    const pushLayer = (depth: number, kind: Layer['kind'], index: number) => {
+      const slot = layerPool[layers.length] ?? (layerPool[layers.length] = { depth: 0, kind: 0, index: 0 });
+      slot.depth = depth; slot.kind = kind; slot.index = index; layers.push(slot);
+    };
+    /** Patients who are out of bed right now, keyed by patient. */
+    const upright = new Map<string, NpcActor>();
+    let synced: unknown = null;
+    const syncCast = () => {
+      if (synced === castRef.current) return;
+      synced = castRef.current;
+      life.sync(castRef.current);
+      upright.clear();
+      for (const actor of life.actors) if (actor.def.patientId) upright.set(actor.def.patientId, actor);
+    };
+    const paintActor = (actor: NpcActor, motion: boolean, time: number) => {
+      const work = actorAction(actor), step = motion ? actorStep(actor) : 0;
+      const image = work ? atlases.get(work.atlas) : actor.def.walk && atlases.get(actor.def.walk.atlas);
+      ctx.fillStyle = 'rgba(8, 14, 28, .38)'; ctx.beginPath(); ctx.ellipse(actor.x, actor.y - 2, 12, 5, 0, 0, Math.PI * 2); ctx.fill();
+      if (!drawable(image)) {
+        // Only the five staff have a fallback sheet; it covers the first frames
+        // while the walking atlas is still decoding.
+        const cell = PEOPLE.findIndex(person => person.id === actor.id);
+        if (cell < 0 || !drawable(images[2])) return;
+        const pose = idlePose(time, actor.id, motion), sheet = images[2], cw = sheet.width / 4, ch = sheet.height / 6;
+        ctx.drawImage(sheet, pose.frame * cw, PEOPLE[cell].cell * ch, cw, ch, Math.round(actor.x - 36), Math.round(actor.y - 67), 72, 72);
+        return;
+      }
+      const frame = work ? actionFrame(work.atlas, work.row, work.group, step, actor.x, actor.y)
+        : walkFrame(actor.def.walk!.atlas, actor.def.walk!.row, actor.facing, actor.state === 'walk' ? step : 0, actor.x, actor.y);
+      ctx.drawImage(image!, frame.sx, frame.sy, frame.sw, frame.sh, frame.dx, frame.dy, frame.dw, frame.dh);
+    };
     const savePosition = () => latest.current.onPosition({ x: state.current.x, y: state.current.y, facing: state.current.facing, day: latest.current.r.day });
     const reset = () => { input.current.clear(); pad.current.x = pad.current.y = 0; state.current.path = []; state.current.destination = ''; if (stick.current) stick.current.style.transform = 'translate(0, 0)'; if (wasMoving) savePosition(); wasMoving = false; };
     const keydown = (e: KeyboardEvent) => {
@@ -219,7 +275,18 @@ export function WorldStage(props: Props) {
         if (Math.abs(dx) > Math.abs(dy)) player.facing = dx > 0 ? 3 : 1;
         else if (dy) player.facing = dy > 0 ? 0 : 2;
         if (player.destination && !player.path.length) {
-          const t = targetsRef.current.find(t => t.id === player.destination); player.destination = ''; if (t) interact(t);
+          // A route that ends short of a character who kept walking is issued
+          // again, so a required card is never lost to the walk.
+          const t = targetsRef.current.find(t => t.id === player.destination);
+          const to = t?.npc ? livePoint(t) : undefined;
+          if (to && distance(player, to) > 46 && follows < 8) { follows++; player.path = findPath(player, to, obstacles()); }
+          if (!player.path.length) { player.destination = ''; if (t) interact(t); }
+        } else if (player.destination && time - lastFollow > 260) {
+          // Following a walking character: keep the route pointed at them.
+          lastFollow = time;
+          const t = targetsRef.current.find(t => t.id === player.destination);
+          const to = t?.npc ? livePoint(t) : undefined;
+          if (to && distance(player.path[player.path.length - 1], to) > 22) player.path = findPath(player, to, obstacles());
         }
       } else player.moving = false;
       if(corridorBedInUse(p.r)&&!walkable(player,obstacles())){
@@ -227,6 +294,9 @@ export function WorldStage(props: Props) {
       }
       if (wasMoving && !player.moving) savePosition();
       wasMoving = player.moving;
+      syncCast();
+      if (hold.current && !p.frozen && !p.dialogueOpen && !blocked.current && time - hold.current.since > 400) hold.current = null;
+      life.step(dt, { motion, extra: obstacles(), hold: hold.current });
       const cam=worldCamera(player,width,height,zoom),{scale}=cam;
       camera.current = cam;
       ctx.imageSmoothingEnabled = false;
@@ -237,30 +307,36 @@ export function WorldStage(props: Props) {
       if (player.path.length && !blocked.current) {
         ctx.fillStyle = '#ffe5a2'; player.path.forEach((p, i) => { if (i % 3 === 0) ctx.fillRect(p.x - 1, p.y - 1, 2, 2); });
       }
-      const sprites = [...PEOPLE.map(person => ({ ...person, hero: false })), { x: player.x, y: player.y, id: 'hero', cell: 0, hero: true }];
-      const visibleProps=corridorBedInUse(p.r)?[...PROPS,CORRIDOR_BED_PROP]:PROPS;
-      const layers = visibleProps.map(prop => ({depth:prop.depth,draw:()=>paintProp(ctx,images[0],prop)}));
-      for(const {patient,place:bed} of occupantsRef.current) {
-        const art=patientArt(patient),{index,columns}=art;
-        layers.push({depth:bed.depth,draw:()=>{
-          const pose=idlePose(time,patient.uid,motion&&patient.damage<3&&patient.caseId!=='C020');
-          const rise=pose.breathe*.55;
-          ctx.drawImage(images[art.atlas==='original'?3:4],index%columns*128,Math.floor(index/columns)*128,128,128,bed.x,bed.y-rise,bed.width,bed.height+rise);
-        }});
+      if (propList.length !== PROPS.length + (corridorBedInUse(p.r) ? 1 : 0)) {
+        propList.length = 0; propList.push(...PROPS); if (corridorBedInUse(p.r)) propList.push(CORRIDOR_BED_PROP);
       }
-      for (const sp of sprites) layers.push({depth:sp.y,draw:()=>{
-        const pose=idlePose(time,sp.id,motion && !(sp.hero && player.moving));
-        ctx.fillStyle = 'rgba(8, 14, 28, .38)'; ctx.beginPath(); ctx.ellipse(sp.x, sp.y - 2, sp.hero ? 13 : 12, 5, 0, 0, Math.PI * 2); ctx.fill();
-        if (sp.hero) {
-          const img = images[1], cellW = img.width / 4, cellH = img.height / 4;
-          const step = player.moving && motion ? Math.floor(time / 145) % 4 : pose.frame === 2 ? 3 : 1;
-          ctx.drawImage(img, step * cellW, player.facing * cellH, cellW, cellH, Math.round(sp.x - 34+pose.lean), Math.round(sp.y - 63-pose.breathe), 68, 68+Math.round(pose.breathe));
-        } else {
-          const img = images[2], cellW = img.width / 4, cellH = img.height / 6;
-          ctx.drawImage(img, pose.frame * cellW, sp.cell * cellH, cellW, cellH, Math.round(sp.x - 36+pose.lean), Math.round(sp.y - 67-pose.breathe), 72, 72+Math.round(pose.breathe));
+      layers.length = 0;
+      for (let i = 0; i < propList.length; i++) pushLayer(propList[i].depth, 0, i);
+      const occupantList = occupantsRef.current;
+      for (let i = 0; i < occupantList.length; i++) {
+        const away = upright.get(occupantList[i].patient.uid);
+        if (!away || restingInBed(away)) pushLayer(occupantList[i].place.depth, 1, i);
+      }
+      for (let i = 0; i < life.actors.length; i++) { const a = life.actors[i]; if (!a.def.patientId || !restingInBed(a)) pushLayer(a.y, 2, i); }
+      pushLayer(player.y, 3, 0);
+      layers.sort(byDepth);
+      for (const layer of layers) {
+        if (layer.kind === 0) { paintProp(ctx, images[0], propList[layer.index]); continue; }
+        if (layer.kind === 1) {
+          const { patient, place: bed } = occupantList[layer.index];
+          const art = patientArt(patient), { index, columns } = art;
+          const pose = idlePose(time, patient.uid, motion && patient.damage < 3 && patient.caseId !== 'C020');
+          const rise = pose.breathe * .55;
+          ctx.drawImage(images[art.atlas === 'original' ? 3 : 4], index % columns * 128, Math.floor(index / columns) * 128, 128, 128, bed.x, bed.y - rise, bed.width, bed.height + rise);
+          continue;
         }
-      }});
-      layers.sort((a,b)=>a.depth-b.depth).forEach(layer=>layer.draw());
+        if (layer.kind === 2) { paintActor(life.actors[layer.index], motion, time); continue; }
+        const pose = idlePose(time, 'hero', motion && !player.moving);
+        ctx.fillStyle = 'rgba(8, 14, 28, .38)'; ctx.beginPath(); ctx.ellipse(player.x, player.y - 2, 13, 5, 0, 0, Math.PI * 2); ctx.fill();
+        const img = images[1], cellW = img.width / 4, cellH = img.height / 4;
+        const step = player.moving && motion ? Math.floor(time / 145) % 4 : pose.frame === 2 ? 3 : 1;
+        ctx.drawImage(img, step * cellW, player.facing * cellH, cellW, cellH, Math.round(player.x - 34 + pose.lean), Math.round(player.y - 63 - pose.breathe), 68, 68 + Math.round(pose.breathe));
+      }
       if (night || p.r.day > 5) { ctx.fillStyle = night ? 'rgba(14, 20, 69, .23)' : `rgba(35, 18, 46, ${Math.min(.17, (p.r.day - 5) * .014)})`; ctx.fillRect(0, 0, WORLD.width, WORLD.height); }
       if (p.visualInterference !== false) {
         const band = perceptionBand(p.r.vitals.san);
@@ -278,17 +354,17 @@ export function WorldStage(props: Props) {
       }
       const near = nearest();
       for (const t of targetsRef.current) {
-        const quest = !!t.cards?.length, dist = distance(player, t);
+        const quest = !!t.cards?.length, at = livePoint(t), dist = distance(player, at);
         if (quest) {
-          const y = t.y - (t.actor && t.id !== 'phone' ? 63 : 22);
+          const y = at.y - (t.actor && t.id !== 'phone' ? 63 : 22);
           const bob = motion ? Math.round(Math.sin(time / 400) * 2) : 0;
-          ctx.fillStyle = '#151a35'; ctx.fillRect(t.x - 6, y - 9 + bob, 12, 16);
-          ctx.fillStyle = t.id === 'emergency' ? '#ff787e' : '#ffe3a0'; ctx.font = 'bold 13px monospace'; ctx.textAlign = 'center'; ctx.fillText('!', t.x, y + 4 + bob);
+          ctx.fillStyle = '#151a35'; ctx.fillRect(at.x - 6, y - 9 + bob, 12, 16);
+          ctx.fillStyle = t.id === 'emergency' ? '#ff787e' : '#ffe3a0'; ctx.font = 'bold 13px monospace'; ctx.textAlign = 'center'; ctx.fillText('!', at.x, y + 4 + bob);
         }
         if (!t.patientId&&dist < 84 && (quest || t.id === near?.id)) {
           ctx.font = '10px sans-serif'; const w = Math.min(190, ctx.measureText(t.label).width + 14);
-          ctx.fillStyle = 'rgba(9, 14, 33, .9)'; ctx.fillRect(t.x - w / 2, t.y + 7, w, 17);
-          ctx.fillStyle = '#f3eddd'; ctx.textAlign = 'center'; ctx.fillText(t.label, t.x, t.y + 19, w - 10);
+          ctx.fillStyle = 'rgba(9, 14, 33, .9)'; ctx.fillRect(at.x - w / 2, at.y + 7, w, 17);
+          ctx.fillStyle = '#f3eddd'; ctx.textAlign = 'center'; ctx.fillText(t.label, at.x, at.y + 19, w - 10);
         }
       }
       ctx.restore();
@@ -333,7 +409,8 @@ export function WorldStage(props: Props) {
         if (blocked.current) return; canvas.current?.focus();
         const rect = canvas.current!.getBoundingClientRect(), cam = camera.current;
         const point = { x: (e.clientX - rect.left) / cam.scale + cam.x, y: (e.clientY - rect.top) / cam.scale + cam.y };
-        const target = targetsRef.current.filter(t => distance(point, { x: t.x, y: t.y - 20 }) < 32).sort((a, b) => distance(point, a) - distance(point, b))[0];
+        const hit = (t: Target) => { const at = livePoint(t); return distance(point, { x: at.x, y: at.y - 20 }); };
+        const target = targetsRef.current.filter(t => hit(t) < 32).sort((a, b) => hit(a) - hit(b))[0];
         if (target) engine.current.navigate(target);
         else { state.current.path = findPath(state.current, point,corridorBedInUse(latest.current.r)?[CORRIDOR_BED_OBSTACLE]:[]); state.current.destination = ''; }
       }} />

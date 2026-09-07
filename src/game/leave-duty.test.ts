@@ -3,6 +3,7 @@ import { act,availableOptions,currentCard,startRun } from './engine';
 import { restCard } from './cards';
 import { hasPlannedNight,hasWorkedNight,isFullDayLeave,isLeaveHandoffCard } from './duty-state';
 import { nextShiftForecast } from './schedule-preview';
+import { RULES } from './rules';
 import { decode,emptySave,encode } from './storage';
 import type { Run,Card } from './types';
 
@@ -51,17 +52,17 @@ describe('approved full leave and actual night attendance',()=>{
     expect(settled.overtime).toBe(0);expect(hasWorkedNight(settled)).toBe(false);
     expect(settled.interest).toBe(30);expect(settled.debt).toBe(1030);
     expect(settled.cash).toBeLessThanOrEqual(r.cash-40);
-    expect(nextShiftForecast(settled,0,false)).toMatchObject({day:4,afterNight:false,ap:10,stamina:100});
+    expect(nextShiftForecast(settled,0,false)).toMatchObject({day:4,afterNight:false,ap:RULES.ap,stamina:100});
     // Select the successful day-end branch to isolate the next-shift contract.
     settled.roll={...settled.roll!,face:20,success:true,critical:'success'};
     const accepted=act(settled,{type:'ack-roll'}),next=act(accepted,{type:'continue'});
-    expect(next.day).toBe(4);expect(next.ap).toBe(10);expect(next.vitals.stamina).toBe(100);
+    expect(next.day).toBe(4);expect(next.ap).toBe(RULES.ap);expect(next.vitals.stamina).toBe(100);
   });
   it('predictions include planned duty but actual settlement does not infer it from a calendar',()=>{
     const r=startRun('night-planned','程医生',[]);r.day=3;r.shiftPhase='查房';r.nightBudget=240;
     expect(nextShiftForecast(r).afterNight).toBe(true);expect(nextShiftForecast(r,0,false).afterNight).toBe(false);
     r.facts['night-duty-started:3']={day:3,source:'shift:3:夜班',sequence:0};
-    expect(hasWorkedNight(r)).toBe(true);expect(nextShiftForecast(r,0,false).ap).toBe(8);
+    expect(hasWorkedNight(r)).toBe(true);expect(nextShiftForecast(r,0,false).ap).toBe(RULES.ap-2);
     r.facts['leave:3']={day:3,source:'later-leave',sequence:0};
     expect(hasWorkedNight(r)).toBe(true); // real attendance is never erased
   });

@@ -161,4 +161,51 @@ describe('complete patient and preset library', () => {
       }
     }
   });
+  it('a hidden card can be closed in the decision act, and that action is paid for differently', () => {
+    for (const preset of CASE_PRESETS.filter(p => p.hasHidden)) {
+      const decision = preset.scenes.find(s => s.id.endsWith(':decision'))!;
+      const close = decision.options.find(o => o.id.endsWith(':decision:close-gap'));
+      expect(close, preset.id).toBeTruthy();
+      // The label says what the doctor does; it never names the concealed fact.
+      expect(close!.label, preset.id).toMatch(/追问/);
+      expect(close!.effects.flags, preset.id).toContain(`preset:${preset.id}:revealed`);
+      const tailored = decision.options.find(o => o.id.endsWith(':decision:tailored'))!;
+      const consult = decision.options.find(o => o.id.endsWith(':decision:consult'))!;
+      for (const other of [tailored, consult]) {
+        expect(other.ap, `${preset.id} ${other.id}`).toBeGreaterThan(0);
+        expect(other.cost, `${preset.id} ${other.id}`).toBeGreaterThan(0);
+      }
+      expect(close!.ap, preset.id).toBe(0);
+      expect(close!.cost, preset.id).toBe(0);
+      expect(close!.minutes, preset.id).toBeGreaterThan(0);
+      expect(close!.effects.stamina ?? 0, preset.id).toBeLessThan(0);
+    }
+  });
+  it('states the recheck items and the time point rather than only a next review', () => {
+    for (const preset of CASE_PRESETS.filter(p => p.hasHidden)) {
+      const close = preset.scenes.flatMap(s => s.options).find(o => o.id.endsWith(':decision:close-gap'))!;
+      expect(close.result, preset.id).toMatch(/复查时点定在(两小时内|本班内|今天之内|次日晨)/);
+      expect(close.result.length, preset.id).toBeGreaterThan(40);
+    }
+  });
+  it('every preset names its own risk closure and what is missing while it is open', () => {
+    for (const preset of CASE_PRESETS) {
+      const { requires, pending } = preset.riskClosure;
+      expect(requires.length, preset.id).toBe(pending.length);
+      expect(requires.length, preset.id).toBeGreaterThanOrEqual(3);
+      const produced = new Set(preset.scenes.flatMap(s => s.options).flatMap(o => o.effects.flags ?? []));
+      for (const flag of requires) expect(produced, `${preset.id} ${flag}`).toContain(flag);
+      for (const line of pending) { expect(line, preset.id).toMatch(/^尚未/); expect(line.endsWith('。'), `${preset.id} ${line}`).toBe(true); }
+      // Reaching an ending is not the same as closing the risk: the ledger entry
+      // that ignores the follow-up must not satisfy the contract on its own.
+      const ignore = preset.scenes.flatMap(s => s.options).find(o => o.id.endsWith(':echo:ignore'))!;
+      expect(requires.some(flag => !(ignore.effects.flags ?? []).includes(flag)), preset.id).toBe(true);
+    }
+  });
+  it('leaves no empty bracket pair behind after removing an unverified marker', () => {
+    for (const preset of CASE_PRESETS) {
+      const visible = [preset.hiddenFact, ...preset.scenes.flatMap(s => [s.title, s.text, ...s.options.flatMap(o => [o.label, o.result])])];
+      for (const text of visible) expect(text ?? '', preset.id).not.toMatch(/（\s*）|\(\s*\)/);
+    }
+  });
 });
