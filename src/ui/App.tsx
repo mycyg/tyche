@@ -49,6 +49,7 @@ import type {
   Ending,
   Meta,
   Option,
+  PartnerSetting,
   Run,
   Skill,
   Vital,
@@ -203,6 +204,7 @@ function Setup({
     seed: string,
     ids: string[],
     difficulty: Run["difficulty"],
+    partner: PartnerSetting,
   ) => void;
 }) {
   const [name, setName] = useState("程医生"),
@@ -213,7 +215,8 @@ function Setup({
     );
   const [picks, setPicks] = useState<string[]>([]),
     [redraws, setRedraws] = useState(0),
-    [difficulty, setDifficulty] = useState<Run["difficulty"]>("rotation");
+    [difficulty, setDifficulty] = useState<Run["difficulty"]>("rotation"),
+    [partner, setPartner] = useState<PartnerSetting>("none");
   let draw=0;
   const slots=meta.fourthSlot?4:3,maxRedraws=5+(meta.extraRedraws??0);
   const talentOrder=drawTalentPool(()=>random(seed,`talents:${redraws}:${draw++}`),TALENTS.length).map(id=>TALENTS.find(t=>t.id===id)!);
@@ -285,6 +288,19 @@ function Setup({
             <option value="attending" disabled={!meta.attendingUnlocked}>{meta.attendingUnlocked?'主治 · 检定难度 +2，经验 ×1.5':'主治 · 在永久成长中用 20 悟性解锁'}</option>
           </select>
         </label>
+        <label>
+          伴侣
+          <select
+            value={partner}
+            onChange={(e) =>
+              setPartner(e.currentTarget.value as PartnerSetting)
+            }
+          >
+            <option value="none">无</option>
+            <option value="female">女性</option>
+            <option value="male">男性</option>
+          </select>
+        </label>
       </div>
       <div class="section-line">
         <h2>选择你的天赋</h2>
@@ -324,7 +340,7 @@ function Setup({
         <button
           class="primary"
           disabled={picks.length < 3 || picks.length>slots || !seed.trim()}
-          onClick={() => begin(name, seed, picks, difficulty)}
+          onClick={() => begin(name, seed, picks, difficulty, partner)}
         >
           接过胸牌 →
         </button>
@@ -1237,9 +1253,10 @@ export function App() {
     seed: string,
     ids: string[],
     difficulty: Run["difficulty"],
+    partner: PartnerSetting = "none",
   ) {
     const identity=`${seed}:${Array.from(crypto.getRandomValues(new Uint32Array(4)),n=>n.toString(36)).join('-')}`;
-    const next = startRun(seed, name, ids, save.meta, difficulty, identity);
+    const next = startRun(seed, name, ids, save.meta, difficulty, identity, { partner });
     if (r && r.phase !== "ending") setReplacement(next);
     else {
       commit({ ...save, run: next, guide:save.guide??initialGuideState() });

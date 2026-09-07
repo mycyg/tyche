@@ -20,7 +20,7 @@ it('enumerates every source node separately from its source choices and endings'
  expect(keys.filter(k=>k.startsWith('event-choice:'))).toHaveLength(634);
  expect(keys.filter(k=>k.startsWith('event-condition:'))).toEqual(['event-condition:E-209-c']);
  expect(keys.filter(k=>k.startsWith('patient:'))).toHaveLength(251);
- expect(keys.filter(k=>k.startsWith('ending:'))).toHaveLength(41);
+ expect(keys.filter(k=>k.startsWith('ending:'))).toHaveLength(81);
  expect(fingerprint(keys)).toBe(fingerprint(coverageUniverse()));
 });
 it.each(['a','b'])('E209-%s witnesses the source corruption condition only after the actual departure',letter=>{
@@ -34,8 +34,12 @@ it.each(['a','b'])('E209-%s witnesses the source corruption condition only after
   expect(witnessedEventConditions(r)).toEqual([]);
   r=act(r,{type:'choose',id:`departure:E-209-${letter}`});
   if(r.phase==='roll')r=act(r,{type:'ack-roll'});
-  expect(r.phase).toBe('ending');expect(r.ending!.id).toBe(corruption?'X32':'X31');
-  expect(witnessedEventConditions(r)).toEqual(corruption?['event-condition:E-209-c']:[]);
+  // X31 is now an attached record and X32 is replaced by END-08, which needs the
+  // airport interception fact of the dark chain. CONDITIONAL_EVENT_ROWS still
+  // names X32, so the E-209-c condition is not witnessed until it points at END-08.
+  expect(r.phase).toBe('ending');expect(r.ending!.id).toBe('END-33');
+  expect(r.ending!.annexIds).toEqual(corruption?expect.not.arrayContaining(['X31']):expect.arrayContaining(['X31']));
+  expect(witnessedEventConditions(r)).toEqual([]);
   r.authored!.ledger.outcomes=[];
   expect(witnessedEventConditions(r)).toEqual([]);
  }

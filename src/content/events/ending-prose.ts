@@ -1,3 +1,4 @@
+import {STORY_ENDINGS,STORY_ENDING_IDS,type StoryEndingId}from '../story/endings';
 /** Public-facing text; source citations and conditions remain in the separate catalog. */
 export const ENDING_PROSE:Record<string,[string,string]>={
  X01:['南屏市城北区人民法院刑事判决：当班处置违反明确诊疗规范，与患者严重损害存在因果关系。判处有期徒刑一年。','通知寄到家里时，母亲拆开看了。后来她问那件白大褂还要不要留。你说留着。'],
@@ -42,3 +43,11 @@ export const ENDING_PROSE:Record<string,[string,string]>={
  X40:['个人病例复盘：前后两次轮转中，同一种诊疗疏漏都与患者的严重损害有关。两份记录已放在一起。','你认出了那一步。上一次的笔记就在旁边，纸角已经卷起来了。'],
  X41:['本轮观察记录：多次在尚未明确诊断前察觉异常，并完成后续工作。轮转期间未发生严重临床损害。','交班结束，你关掉桌上的灯。走到门口时，又回去看了一眼床位表。'],
 };
+/** END-01..END-40 as [decision, epilogue]: the first printed paragraph opens the
+ * page, the remaining paragraphs close it. The ending view renders the story
+ * paragraphs itself; this pair keeps the Ending record complete for storage,
+ * narration and the archive. */
+export const END_PROSE:Record<StoryEndingId,[string,string]>=Object.fromEntries(STORY_ENDING_IDS.map(id=>{
+ const paragraphs=STORY_ENDINGS[id].paragraphs;
+ return [id,[paragraphs[0]??'',paragraphs.slice(1).join('\n')]];
+}))as Record<StoryEndingId,[string,string]>;

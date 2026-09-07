@@ -4,6 +4,8 @@ import {playerEarlyDischargeSource,isUnsupportedPatientClaim,unsupportedPatientC
 import {clinicalAssignment,isPlayerResponsibleForPatient,playerBillableLiability,reconcileTeamCharge}from '../content/events/clinical-ownership';
 import {currentClinicalHandoff,handoffLabel,isDirectPatientCare}from './clinical-handoff';
 import { earlyEnding, tribunalEnding, auditScore, documentedEnding } from "./endings";
+import {darkChainEntry,darkChainResolve}from '../content/events/dark-chains';
+import {isDeathEnding}from '../content/events/posthumous-annexes';
 import {buildTribunalPreparation}from '../content/events/court-preparation';
 import {runDie,runRandom,runShuffled} from './run-random';
 import { conditionMet } from "./stories";
@@ -57,6 +59,7 @@ import type {
   Option,
   Run,
   Skill,
+  StartOptions,
   Vital,
   Roll,
 } from "./types";
@@ -131,6 +134,7 @@ export function startRun(
   meta = newMeta(),
   difficulty: Run["difficulty"] = "rotation",
   instanceId = `${seed}:run:${meta.runs}`,
+  options: StartOptions = {},
 ): Run {
   const invalid=talents.length?talent.validateTalentSelection(talents,!!meta.fourthSlot):[];
   if(invalid.length)throw new Error(invalid.join(' '));
@@ -146,6 +150,7 @@ export function startRun(
     name: name.trim().slice(0, 12) || "程医生",
     day: 1,
     difficulty,
+    partner: options.partner ?? 'none',
     phase: "play",
     vitals: { ...caps },
     caps,
@@ -194,6 +199,9 @@ export function startRun(
     debuffPicks: 0,
     streak: 0,
   };
+  // The partner exists only when registered here; the address form and the
+  // ward visitor read the two gendered facts, the dark chains read 伴侣-在册.
+  if(r.partner!=='none'){flag(r,'伴侣-在册','registration');flag(r,r.partner==='male'?'伴侣-男':'伴侣-女','registration');}
   applyTalent(r,talent.talentStart(talentContext(r)),'talent-start');
   applyTalent(r,talent.talentDayStart(talentContext(r)),'talent-day-start');
   r.ap=talent.talentBaseAp(talentContext(r),RULES.ap,false);
@@ -472,6 +480,8 @@ function deltas(before: Run, after: Run): string[] {
 }
 function stop(r: Run, kind: Parameters<typeof earlyEnding>[1], occurredPhase=interruptionPhase(r)) {
   if(r.authored) applyDirector(r,settleAuthoredEvents(r,r.shiftPhase??'日终',true));
+  // A dark chain that is still open writes its result facts before the page is chosen.
+  darkChainResolve(r);
   r.ending = earlyEnding(r, kind, occurredPhase);
   delete r.pendingCheck;delete r.emergency;delete r.pendingResume;
   r.phase = "ending";
@@ -502,16 +512,43 @@ function touchArchive(r:Run,card:Card) {
     r.journal.push({id:notice.flag,day:r.day,title:'病例复盘经验',choice:'对照以前的病例',result:notice.text,scope:card.scope,flags:[notice.flag]});
   }
 }
+/** The dark chain opened at a second zero keeps the run alive until its
+ * result facts are written; only then does the engine close the run. */
+function darkChainOpen(r:Run,kind:'san'|'stamina'):boolean{return !!r.facts[`dark-chain:${kind}`];}
+function enterDarkChain(r:Run,kind:'san'|'stamina',occurredPhase:EventPhase):boolean{
+  const card=darkChainEntry(r,kind);
+  if(!card)return false;
+  const resume=captureContinuation(r);
+  r.queue=r.queue.filter(c=>c.id!==card.id);
+  card.last=false;card.shiftPhase=occurredPhase;
+  r.queue.splice(r.cursor,0,card);
+  if(r.authored)r.authored.published[card.id]=card;
+  r.emergency={cardId:card.id,vital:kind,resolved:false,occurred:{day:r.day,phase:occurredPhase},resume};
+  flag(r,`dark-chain:${kind}`,card.id);
+  delete r.pendingCheck;
+  r.phase='play';
+  return true;
+}
+function settleDarkChains(r:Run):boolean{
+  for(const kind of ['san','stamina'] as const){
+    if(!darkChainOpen(r,kind))continue;
+    if(!r.facts[`dark-chain-resolved:${kind}`])darkChainResolve(r);
+    if(r.facts[`dark-chain-resolved:${kind}`]){stop(r,kind);return true;}
+  }
+  return false;
+}
 function interrupt(r: Run, sourceCard?:Card) {
   if(r.emergency || r.phase==='ending')return;
   const occurredPhase=interruptionPhase(r,sourceCard);
+  if(settleDarkChains(r))return;
   for (const vital of ["san", "stamina", "emotion"] as Vital[]) {
     if (r.vitals[vital] > 0) continue;
+    if(vital!=='emotion'&&darkChainOpen(r,vital))continue;
     if(vital==='san') {
       const previous=recordedSanBreaks(r);
       r.sanBreaks=previous+1;
       flag(r,'san-ever-zero',sourceCard?.id??`san-zero:${r.day}`);
-      if(previous>=RULES.sanRescueChances){stop(r,'san',occurredPhase);return;}
+      if(previous>=RULES.sanRescueChances){if(enterDarkChain(r,'san',occurredPhase))return;stop(r,'san',occurredPhase);return;}
     }
     const survival=talent.talentSurvival(talentContext(r),vital,liveCap(r,vital));
     if (survival.rescued) {
@@ -523,6 +560,7 @@ function interrupt(r: Run, sourceCard?:Card) {
     }
     if(vital==='stamina' && r.exhausted>=1) {
       r.exhausted++;
+      if(enterDarkChain(r,'stamina',occurredPhase))return;
       stop(r,'stamina',occurredPhase);
       return;
     }
@@ -1475,6 +1513,8 @@ export function act(input: Run, action: Action): Run {
   r.reputation = clamp(r.reputation, 0, 100);
   return r;
 }
+/** Flat settlement for END-09, END-12 and END-15; no ending or scene bonus. */
+export const DEATH_ENDING_XP=0.5;
 export function reward(meta: Meta, r: Run): Meta {
   if (!r.ending || meta.rewarded.includes(r.id)) return meta;
   const next = structuredClone(meta),{cases,entities,clinicalPatients}=encounteredCollections(r);
@@ -1485,10 +1525,13 @@ export function reward(meta: Meta, r: Run): Meta {
   const newEntries=cases.filter(c=>!meta.cases.includes(c)).length+entities.filter(e=>!meta.entities?.includes(e)).length;
   const newEndings=endingIds.filter(id=>!meta.endings.includes(id)).length;
   const newTalents=r.talents.filter(id=>!meta.usedTalents?.includes(id)).length;
-  const xp=(r.day>=15?3:0)+newEndings*2+newEntries+newTalents+Math.min(5,scenes.filter(s=>!meta.scenes.includes(s)).length*.5);
-  next.xp+=Math.round(xp*(r.difficulty==='attending'?1.5:1)*2)/2;
+  // A death ending settles at the lowest tier and unlocks nothing of its own
+  // (contract §8 decision 7): the archive records it, the growth stays flat.
+  const death=isDeathEnding(r.ending.storyId);
+  const xp=death?DEATH_ENDING_XP:(r.day>=15?3:0)+newEndings*2+newEntries+newTalents+Math.min(5,scenes.filter(s=>!meta.scenes.includes(s)).length*.5);
+  next.xp+=death?xp:Math.round(xp*(r.difficulty==='attending'?1.5:1)*2)/2;
   const caught=r.patients.filter(p=>p.clinical?.outcomeId&&p.damage<2&&p.clinical.causalChoices.length===0).length;
-  next.insight=(next.insight??0)+caught+newEndings*2+newEntries+(r.day>=15?2:0);
+  next.insight=(next.insight??0)+(death?0:caught+newEndings*2+newEntries+(r.day>=15?2:0));
   next.runs++;
   next.rewarded.push(r.id);
   next.endings = [...new Set([...next.endings, ...endingIds])];

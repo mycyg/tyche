@@ -73,7 +73,7 @@ export function makeWardCard(r: Run, p: Patient): Card {
   const stay = r.day - p.admitted + 1;
   const over = stay > p.expectedDays;
   const prefix = `ward:${p.uid}:${r.day}`;
-  const readiness=dischargeReadiness(p),ready=readiness.ready;
+  const readiness=dischargeReadiness(p,r.facts),ready=readiness.ready;
   const choices: Option[] = [
     option(
       `${prefix}:review`,

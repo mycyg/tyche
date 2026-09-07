@@ -2,6 +2,7 @@ import { hash } from "./random";
 import { availableOptions, newMeta } from "./engine";
 import { CASES, DEBUFFS, TALENTS } from "./catalog";
 import type { Meta, PatientCheckMember, Run } from "./types";
+import { PARTNER_SETTINGS } from "./types";
 import type { GuideState } from "../shared/guide-state";
 import { getClinicalGraph } from '../content/clinical';
 import { CASE_PRESETS, ENTITY_BY_ID, PRESET_BY_ID, isCompatible } from '../content/patients';
@@ -589,6 +590,7 @@ function isRun(x: unknown): x is Run {
     typeof x.seed !== "string" ||
     typeof x.name !== "string" ||
     !member(["rotation", "attending"])(x.difficulty) ||
+    !optional(x,'partner',member(PARTNER_SETTINGS)) ||
     !boolFields(x, ["nap", "skipNextDay"]) ||
     !optional(x, "tribunalResponse", isText) ||
     !optional(x, "pendingResume", member(resumePhases)) || !optional(x,'sanBreaks',count) ||
@@ -763,6 +765,11 @@ export function emptySave(): Save {
 /** Saves from the published build could stop in a "collapse" panel. That
  * panel no longer exists: resume the recorded phase and let the engine's
  * acute-event interruption handle the zero vital on the next action. */
+/** Saves written before the registration page offered a partner carry no
+ * setting; they continue without one rather than inventing a relationship. */
+export function migrateMissingPartner(run:Record<string,unknown>):void {
+  if(run.partner===undefined)run.partner='none';
+}
 export function migrateLegacyCollapse(run:Record<string,unknown>):void {
   if(run.phase!=='collapse')return;
   const resume=member(resumePhases)(run.pendingResume)?run.pendingResume:'play';
@@ -786,7 +793,7 @@ export function decode(text: string): Save {
   )
     throw new Error("存档校验失败，文件可能不完整。");
   const s = JSON.parse(envelope.payload);
-  if(isRecord(s)&&isRecord(s.run))migrateLegacyCollapse(s.run);
+  if(isRecord(s)&&isRecord(s.run)){migrateLegacyCollapse(s.run);migrateMissingPartner(s.run);}
   if (
     !isRecord(s) ||
     s.schema !== 1 ||
