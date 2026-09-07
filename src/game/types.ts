@@ -282,6 +282,8 @@ export interface Run {
   name: string;
   day: number;
   difficulty: "rotation" | "attending";
+  /** Absent in saves written before the registration page offered the choice; storage migrates them to "none". */
+  partner?: PartnerSetting;
   /** "collapse" is a legacy save marker only: no code path enters it, and
    * storage migrates it to the recorded resume phase on load. */
   phase:
@@ -336,6 +338,13 @@ export interface Run {
   world?: { x: number; y: number; facing: number; day: number };
 }
 export type ResumePhase = 'play' | 'feedback' | 'roll' | 'debuff' | 'tribunal';
+/** Registration-page partner setting: DK-10 and END-18 exist only when a
+ * partner is on record; the address form and portrait follow the choice. */
+export type PartnerSetting = 'none' | 'female' | 'male';
+export const PARTNER_SETTINGS: readonly PartnerSetting[] = ['none', 'female', 'male'];
+export interface StartOptions {
+  partner?: PartnerSetting;
+}
 export type Action =
   | { type: "focus"; id: string }
   | { type: "choose"; id: string }
