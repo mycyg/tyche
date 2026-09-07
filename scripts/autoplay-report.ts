@@ -73,7 +73,7 @@ const lines: string[] = [];
 lines.push("# 自动通关记录");
 lines.push("");
 lines.push(
-  "由 `npm run test:autoplay` 产生。驱动器只通过真实界面操作：读屏、点按钮、再读屏，不调用引擎。每个目录下有 `journal.json`（逐步记录）与截图。",
+  "由 `npm run test:autoplay` 跑完，再用 `npx tsx scripts/autoplay-report.ts` 汇总。驱动器只通过真实界面操作：读屏、点按钮、再读屏，不调用引擎。每个目录下有 `journal.json`（逐步记录）与截图。",
 );
 lines.push("");
 lines.push("## 多局汇总");
