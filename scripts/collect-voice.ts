@@ -11,6 +11,8 @@ import { TALENTS, DEBUFFS } from '../src/game/catalog';
 import { HANDBOOK } from '../src/ui/handbook';
 import { eventToCard, EVENT_BY_ID } from '../src/content/events/catalog';
 import { ENDING_PROSE } from '../src/content/events/ending-prose';
+import { STORY_ENDINGS, STORY_ENDING_IDS } from '../src/content/story/endings';
+import { SUPPORT_PARAGRAPHS } from '../src/content/story/support-card';
 import { EVENT_DEFERRED_RESULTS, EVENT_FAILURES, EVENT_RESULTS } from '../src/content/events/narrative';
 import { RECORD_ONLY_EVENT_FACTS } from '../src/content/events/fact-records';
 import { BUTTERFLY_CHOICE_RESULTS,BUTTERFLY_MERGE_RESULTS } from '../src/content/events/butterfly-prose';
@@ -101,6 +103,9 @@ for(const chapter of HANDBOOK){add(chapter.title,chapter.id);for(const text of c
 // full recordings. Longer authored sentences remain the primary playback path.
 for(const text of '零一二三四五六七八九十百千万亿点元'.split(''))add(text,'numeric-voice');
 for(const [id,prose] of Object.entries(ENDING_PROSE))for(const text of prose)add(text,id);
+// Story endings and the support card are narrated as a single narrator passage in the ending page.
+for(const id of STORY_ENDING_IDS){const story=STORY_ENDINGS[id];add(story.title,id);add(story.author,id);for(const paragraph of story.paragraphs)add(paragraph,id);}
+for(const paragraph of SUPPORT_PARAGRAPHS)add(paragraph,'support-card');
 for(const collection of [EVENT_DEFERRED_RESULTS,EVENT_FAILURES,RECORD_ONLY_EVENT_FACTS])for(const [id,text] of Object.entries(collection))add(text,id);
 for(const collection of [BUTTERFLY_CHOICE_RESULTS,BUTTERFLY_MERGE_RESULTS])for(const [id,text] of Object.entries(collection))add(text,id);
 for(const text of RECONTACT_PROSE.titles)add(text,'REP-RECONTACT');
