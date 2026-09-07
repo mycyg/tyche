@@ -11523,6 +11523,446 @@
         "path": "06_结局与鉴定庭.md",
         "sha256": "f8b600ebba44fbdcd642ca5b06cc17032fb5725bf1ff0561c2dcf7c765775b8b"
       }
+    },
+    {
+      "id": "END-01",
+      "category": "刑事",
+      "title": "罪与罚",
+      "trigger": "刑事移交成立且无缓刑、免刑、无罪；诊疗过失与严重损害有因果关系",
+      "priority": 191,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-02",
+      "category": "刑事",
+      "title": "审判",
+      "trigger": "END-01 全部条件；写入 `刑事-推动出院`，且该患者由本人决定提前出院",
+      "priority": 192,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-03",
+      "category": "刑事",
+      "title": "金钱",
+      "trigger": "实际发生回扣并被查获；写入 `药代-5回扣` 与 `刑事-回扣已履行交换`；家庭费用已实际支出",
+      "priority": 194,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-04",
+      "category": "刑事",
+      "title": "死魂灵",
+      "trigger": "写入 `刑事-虚假申报参与` 与 `刑事-申报取得款项`；写入 `飞检-通报`；费用问题 ≥60",
+      "priority": 195,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-05",
+      "category": "刑事",
+      "title": "伪君子",
+      "trigger": "刑事移交成立；写入 `刑事-证据掩盖` 与 `刑事-掩盖被查实`，或病历篡改被发现",
+      "priority": 196,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-06",
+      "category": "刑事",
+      "title": "奥赛罗",
+      "trigger": "刑事移交成立；写入 `政治-签了`，且该患者的临床隐患来自 E-053 分支",
+      "priority": 193,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-07",
+      "category": "刑事",
+      "title": "群魔",
+      "trigger": "写入 `共犯-共同签署`、`共犯-分配已收` 与本人或他人翻供；本人有主动参与事实",
+      "priority": 197,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-08",
+      "category": "刑事",
+      "title": "城堡",
+      "trigger": "已申请离职或提前离开；实际发生统方或回扣；写入 `刑事-出行被拦`；刑事门或查获成立",
+      "priority": 198,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-09",
+      "category": "死亡",
+      "title": "一桩事先张扬的凶杀案",
+      "trigger": "写入 `伤医-施暴者已确定`、`伤医-明确威胁`、`伤医-再次接触`、`伤医-袭击发生`、`伤医-抢救无效`",
+      "priority": 210,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-10",
+      "category": "身体",
+      "title": "人生的枷锁",
+      "trigger": "写入 `伤医-袭击发生`、`伤医-受伤生还`、`伤医-手部功能损失`",
+      "priority": 185,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-11",
+      "category": "身体",
+      "title": "围城",
+      "trigger": "写入 `伤医-袭击发生`、`伤医-受伤生还`、`伤医-长期行动障碍`",
+      "priority": 184,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-12",
+      "category": "死亡",
+      "title": "活着",
+      "trigger": "体力第二次耗尽；自身健康线已开启；写入 `身体-抢救无效`",
+      "priority": 208,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-13",
+      "category": "精神",
+      "title": "变形记",
+      "trigger": "精神第二次归零；写入 `精神-持续住院` 与 `精神-无法复岗`",
+      "priority": 178,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-14",
+      "category": "精神",
+      "title": "喧哗与骚动",
+      "trigger": "精神第二次归零；写入 `精神-长期症状`，未写入 `精神-持续住院`",
+      "priority": 176,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-15",
+      "category": "死亡",
+      "title": "局外人",
+      "trigger": "精神第二次归零；写入 `危机-失联`，无支持联系、无人找到；抑郁 ≥75；写入 `自杀-死亡确认`",
+      "priority": 206,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-16",
+      "category": "危机",
+      "title": "荒原",
+      "trigger": "写入 `天台-危机发生`、`天台-被找到`、`天台-中止当班`；有负债或已办离岗手续",
+      "priority": 168,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-17",
+      "category": "家庭",
+      "title": "家",
+      "trigger": "写入 `家庭-婚事` 与 `家庭-婚礼未到`；未承担婚事支出；家人关系为 0",
+      "priority": 152,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-18",
+      "category": "家庭",
+      "title": "玩偶之家",
+      "trigger": "写入 `伴侣-在册` 与 `伴侣-分开`；挪用共同存款、隐瞒负债或伴侣矛盾累计两次",
+      "priority": 154,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-19",
+      "category": "家庭",
+      "title": "父与子",
+      "trigger": "写入 `家庭-断联`；家人关系为 0；本局至少两次失约；未发生丧亲",
+      "priority": 156,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-20",
+      "category": "家庭",
+      "title": "长日将尽",
+      "trigger": "写入 `家庭-丧亲` 与 `father-deceased`；写入 `家庭-未赶上告别`，未写入 `家庭-已赶上告别`",
+      "priority": 158,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-21",
+      "category": "家庭",
+      "title": "樱桃园",
+      "trigger": "写入 `家庭-资产耗尽` 与 `家庭-住处失去`；资产或车辆已售；仍有债务；未发生丧亲",
+      "priority": 160,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-22",
+      "category": "债务",
+      "title": "悲惨世界",
+      "trigger": "个人追偿或已付赔偿成立；扣款后的收入不足以维持；未进入刑事程序；仍在岗",
+      "priority": 141,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-23",
+      "category": "债务",
+      "title": "包法利夫人",
+      "trigger": "连续两个结算日的实际收入不能覆盖当日利息；仍在岗",
+      "priority": 142,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-24",
+      "category": "债务",
+      "title": "欧也妮·葛朗台",
+      "trigger": "写入 `家庭-担保违约`；家人出资或亲属借款已发生；仍有私人借款；仍在岗",
+      "priority": 144,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-25",
+      "category": "债务",
+      "title": "高老头",
+      "trigger": "写入 `家庭-住处失去` 与 `家庭-借住已约定`；资产已售；仍有债务；仍在岗",
+      "priority": 145,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-26",
+      "category": "债务",
+      "title": "被侮辱与被损害的",
+      "trigger": "信用债务超过五万元或因债务终止轮转；已离开临床岗位",
+      "priority": 140,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-27",
+      "category": "债务",
+      "title": "项链",
+      "trigger": "写入 `卖车`；仍有债务；售车款对应家庭费用或已付赔偿的实际支出",
+      "priority": 143,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-28",
+      "category": "离院",
+      "title": "骆驼祥子",
+      "trigger": "已离开临床岗位；仍有信用债务；无长期行动障碍与长期精神症状",
+      "priority": 134,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-29",
+      "category": "离院",
+      "title": "萌芽",
+      "trigger": "已离开临床岗位；仍有信用债务；未进入刑事程序但有报案受理或飞检通报",
+      "priority": 133,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-30",
+      "category": "离院",
+      "title": "饥饿",
+      "trigger": "已离开临床岗位；写入 `家庭-住处失去`、`家庭-断联`；伴侣已分开或本局无伴侣；家人资助已用尽",
+      "priority": 135,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-31",
+      "category": "离院",
+      "title": "长夜漫漫路迢迢",
+      "trigger": "已离开临床岗位；自身健康线已开启；写入 `已就诊` 或 `未就诊`",
+      "priority": 132,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-32",
+      "category": "离院",
+      "title": "套中人",
+      "trigger": "已离开临床岗位；仍有信用债务；报案受理、飞检通报或科研通报之一成立",
+      "priority": 131,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-33",
+      "category": "离院",
+      "title": "幻灭",
+      "trigger": "已离开临床岗位；结业考试未过、暂停执业或长期行动障碍之一成立；本档其余结局均不成立",
+      "priority": 130,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-34",
+      "category": "留任",
+      "title": "动物农场",
+      "trigger": "写入 `科室-向新人转嫁`；主任关系 ≥3；本局有被压下的问题",
+      "priority": 124,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-35",
+      "category": "留任",
+      "title": "名利场",
+      "trigger": "实际发生统方或回扣且未被查获；写入 `利益-继续承接`；余额为正",
+      "priority": 122,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-36",
+      "category": "留任",
+      "title": "红与黑",
+      "trigger": "写入 `BTF-004:scapegoat_statement` 或 `政治-举报`；写入 `科室-接受继续施压`；主任关系 ≥4",
+      "priority": 123,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-37",
+      "category": "留任",
+      "title": "一九八四",
+      "trigger": "写入 `unrest_suppressed_once`；链事实中有不实陈述；声望 ≥60；无投诉升级",
+      "priority": 125,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-38",
+      "category": "刑事",
+      "title": "复活",
+      "trigger": "已起诉、患者死亡、未完成尸检、病历完整且过错有限，二审证据复核结果符合无罪",
+      "priority": 199,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-39",
+      "category": "复岗",
+      "title": "地下室手记",
+      "trigger": "主要以上责任未进入刑事或抽卷发现严重问题；写入 `复岗-已办理`；有治疗前史与欠款前史",
+      "priority": 115,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
+    },
+    {
+      "id": "END-40",
+      "category": "安顿",
+      "title": "平凡的世界",
+      "trigger": "取得关键来源材料；守住本人责任边界；落实必要交接；离岗手续、新工作、住处与还款约定全部落实",
+      "priority": 100,
+      "source": {
+        "path": "14_交接与提示词/结局与暗黑链实施合同_2026-09-07.md",
+        "sha256": "db1a104a002a1c7f79c3a82652987ad6bddb0d914f186e81fa27ce01bb7b0b5e"
+      }
     }
   ],
   "routes": [

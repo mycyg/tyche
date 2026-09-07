@@ -1,4 +1,4 @@
-# Tyche
+# Tyche · 轮班
 
 [简体中文](README.md) · [English](README.en.md)
 
@@ -6,9 +6,22 @@
 
 [ブラウザで遊ぶ](https://mycyg.github.io/tyche/) · [不具合を報告](https://github.com/mycyg/tyche/issues)
 
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/01-title.webp" width="260" alt="タイトル画面" /><br />タイトル画面</td>
+    <td align="center"><img src="docs/screenshots/03-ward-map.webp" width="260" alt="病棟マップ" /><br />病棟マップ</td>
+    <td align="center"><img src="docs/screenshots/04-bedside.webp" width="260" alt="床辺の問診" /><br />床辺の問診</td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/05-dice.webp" width="260" alt="判定ダイス" /><br />判定ダイス</td>
+    <td align="center"><img src="docs/screenshots/07-ending-end12.webp" width="260" alt="エンディング文書" /><br />エンディング文書</td>
+    <td align="center"><img src="docs/screenshots/11-mobile-ward-map.webp" width="140" alt="スマートフォン表示" /><br />スマートフォン表示</td>
+  </tr>
+</table>
+
 開発版：0.9.0。全分岐の到達確認、音声の収録範囲、複数周回の検証は未完了です。確認できた範囲は[検証記録](docs/verification.md)に記載しています。ゲーム内の言語は中国語です。
 
-コンテンツには、分岐を持つ症例 20 件、症例プリセット 208 件、患者 251 人、イベント 212 件、才能 30 種、X01〜X41 の結末項目があります。同僚との助け合い、個人間の貸し借り、家族の録音、研究活動が別々の記録を残し、条件に応じて交差します。収録数は、すべての分岐の検証完了を意味しません。
+コンテンツには、分岐を持つ症例 20 件、症例プリセット 208 件、患者 251 人、イベント 212 件、才能 30 種、主要エンディング 40 種（END-01〜END-40）と既存の付随エンディングがあります。同僚との助け合い、個人間の貸し借り、家族の録音、研究活動が別々の記録を残し、条件に応じて交差します。収録数は、すべての分岐の検証完了を意味しません。
 
 WASD、方向キー、地面のクリック、タッチ用スティックで移動します。人物やベッドのそばで E または Space を押すと会話や調査ができ、J でカルテを開けます。行動力、体力、SAN、感情、借金を管理しながら勤務を進めます。BGM、ボイス、効果音は個別に設定でき、縦画面・横画面、大きな文字、動きを抑えた表示に対応しています。
 

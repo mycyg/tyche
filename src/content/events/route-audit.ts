@@ -22,7 +22,6 @@ export function runAuthoredRoute(seed:string,policy:AuthoredRoutePolicy,veteran=
   }else if(r.phase==='feedback')action={type:'continue'};
   else if(r.phase==='roll')action={type:'ack-roll'};
   else if(r.phase==='debuff')action={type:'debuff',id:[...r.offered].sort((a,b)=>Number(['B12','B09','B10','B03','B17','B24','B01','B23'].includes(a))-Number(['B12','B09','B10','B03','B17','B24','B01','B23'].includes(b)))[0]};
-  else if(r.phase==='collapse')action={type:'collapse',method:'report'};
   else if(r.phase==='funding')action={type:'fund',method:!r.facts['asset-sold']?'asset':!r.facts['family-funding']?'family':'credit'};
   else action={type:'testify',response:'facts'};
   const next=act(r,action);if(next===r)throw new Error(`Stuck ${seed}/${policy}: ${JSON.stringify(action)}`);r=next;

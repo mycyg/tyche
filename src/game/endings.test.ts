@@ -1,6 +1,7 @@
 import {describe,it,expect}from'vitest';
 import{startRun}from'./engine';
 import{assessEnding,auditScore,documentedEnding,documentedRouteClosures,endingEligibility,ENDING_IDS,liability,tribunalEnding}from'./endings';
+import{ATTACHMENT_POOL}from'../content/events/ending-adapter';
 import type{EndingRun,EndingOptions,DocumentedEnding}from'./endings';
 import type{Patient,Hazard}from'./types';
 const fresh=():EndingRun=>{const r=startRun('ending-test','程医生',[]);r.day=15;r.phase='tribunal';r.patients=r.patients.slice(0,1);r.patients[0].clinical=undefined;r.patients[0].damage=0;r.facts={};r.hazards=[];r.committed=[];r.queue=[];r.cursor=0;r.reputation=50;r.relations={chief:2,peer:2,nurse:2,family:2};r.depression=0;r.income=1000;r.debt=0;r.privateDebt=0;r.exhausted=0;r.emotionalBreaks=0;r.vitals={stamina:80,san:80,emotion:80};delete r.authored;return r;};
@@ -48,19 +49,28 @@ function fixture(id:string):{r:EndingRun;options:EndingOptions}{
   for(let i=0;i<2000;i++){
     r.seed=`end:${id}:${i}`;
     if(!endingEligibility(r,id,options).eligible)continue;
+    // Pages outside the attachment pool are replaced by an END main page; their
+    // record only needs to stay adjudicable on its own.
+    if(!ATTACHMENT_POOL.includes(id))return{r,options};
     const result=tribunalEnding(r,options.response??'facts')as DocumentedEnding;
     if(result.id===id||result.annexIds?.includes(id))return{r,options};
   }
   throw new Error(`No adjudicated route to ${id}: ${JSON.stringify(endingEligibility(r,id,options))}`);
 }
+const X_IDS=ENDING_IDS.filter(id=>id.startsWith('X'));
 describe('all documented ending pages are genuinely adjudicable',()=>{
-  it('retains every X01–X41 source definition once',()=>{expect(ENDING_IDS).toEqual(Array.from({length:41},(_,i)=>`X${String(i+1).padStart(2,'0')}`));});
-  for(const id of ENDING_IDS)it(`${id} has a reachable decision or attachment, not just a title`,()=>{
+  it('retains every X01–X41 source definition once beside the forty END pages',()=>{
+    expect(X_IDS).toEqual(Array.from({length:41},(_,i)=>`X${String(i+1).padStart(2,'0')}`));
+    expect(ENDING_IDS.filter(id=>id.startsWith('END-'))).toEqual(Array.from({length:40},(_,i)=>`END-${String(i+1).padStart(2,'0')}`));
+  });
+  for(const id of X_IDS)it(`${id} has a reachable decision or attachment, not just a title`,()=>{
     const{r,options}=fixture(id);const original=JSON.stringify(r),ending=documentedEnding(r,id,options);
     expect(ending.id).toBe(id);expect(ending.sourceId).toBe(id);expect(ending.decision.length).toBeGreaterThan(25);expect(ending.epilogue.length).toBeGreaterThan(15);
     expect(JSON.stringify(r)).toBe(original);expect(ending.decision+ending.epilogue).not.toMatch(/候选|引擎|节点|写入|设计|玩家|flag|⚠/);
     const adjudicated=tribunalEnding(r,options.response??'facts')as DocumentedEnding;
-    expect([adjudicated.id,...adjudicated.annexIds]).toContain(id);
+    expect(adjudicated.id).toMatch(/^END-\d\d$/);
+    if(ATTACHMENT_POOL.includes(id))expect(adjudicated.annexIds).toContain(id);
+    else expect(adjudicated.annexIds).not.toContain(id);
   });
 });
 describe('injury, knowledge and evidence boundaries',()=>{
@@ -73,7 +83,8 @@ describe('injury, knowledge and evidence boundaries',()=>{
   });
   it('does not transform a submitted research problem into patient injury or criminal liability',()=>{
     const r=fresh();flag(r,'paper-submitted-false');risk(r,'D',100);r.hazards[0].scope={kind:'project',id:'paper'};
-    expect(assessEnding(r).seeds).toHaveLength(0);expect(assessEnding(r).filed).toBe(false);expect(tribunalEnding(r,'admit').id).toBe('X11');
+    expect(assessEnding(r).seeds).toHaveLength(0);expect(assessEnding(r).filed).toBe(false);
+    const ending=tribunalEnding(r,'admit')as DocumentedEnding;expect(ending.id).toMatch(/^END-/);expect(ending.category).not.toBe('刑事');expect(ending.annexIds).toContain('X11');
   });
   it('refuses suspension/suspended sentence from someone else’s forgiveness or mere confession',()=>{
     const {r}=fixture('X01'),other={...r.patients[0],uid:'another-patient'};r.patients.push(other);other.damage=0;

@@ -1,22 +1,26 @@
-import type {Effects,Run}from '../../game/types';
+import type {Card,Effects,Run}from '../../game/types';
 import type {EventCard,EventPhase}from './types';
 import {EVENT_BY_ID,eventToCard}from './catalog';
 import {recordedSanBreaks}from '../../game/interruption';
 
 /** Entry points and closing records for the dark chains DK-1、DK-5～DK-8.
  *
- * 接线（给工程师 A）：
- * - `darkChainEntry(r,'san')` 在 `engine.ts` 的 `interrupt()` 里，SAN 再次归零、
- *   准备调用 `stop(r,'san')` 之前调用。返回卡时先把卡交给玩家，本局不收口；
- *   返回 undefined 时按原来的 `stop(r,'san')` 收口。
- * - `darkChainEntry(r,'stamina')` 同理，用在体力再次归零、`stop(r,'stamina')` 之前。
- * - `darkChainResolve(r)` 在链末（结算或 `stop()` 之前）调用，把本局已经发生的
- *   事实所决定的结果标记写进 `r.facts`，返回值为空。它只读已写入的事实，不掷骰，
- *   也不覆盖任何既有记录；要拿到标记本身而不写入，用 `darkChainOutcome(r)`。
- * - 导演已在 `forceZeroEvent` 里按同一规则派发这两张入口卡。A 在 `interrupt()`
- *   里若已经走 `forceZeroEvent`，只需在收口前补一次 `darkChainResolve(r)`。
+ * 引擎侧的接线（`engine.ts` 的 `interrupt()` 与 `stop()`，工程师 A 已接好）：
  *
- * 三条链的结果都由此前的求援、退出、就医与陪同事实决定，没有额外抽签。 */
+ * 1. SAN 或体力再次归零时，引擎在 `stop(r,kind)` 之前调用 `darkChainEntry(r,kind)`。
+ *    返回 `undefined`：按原流程立即收口（首次归零仍走 E-197～E-202）。
+ *    返回一张卡：引擎把它插到当前位置作为急性事件卡（`r.emergency.vital===kind`），
+ *    写入 `dark-chain:<kind>`，本局继续；该事实存在期间同一项归零不再重复触发。
+ *    链的后续事件（E-231／E-232／E-239／E-240 等）由导演按普通事件排期。
+ * 2. 链开着的时候，引擎在每次 `interrupt()` 与 `stop()` 里调用 `darkChainResolve(r)`。
+ *    该函数把此前事实决定的结果标记写进 `r.facts`；链末步骤已经走完时，另写
+ *    `dark-chain-resolved:<kind>`，引擎读到它就 `stop(r,kind)`，结局由 `earlyEnding`
+ *    按合同第二节的优先级选取。已存在的记录保持原值与原日期。
+ * 3. 鉴定庭路径（D15 `testify`）只经过 `settleAuthoredEvents(r,'日终',true)`；本函数在
+ *    那里同样只读事实，不掷骰。
+ *
+ * 要拿到标记本身而不写入，用 `darkChainOutcome(r)`。三条链的结果都由此前的求援、
+ * 退出、就医与陪同事实决定，没有额外抽签。 */
 
 const has = (r: Run, key: string): boolean => Boolean(r.facts[key] ?? r.authored?.activeFacts[key]);
 const writtenOn = (r: Run, key: string): number | undefined => (r.facts[key] ?? r.authored?.activeFacts[key])?.day;
@@ -72,13 +76,19 @@ const ENTRY: Record<'san' | 'stamina', (r: Run) => string | undefined> = {
   stamina: r => r.exhausted < 1 ? undefined : 'E-238',
 };
 
-/** 返回该链的首张卡；首次归零仍走既有的 E-197～E-202，此时返回 undefined。 */
-export function darkChainEntry(r: Run, kind: 'san' | 'stamina', phase: EventPhase = r.shiftPhase ?? '日终'): EventCard | undefined {
+/** 返回该链的首张卡；首次归零仍走既有的 E-197～E-202，此时返回 undefined。
+ * 返回类型按合同写作 `Card`，实际给出的是导演可以继续排期的 `EventCard`。 */
+export function darkChainEntry(r: Run, kind: 'san' | 'stamina', phase: EventPhase = r.shiftPhase ?? '日终'): Card | undefined {
   const id = ENTRY[kind](r);
   const event = id ? EVENT_BY_ID[id] : undefined;
   if (!event) return;
   const instanceId = `${r.id}:dark-chain:${kind}:${r.day}`;
-  return eventToCard(event, { instanceId, day: r.day, phase, scope: { kind: 'personal', id: r.id }, actorId: 'jiang' });
+  // The entry card is built outside the director, so it carries its own context:
+  // E-230's call home only appears for a run whose family is still in contact.
+  const context = { day: r.day, phase, relations: r.relations, depression: r.depression,
+    san: r.vitals.san, emotion: r.vitals.emotion, stamina: r.vitals.stamina, cash: r.cash,
+    facts: { ...r.facts, ...(r.authored?.activeFacts ?? {}) } };
+  return eventToCard(event, { instanceId, day: r.day, phase, scope: { kind: 'personal', id: r.id }, actorId: 'jiang' }, context);
 }
 
 /** 链末结算的标记本身：按已经写入的事实取值，不掷骰、不覆盖既有记录。 */
@@ -90,8 +100,17 @@ export function darkChainOutcome(r: Run): Effects {
   return flags.length ? { flags: [...new Set(flags)] } : {};
 }
 
-/** 链末结算：把上面的标记写进 `r.facts`。已经存在的记录保持原值与原日期。 */
+/** 走完链末步骤的判据。SAN 侧的三条支线各有自己的终点：DK-5 收在 E-232，
+ * DK-6 收在停止当班，DK-7 收在死亡确认。体力侧收在 E-239。 */
+const CLOSED: Record<'san' | 'stamina', (r: Run) => boolean> = {
+  san: r => ['event-seen:E-232', 'event-seen:E-237', '自杀-死亡确认', '天台-中止当班', '精神-无法复岗', '精神-长期症状'].some(key => has(r, key)),
+  stamina: r => ['event-seen:E-239', '身体-救回', '身体-抢救无效'].some(key => has(r, key)),
+};
+
+/** 链末结算：把结果标记写进 `r.facts`，走完的链另写 `dark-chain-resolved:<kind>`。 */
 export function darkChainResolve(r: Run): void {
-  for (const key of darkChainOutcome(r).flags ?? [])
-    if (!r.facts[key]) r.facts[key] = { day: r.day, source: 'dark-chain', sequence: r.journal.length };
+  const write = (key: string) => { if (!r.facts[key]) r.facts[key] = { day: r.day, source: 'dark-chain', sequence: r.journal.length }; };
+  for (const key of darkChainOutcome(r).flags ?? []) write(key);
+  for (const kind of ['san', 'stamina'] as const)
+    if (has(r, `dark-chain:${kind}`) && CLOSED[kind](r)) write(`dark-chain-resolved:${kind}`);
 }

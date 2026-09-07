@@ -3,7 +3,7 @@ import { AUTHORED_EVENTS, EVENT_BY_ID, contextualOptions, eventEligible, eventTo
 import { EVENT_RESULTS, EVENT_FAILURES } from './narrative';
 import { RECORD_ONLY_EVENT_FACTS } from './fact-records';
 import { assaultOutcome, collapseOutcome, crisisOutcome, darkChainEntry, darkChainOutcome, darkChainResolve, posthumousItems } from './dark-chains';
-import type { EventContext } from './types';
+import type { EventCard, EventContext } from './types';
 import type { Run } from '../../game/types';
 
 const DARK = AUTHORED_EVENTS.filter(e => { const n = +e.id.slice(2); return n >= 213 && n <= 258; });
@@ -13,7 +13,7 @@ const NIGHT_POOL = AUTHORED_EVENTS.filter(e => { const n = +e.id.slice(2); retur
 const RESOLUTIONS = ['E-217', 'E-221', 'E-232', 'E-236', 'E-237', 'E-239'];
 const context = (extra: Partial<EventContext> = {}): EventContext => ({ day: 8, phase: '结算', facts: {}, san: 60, emotion: 60, stamina: 60, depression: 20, cash: 5000, pressure: 50, ...extra });
 const fact = (day = 1) => ({ day, source: 'test', sequence: day });
-const run = (extra: Partial<Run> = {}) => ({ id: 'dark', day: 12, facts: {}, patients: [], committed: [], journal: [], receivable: 0, exhausted: 0, sanBreaks: 0, depression: 0, ...extra } as unknown as Run);
+const run = (extra: Partial<Run> = {}) => ({ id: 'dark', day: 12, facts: {}, patients: [], committed: [], journal: [], receivable: 0, cash: 0, exhausted: 0, sanBreaks: 0, depression: 0, vitals: { stamina: 0, san: 0, emotion: 0 }, relations: { chief: 2, nurse: 2, peer: 2, family: 2 }, ...extra } as unknown as Run);
 
 /** 合同 4.15 的新增事实。写入方分三处：事件选项、链末结算（dark-chains）、
  * 以及开局设置（`伴侣-在册` 由工程师 A 写入 Run）。 */
@@ -151,11 +151,12 @@ describe('dark chains DK-1 to DK-14', () => {
   });
 
   it('hands the engine one entry card per repeated zero and writes the close into the run itself', () => {
+    const entryId = (r: Run, kind: 'san' | 'stamina') => (darkChainEntry(r, kind) as EventCard | undefined)?.authoredEventId;
     expect(darkChainEntry(run({ sanBreaks: 1 }), 'san')).toBeUndefined();
     expect(darkChainEntry(run({ exhausted: 0 }), 'stamina')).toBeUndefined();
-    expect(darkChainEntry(run({ sanBreaks: 2 }), 'san')?.authoredEventId).toBe('E-230');
-    expect(darkChainEntry(run({ sanBreaks: 2, depression: 80 }), 'san')?.authoredEventId).toBe('E-233');
-    expect(darkChainEntry(run({ exhausted: 1 }), 'stamina')?.authoredEventId).toBe('E-238');
+    expect(entryId(run({ sanBreaks: 2 }), 'san')).toBe('E-230');
+    expect(entryId(run({ sanBreaks: 2, depression: 80 }), 'san')).toBe('E-233');
+    expect(entryId(run({ exhausted: 1 }), 'stamina')).toBe('E-238');
     const closing = run({ day: 12, facts: { '伤医-袭击发生': fact(11), '伤医-已求援': fact(11), '伤医-陪同离院': fact(11) } });
     expect(darkChainOutcome(closing).flags).toContain('伤医-受伤生还');
     darkChainResolve(closing);

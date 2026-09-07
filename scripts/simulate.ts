@@ -78,17 +78,20 @@ export interface PolicySummary {
   policy: Policy; veteran: boolean; runs: number;
   reachedDay4: number; reachedCourt: number; averageEndDay: number; actions: number;
   endings: Record<string, number>; staminaEndings: number; topEndingShare: number;
+  /** Share of runs meeting the non-dark predicate of the endings contract §3.1. */
+  nonDark: number;
 }
 /** Deterministic seeds `${prefix}-${i}`; every policy sees the same seed list. */
 export function summarize(policy: Policy, veteran: boolean, count: number, prefix = 'qa'): PolicySummary {
-  const endings: Record<string, number> = {}; let court = 0, day4 = 0, totalDays = 0, actions = 0;
+  const endings: Record<string, number> = {}; let court = 0, day4 = 0, totalDays = 0, actions = 0, nonDark = 0;
   for (let i = 0; i < count; i++) {
     const x = runSimulation(`${prefix}-${i}`, policy, veteran), id = x.r.ending!.id;
     endings[id] = (endings[id] ?? 0) + 1; court += +(x.r.day >= 15); day4 += +(x.r.day > 3); totalDays += x.r.day; actions += x.steps;
+    nonDark += +nonDarkEnding(x.r.ending!);
   }
   const staminaEndings = (endings.X17 ?? 0) + (endings.X20 ?? 0);
   return { policy, veteran, runs: count, reachedDay4: day4 / count, reachedCourt: court / count, averageEndDay: totalDays / count, actions, endings,
-    staminaEndings: staminaEndings / count, topEndingShare: Math.max(0, ...Object.values(endings)) / count };
+    staminaEndings: staminaEndings / count, topEndingShare: Math.max(0, ...Object.values(endings)) / count, nonDark: nonDark / count };
 }
 /** Balance targets from docs/design/01 §12 (default difficulty, no permanent growth). */
 export const BALANCE_TARGETS = {
@@ -122,10 +125,19 @@ if (process.argv[1]?.endsWith('simulate.ts')) {
     .filter(([policy, veteran]) => !only || only === (veteran ? 'veteran' : policy));
   const summaries = plans.map(([policy, veteran]) => summarize(policy, veteran, count, prefix));
   const pct = (n: number) => `${(n * 100).toFixed(1)}%`;
-  console.log(JSON.stringify(summaries.map(s => ({ ...s, reachedDay4: pct(s.reachedDay4), reachedCourt: pct(s.reachedCourt), averageEndDay: +s.averageEndDay.toFixed(2), staminaEndings: pct(s.staminaEndings), topEndingShare: pct(s.topEndingShare) })), null, 2));
+  console.log(JSON.stringify(summaries.map(s => ({ ...s, reachedDay4: pct(s.reachedDay4), reachedCourt: pct(s.reachedCourt), averageEndDay: +s.averageEndDay.toFixed(2), staminaEndings: pct(s.staminaEndings), topEndingShare: pct(s.topEndingShare), nonDark: pct(s.nonDark) })), null, 2));
   if (args.includes('--assert')) {
     const failures = balanceFailures(summaries);
     if (failures.length) { console.error(`Balance targets missed:\n${failures.map(f => `- ${f}`).join('\n')}`); process.exit(1); }
     console.log('Balance targets met.');
   }
+}
+
+/** Endings contract §3.1: the run is non-dark when the main ending is END-40, or
+ * when it is END-33, END-35 or END-39 and no END-01..END-27 page is attached.
+ * A hoisted function: the summary above runs at module load, before any const here. */
+export function nonDarkEnding(ending: { id: string; annexIds?: string[] }): boolean {
+  if (ending.id === 'END-40') return true;
+  if (!['END-33', 'END-35', 'END-39'].includes(ending.id)) return false;
+  return !(ending.annexIds ?? []).some(id => /^END-(0[1-9]|1\d|2[0-7])$/.test(id));
 }
