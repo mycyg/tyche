@@ -388,8 +388,8 @@ export async function playRun(
     const safe = name.replace(/[^\w.-]+/g, "-");
     if (shots.has(safe)) return;
     shots.add(safe);
-    const name0 = `${safe}.jpg`;
-    const file = resolve(outDir, name0);
+    const fileName = `${safe}.jpg`;
+    const file = resolve(outDir, fileName);
     mkdirSync(dirname(file), { recursive: true });
     try {
       // Ten runs of a fourteen-day rotation are checked in together, so the
@@ -398,7 +398,7 @@ export async function playRun(
       await page.screenshot({ path: file, type: "jpeg", quality: 55 });
       // Recorded as a bare file name: a checked-in journal must not carry the
       // absolute path of whichever machine produced it.
-      report.shots.push(name0);
+      report.shots.push(fileName);
     } catch {
       /* a closed page cannot be photographed */
     }
