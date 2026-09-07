@@ -98,4 +98,5 @@
 - 附件 03 问题 14（`药代-约谈-不实`、`药代-串供` 无写入方）需要在 E-140／E-142 一带补选项，属内容决定。
 - 附件 03 问题 18（`hint` 字段不上屏）：字段内容已清洗，但界面仍从 `effects` 现算代价行，没有渲染 `hint`。
 - `npm run check:content` 的状态仍是 `structurally-valid-with-unverified-coverage`：事件标记已全部有消费者，未逐条复演的自然触发路径照旧列为待验。
-- `docs/voice-cues.json` 已按当前文本重新生成，配音音频尚未按新增文本采集，`npm run audio:check --require-complete` 仍会拦截发布。
+- `docs/voice-cues.json` 已按当前文本重新生成，条目由 21,555 增至 22,271；新增的这批还没有采集音频，`npm run audio:check --require-complete` 仍会拦截发布。
+- `npm run build` 需要本地已渲染的 `public/audio/voice/index.json`。新建的工作树没有这批未入库的音频文件，构建会在收集发布资产时停下，与本轮改动无关。
