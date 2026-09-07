@@ -8,7 +8,7 @@ import {RULES} from './rules';
 import {skimProbability} from './perception';
 import {decode,emptySave,encode,migrateLegacyCollapse} from './storage';
 import {runSimulation} from '../../scripts/simulate';
-import type {Card,Run} from './types';
+import type {Card,Meta,Run} from './types';
 
 const story=(id:string,effects:Record<string,unknown>,ap=0):Card=>({id,kind:'story',title:id,text:id,scope:{kind:'personal',id:'self'},options:[{id:`${id}:go`,label:'go',ap,minutes:0,cost:0,result:'ok',effects}]});
 const nightCard=(id:string):Card=>({id,kind:'night',shiftPhase:'夜班',title:'night',text:'night',scope:{kind:'personal',id:'self'},options:[{id:`${id}:go`,label:'go',ap:0,minutes:5,cost:0,result:'ok',effects:{}}]});
@@ -305,7 +305,7 @@ describe('tribunal, endings and rewards',()=>{
     const {cases,entities}=encounteredCollections(r),entries=cases.length+entities.length;
     const meta=reward(newMeta(),r);
     expect(meta.xp).toBe(3+2+entries+1);expect(meta.insight).toBe(2+entries+2);expect(meta.runs).toBe(1);
-    let m={...meta,insight:100,xp:10};
+    let m:Meta={...meta,insight:100,xp:10};
     m=upgrade(m,'fourth-slot');expect(m.fourthSlot).toBe(true);expect(m.insight).toBe(60);
     m=upgrade(m,'reroll-token');expect(m.rerollToken).toBe(true);expect(m.insight).toBe(50);
     m=upgrade(m,'attending');expect(m.attendingUnlocked).toBe(true);expect(m.insight).toBe(30);

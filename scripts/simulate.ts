@@ -1,6 +1,7 @@
 import { act, availableOptions, currentCard, newMeta, startRun } from '../src/game/engine';
 import { random } from '../src/game/random';
 import { worldCoffeeOffering } from '../src/world/refreshments';
+import { RULES } from '../src/game/rules';
 import type { Action, Option, Run } from '../src/game/types';
 export type Policy = 'random' | 'careful' | 'reckless';
 export function select(r: Run, policy: Policy): Option {
@@ -20,8 +21,11 @@ export function select(r: Run, policy: Policy): Option {
     const p = r.patients.find(x => x.uid === currentCard(r)?.patientId);
     if (p && p.spent + o.cost > p.budget) value += (p.spent + o.cost - p.budget) / 150;
     if (o.id.endsWith(':wait')) value += 35;
-    // Leaving a patient for tomorrow is the last resort, after overtime.
-    if (o.interaction === 'defer') value += 60;
+    // Leaving a patient for tomorrow costs the documented two hazards.
+    if (o.interaction === 'defer') value += RULES.deferredPatient.R * 5 + RULES.deferredPatient.D * 2;
+    // A player does not repeat the same clinical action on the same patient;
+    // repeatable graph nodes would otherwise loop until exhaustion.
+    if (o.clinicalChoice && p?.clinical?.choices.includes(o.clinicalChoice)) value += 150;
     return value;
   };
   return [...opts].sort((a, b) => score(a) - score(b))[0];
