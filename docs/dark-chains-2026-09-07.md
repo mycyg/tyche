@@ -12,22 +12,23 @@
 | 新增事实 | 114 | 合同 4.15 的 124 项中，由事件选项写入的部分 |
 | 事件库总数 | 274 | 原 212 |
 
-合同 4.15 的 124 项事实里，另外 10 项不由事件选项写入：`伤医-施暴者已确定` 由医闹三拍的 escalated 出口与导演的入口判定写入；`伤医-受伤生还`、`伤医-手部功能损失`、`伤医-长期行动障碍`、`伤医-抢救无效`、`伤医-家属证言`、`精神-无法复岗`、`精神-长期症状`、`身体-救回`、`身体-抢救无效`、`身体-上限永久下调` 由链末结算按此前已写入的事实取值；`伴侣-在册` 由开局「轮转登记」页的伴侣设置写入 `Run`（合同第八节第 2 条，属工程师 A）。
+合同 4.15 的 124 项事实里，另外 10 项不由事件选项写入：`伤医-施暴者已确定` 由医闹三拍的 escalated 出口与导演的入口判定写入；`伤医-受伤生还`、`伤医-手部功能损失`、`伤医-长期行动障碍`、`伤医-抢救无效`、`伤医-家属证言`、`精神-无法复岗`、`精神-长期症状`、`身体-救回`、`身体-抢救无效`、`身体-上限永久下调` 由链末结算按此前已写入的事实取值；`伴侣-在册` 由开局「轮转登记」页的伴侣设置写入（`engine.ts:204`，工程师 A 已实现；选「无」时不写，DK-10 与 END-18 不出现）。
 
-## 二、接线（工程师 A）
+## 二、接线
 
-`src/content/events/dark-chains.ts` 导出两个函数，签名与合同第六节一致：
+`src/content/events/dark-chains.ts` 导出两个函数，签名与合同第六节一致，`engine.ts` 里的调用点由工程师 A 完成（`63f46d2`），本分支合并后已经接通：
 
 ```ts
 export function darkChainEntry(r: Run, kind: 'san' | 'stamina'): Card | undefined
 export function darkChainResolve(r: Run): void
 ```
 
-- `darkChainEntry(r,'san')` 在 `engine.ts` 的 `interrupt()` 里、SAN 再次归零且准备调用 `stop(r,'san')` 之前调用。返回卡时把卡交给玩家，本局不收口；返回 `undefined` 时按原有的 `stop(r,'san')` 收口。首次归零仍走 E-197～E-202，此时返回 `undefined`。
-- `darkChainEntry(r,'stamina')` 用法相同，位置在体力再次归零、`stop(r,'stamina')` 之前。
-- `darkChainResolve(r)` 在链末（结算或 `stop()` 之前）调用。它把结果标记写进 `r.facts`，写入格式与 `engine.ts` 的 `flag()` 一致（`{day, source:'dark-chain', sequence}`），已存在的记录保持原值与原日期，返回值为空。只需要标记本身而不写入时用 `darkChainOutcome(r): Effects`。
+- `darkChainEntry(r,kind)` 在 `interrupt()` 里、该项再次归零且准备调用 `stop(r,kind)` 之前调用。返回 `undefined` 时按原有的 `stop(r,kind)` 收口，首次归零仍走 E-197～E-202。返回一张卡时，引擎把它插到当前位置作为急性事件卡，写入 `dark-chain:<kind>`，本局继续；该事实存在期间同一项归零不再重复触发。
+- `darkChainResolve(r)` 在每次 `interrupt()` 与 `stop()` 里调用。它把结果标记写进 `r.facts`，写入格式与 `engine.ts` 的 `flag()` 一致（`{day, source:'dark-chain', sequence}`），已存在的记录保持原值与原日期。链末步骤走完时另写 `dark-chain-resolved:<kind>`，引擎读到它就 `stop(r,kind)`，结局由 `earlyEnding` 按合同第二节的优先级选取。
+- 链末步骤的判据：SAN 侧为 `event-seen:E-232`、`event-seen:E-237`、`自杀-死亡确认`、`天台-中止当班`、`精神-无法复岗`、`精神-长期症状` 任一成立；体力侧为 `event-seen:E-239`、`身体-救回`、`身体-抢救无效` 任一成立。三条支线（DK-5 收在 E-232，DK-6 收在停止当班，DK-7 收在死亡确认）都算 SAN 侧的终点。
+- 只需要标记本身而不写入时用 `darkChainOutcome(r): Effects`。
 - 三条链的结果都由此前的求援、退出、就医与陪同事实决定，没有额外掷骰。
-- 导演已在 `forceZeroEvent` 里按同一规则派发这两张入口卡。`interrupt()` 若已经走 `forceZeroEvent`，只需在收口前补一次 `darkChainResolve(r)`。
+- 入口卡自带 `EventContext`（关系、抑郁、三维、现金、已写入的事实），所以 E-230 的「给家里打个电话」只对家人仍有联系的一局出现。导演的 `forceZeroEvent` 按同一规则派发这两张卡，两条路径给出的事件 ID 一致。
 
 入口事件的选择规则：
 
@@ -102,10 +103,21 @@ E-259–E-264 的时间窗从 D6、D9、D11 开始，在 D6 与 D9 两夜就被�
 
 `src/content/events/dark-chains.test.ts` 覆盖：编号连续与阶段解析、124 项事实各有写入方、选项代价的编译值、检定两侧写入不同记录、缺前提不触发、再次归零的互斥组、按本局事实显示的选项、链末结算的取值、身后事项不含方法与准备、已完成行为进入附记、D12 与 D14 的夜班池条数、绑定患者时不虚构床号。`src/game/director.test.ts` 覆盖：再次归零的派发、qualifier 的发布条件、医闹入口的命名条件、链末结算的写入、提前出院与重打页面的记录、退款按实际未退金额计算。
 
-## 六、未完成项
+## 六、合并 main 时改到的既有测试
+
+第二次归零以前立即收口，现在先开链。三个文件里断言旧行为的用例按新行为重写，断言的意图保持不变：
+
+| 文件 | 用例 | 改动 |
+|---|---|---|
+| `src/game/engine-rules.test.ts` | 第二次体力归零 | 由「当日身体结局」改为「开出 E-238，本局继续，`exhausted` 为 2」 |
+| | 一次骰子自救之后的第二次 SAN 归零（含读档、含 T23） | 由「收口到 END-33 ＋ X21」改为「开出 E-230，写入 `dark-chain:san`，`sanBreaks` 为 2」 |
+| `src/game/interruption-regression.test.ts` | 结算／夜班的重复体力归零 | 由「X17／X20 附件」改为「开链并保留发生阶段」 |
+| | 自救不跨阶段续期、旧存档缺计数、T23 只保护一次 | 同上，改为断言开链与计数，不再断言结局 |
+| `src/game/storage.test.ts` | 三个策略的完整模拟存档 | 超时预算由 60 秒提到 180 秒：开链的一局要走到 D14，不再在第一周收口 |
+
+## 七、未完成项
 
 - 结局侧（END-01～END-40 的判定、`ending-adapter.ts`、`ending-prose.ts`、结局 CG 与致玩家卡）属工程师 A，本分支未改。
-- `伴侣-在册` 的开局写入点（合同第八节第 2 条的「轮转登记」页与 `Run.partner` 字段）属工程师 A。本分支只读该事实。
-- `engine.ts` 的 `stop()` 与 `interrupt()` 未改，两个入口函数尚未被调用。
+- DK-10（E-244～E-247）只在玩家于轮转登记页选了伴侣的一局里出现。`scripts/audit-routes.ts` 按 `index%3` 轮流使用三种设置，让这四条事件进入路线审计。
 - 玩家可见文案改动后的配音重采集（`docs/audio.md` 流程与 `npm run audio:check`）未做。
 - 合同第一节 1.4 记「飞检 F 权重 ×1.5 仍未实现」。复核 `director.ts:633` 后确认该权重已经存在（`category===6` 且 `低标入院` 成立时乘 1.5），合同该行已过期，本分支未改。
