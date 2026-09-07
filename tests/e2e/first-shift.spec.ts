@@ -43,7 +43,8 @@ test('fresh start, readable HUD, map navigation and modal focus',async({page})=>
   expect(audition).toBeDefined();expect(audition.version).toMatch(/^[a-f0-9]{12}$/);
   await settings.getByRole('button',{name:'试听语音',exact:true}).click();
   await expect.poll(()=>played.some(src=>src.endsWith('/'+audition.file+'?v='+audition.version))).toBe(true);
-  await expect.poll(()=>played.some(src=>/\/audio\/music\/[^/]+\.mp3$/.test(src))).toBe(true);
+  // ward-rounds and the other new scene tracks ship as .ogg first, .mp3 as the compatibility fallback.
+  await expect.poll(()=>played.some(src=>/\/audio\/music\/[^/]+\.(mp3|ogg)$/.test(src))).toBe(true);
   await page.keyboard.press('Escape');await expect(settings).toHaveCount(0);
   await page.getByRole('button',{name:/当班待办/}).click();
   const agenda=page.getByRole('dialog',{name:'当班待办',exact:true});await expect(agenda).toBeVisible();

@@ -230,6 +230,8 @@ export interface Feedback {
 export interface Ending {
   annexIds?: string[];
   id: string;
+  /** END-01..END-40 story key from the dark-expansion main-ending pool, when this ending is mapped to one. */
+  storyId?: string;
   title: string;
   category: string;
   decision: string;

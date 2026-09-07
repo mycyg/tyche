@@ -848,10 +848,17 @@ export function persist(
   save: Save,
   storage: SaveStorage,
 ): string {
+  let next: string;
   try {
-    const next=encode(save);
+    next = encode(save);
     // A malformed current run must never replace the last healthy save/backup.
     decode(next);
+  } catch {
+    // The in-memory state itself failed the encode/decode round trip; writing it would
+    // only overwrite a healthy save with a broken one, so this returns before touching storage.
+    return "本次进度未通过校验，未写入浏览器。游戏仍可继续，请导出存档。";
+  }
+  try {
     const previous = storage.getItem(SAVE_KEY);
     if (previous) {
       try {
@@ -864,6 +871,7 @@ export function persist(
     storage.setItem(SAVE_KEY, next);
     return "";
   } catch {
-    return "进度未写入浏览器。游戏仍可继续，请导出存档。";
+    // The data was valid; the browser's storage itself refused the write (quota, private mode, disabled).
+    return "进度未写入浏览器（存储空间不足或不可用）。游戏仍可继续，请导出存档。";
   }
 }
