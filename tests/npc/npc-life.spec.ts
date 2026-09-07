@@ -4,6 +4,8 @@ import {resolve}from 'node:path';
 
 const SHOTS=resolve(import.meta.dirname,'../../docs/npc-verification');
 mkdirSync(SHOTS,{recursive:true});
+/** Evidence frames stay small enough to keep in the repository. */
+const shot=(name:string)=>({path:`${SHOTS}/${name}.jpg`,type:'jpeg' as const,quality:72});
 
 async function startAtDesk(page:Page,seed='npc-life-check'){
   await page.goto('./');
@@ -46,7 +48,7 @@ test('the ward keeps working while the doctor stands still',async({page})=>{
   const samples=[];
   for(let i=0;i<8;i++){
     samples.push(await sample(page));
-    await page.locator('.world-viewport').screenshot({path:`${SHOTS}/cycle-${String(i+1).padStart(2,'0')}.png`});
+    await page.locator('.world-viewport').screenshot(shot(`cycle-${String(i+1).padStart(2,'0')}`));
     await page.waitForTimeout(1600);
   }
   const busy=[],spread=new Set<number>();
@@ -81,7 +83,7 @@ test('a task can be followed to the person who carries it',async({page})=>{
   const after=await sample(page);
   expect(movedColumns(before,after).size,`walked to ${owner}`).toBeGreaterThan(20);
   expect(title??'').not.toBe('');
-  await page.locator('.world-viewport').screenshot({path:`${SHOTS}/follow-task.png`});
+  await page.locator('.world-viewport').screenshot(shot(`follow-task`));
   expect(errors).toEqual([]);
 });
 
@@ -96,7 +98,7 @@ test('the ward stays legible with motion turned off',async({page})=>{
   // The floor is still drawn: people and furniture, not an empty canvas.
   const lit=first.pixels.filter(value=>value>40).length;
   expect(lit/first.pixels.length).toBeGreaterThan(.5);
-  await page.locator('.world-viewport').screenshot({path:`${SHOTS}/reduced-motion.png`});
+  await page.locator('.world-viewport').screenshot(shot(`reduced-motion`));
 });
 
 async function walkIntoWardA(page:Page){
@@ -111,7 +113,7 @@ async function walkIntoWardA(page:Page){
 test('beds and bedside people stay visible on a phone, upright and sideways',async({page})=>{
   await startAtDesk(page,'npc-viewport-check');
   await walkIntoWardA(page);
-  await page.locator('.world-viewport').screenshot({path:`${SHOTS}/desktop-1440x900.png`});
+  await page.locator('.world-viewport').screenshot(shot(`desktop-1440x900`));
   const hud=await page.locator('.rpg-hud').boundingBox();
   const map=await page.locator('.world-viewport').boundingBox();
   expect(map!.y).toBeGreaterThanOrEqual(hud!.y+hud!.height-1);
@@ -129,7 +131,7 @@ test('beds and bedside people stay visible on a phone, upright and sideways',asy
     await expect(placard,name).toBeVisible();
     const box=await placard.boundingBox();
     expect(box!.y,name).toBeGreaterThan(bar!.y+bar!.height-1);
-    await page.locator('.world-viewport').screenshot({path:`${SHOTS}/${name}.png`});
+    await page.locator('.world-viewport').screenshot(shot(`${name}`));
   }
 });
 
