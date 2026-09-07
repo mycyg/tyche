@@ -42,12 +42,12 @@ describe('acute events reach their endings through act()',()=>{
       expect((currentCard(r) as Card&{authoredEventId?:string}).authoredEventId).toBe('E-200');
       const option=availableOptions(r).find(o=>o.id.endsWith(suffix))!;expect(option).toBeDefined();
       let out=act(r,{type:'choose',id:option.id});if(out.phase==='roll')out=act(out,{type:'ack-roll'});
-      expect(out.ending?.id).toBe('X21');expect(out.phase).toBe('ending');
+      expect(out.ending?.id).toBe('END-33');expect(out.ending?.annexIds).toContain('X21');expect(out.phase).toBe('ending');
     }
   });
   it('a second stamina collapse before the night shift is the daytime body ending',()=>{
     let r=settle(base('x17'),[story('trigger',{stamina:-200}),nightCard('n1')]);r.exhausted=1;
-    r=act(r,{type:'choose',id:'trigger:go'});expect(r.ending?.id).toBe('X17');expect(r.exhausted).toBe(2);
+    r=act(r,{type:'choose',id:'trigger:go'});expect(r.ending?.id).toBe('END-33');expect(r.ending?.annexIds).toContain('X17');expect(r.exhausted).toBe(2);
   });
   it('first SAN collapse offers one dice rescue; the next collapse ends the run even after saving',()=>{
     let r=settle(base('san-rescue',[]),[story('t1',{san:-200})]);
@@ -61,14 +61,14 @@ describe('acute events reach their endings through act()',()=>{
     r=decode(encode({...emptySave(),run:r})).run!;
     r.vitals.san=80;r=settle(r,[story('t2',{san:-200})]);
     r=act(r,{type:'choose',id:'t2:go'});
-    expect(r.phase).toBe('ending');expect(r.ending?.id).toBe('X21');expect(r.sanBreaks).toBe(2);
+    expect(r.phase).toBe('ending');expect(r.ending?.id).toBe('END-33');expect(r.ending?.annexIds).toContain('X21');expect(r.sanBreaks).toBe(2);
   });
   it('the survival talent spends the same single rescue chance',()=>{
     let r=settle(base('t23',['T23']),[story('t1',{san:-200})]);
     r=act(r,{type:'choose',id:'t1:go'});expect(r.vitals.san).toBeGreaterThan(0);expect(r.sanBreaks).toBe(1);expect(r.emergency).toBeUndefined();
     if(r.phase==='feedback')r=act(r,{type:'continue'});
     r.vitals.san=80;r=settle(r,[story('t2',{san:-200})]);
-    r=act(r,{type:'choose',id:'t2:go'});expect(r.phase).toBe('ending');expect(r.ending?.id).toBe('X21');
+    r=act(r,{type:'choose',id:'t2:go'});expect(r.phase).toBe('ending');expect(r.ending?.id).toBe('END-33');expect(r.ending?.annexIds).toContain('X21');
   });
   it('the second emotional collapse ends the run through act()',()=>{
     let r=settle(base('emotion'),[story('trig1',{emotion:-200})]);
@@ -81,7 +81,7 @@ describe('acute events reach their endings through act()',()=>{
     out=finishNight(out);out.vitals={stamina:80,san:80,emotion:80};
     out=settle(out,[story('trig2',{emotion:-200})]);
     out=act(out,{type:'choose',id:'trig2:go'});
-    expect(out.phase).toBe('ending');expect(out.ending?.id).toBe('X25');expect(out.emotionalBreaks).toBe(2);
+    expect(out.phase).toBe('ending');expect(out.ending?.id).toBe('END-33');expect(out.ending?.annexIds).toContain('X25');expect(out.emotionalBreaks).toBe(2);
   });
   it('locks other scenes and personal actions while an acute event is open',()=>{
     let r=settle(base('lock',['T01']),[story('trig',{stamina:-200}),story('other',{}),story('third',{})]);
@@ -150,7 +150,7 @@ describe('money, debt and funding through act()',()=>{
   });
   it('credit debt above the ceiling ends the run at the next interruption',()=>{
     const r=base('ceiling',[]);r.phase='play';r.shiftPhase='结算';r.debt=RULES.debtMax+1;
-    const out=act(r,{type:'borrow'});expect(out.phase).toBe('ending');expect(out.ending?.id).toBe('X29');
+    const out=act(r,{type:'borrow'});expect(out.phase).toBe('ending');expect(out.ending?.id).toBe('END-26');
   });
   it('living costs can open funding from the day-end roll and credit resumes that roll',()=>{
     let r=base('roll-funding',[]);r.patients=[];r.cash=10;
@@ -183,7 +183,7 @@ describe('money, debt and funding through act()',()=>{
   });
   it('stopping at the funding page ends the run as a resignation',()=>{
     const r=base('stop',[]);r.phase='funding';r.cash=-1000;
-    const out=act(r,{type:'fund',method:'stop'});expect(out.phase).toBe('ending');expect(out.ending?.id).toBe('X31');
+    const out=act(r,{type:'fund',method:'stop'});expect(out.phase).toBe('ending');expect(out.ending?.id).toBe('END-33');expect(out.ending?.annexIds).toContain('X31');
   });
   it('a negative performance reduces cash without touching credit debt',()=>{
     let r=settle(base('neg',[]),[story('neg',{income:-200})]);r.debt=1000;r.cash=500;
@@ -297,7 +297,7 @@ describe('tribunal, endings and rewards',()=>{
   it('keeps documented priority when several endings apply',()=>{
     const r=startRun('order','程医生',[]);r.day=15;r.phase='tribunal';r.patients=r.patients.slice(0,1);r.patients[0].damage=0;r.hazards=[];r.facts={};r.committed=[];r.queue=[];
     r.depression=80;r.relations.family=3;r.uncoveredDays=2;r.debt=0;delete r.authored;
-    expect(tribunalEnding(r,'facts').id).toBe('X24');
+    const ending=tribunalEnding(r,'facts');expect(ending.id).toBe('END-23');expect(ending.annexIds).toContain('X24');
   });
   it('rewards follow the documented formula and insight purchases have prices',()=>{
     const r=base('reward',['T06']);r.day=15;r.phase='ending';r.journal=[];
@@ -330,9 +330,11 @@ describe('resignation from the settlement page',()=>{
     expect(act(r,{type:'resign'})).toBe(r);
     expect(decode(encode({...emptySave(),run:r})).run).toEqual(r);
     const clean=act(r,{type:'choose',id:availableOptions(r)[0].id});
-    expect(clean.phase).toBe('ending');expect(clean.ending?.id).toBe('X31');expect(clean.facts['quit-confirmed']).toBeDefined();
+    expect(clean.phase).toBe('ending');expect(clean.ending?.id).toBe('END-33');expect(clean.ending?.annexIds).toContain('X31');expect(clean.facts['quit-confirmed']).toBeDefined();
     r.facts['kickback-received']={day:1,source:'test',sequence:0};
-    expect(act(r,{type:'choose',id:availableOptions(r)[1].id}).ending?.id).toBe('X32');
+    // The airport page (END-08) needs the interception fact of the dark chain; without it the quit lands by remaining state.
+    const corrupt=act(r,{type:'choose',id:availableOptions(r)[1].id});
+    expect(corrupt.ending?.id).toBe('END-33');expect(corrupt.ending?.annexIds).not.toContain('X31');
   });
   it('is also offered at the day-end summary before the check',()=>{
     let r=base('resign-evening',['T06']);r=act(rest(r),{type:'choose',id:`rest:${r.day}:sleep`});
@@ -340,7 +342,8 @@ describe('resignation from the settlement page',()=>{
     r=act(r,{type:'resign'});
     expect(r.phase).toBe('play');expect(currentCard(r)?.kind).toBe('story');
     expect(availableOptions(r).every(o=>o.id.includes('E-209'))).toBe(true);
-    expect(act(r,{type:'choose',id:availableOptions(r)[0].id}).ending?.id).toBe('X31');
+    const out=act(r,{type:'choose',id:availableOptions(r)[0].id});
+    expect(out.ending?.id).toBe('END-33');expect(out.ending?.annexIds).toContain('X31');
   });
 });
 

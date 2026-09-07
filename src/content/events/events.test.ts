@@ -74,7 +74,9 @@ describe('authored event coverage and meaningful execution', () => {
       expect(e.options.every(o => o.label.length > 0 && o.consequence.length > 0)).toBe(true);
       expect(e.phases.length).toBeGreaterThan(0);
     }
-    expect(DOCUMENTED_ENDINGS).toHaveLength(41);
+    expect(DOCUMENTED_ENDINGS).toHaveLength(81);
+    expect(DOCUMENTED_ENDINGS.filter(e => e.id.startsWith('X'))).toHaveLength(41);
+    expect(DOCUMENTED_ENDINGS.filter(e => e.id.startsWith('END-'))).toHaveLength(40);
     expect(DOCUMENTED_ROUTES).toHaveLength(10);
   });
   it('preserves E-001 true clinical choice, AP costs, causal forbidden use and successful information', () => {

@@ -29,7 +29,7 @@ describe('resources and provenance', () => {
   it('charges AP overdraw to stamina and all caps', () => { const r = fresh(); r.ap = 0; const o = availableOptions(r).find(o => o.ap === 1)!; delete o.check; const next = act(r, { type: 'choose', id: o.id }); expect(next.caps.san).toBe(r.caps.san - 2); expect(next.ap).toBe(0); expect(next.overtime).toBe(1); });
   it('borrowing is limited and unavailable on day fourteen', () => { let r = fresh(); for (let i = 0; i < 4; i++) { r = act(r, { type: 'borrow' }); r = act(r, { type: 'continue' }); } expect(r.borrowed).toBe(4); expect(act(r, { type: 'borrow' })).toBe(r); r.day = 14; r.borrowed = 0; expect(act(r, { type: 'borrow' })).toBe(r); });
   it('salary repays credit before increasing cash', () => { let r = rest(fresh()); r.patients = []; r.day = 7; r.cash = 1000; r.debt = 2000; r = act(r, { type: 'choose', id: 'sleep' }); r = act(r, { type: 'continue' }); expect(r.debt).toBe(0); expect(r.income).toBe(2100); expect(r.cash).toBeGreaterThanOrEqual(1000); });
-  it('two uncovered interest days trigger the debt ending', () => { let r = fresh(); r.cash = 20000; r.debt = 10000; r.uncoveredDays = 1; r = act(rest(r), { type: 'choose', id: 'sleep' }); r = act(r, { type: 'continue' }); expect(r.ending?.id).toBe('X28'); });
+  it('two uncovered interest days trigger the debt ending', () => { let r = fresh(); r.cash = 20000; r.debt = 10000; r.uncoveredDays = 1; r = act(rest(r), { type: 'choose', id: 'sleep' }); r = act(r, { type: 'continue' }); expect(r.ending?.id).toBe('END-23'); });
   it('income is not invented from a private loan', () => { let r = fresh(); r.cash = -1000; r.phase = 'funding'; r = act(r, { type: 'fund', method: 'credit' }); expect(r.debt).toBe(1000); expect(r.income).toBe(0); expect(r.cash).toBe(0); });
   it('family emergency funding can only be used once', () => { let r = fresh(); r.cash = -6000; r.phase = 'funding'; r = act(r, { type: 'fund', method: 'family' }); expect(r.cash).toBe(-1000); expect(act(r, { type: 'fund', method: 'family' })).toBe(r); });
   it('refunds an approved budget exception only once', () => {
@@ -67,7 +67,7 @@ describe('early discharge and distinct endpoints', () => {
     });
     expect(results[0]).not.toBe(results[1]);
   });
-  it('project records alone cannot manufacture a clinical criminal case', () => { const r = fresh(); r.facts['paper-submitted-false'] = { day: 8, source: 'paper', sequence: 0 }; r.hazards.push({ id: 'project', type: 'D', weight: 100, reason: '不实研究', norm: '真实性', causal: false, day: 8, scope: { kind: 'project', id: 'study' }, choiceId: 'paper', choice: '提交' }); expect(tribunalEnding(r, 'facts').category).toBe('行政'); expect(r.patients.every(p => p.damage === 0)).toBe(true); });
+  it('project records alone cannot manufacture a clinical criminal case', () => { const r = fresh(); r.facts['paper-submitted-false'] = { day: 8, source: 'paper', sequence: 0 }; r.hazards.push({ id: 'project', type: 'D', weight: 100, reason: '不实研究', norm: '真实性', causal: false, day: 8, scope: { kind: 'project', id: 'study' }, choiceId: 'paper', choice: '提交' }); const ending = tribunalEnding(r, 'facts'); expect(ending.category).not.toBe('刑事'); expect(ending.annexIds).toContain('X11'); expect(r.patients.every(p => p.damage === 0)).toBe(true); });
   it('emotion leave cannot be used for borrowing', () => { let r = fresh(); r.facts[`leave:${r.day}`] = { day: r.day, source: 'leave', sequence: 0 }; expect(act(r, { type: 'borrow' })).toBe(r); });
 });
 describe('persistence and growth', () => {

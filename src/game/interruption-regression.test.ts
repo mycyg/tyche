@@ -36,23 +36,24 @@ describe('review: acute events use the actual interruption, never the next task'
     const acute = trigger(r), restored = reload(acute);
     expect(currentCard(restored)?.id).toContain('acute:san');
     const result = chooseAcute(restored, 'E-200-a');
-    expect(result.ending?.id).toBe('X21');
+    expect(result.ending?.id).toBe('END-33'); expect(result.ending?.annexIds).toContain('X21'); expect(result.ending?.annexIds).not.toContain('X22');
     expect(result.phase).toBe('ending');
     expect(result.committed.filter(id => id === 'trigger:answer')).toHaveLength(1);
     expect(reload(result).ending).toEqual(result.ending);
   });
   it('retains the night origin when the following task is daytime or rest', () => {
     const result = chooseAcute(reload(trigger(fixture('夜班', { san: -200 }))), 'E-201-a');
-    expect(result.ending?.id).toBe('X22');
+    expect(result.ending?.id).toBe('END-33'); expect(result.ending?.annexIds).toContain('X22'); expect(result.ending?.annexIds).not.toContain('X21');
   });
-  it.each([['结算', 'X17'], ['夜班', 'X20']] as const)('routes repeated stamina loss in %s to %s', (phase, ending) => {
+  it.each([['结算', 'X17', 'X20'], ['夜班', 'X20', 'X17']] as const)('routes repeated stamina loss in %s to the %s record', (phase, record, other) => {
     const r = fixture(phase, { stamina: -200 }); r.exhausted = 1; r.queue.splice(1, 1);
-    expect(trigger(r).ending?.id).toBe(ending);
+    const ending = trigger(r).ending!;
+    expect(ending.id).toBe('END-33'); expect(ending.annexIds).toContain(record); expect(ending.annexIds).not.toContain(other);
   });
   it('ends the second emotional breakdown without inventing an escalated complaint', () => {
     const r = fixture('查房', { emotion: -200 }); r.emotionalBreaks = 1;
     const result = trigger(r);
-    expect(result.ending?.id).toBe('X25'); expect(result.emotionalBreaks).toBe(2);
+    expect(result.ending?.id).toBe('END-33'); expect(result.ending?.annexIds).toContain('X25'); expect(result.emotionalBreaks).toBe(2);
     expect(result.ending?.decision).not.toContain('投诉已升级');
     expect(Object.keys(result.facts).some(k => /complaint-escalated|医闹升级|视频上网/.test(k))).toBe(false);
   });
@@ -121,7 +122,7 @@ describe('one SAN rescue for the entire run',()=>{
     const r=rescued(first);r.day++;r.phase='play';r.shiftPhase=next;
     r.queue=[task('second-zero',next,{san:-200})];r.cursor=0;
     const result=act(reload(r),{type:'choose',id:'second-zero:answer'});
-    expect(result.ending?.id).toBe(id);expect(result.sanBreaks).toBe(2);
+    expect(result.ending?.id).toBe('END-33');expect(result.ending?.annexIds).toContain(id);expect(result.sanBreaks).toBe(2);
     expect(result.emergency).toBeUndefined();expect(result.pendingCheck).toBeUndefined();
   });
   it('uses existing choices and zero-state records when an old save lacks the new counter',()=>{
@@ -129,7 +130,7 @@ describe('one SAN rescue for the entire run',()=>{
     delete r.facts['san-ever-zero']; // older saves still have their real E-200-b commitment
     r.phase='play';r.queue=[task('old-save-zero','查房',{san:-200})];r.cursor=0;
     const result=act(reload(r),{type:'choose',id:'old-save-zero:answer'});
-    expect(result.ending?.id).toBe('X21');expect(result.sanBreaks).toBe(2);
+    expect(result.ending?.id).toBe('END-33');expect(result.ending?.annexIds).toContain('X21');expect(result.sanBreaks).toBe(2);
   });
   it('counts a first T23 protection and never grants it on a later SAN zero',()=>{
     const r=fixture('查房',{san:-200});r.talents=['T23'];
@@ -137,7 +138,7 @@ describe('one SAN rescue for the entire run',()=>{
     expect(first.talentMemory?.survivalUsed).toBe(true);
     first.phase='play';first.queue=[task('protected-second','查房',{san:-200})];first.cursor=0;
     const result=act(reload(first),{type:'choose',id:'protected-second:answer'});
-    expect(result.ending?.id).toBe('X21');
+    expect(result.ending?.id).toBe('END-33');expect(result.ending?.annexIds).toContain('X21');
   });
   it('rejects non-integer counters and future-dated interruption origins',()=>{
     const r=trigger(fixture('查房',{stamina:-200}));

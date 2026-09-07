@@ -217,7 +217,7 @@ export function endingEligibility(r:EndingRun,id:string,options:EndingOptions={}
     'END-30':[alive,[leftPost,'已离开临床岗位'],[f.has('家庭-住处失去'),'写入 家庭-住处失去'],[f.has('家庭-断联'),'写入 家庭-断联'],[f.has('伴侣-分开')||!(any(f,'伴侣-在册')||(r.partner!==undefined&&r.partner!=='none')),'伴侣已分开或本局无伴侣'],[f.has('family-funding'),'家人资助已用尽']],
     'END-31':[alive,[leftPost,'已离开临床岗位'],[healthLine,'自身健康线已开启'],[any(f,'已就诊','未就诊'),'体检报告已有结论']],
     'END-32':[alive,[leftPost,'已离开临床岗位'],[r.debt>0,'仍有信用债务'],[caseOpen||f.has('科研-通报'),'案件仍在补材料']],
-    'END-33':[alive,[leftPost||fb,'已离开临床岗位'],[any(f,'qualification-exam-failed','伤医-长期行动障碍')||suspension||fb,'资格、履历或身体限制仍未解决'],[atEnd,'本轮结束']],
+    'END-33':[alive,[leftPost||fb,'已离开临床岗位'],[any(f,'qualification-exam-failed','伤医-长期行动障碍')||suspension||fb,'资格、履历或身体限制仍未解决'],[atEnd||fb,'本轮结束']],
     'END-34':[alive,[f.has('科室-向新人转嫁'),'写入 科室-向新人转嫁'],[r.relations.chief>=3,'主任关系达到三'],[patientHas('unrest_suppressed_once')||any(f,'政治-沉默','同事造假-知情'),'本局有被压下的问题']],
     'END-35':[alive,[a.corruption&&!a.corruptionCaught,'实际发生统方或回扣且未被查获'],[f.has('利益-继续承接'),'写入 利益-继续承接'],[r.cash>0,'余额为正']],
     'END-36':[alive,[f.has('BTF-004:scapegoat_statement')||f.has('政治-举报'),'牺牲同事的事实'],[f.has('科室-接受继续施压'),'写入 科室-接受继续施压'],[r.relations.chief>=4,'主任关系达到四']],
@@ -293,6 +293,9 @@ export function attachmentIds(r:EndingRun,main:string,options:EndingOptions):str
 }
 export function documentedEnding(r:Run,id:string,options:EndingOptions={}):DocumentedEnding{
   const rr=r as EndingRun,def=definitions.get(id);if(!def)throw new Error(`Unknown ending ${id}`);
+  // An acute-event choice still names its old X page (E-200/E-201/E-202/E-205/E-208).
+  // The run ends there, but the page is chosen by priority; the X record stays attached.
+  if(options.requested===id&&!MAIN_ENDINGS.includes(id)&&!options.fallback)return selectMainEnding(r,options);
   const eligibility=endingEligibility(rr,id,options);if(!eligibility.eligible)throw new Error(`${id} prerequisites missing: ${eligibility.missing.join('；')}`);
   const a=assessEnding(rr),story=isStoryEndingId(id)?id:undefined,death=isDeathEnding(id);
   const [decision,baseEpilogue]=story?END_PROSE[story]:id==='X14'&&a.paid?PAID_SETTLEMENT_PROSE:ENDING_PROSE[id];
