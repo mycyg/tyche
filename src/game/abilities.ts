@@ -55,12 +55,13 @@ export function firstContact(r:Run,p:Patient):AbilityResult[] {
   const intuition=talent.firstTalentContact(context(r),p.uid,hintClue,runRandom(r,`intuition:${p.uid}`));
   const result:AbilityResult[]=[{hook:intuition,text:intuition.hint??''}];
   if(intuition.hint)intuition.effects.flags=[`lamp-flash:${p.uid}:${p.clinical?.nodeId??p.presetNode??'entry'}`];
-  const scent=graph&&p.clinical?unrevealedGraphScent(graph,p.clinical):undefined;
+  // Attending difficulty keeps only the T01 hint; the T03 scent hint stays closed.
+  const scent=graph&&p.clinical&&r.difficulty!=='attending'?unrevealedGraphScent(graph,p.clinical):undefined;
   if(scent) {
     const smell=talent.talentSmell({...context(r),memory:intuition.memory},p.uid,scent);
     if(smell.clue)result.push({hook:smell,text:smell.clue,patientPatch:{clinical:{...p.clinical!,flags:[...new Set([...p.clinical!.flags,...scent.revealFlags])]}}});
   }
-  const presetScent=unrevealedPresetScent(r,p);
+  const presetScent=r.difficulty==='attending'?undefined:unrevealedPresetScent(r,p);
   if(presetScent) {
     const smell=talent.talentSmell({...context(r),memory:intuition.memory},p.uid,presetScent);
     if(smell.clue) {
@@ -81,7 +82,7 @@ export function abilityOptions(r:Run,card:Card):Option[] {
   };
   if(p?.active&&p.damage<3&&isPlayerResponsibleForPatient(r,p)) {
     const clues=clinicalClues(p,r);
-    if(r.talents.includes('T02')&&p.inpatient&&['交班','查房'].includes(r.shiftPhase??'')&&clues.some(c=>!m.chartClues[p.uid]?.includes(c.id)))
+    if(r.difficulty!=='attending'&&r.talents.includes('T02')&&p.inpatient&&['交班','查房'].includes(r.shiftPhase??'')&&clues.some(c=>!m.chartClues[p.uid]?.includes(c.id)))
       add('chart-review','翻阅旧病历，核对一条尚未发现的线索',2);
     if(r.talents.includes('T05')&&atFirstNode(p)&&m.fullReviewsUsed<5&&!m.reviewedPatients.includes(p.uid)&&abilityReports(r,p).length)
       add('full-review','再看一眼已经取得的完整回报',0,10,{stamina:-3});
