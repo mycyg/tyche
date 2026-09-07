@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { act, availableOptions, startRun } from './engine';
 import { actionMinutes, patientPayment, previewCheckModifier } from './costs';
+import { RULES } from './rules';
 import { decode, emptySave, encode } from './storage';
 import type { Card, Option } from './types';
 
@@ -54,7 +55,7 @@ describe('player-visible cost contract', () => {
     const pending=act(r,{type:'choose',id:option.id});
     expect(pending.roll?.success).toBe(false);expect(pending.ap).toBe(r.ap);expect(pending.overtime).toBe(0);
     const next=act(pending,{type:'ack-roll'});expect(next.overtime).toBe(1);
-    expect(next.caps.san).toBe(r.caps.san-2);expect(next.patients[0].damage).toBe(p.damage);
+    expect(next.caps.san).toBe(r.caps.san-RULES.overtimeCapLoss);expect(next.patients[0].damage).toBe(p.damage);
   });
   it('previews the actual die modifier after upfront AP overdraw', () => {
     const {r, option, card} = fixture(); r.ap = 0;

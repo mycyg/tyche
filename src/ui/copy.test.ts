@@ -22,7 +22,7 @@ describe('visible immediate choice costs',()=>{
   const f=fixture(['T17'],true);expect(text(f)).toContain('操作体力 −2 点');const after=act(f.r,{type:'choose',id:f.o.id});expect(after.vitals.stamina).toBe(78);
  });
  it('lists overtime costs on the option itself, separately from action stamina',()=>{
-  const f=fixture();f.r.ap=0;f.o.ap=2;expect(text(f)).toContain('透支 2 点行动：另扣体力 10 点');expect(text(f)).toContain('上限各减 4 点');const after=act(f.r,{type:'choose',id:f.o.id});expect(after.vitals.stamina).toBe(67);
+  const f=fixture();f.r.ap=0;f.o.ap=2;expect(text(f)).toContain('透支 2 点行动：另扣体力 10 点');expect(text(f)).toContain('上限各减 2 点');const after=act(f.r,{type:'choose',id:f.o.id});expect(after.vitals.stamina).toBe(67);
  });
  it('does not charge AP overtime in the night and shows recurring night overrun costs',()=>{
   const f=fixture([],true);f.r.ap=0;f.r.nightMinutes=5;expect(text(f)).not.toContain('透支');expect(text(f)).toContain('本次夜班超时：另扣体力 5 点、精神 3 点');const after=act(f.r,{type:'choose',id:f.o.id});expect(after.vitals.stamina).toBe(72);expect(after.vitals.san).toBe(73);

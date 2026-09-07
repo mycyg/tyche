@@ -1,4 +1,4 @@
-# Tyche
+# Tyche · 轮班
 
 你要在南屏医院值班十四天。轮转结束后，医务科会拿着病历、录音和账单，逐项问你当时为什么那样处理。
 
@@ -7,6 +7,19 @@
 [开始值班](https://mycyg.github.io/tyche/) · [反馈问题](https://github.com/mycyg/tyche/issues) · [本地运行](#本地运行) · [MIT 许可](LICENSE)
 
 [English](README.en.md) · [日本語](README.ja.md)
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/01-title.webp" width="260" alt="标题页" /><br />标题页</td>
+    <td align="center"><img src="docs/screenshots/03-ward-map.webp" width="260" alt="病区地图" /><br />病区地图</td>
+    <td align="center"><img src="docs/screenshots/04-bedside.webp" width="260" alt="床旁问诊" /><br />床旁问诊</td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/05-dice.webp" width="260" alt="检定掷骰" /><br />检定掷骰</td>
+    <td align="center"><img src="docs/screenshots/07-ending-end12.webp" width="260" alt="结局文书" /><br />结局文书</td>
+    <td align="center"><img src="docs/screenshots/11-mobile-ward-map.webp" width="140" alt="手机竖屏" /><br />手机竖屏</td>
+  </tr>
+</table>
 
 开发版本：0.9.0。全库分支、配音和多周目验收尚未完成；线上构建与工作区的验证范围见[验收记录](docs/verification.md)。
 
@@ -20,7 +33,7 @@
 - 1536 × 512 的可行走医院，12 个房间，A、B、C 三间病房共 12 张住院床。床位与真实患者状态对应，满床患者进入留观；患者住院天数、出院条件、家属耐心、病组费用和超期审核持续保留。风险未排除的提前出院可能造成严重恶化回院，并触发录音、举报和个案责任调查。
 - 床旁患者画像和四页病历夹：入院登记、问诊与检查、处置与交班、费用。未取得的信息不会被当作已完成检查；病组预算、累计诊疗费和医生垫付分开显示。
 - d20 接诊、沟通、医保申诉、日终与立案检定；天然 1 与天然 20；24 项负面状态。
-- 30 项带代价的天赋，X01—X41 结局条目及可叠加的支线去向；经验可提升六项技能、三项上限和初始积蓄。全部结局的正常游玩路径仍须逐项验收。
+- 30 项带代价的天赋，40 个主结局（END-01—END-40）及既有附件类结局，可叠加的支线去向；经验可提升六项技能、三项上限和初始积蓄。全部结局的正常游玩路径仍须逐项验收。
 - 2D 像素人物、患者画像与角色对话卡。鼠标点地行走、键盘移动、触屏摇杆；支持横竖屏布局、大字模式与减少动态效果。
 - 八种场景音乐，独立的音乐、配音和音效开关。对白可重听；配音采用离线生成的音频，最终文本覆盖检查是发布的必经条件。
 - 护士带教从走近病床开始，按实际操作记录进度；可跳过、在设置重开，随时查阅天赋解释和术语手册。
