@@ -122,15 +122,15 @@ function parseTraps(source: PresetSource): { label: string; hazard: HazardInput[
 function gapClosure(source: PresetSource, investigation: string): { label: string; result: string; pending: string } {
   const handover = /交接|交班|换班|接班|下一班|原科|转入前|产院|上次|未复查|未去|中断|预约/.test(source.hidden)
     || /交接|交班|复查|随访/.test(source.traps);
-  const window = source.severity >= 3 ? '两小时内' : source.severity === 2 ? '本班内' : source.severity === 1 ? '今天之内' : '次日晨';
+  const dueBy = source.severity >= 3 ? '两小时内' : source.severity === 2 ? '本班内' : source.severity === 1 ? '今天之内' : '次日晨';
   if (handover) return {
     label: '逐项追问交接与既往记录里没有写明的用药和检查',
-    result: `你把交接单、原始医嘱和既往记录逐项对了一遍，问清了没有写进来的部分，并把要补做的项目写进医嘱：${investigation}；复查时点定在${window}，由接班的主管医师复核。`,
+    result: `你把交接单、原始医嘱和既往记录逐项对了一遍，问清了没有写进来的部分，并把要补做的项目写进医嘱：${investigation}；复查时点定在${dueBy}，由接班的主管医师复核。`,
     pending: '尚未逐项核对交接与既往记录里没有写明的用药和检查，也没有写明要补做哪些复查、在什么时点由谁复核。',
   };
   return {
     label: '单独向患者本人追问尚未说明的经过',
-    result: `你请其他人暂时回避，单独问了患者本人，把他此前没有说出来的经过记进病历，并写明接下来要核对的项目：${investigation}；复查时点定在${window}。`,
+    result: `你请其他人暂时回避，单独问了患者本人，把他此前没有说出来的经过记进病历，并写明接下来要核对的项目：${investigation}；复查时点定在${dueBy}。`,
     pending: '尚未单独追问患者本人此前没有说出来的经过，本次风险的来源仍未核实。',
   };
 }
