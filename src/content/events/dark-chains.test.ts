@@ -166,6 +166,27 @@ describe('dark chains DK-1 to DK-14', () => {
     expect(closing.facts['伤医-受伤生还'].day).toBe(12);
   });
 
+  it('tells the engine a chain is finished only after that chain has run its own last step', () => {
+    const open = run({ day: 13, facts: { 'dark-chain:san': fact(9), '危机-评估已做': fact(10) } });
+    darkChainResolve(open);
+    expect(open.facts['精神-长期症状'], '评估已做的一局在链末写长期症状').toBeDefined();
+    expect(open.facts['dark-chain-resolved:san']).toBeDefined();
+    const waiting = run({ day: 11, facts: { 'dark-chain:san': fact(9), '危机-失联': fact(10) } });
+    darkChainResolve(waiting);
+    expect(waiting.facts['dark-chain-resolved:san'], '失联的一局要等 DK-6 或 DK-7 走完').toBeUndefined();
+    waiting.facts['自杀-死亡确认'] = fact(12);
+    darkChainResolve(waiting);
+    expect(waiting.facts['dark-chain-resolved:san']).toBeDefined();
+    const body = run({ day: 12, facts: { 'dark-chain:stamina': fact(11), '身体-本次归零已处理': fact(11), '身体-已就医': fact(6) } });
+    darkChainResolve(body);
+    expect(body.facts['身体-救回']).toBeDefined();
+    expect(body.facts['dark-chain-resolved:stamina']).toBeDefined();
+    expect(body.facts['dark-chain-resolved:san'], '体力链收口不替精神链收口').toBeUndefined();
+    const untouched = run({ day: 12, facts: { '身体-本次归零已处理': fact(11), '身体-已就医': fact(6) } });
+    darkChainResolve(untouched);
+    expect(untouched.facts['dark-chain-resolved:stamina'], '引擎没有开链时不写收口事实').toBeUndefined();
+  });
+
   it('writes the posthumous items from this run and never from a method or a preparation', () => {
     const withLoan = posthumousItems(run({ receivable: 3000 }));
     expect(withLoan).toContain('李恂');
