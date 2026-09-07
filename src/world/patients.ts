@@ -12,14 +12,25 @@ const original=(index:number):PatientArt=>({index,atlas:'original',columns:5,row
 const extended=(index:number):PatientArt=>({index,atlas:'extended',columns:4,rows:2});
 // Physical identities depicted in the original atlas, independent of case IDs.
 const adultPortraits={男:[{index:15,age:31},{index:1,age:48},{index:12,age:52},{index:5,age:54},{index:14,age:58},{index:8,age:63},{index:16,age:63},{index:2,age:67},{index:11,age:76}],女:[{index:10,age:24},{index:4,age:32},{index:18,age:36},{index:17,age:39},{index:9,age:59},{index:3,age:71}]};
+export interface PatientBody {age?:number;sex?:'男'|'女';pregnant:boolean}
+/** One reading of age, sex and pregnancy, shared by the bed art and the map
+ * sprite so a patient who gets up keeps the same body. */
+export function patientBody(patient:PatientArtIdentity):PatientBody {
+  const fixed=CLINICAL_IDENTITIES[patient.caseId];
+  const entity=patient.preset?.entityProfile??ENTITY_BY_ID.get(patient.entityId??patient.preset?.entityId??'');
+  const rawAge=fixed?.age??patient.preset?.age??entity?.ageYears,rawSex=fixed?.sex??patient.preset?.sex??entity?.sex;
+  const age=rawAge!==undefined&&Number.isFinite(rawAge)&&rawAge>=0?rawAge:undefined;
+  const sex=rawSex==='男'||rawSex==='女'?rawSex:undefined;
+  return {age,sex,pregnant:sex==='女'&&!!(fixed?.pregnant||entity?.flags.includes('孕晚期'))};
+}
 export function patientArt(patient:PatientArtIdentity):PatientArt {
   const fixed=CLINICAL_IDENTITIES[patient.caseId];
   const entity=patient.preset?.entityProfile??ENTITY_BY_ID.get(patient.entityId??patient.preset?.entityId??'');
-  const age=fixed?.age??patient.preset?.age??entity?.ageYears,sex=fixed?.sex??patient.preset?.sex??entity?.sex;
-  if(age===undefined||!Number.isFinite(age)||age<0||sex!=='男'&&sex!=='女')return original(15);
+  const {age,sex,pregnant}=patientBody(patient);
+  if(age===undefined||sex===undefined)return original(15);
   // Only an established pregnancy flag changes the body silhouette. Lactation,
   // a possible pregnancy or the gynaecology department alone does not.
-  if(sex==='女'&&(fixed?.pregnant||entity?.flags.includes('孕晚期')))return extended(age>=38?7:6);
+  if(pregnant)return extended(age>=38?7:6);
   if(age<1)return extended(sex==='男'?0:1);
   if(age<6)return original(sex==='男'?0:6);
   if(age<13)return extended(sex==='男'?2:4);
