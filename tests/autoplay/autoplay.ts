@@ -76,7 +76,8 @@ export interface RunReport {
   minutes: number;
   pageErrors: string[];
   consoleErrors: string[];
-  navigationFailures: { day: number; task: string }[];
+  /** A task the driver opened that did not lead to any surface. */
+  navigationFailures: { day: number; task: string; moved: boolean }[];
   shots: string[];
   journal: JournalEntry[];
   /** Set when a stopWhen predicate ended the loop early. */
@@ -391,7 +392,10 @@ export async function playRun(
     const file = resolve(outDir, name0);
     mkdirSync(dirname(file), { recursive: true });
     try {
-      await page.screenshot({ path: file, type: "jpeg", quality: 70 });
+      // Ten runs of a fourteen-day rotation are checked in together, so the
+      // quality is set where the ward and the HUD stay readable and the whole
+      // set still fits in a repository.
+      await page.screenshot({ path: file, type: "jpeg", quality: 55 });
       // Recorded as a bare file name: a checked-in journal must not carry the
       // absolute path of whichever machine produced it.
       report.shots.push(name0);
@@ -603,12 +607,14 @@ export async function playRun(
         ) ?? order[0];
       note(s, `前往 ${chosen.label}`);
       await click(page, mark(chosen.index, "opt-"));
-      const arrived = await settle(page);
-      if (!arrived) {
+      const walk = await settle(page);
+      if (!walk.arrived) {
         report.navigationFailures.push({
           day: s.view.day,
           task: chosen.label,
+          moved: walk.moved,
         });
+        await shoot(`nav-day-${String(s.view.day).padStart(2, "0")}-step-${step}`);
         questOffset += 1;
       } else questOffset = 0;
       continue;
@@ -662,6 +668,20 @@ export async function playRun(
   return report;
 }
 
+/**
+ * The doctor's position as the game itself stores it. `run.world` is part of
+ * the save format and is rewritten every time a walk ends, so comparing it
+ * across a click tells a route that was never walked from one that was walked
+ * and opened nothing.
+ */
+async function worldPosition(page: Page): Promise<string> {
+  const save = (await readSave(page)) as {
+    run?: { world?: { x: number; y: number } };
+  } | null;
+  const world = save?.run?.world;
+  return world ? `${Math.round(world.x)},${Math.round(world.y)}` : "";
+}
+
 /** A cheap fingerprint of one patch of the map, used to see the camera move. */
 function sampleWorld(): number {
   const canvas = document.querySelector(
@@ -681,12 +701,26 @@ function sampleWorld(): number {
 const ARRIVED =
   ".rpg-dialogue, .bedside-view, .rpg-map-menu, dialog, .tribunal-page, .ending-page";
 
+/** What became of one walk. `moved` reads the position the game saved. */
+export interface Settled {
+  arrived: boolean;
+  /** The saved position changed, so the doctor did walk somewhere. */
+  moved: boolean;
+}
+
 /**
  * Waits for the walk to end. Any surface other than the bare map means the
  * doctor arrived somewhere; a map that stops moving means the route led
- * nowhere. Returns false in that second case.
+ * nowhere. On that second outcome the saved position says whether the doctor
+ * walked at all, which separates a route the game refused to start from a
+ * walk that ended without opening anything.
  */
-async function settle(page: Page, timeout = 45_000): Promise<boolean> {
+async function settle(page: Page, timeout = 45_000): Promise<Settled> {
+  const before = await worldPosition(page);
+  const done = async (arrived: boolean): Promise<Settled> => ({
+    arrived,
+    moved: arrived || (await worldPosition(page)) !== before,
+  });
   // The list closes itself on the click; wait for that before watching for a
   // new surface, or the list that is on its way out counts as an arrival.
   await page
@@ -697,7 +731,7 @@ async function settle(page: Page, timeout = 45_000): Promise<boolean> {
   let last = -2;
   let still = 0;
   while (Date.now() < deadline) {
-    if (await page.locator(ARRIVED).count()) return true;
+    if (await page.locator(ARRIVED).count()) return done(true);
     const now = await page.evaluate(sampleWorld).catch(() => -1);
     if (now === last) still += 1;
     else {
@@ -705,8 +739,13 @@ async function settle(page: Page, timeout = 45_000): Promise<boolean> {
       last = now;
     }
     // Six identical frames in a row: the camera is parked, nobody is walking.
-    if (still >= 6) return (await page.locator(ARRIVED).count()) > 0;
+    // One more look after a pause, so a walk that pauses to re-route is not
+    // written down as a failure.
+    if (still >= 6) {
+      await wait(page, 1_500);
+      return done((await page.locator(ARRIVED).count()) > 0);
+    }
     await wait(page, 260);
   }
-  return (await page.locator(ARRIVED).count()) > 0;
+  return done((await page.locator(ARRIVED).count()) > 0);
 }

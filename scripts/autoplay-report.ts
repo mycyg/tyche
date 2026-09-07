@@ -28,7 +28,7 @@ interface RunReport {
   minutes: number;
   pageErrors: string[];
   consoleErrors: string[];
-  navigationFailures: { day: number; task: string }[];
+  navigationFailures: { day: number; task: string; moved?: boolean }[];
   shots: string[];
   journal: JournalEntry[];
 }
@@ -107,7 +107,16 @@ for (const { dir, report } of runs) {
     `- 走到的最大天数：${Math.max(0, ...days)}；提交的选择：${report.journal.filter((j) => j.phase === "encounter").length} 次`,
   );
   lines.push(
-    `- 前往待办失败：${report.navigationFailures.length ? report.navigationFailures.map((f) => `第 ${f.day} 天「${cell(f.task)}」`).join("；") : "无"}`,
+    `- 前往待办失败：${
+      report.navigationFailures.length
+        ? report.navigationFailures
+            .map(
+              (f) =>
+                `第 ${f.day} 天「${cell(f.task)}」（${f.moved === undefined ? "位置未记录" : f.moved ? "人物走动过，但没有任何界面打开" : "人物没有移动"}）`,
+            )
+            .join("；")
+        : "无"
+    }`,
   );
   if (report.pageErrors.length)
     lines.push(`- 页面脚本异常：${report.pageErrors.map(cell).join("；")}`);
