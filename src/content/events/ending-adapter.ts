@@ -159,7 +159,7 @@ export function endingEligibility(r:EndingRun,id:string,options:EndingOptions={}
   const dismissed=collapseVideoPublished(r,f)&&r.reputation<20;
   /** Contract §2.0 G/H rule: the clinical post is gone after the leaving
    * procedure, a suspension or revocation, a dismissal, or a resignation. */
-  const leftPost=any(f,'离岗-手续已办','暂停执业','注销','resign-requested','quit-confirmed','身体-自行离院')||options.early==='quit'||options.early==='emotion'||suspension||convicted||dismissed;
+  const leftPost=!f.has('复岗-已办理')&&(any(f,'离岗-手续已办','暂停执业','注销','resign-requested','quit-confirmed','身体-自行离院')||options.early==='quit'||options.early==='emotion'||suspension||convicted||dismissed);
   const employed=!leftPost;
   const sanTwice=recordedSanBreaks(r)>=2||options.early==='san';
   const exhaustedTwice=r.exhausted>=2||options.early==='stamina';
@@ -212,7 +212,8 @@ export function endingEligibility(r:EndingRun,id:string,options:EndingOptions={}
     'END-25':[alive,[employed,'仍有临床岗位'],[f.has('家庭-住处失去'),'写入 家庭-住处失去'],[any(f,'asset-sold'),'资产已售'],[debtTotal>0,'仍有债务'],[f.has('家庭-借住已约定'),'写入 家庭-借住已约定']],
     'END-26':[alive,[r.debt>RULES.debtMax||options.early==='debt','信用债务超过五万元或因债务终止轮转'],[leftPost||options.early==='debt','已离开临床岗位']],
     'END-27':[alive,[employed,'仍有临床岗位'],[any(f,'卖车','car-sold','家庭-卖车'),'实际出售车辆'],[debtTotal>0,'卖车后仍有债务'],[[...f].some(k=>k.startsWith('家庭-'))||patientHas('compensated','hospital_compensated','compensation_paid'),'售车款对应实际支出']],
-    'END-28':[alive,[leftPost,'已离开临床岗位'],[r.debt>0,'仍有信用债务'],[!f.has('伤医-长期行动障碍'),'无长期行动障碍'],[!f.has('精神-长期症状'),'无长期精神症状']],
+    // §2.0 orders a band by specificity: the delivery page is the residual debt page and yields to the two pages that still carry case material.
+    'END-28':[alive,[leftPost,'已离开临床岗位'],[r.debt>0,'仍有信用债务'],[!f.has('伤医-长期行动障碍'),'无长期行动障碍'],[!f.has('精神-长期症状'),'无长期精神症状'],[!(caseOpen||f.has('科研-通报')),'无旧案材料待办']],
     'END-29':[alive,[leftPost,'已离开临床岗位'],[r.debt>0,'仍有信用债务'],[!a.filed&&caseOpen,'未进入刑事程序但旧案材料仍在办理']],
     'END-30':[alive,[leftPost,'已离开临床岗位'],[f.has('家庭-住处失去'),'写入 家庭-住处失去'],[f.has('家庭-断联'),'写入 家庭-断联'],[f.has('伴侣-分开')||!(any(f,'伴侣-在册')||(r.partner!==undefined&&r.partner!=='none')),'伴侣已分开或本局无伴侣'],[f.has('family-funding'),'家人资助已用尽']],
     'END-31':[alive,[leftPost,'已离开临床岗位'],[healthLine,'自身健康线已开启'],[any(f,'已就诊','未就诊'),'体检报告已有结论']],
