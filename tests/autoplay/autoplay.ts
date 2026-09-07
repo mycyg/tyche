@@ -387,11 +387,14 @@ export async function playRun(
     const safe = name.replace(/[^\w.-]+/g, "-");
     if (shots.has(safe)) return;
     shots.add(safe);
-    const file = resolve(outDir, `${safe}.jpg`);
+    const name0 = `${safe}.jpg`;
+    const file = resolve(outDir, name0);
     mkdirSync(dirname(file), { recursive: true });
     try {
       await page.screenshot({ path: file, type: "jpeg", quality: 70 });
-      report.shots.push(file);
+      // Recorded as a bare file name: a checked-in journal must not carry the
+      // absolute path of whichever machine produced it.
+      report.shots.push(name0);
     } catch {
       /* a closed page cannot be photographed */
     }

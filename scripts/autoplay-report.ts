@@ -58,11 +58,12 @@ function journals(): { dir: string; report: RunReport }[] {
 }
 
 const cell = (text: string) => text.replace(/\|/g, "\\|").replace(/\n/g, " ");
+/** Journals record bare file names, so a link is the run directory plus one. */
 const link = (dir: string, file: string) =>
-  `[${file.split("/").pop()}](${relative(out, file)})`;
+  `[${file.split("/").pop()}](${relative(out, dir)}/${file.split("/").pop()})`;
 
 function lastShot(report: RunReport, dir: string): string {
-  const final = report.shots.find((s) => s.includes("/final-"));
+  const final = report.shots.find((s) => s.includes("final-"));
   const shot = final ?? report.shots.at(-1);
   return shot ? link(dir, shot) : "无";
 }
