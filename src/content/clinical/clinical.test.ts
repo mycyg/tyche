@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { clinicalGraphs, getClinicalGraph, initialGraphState, getAvailableGraphOptions, canContinueGraph, advanceClinicalGraph, graphCondition, unrevealedGraphClues, revealGraphClue, unrevealedGraphScent } from './index';
 import type { ClinicalGraphState } from './types';
 import {reportReviewLines}from './report-reading';
+import clinicalA from '../../clinical-a.json';
+import clinicalB from '../../clinical-b.json';
 
 /** Paths contain only player actions. '!' is a failed communication/information roll.
  * Continue is used only when the current node has reached its authored minimum. */
@@ -191,6 +193,34 @@ describe('complete authored case graphs',()=>{
   });
   it('historical wrong-sample evidence survives a successful redraw',()=>{
     const s=play('C009',paths.find(([id,end])=>id==='C009'&&end==='o_caught')![2],['same_sex']);expect(s.flags).toContain('wbit');expect(s.flags).toContain('redraw');expect(s.flags).toContain('mitigated:s2_call_name');
+  });
+  /** The budget that decides overspending comes from clinical-a/b.json (catalog.ts
+   * spreads that record and never overwrites budget), while graphs.json carries the
+   * budget parsed from the design document. Both must name the same number, or the
+   * design baseline and the settlement drift apart unnoticed. */
+  it('the settled budget matches the budget parsed from the design document',()=>{
+    const cases=Object.fromEntries([...clinicalA,...clinicalB].map(c=>[c.id,c]));
+    expect(Object.keys(cases)).toHaveLength(clinicalGraphs.length);
+    for(const g of clinicalGraphs){
+      const c=cases[g.id];expect(c,g.id).toBeTruthy();
+      expect(g.budget,`${g.id} design budget`).toBeGreaterThan(0);
+      expect(c.budget,`${g.id} settled budget`).toBe(g.budget);
+    }
+  });
+  it('every hazard reason explains the rule rather than repeating the option or its ledger code',()=>{
+    for(const g of clinicalGraphs)for(const n of g.nodes)for(const o of n.options){
+      const hazards=[...(o.effects.hazards??[]),...o.rules.flatMap(r=>r.effects.hazards??[]),...(o.check?.failure.hazards??[])];
+      for(const h of hazards){
+        expect(h.reason,`${g.id}/${o.id}`).not.toBe(o.label);
+        expect(h.reason,`${g.id}/${o.id}`).not.toMatch(/^\s*[RCDF]\s*\d/);
+        expect(h.reason.length,`${g.id}/${o.id}`).toBeGreaterThan(10);
+      }
+    }
+  });
+  it('a report skim keeps every number and critical wording of its full text',()=>{
+    for(const g of clinicalGraphs)for(const r of g.reports){
+      for(const n of r.skimmed.match(/\d+(?:[.,]\d+)?/g)??[])expect(r.full,`${g.id}/${r.id}`).toContain(n);
+    }
   });
   it('every flag has a source-linked consumer and every hazard is attributable',()=>{
     for(const g of clinicalGraphs)for(const n of g.nodes)for(const o of n.options){for(const flag of [...(o.effects.flags??[]),...o.rules.flatMap(r=>r.effects.flags??[])])expect(g.flagConsumers[flag]?.length,`${g.id}/${flag}`).toBeGreaterThan(0);for(const h of [...(o.effects.hazards??[]),...o.rules.flatMap(r=>r.effects.hazards??[])]){expect(h.reason).toBeTruthy();expect(o.source.file).toContain(g.id);}}
