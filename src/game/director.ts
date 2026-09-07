@@ -48,7 +48,7 @@ import {patientAssessmentComplete}from './care-completion';
 import {butterflyCommitmentCard,commitmentDelivery}from '../content/events/butterfly-commitments';
 import {scheduleEventClauses}from '../content/events/ledger';
 import {butterflyFinanceCard,type ButterflyFinanceCard}from '../content/events/butterfly-finance';
-import {obligatoryScene,scheduleEchoScenes,randomSceneSlots,pendingSceneNotes,type SceneAgendaItem}from '../content/events/scene-agenda';
+import {scheduleEchoScenes,randomSceneSlots,pendingSceneNotes,type SceneAgendaItem}from '../content/events/scene-agenda';
 import {offerLiaisonRole,butterflyRoleDutyCard}from '../content/events/butterfly-role';
 import {registerFamilyInvoice,familyInvoiceFor,recordFamilyInvoiceChoice,familyInvoiceNotes,reduceFamilyContribution,type FamilyInvoice}from '../content/events/family-accounts';
 import {receivableDue,privateDebtDue,settleButterflyAccounts}from '../content/events/butterfly-accounts';
