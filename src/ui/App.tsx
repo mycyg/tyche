@@ -1126,6 +1126,11 @@ export function App() {
     const id = new URLSearchParams(location.search).get("preview-ending") ?? undefined;
     return isStoryEndingId(id) ? id : null;
   })();
+  function exitEndingPreview() {
+    const url = new URL(location.href);
+    url.searchParams.delete("preview-ending");
+    location.href = url.toString();
+  }
   useEffect(bindAudioLifecycle, []);
   useEffect(() => configureAudio(save.settings), [save.settings]);
   useEffect(() => {
@@ -1304,19 +1309,13 @@ export function App() {
     >
       {previewId ? (
         <div class="rpg-terminal">
-          <button
-            class="secondary rpg-terminal-back"
-            onClick={() => {
-              const url = new URL(location.href);
-              url.searchParams.delete("preview-ending");
-              location.href = url.toString();
-            }}
-          >
+          <button class="secondary rpg-terminal-back" onClick={exitEndingPreview}>
             退出预览 · 返回标题
           </button>
           <StoryEndingPage
             ending={{ id: previewId, storyId: previewId, title: STORY_ENDINGS[previewId].title, category: "结局预览", decision: "", epilogue: "", annexes: [], court: false }}
             storyId={previewId}
+            toTitle={exitEndingPreview}
           />
         </div>
       ) : (
