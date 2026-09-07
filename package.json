@@ -16,6 +16,7 @@
     "format": "biome format --write .",
     "typecheck": "tsc --noEmit && tsc -p tsconfig.engine.json && tsc -p tsconfig.node.json",
     "test:e2e": "playwright test",
+    "test:autoplay": "playwright test --config tests/autoplay/playwright.autoplay.config.ts",
     "simulate": "tsx scripts/simulate.ts",
     "check:content": "tsx scripts/check-content.ts",
     "check:routes": "tsx scripts/audit-routes.ts",
