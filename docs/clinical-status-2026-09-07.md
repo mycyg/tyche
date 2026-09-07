@@ -62,5 +62,5 @@
 ## 六、验收
 
 - `npm run typecheck`、`npm run lint`、`npm run check:content`（errors 0）通过。
-- `npm test`：2,368 通过。失败三项均为交接时已存在的问题——`ArchiveLibrary`、`family-departure`（事件文案，他人在修）与 `projected-voice`（台词采集，见跨文件需求）。`src/game/storage.test.ts` 单跑通过（57 秒），全量并行下曾一次超时。
+- `npm test`：2,369 通过，3 项失败，与 `df614ef` 上的失败完全相同——`src/ui/ArchiveLibrary.test.ts`、`src/content/events/family-departure.test.ts`（事件文案，他人在修）与 `scripts/projected-voice.test.ts`（台词采集，见跨文件需求）。没有新增失败。`src/game/storage.test.ts` 里那条 60 秒上限的用例在全量并行下偶尔超时（单跑 16 秒，改前 18 秒），与本次改动无关。
 - 抽读 C001、C005、C011 展开后的全部节点、选项、回报与结局：没有编辑指令、开发叙述、自伤方式，也没有参考游戏的原句。
