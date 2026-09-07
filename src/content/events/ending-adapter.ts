@@ -171,14 +171,14 @@ export function endingEligibility(r:EndingRun,id:string,options:EndingOptions={}
   const pushedDischarge=(p:Patient)=>{const key=`early-discharge:${p.uid}`;return f.has(key)&&(!!playerEarlyDischargeSource(r,p)||/E-218/.test(factSource(key)));};
   const brokenPromises=['家庭-婚礼未到','wedding-absent','家庭-婚事出资未付','家庭-再次许诺','家庭-争执','家庭-划清负担','家庭-消息未接到','家庭-未赶上告别','家庭-弟弟停止联系'].filter(k=>f.has(k)).map(k=>k==='wedding-absent'?'家庭-婚礼未到':k);
   const brokenPromiseCount=new Set(brokenPromises).size;
-  const familyOutlay=(r.authored?.familyInvoices??[]).some(i=>(i as {paid?:number}).paid!==undefined?((i as {paid?:number}).paid??0)>0:true)||(r.authored?.familyRegistrations?.length??0)>0||[...f].some(k=>/^家庭-(已用该款|已请护工|本人垫付|已补缴|婚事已付)/.test(k));
+  const familyOutlay=(r.authored?.familyInvoices??[]).some(i=>i.status==='paid'||(i.payment?.amount??0)>0)||(r.authored?.familyRegistrations?.length??0)>0||[...f].some(k=>/^家庭-(已用该款|已请护工|本人垫付|已补缴|婚事已付)/.test(k));
   const relativeLoan=any(f,'family-funding')||r.journal.some(e=>e.talentAction==='relative-loan')||(r.talentMemory?.processed??[]).some(id=>id.startsWith('relative-loan:'));
   const caseOpen=patientHas('police_report_received','reported')||f.has('飞检-通报');
   const inpatients=r.patients.filter(p=>p.active&&p.inpatient&&p.damage<3);
   const handoffs=r.authored?.clinicalHandoffs??[];
-  const handedOff=inpatients.every(p=>any(patientFacts(r,p),'handoff','handoff_done')||handoffs.some(h=>(h as {patientId?:string}).patientId===p.uid));
+  const handedOff=inpatients.every(p=>any(patientFacts(r,p),'handoff','handoff_done')||handoffs.some(h=>h.patientId===p.uid));
   const chainOpened=(chain:string)=>(r.authored?.chains??[]).some(c=>c.chain===chain);
-  const materials=chainFact('record_received','contemporary_record_submitted')&&[...f].some(k=>/^BTF-003:(record_received|contemporary_record_submitted)$/.test(k))||f.has('BTF-004:original_file_retained')&&f.has('BTF-004:verification_completed')||patientHas('superior_order_recorded','superior-signed');
+  const materials=any(f,'BTF-003:record_received','BTF-003:contemporary_record_submitted')||f.has('BTF-004:original_file_retained')&&f.has('BTF-004:verification_completed')||patientHas('superior_order_recorded','superior-signed');
   const boundary=!a.seeds.length&&!chainFact('false_exam_entry','shared_false_witness','department_false_statement','false_patient_statement','false_handoff_statement','reply_false','scapegoat_statement','knowingly_false_submission')&&!any(f,'篡改','药代-4统方','药代-5回扣','科研-造假','政治-背了','离岗-代写记录')&&!patientHas('tampered','record_tampered');
   const handoffComplete=(handedOff||f.has('离岗-交接已完成'))&&!f.has('离岗-交接口头')&&!(r.deferredWork?.length)&&(!chainOpened('BTF-001')||f.has('BTF-001:handoff_completed'));
   const arrangement=any(f,'离岗-手续已办')&&any(f,'离岗-新工作已落实')&&any(f,'离岗-住处已落实')&&any(f,'还款-已约定')&&!f.has('离岗-未安排');
@@ -225,47 +225,47 @@ export function endingEligibility(r:EndingRun,id:string,options:EndingOptions={}
     'END-37':[alive,[patientHas('unrest_suppressed_once'),'投诉被压下'],[chainFact('false_patient_statement','department_false_statement','reply_false'),'链事实中有不实陈述'],[r.reputation>=60,'声望达到六十'],[!patientHas('unrest_escalated','医闹升级'),'无投诉升级']],
     'END-39':[alive,[suspension,'主要以上责任未进入刑事，或抽卷发现严重履职问题'],[f.has('复岗-已办理'),'写入 复岗-已办理'],[any(f,'已就诊','健康-确诊','身体-已就医'),'有治疗前史'],[r.debt>0||r.privateDebt>0||!!l&&l.personalRecovery>0,'有欠款前史']],
     'END-40':[alive,[mature(r),'本轮完整结束'],[recordedSanBreaks(r)===0&&r.vitals.san>0,'精神从未归零'],[materials,'取得关键来源材料'],[boundary,'守住本人责任边界'],[handoffComplete,'落实必要交接'],[arrangement,'建立可持续的离岗与生活安排']],
-    X01:[[a.filed,'同一患者满足刑事移交条件'],[!suspended&&!exempt&&!acquittal,'不符合缓刑、免刑或无罪情形']],
-    X02:[[a.filed,'同一患者满足刑事移交条件'],[response==='admit','本人选择认罪认罚'],[a.paid,'医院已经实际赔偿'],[a.forgiven,'该患者家属出具了谅解']],
-    X03:[[a.filed,'已进入刑事处理'],[!!l&&l.L>=50&&l.L<60,'责任分值为50至59'],[a.forgiven,'该患者家属出具了谅解']],
-    X04:[[a.filed||any(pf,'prosecuted'),'已经被起诉'],[!!a.worst&&a.worst.damage===3,'对应患者死亡'],[!any(pf,'autopsy-done','autopsy_completed'),'未能完成尸检'],[!!l&&l.D<10&&l.R<30,'病历完整且诊疗过错有限'],[runRandom(r,'court:acquittal')<.1,'二审证据复核结果符合']],
-    X05:[[!!l&&l.level===2,'同等责任'],[a.reported,'该患者纠纷已经报警'],[runRandom(r,'court:nonprosecution')<.4,'检察审查作出不起诉决定']],
-    X06:[[a.corruption,'实际发生统方或回扣'],[a.corruptionCaught||validRequested,'有关行为已被调查发现']],
-    X07:[[!!l&&l.level>=3&&!a.filed||!!a.review&&a.review.A>=30,'主要以上责任未进入刑事，或抽卷发现严重履职问题']],
-    X08:[[a.filed&&!acquittal&&(!exempt||suspended),'本案作出生效刑事处罚']],
-    X09:[[a.fees>=60||[...f].filter(k=>/^audit-interview-failed:/.test(k)).length>=2||(r.authored?.ledger.outcomes??[]).filter(o=>['E-155','E-156'].includes(o.eventId)&&!o.success).length>=2,'费用问题或两次飞检约谈失败达到追回条件']],
-    X10:[[a.fees>=40,'实质费用问题'],[any(f,'drug-question-report-confirmed','举报查实')||(r.authored?.ledger.outcomes??[]).some(o=>o.eventId==='E-028'&&!o.success),'举报已核实']],
-    X11:[[a.tamperingDiscovered||a.falseProject,'不实病历或项目材料已被发现']],
-    X12:[[a.systemInfection,'医院独立发生院感系统事件']],
-    X13:[[!!l&&l.level===3&&!a.filed,'对应损害由医院承担主要民事责任，未受刑事处理']],
-    X14:[[!!l&&l.level>=1&&l.level<=2,'次要或同等临床损害责任']],
-    X15:[[!!l&&l.concealmentDefence,'具体病史询问记录且隐瞒与本次损害有关']],
-    X16:[[!!l&&l.tampered,'受损患者的相关病历被本人篡改']],
-    X17:[[r.exhausted>=2||options.early==='stamina','第二次体力耗尽'],[!a.night,'发生在白天']],
-    X18:[[health,'自己的异常体检报告已送达'],[r.exhausted>=1||r.vitals.stamina<=0,'曾经体力耗尽']],
-    X19:[[collapseVideoPublished(r,f),'体力耗尽的视频已经传到网上'],[r.reputation<20,'声望低于二十']],
-    X20:[[r.exhausted>=2||options.early==='stamina','第二次体力耗尽'],[a.night,'发生在夜班']],
-    X21:[[r.vitals.san<=0||options.early==='san'||validRequested,'精神状态不能继续工作'],[!a.night,'发生在白天']],
-    X22:[[r.vitals.san<=0||options.early==='san'||validRequested,'精神状态不能继续工作'],[a.night,'发生在夜班']],
-    X23:[[chosen(r,'E-202')||r.patients.some(p=>patientFacts(r,p).has('san-wrong-record-discovered'))||any(f,'san-wrong-record-discovered'),'精神耗尽后写错病历且被质控发现']],
-    X24:[[r.depression>=75&&r.relations.family>=2||validRequested,'家人接走并完成离岗安排']],
-    X25:[[r.emotionalBreaks>=2||options.early==='emotion','第二次情绪崩溃并停止履职']],
-    X26:[[r.depression>=75,'抑郁严重'],[r.relations.family<2,'没有家人支持']],
-    X27:[[any(f,'家庭-婚事','wedding-planned'),'家庭事项是婚礼'],[any(f,'家庭-婚礼未到','wedding-absent'),'没有到场'],[!any(f,'家庭-婚事已付','wedding-paid','wedding-half-paid','wedding-gift-paid'),'没有承担支出'],[r.relations.family===0,'家人关系破裂']],
-    X28:[[r.uncoveredDays>=RULES.debtGrace||options.early==='interest','连续两个结算日的近期实际日均收入不足以覆盖当日利息']],
-    X29:[[r.debt>50000||options.early==='debt','信用债务超过五万元']],
-    X30:[[any(f,'卖车','car-sold','家庭-卖车'),'实际出售车辆'],[r.debt+r.privateDebt>0,'卖车后仍有债务']],
-    X31:[[options.early==='quit'||any(f,'resign-requested','quit-confirmed')||validRequested,'本人已确认离职'],[!a.corruption,'无实际统方或回扣']],
-    X32:[[options.early==='quit'||any(f,'resign-requested','quit-confirmed')||validRequested,'本人已决定离职'],[a.corruption,'有实际统方或回扣']],
-    X33:[[atEnd,'本轮结束'],[!a.seeds.length,'无严重临床损害']],
-    X34:[[atEnd,'本轮结束'],[r.depression>=50||r.income<0||any(f,'liaison-job-obtained'),'抑郁持续、绩效为负或已取得院外岗位']],
-    X35:[[atEnd,'本轮结束'],[r.relations.chief<=1||any(f,'annual-evaluation-low')||!!a.review&&a.review.A>=15&&a.review.A<30,'评价不合格或需补训']],
-    X36:[[atEnd,'本轮结束'],[!a.seeds.length,'无严重临床损害'],[r.reputation>=70&&r.relations.chief>=4&&r.relations.peer>=3,'得到主任与同事认可']],
-    X37:[[[...f].filter(k=>k.startsWith('defensive-transfer:')).length>=talentNotPresentThreshold({talents:r.talents,debuffs:r.debuffs,day:r.day,memory:r.talentMemory},6),'推诿性转诊次数达到当前门槛'],[r.hazards.reduce((n,h)=>n+Math.max(0,h.weight),0)<20,'隐患总量低于二十']],
-    X38:[[r.patients.some(p=>p.caseId==='C020'&&any(patientFacts(r,p),'autopsy_discussed','rights_given')&&any(patientFacts(r,p),'autopsy-consented','autopsy_consented')),'尸检已告知且家属实际签字同意']],
-    X39:[[r.patients.some(p=>{const pf=patientFacts(r,p);return any(pf,'recording-exists','recording_full')&&['unrest_1_success','unrest_2_success','unrest_3_success'].every(x=>pf.has(x));}),'同一患者全程录音且三拍沟通均成功']],
-    X40:[[repeat,'前后两局同一陷阱都导致严重损害']],
-    X41:[[r.talents.includes('T01'),'选有第六感'],[lampCount>=8,'实际提示至少八次'],[r.vitals.san>0&&!any(f,'SAN归零','san-ever-zero'),'精神从未归零'],[!a.seeds.length,'无严重临床损害']],
+    'X01':[[a.filed,'同一患者满足刑事移交条件'],[!suspended&&!exempt&&!acquittal,'不符合缓刑、免刑或无罪情形']],
+    'X02':[[a.filed,'同一患者满足刑事移交条件'],[response==='admit','本人选择认罪认罚'],[a.paid,'医院已经实际赔偿'],[a.forgiven,'该患者家属出具了谅解']],
+    'X03':[[a.filed,'已进入刑事处理'],[!!l&&l.L>=50&&l.L<60,'责任分值为50至59'],[a.forgiven,'该患者家属出具了谅解']],
+    'X04':[[a.filed||any(pf,'prosecuted'),'已经被起诉'],[!!a.worst&&a.worst.damage===3,'对应患者死亡'],[!any(pf,'autopsy-done','autopsy_completed'),'未能完成尸检'],[!!l&&l.D<10&&l.R<30,'病历完整且诊疗过错有限'],[runRandom(r,'court:acquittal')<.1,'二审证据复核结果符合']],
+    'X05':[[!!l&&l.level===2,'同等责任'],[a.reported,'该患者纠纷已经报警'],[runRandom(r,'court:nonprosecution')<.4,'检察审查作出不起诉决定']],
+    'X06':[[a.corruption,'实际发生统方或回扣'],[a.corruptionCaught||validRequested,'有关行为已被调查发现']],
+    'X07':[[!!l&&l.level>=3&&!a.filed||!!a.review&&a.review.A>=30,'主要以上责任未进入刑事，或抽卷发现严重履职问题']],
+    'X08':[[a.filed&&!acquittal&&(!exempt||suspended),'本案作出生效刑事处罚']],
+    'X09':[[a.fees>=60||[...f].filter(k=>/^audit-interview-failed:/.test(k)).length>=2||(r.authored?.ledger.outcomes??[]).filter(o=>['E-155','E-156'].includes(o.eventId)&&!o.success).length>=2,'费用问题或两次飞检约谈失败达到追回条件']],
+    'X10':[[a.fees>=40,'实质费用问题'],[any(f,'drug-question-report-confirmed','举报查实')||(r.authored?.ledger.outcomes??[]).some(o=>o.eventId==='E-028'&&!o.success),'举报已核实']],
+    'X11':[[a.tamperingDiscovered||a.falseProject,'不实病历或项目材料已被发现']],
+    'X12':[[a.systemInfection,'医院独立发生院感系统事件']],
+    'X13':[[!!l&&l.level===3&&!a.filed,'对应损害由医院承担主要民事责任，未受刑事处理']],
+    'X14':[[!!l&&l.level>=1&&l.level<=2,'次要或同等临床损害责任']],
+    'X15':[[!!l&&l.concealmentDefence,'具体病史询问记录且隐瞒与本次损害有关']],
+    'X16':[[!!l&&l.tampered,'受损患者的相关病历被本人篡改']],
+    'X17':[[r.exhausted>=2||options.early==='stamina','第二次体力耗尽'],[!a.night,'发生在白天']],
+    'X18':[[health,'自己的异常体检报告已送达'],[r.exhausted>=1||r.vitals.stamina<=0,'曾经体力耗尽']],
+    'X19':[[collapseVideoPublished(r,f),'体力耗尽的视频已经传到网上'],[r.reputation<20,'声望低于二十']],
+    'X20':[[r.exhausted>=2||options.early==='stamina','第二次体力耗尽'],[a.night,'发生在夜班']],
+    'X21':[[r.vitals.san<=0||options.early==='san'||validRequested,'精神状态不能继续工作'],[!a.night,'发生在白天']],
+    'X22':[[r.vitals.san<=0||options.early==='san'||validRequested,'精神状态不能继续工作'],[a.night,'发生在夜班']],
+    'X23':[[chosen(r,'E-202')||r.patients.some(p=>patientFacts(r,p).has('san-wrong-record-discovered'))||any(f,'san-wrong-record-discovered'),'精神耗尽后写错病历且被质控发现']],
+    'X24':[[r.depression>=75&&r.relations.family>=2||validRequested,'家人接走并完成离岗安排']],
+    'X25':[[r.emotionalBreaks>=2||options.early==='emotion','第二次情绪崩溃并停止履职']],
+    'X26':[[r.depression>=75,'抑郁严重'],[r.relations.family<2,'没有家人支持']],
+    'X27':[[any(f,'家庭-婚事','wedding-planned'),'家庭事项是婚礼'],[any(f,'家庭-婚礼未到','wedding-absent'),'没有到场'],[!any(f,'家庭-婚事已付','wedding-paid','wedding-half-paid','wedding-gift-paid'),'没有承担支出'],[r.relations.family===0,'家人关系破裂']],
+    'X28':[[r.uncoveredDays>=RULES.debtGrace||options.early==='interest','连续两个结算日的近期实际日均收入不足以覆盖当日利息']],
+    'X29':[[r.debt>50000||options.early==='debt','信用债务超过五万元']],
+    'X30':[[any(f,'卖车','car-sold','家庭-卖车'),'实际出售车辆'],[r.debt+r.privateDebt>0,'卖车后仍有债务']],
+    'X31':[[options.early==='quit'||any(f,'resign-requested','quit-confirmed')||validRequested,'本人已确认离职'],[!a.corruption,'无实际统方或回扣']],
+    'X32':[[options.early==='quit'||any(f,'resign-requested','quit-confirmed')||validRequested,'本人已决定离职'],[a.corruption,'有实际统方或回扣']],
+    'X33':[[atEnd,'本轮结束'],[!a.seeds.length,'无严重临床损害']],
+    'X34':[[atEnd,'本轮结束'],[r.depression>=50||r.income<0||any(f,'liaison-job-obtained'),'抑郁持续、绩效为负或已取得院外岗位']],
+    'X35':[[atEnd,'本轮结束'],[r.relations.chief<=1||any(f,'annual-evaluation-low')||!!a.review&&a.review.A>=15&&a.review.A<30,'评价不合格或需补训']],
+    'X36':[[atEnd,'本轮结束'],[!a.seeds.length,'无严重临床损害'],[r.reputation>=70&&r.relations.chief>=4&&r.relations.peer>=3,'得到主任与同事认可']],
+    'X37':[[[...f].filter(k=>k.startsWith('defensive-transfer:')).length>=talentNotPresentThreshold({talents:r.talents,debuffs:r.debuffs,day:r.day,memory:r.talentMemory},6),'推诿性转诊次数达到当前门槛'],[r.hazards.reduce((n,h)=>n+Math.max(0,h.weight),0)<20,'隐患总量低于二十']],
+    'X38':[[r.patients.some(p=>p.caseId==='C020'&&any(patientFacts(r,p),'autopsy_discussed','rights_given')&&any(patientFacts(r,p),'autopsy-consented','autopsy_consented')),'尸检已告知且家属实际签字同意']],
+    'X39':[[r.patients.some(p=>{const pf=patientFacts(r,p);return any(pf,'recording-exists','recording_full')&&['unrest_1_success','unrest_2_success','unrest_3_success'].every(x=>pf.has(x));}),'同一患者全程录音且三拍沟通均成功']],
+    'X40':[[repeat,'前后两局同一陷阱都导致严重损害']],
+    'X41':[[r.talents.includes('T01'),'选有第六感'],[lampCount>=8,'实际提示至少八次'],[r.vitals.san>0&&!any(f,'SAN归零','san-ever-zero'),'精神从未归零'],[!a.seeds.length,'无严重临床损害']],
   };
   const required=checks[id]??[],missing=required.filter(([met])=>!met).map(([,label])=>label);
   return{eligible:missing.length===0,missing,evidence:required.filter(([met])=>met).map(([,label])=>label)};

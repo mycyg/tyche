@@ -112,10 +112,10 @@ if (process.argv[1]?.endsWith('simulate.ts')) {
 }
 
 /** Endings contract §3.1: the run is non-dark when the main ending is END-40, or
- * when it is END-33, END-35 or END-39 and no END-01..END-27 page is attached. */
-export const NON_DARK_ENDINGS = ['END-40', 'END-33', 'END-35', 'END-39'] as const;
+ * when it is END-33, END-35 or END-39 and no END-01..END-27 page is attached.
+ * A hoisted function: the summary above runs at module load, before any const here. */
 export function nonDarkEnding(ending: { id: string; annexIds?: string[] }): boolean {
   if (ending.id === 'END-40') return true;
-  if (!NON_DARK_ENDINGS.includes(ending.id as typeof NON_DARK_ENDINGS[number])) return false;
+  if (!['END-33', 'END-35', 'END-39'].includes(ending.id)) return false;
   return !(ending.annexIds ?? []).some(id => /^END-(0[1-9]|1\d|2[0-7])$/.test(id));
 }
