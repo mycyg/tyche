@@ -45,6 +45,7 @@ import {
 import type {
   Action,
   Card,
+  Ending,
   Meta,
   Option,
   Run,
@@ -54,6 +55,7 @@ import type {
 } from "../game/types";
 import { Dice } from "./Dice";
 import { cue, bindAudioLifecycle, configureAudio, setMusicScene, narrate, narrateDialogue, stopVoice } from "./audio";
+import { musicSceneFor } from "./music-scene";
 import { dialogueSegments } from './dialogue-voice';
 import { clinicalVoiceActor } from './clinical-voice';
 import { registerGameTools } from "./WebMCP";
@@ -69,6 +71,7 @@ import { Schedule } from './Schedule';
 import { ArchiveLibrary } from './ArchiveLibrary';
 import { patientAgeLabel } from '../content/clinical/identity';
 import { operationCheckPurpose } from '../content/clinical/check-copy';
+import { STORY_ENDINGS, TRUE_ENDING_ID, isStoryEndingId, storyEndingImagePath, type StoryEndingId } from '../content/story/endings';
 
 const money = (n: number) => `¥${Math.round(n).toLocaleString("zh-CN")}`;
 const dayName = (n: number) =>
@@ -745,6 +748,133 @@ function Tribunal({ r, dispatch }: { r: Run; dispatch: (a: Action) => void }) {
     </main>
   );
 }
+/** Design doc 18 §7 verbatim. Never paraphrase, trim or add a summarizing line under it. */
+const SUPPORT_PARAGRAPHS = [
+  "人生的路还很长，医生只是职业的一种选择，未来还有很多可能。",
+  "如果这段故事让你难受，先放下游戏。找家人、朋友，或者其他你信任的人，吃顿饭、散会儿步，聊聊最近过得怎么样。不知道怎么开口，也可以只说：“我最近有点撑不住，能陪我一会儿吗？”",
+  "你可以休息，可以换一条路，也可以寻求专业帮助。遇到困难时就可以开口，不必一个人扛着。",
+  "本游戏纯属虚构。它不是对你的评价，也不能替你决定未来。",
+];
+/** Shown after every dark main ending (all but END-40). No victory sound, no unlock banner, no reward copy. */
+function SupportCard({ toTitle }: { toTitle?: () => void }) {
+  const [resting, setResting] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  useEffect(() => { void narrate(SUPPORT_PARAGRAPHS.join('\n')); return stopVoice; }, []);
+  if (resting) return null;
+  return (
+    <section class="ending-support" aria-label="写给你的话">
+      <h2>写给你</h2>
+      {SUPPORT_PARAGRAPHS.map((text, i) => <p key={i}>{text}</p>)}
+      {expanded && (
+        <div class="ending-support-info">
+          <p>中国大陆心理援助热线：<b>12356</b>。号码依据<a href="https://www.nhc.gov.cn/yzygj/c100068/202412/49a1a65386cd4be582d4702fd0926ee8.shtml" target="_blank" rel="noopener noreferrer">国家卫生健康委通知</a>。</p>
+          <p>其他地区：<a href="https://findahelpline.com" target="_blank" rel="noopener noreferrer">findahelpline.com</a> 提供查找当地支持资源的入口。</p>
+          <p>若担心自己会立即伤害自己，请联系身边可信任的人，并寻求当地的紧急援助。</p>
+        </div>
+      )}
+      <div class="ending-support-actions">
+        <button class="secondary" onClick={() => setResting(true)}>先休息一下</button>
+        {toTitle && <button class="secondary" onClick={toTitle}>返回标题</button>}
+        <button class="secondary" aria-expanded={expanded} onClick={() => setExpanded(x => !x)}>查看支持信息</button>
+      </div>
+    </section>
+  );
+}
+/** Renders one of the 40 END-xx main endings: image on top, book text below.
+ * `r` and `meta` are omitted in the ?preview-ending= developer route, which skips
+ * the case-file folds and the live experience summary rather than fabricate a Run. */
+function StoryEndingPage({
+  ending,
+  storyId,
+  r,
+  meta,
+  next,
+  archive,
+  share,
+  toTitle,
+}: {
+  ending: Ending;
+  storyId: StoryEndingId;
+  r?: Run;
+  meta?: Meta;
+  next?: () => void;
+  archive?: () => void;
+  share?: () => void;
+  toTitle?: () => void;
+}) {
+  const story = STORY_ENDINGS[storyId];
+  const dark = storyId !== TRUE_ENDING_ID;
+  useEffect(() => { void narrate([story.title, story.author, ...story.paragraphs].join('\n')); return stopVoice; }, [storyId]);
+  return (
+    <main class="ending-page ending-page-story">
+      <img
+        class="ending-story-image"
+        src={`${import.meta.env.BASE_URL}${storyEndingImagePath(storyId)}`}
+        width={1672}
+        height={941}
+        loading="lazy"
+        alt={story.scene}
+      />
+      <div class="ending-intro ending-intro-story">
+        <span class="eyebrow">
+          {ending.id} / {ending.category} ·{" "}
+          {r ? (r.day >= 15 ? "十四天之后" : `第 ${r.day} 天终止`) : "结局预览"}
+        </span>
+        <h1>{story.title}</h1>
+        <span class="ending-story-author">{story.author}</span>
+      </div>
+      <article class="ending-paper">
+        <div class="document-header">南屏市 · 轮转结算文书</div>
+        {story.paragraphs.map((text, i) => <p key={i}>{text}</p>)}
+        {r?.roll?.kind === "tribunal" && (
+          <p class="court-roll">
+            刑事程序检定：骰点 {r.roll.face} / 要求 {r.roll.dc} ·{" "}
+            {r.roll.success ? "未移交刑事程序" : "移交刑事程序"}
+          </p>
+        )}
+        <footer>
+          <p>本作人物、机构、制度、病例与结局均属虚构。</p>
+        </footer>
+      </article>
+      {ending.annexes.length > 0 && (
+        <section class="annexes">
+          <h2>后来</h2>
+          {ending.annexes.map((text, i) => (
+            <div class="annex" key={i}>
+              <span>{String(i + 1).padStart(2, "0")}</span>
+              <p>{text}</p>
+            </div>
+          ))}
+        </section>
+      )}
+      {dark && <SupportCard toTitle={toTitle} />}
+      {r && (
+        <>
+          <details class="end-fold">
+            <summary>事情从哪一天开始</summary>
+            <Timeline r={r} onlyFacts />
+          </details>
+          <details class="end-fold">
+            <summary>完整案卷</summary>
+            <Dossier r={r} compact />
+          </details>
+        </>
+      )}
+      {r && meta && (
+        <div class="end-summary">
+          <span>已归档结局 <b>{meta.endings.length}</b></span>
+          <span>可用经验 <b>{meta.xp}</b></span>
+          <span>轮转码 <b>{r.seed}</b></span>
+        </div>
+      )}
+      <div class="end-actions">
+        {archive && <button class="primary" onClick={archive}>成长与旧档案</button>}
+        {next && <button class="secondary" onClick={next}>再来一局</button>}
+        {share && <button class="secondary" onClick={share}>分享这次结局</button>}
+      </div>
+    </main>
+  );
+}
 function EndingView({
   r,
   meta,
@@ -759,7 +889,13 @@ function EndingView({
   share: () => void;
 }) {
   const e = r.ending!;
-  useEffect(()=>{void narrate([e.title,e.decision,e.epilogue,...e.annexes].join('\n'));return stopVoice;},[e.id]);
+  const storyId = isStoryEndingId(e.storyId) ? e.storyId : undefined;
+  useEffect(() => {
+    if (storyId) return; // StoryEndingPage narrates the book text itself.
+    void narrate([e.title, e.decision, e.epilogue, ...e.annexes].join('\n'));
+    return stopVoice;
+  }, [e.id, storyId]);
+  if (storyId) return <StoryEndingPage ending={e} storyId={storyId} r={r} meta={meta} next={next} archive={archive} share={share} />;
   return (
     <main class="ending-page">
       <div class="ending-room" aria-hidden="true" />
@@ -969,12 +1105,26 @@ export function App() {
   const [recordPage,setRecordPage]=useState<RecordPage>('admission');
   const [ambient, setAmbient] = useState<{title:string;text:string;actor?:string}|null>(null);
   const r = save.run;
+  /** QA/screenshot route for the 40 story endings: ?preview-ending=END-07. Reads only the URL; never touches save data. */
+  const previewId: StoryEndingId | null = (() => {
+    if (typeof location === "undefined") return null;
+    const id = new URLSearchParams(location.search).get("preview-ending") ?? undefined;
+    return isStoryEndingId(id) ? id : null;
+  })();
   useEffect(bindAudioLifecycle, []);
   useEffect(() => configureAudio(save.settings), [save.settings]);
   useEffect(() => {
-    const night = r && r.queue.slice(r.cursor).some(c=>c.kind==='night') && !r.queue.slice(r.cursor).some(c=>!['night','rest'].includes(c.kind));
-    const good = r?.ending && ['X33','X34','X36'].includes(r.ending.id);
-    setMusicScene(view !== 'game' ? 'title' : r?.phase === 'ending' ? good ? 'ending-calm' : 'ending-dark' : r?.phase === 'tribunal' ? 'inquiry' : r && r.vitals.san < 30 ? 'fracture' : night ? 'night' : r && r.day >= 9 ? 'pressure' : 'day');
+    const night = !!r && r.queue.slice(r.cursor).some(c=>c.kind==='night') && !r.queue.slice(r.cursor).some(c=>!['night','rest'].includes(c.kind));
+    const good = !!r?.ending && (['X33','X34','X36'].includes(r.ending.id) || r.ending.storyId === TRUE_ENDING_ID);
+    setMusicScene(musicSceneFor({
+      inGame: view === 'game',
+      phase: r?.phase ?? 'play',
+      san: r?.vitals.san ?? 100,
+      day: r?.day ?? 1,
+      night,
+      endingGood: good,
+      card: r ? currentCard(r) : undefined,
+    }));
   }, [view, r?.day, r?.phase, r?.cursor, r?.vitals.san]);
   const guide=parseGuide(save.guide??{version:1,enabled:false,seen:[]});
   const welcome=view==='game'&&r?.phase==='play'&&guide.enabled&&!guide.seen.includes('welcome-seen');
@@ -1137,6 +1287,25 @@ export function App() {
       class="app-shell"
       style={{ "--pressure": r ? Math.min(1, (r.day - 1) / 13) : 0 }}
     >
+      {previewId ? (
+        <div class="rpg-terminal">
+          <button
+            class="secondary rpg-terminal-back"
+            onClick={() => {
+              const url = new URL(location.href);
+              url.searchParams.delete("preview-ending");
+              location.href = url.toString();
+            }}
+          >
+            退出预览 · 返回标题
+          </button>
+          <StoryEndingPage
+            ending={{ id: previewId, storyId: previewId, title: STORY_ENDINGS[previewId].title, category: "结局预览", decision: "", epilogue: "", annexes: [], court: false }}
+            storyId={previewId}
+          />
+        </div>
+      ) : (
+        <>
       {view === "title" && (
         <Title
           save={save}
@@ -1589,6 +1758,8 @@ export function App() {
             </button>
           </div>
         </Modal>
+      )}
+        </>
       )}
     </div>
   );
