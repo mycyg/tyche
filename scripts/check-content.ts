@@ -99,7 +99,7 @@ for (const e of PATIENT_ENTITIES) {
   const pairs = CASE_PRESETS.flatMap(p => p.constraints.periods.filter(period => compatibleEntities(p, period).some(x => x.id === e.id)).map(period => `${p.id}:${period}`));
   check(pairs.length, `${e.id}: no legal pairing`); records.push({ kind: 'entity', id: e.id, original: e.original, source: e.source, consumer: 'presets.instantiatePatientPreset / patient-director', legalPairs: pairs });
 }
-consecutive(AUTHORED_EVENTS.map(e => e.id), 'E-', 264);
+consecutive(AUTHORED_EVENTS.map(e => e.id), 'E-', 274);
 // Chain resolutions carry a single acknowledgement: the outcome is already
 // fixed by facts written earlier, so offering a second branch would be a lie.
 const RESOLUTION_EVENTS = ['E-217', 'E-221', 'E-232', 'E-236', 'E-237', 'E-239'];
@@ -120,7 +120,7 @@ for (const e of AUTHORED_EVENTS) {
 }
 if (sourceRoot) for (const path of sourceFiles('13_事件库')) for (const m of sourceText(path).matchAll(/^###?\s+(E-\d{3})/gm)) check(AUTHORED_EVENTS.some(e => e.id === m[1]), `${m[1]}: source event omitted`);
 if (unverifiedEventFlags.length) gaps.push(`${unverifiedEventFlags.length} event flags lack a named consumer candidate; history-only use is not certified gameplay impact`);
-gaps.push('All 264 actual host-world event trigger paths have not been individually replayed by this audit');
+gaps.push('All 274 actual host-world event trigger paths have not been individually replayed by this audit');
 check(BUTTERFLY_NODES.length === 32 && BUTTERFLY_MERGES.length === 3, 'Expected 32 butterfly nodes / 3 merges');
 const butterflyTargets = new Set([...BUTTERFLY_NODES.map(n => n.id), ...BUTTERFLY_RESOLUTIONS.map(r => r.id)]);
 for (const n of BUTTERFLY_NODES) { check(n.options.length, `${n.id}: no choices`); records.push({ kind: 'butterfly', id: n.id, source: n.source.path, consumer: 'director → routeButterfly / commitButterflyChoice', requiredFacts: n.requiredFacts, options: n.options.map(o => o.id), textualTargetsNotIds: n.options.flatMap(o => o.targets).filter(t => !butterflyTargets.has(t)), reachability: 'dedicated legal commitment tests required; acceptance is not completion' }); }

@@ -10,9 +10,9 @@ import {recordedSanBreaks}from '../../game/interruption';
  *   准备调用 `stop(r,'san')` 之前调用。返回卡时先把卡交给玩家，本局不收口；
  *   返回 undefined 时按原来的 `stop(r,'san')` 收口。
  * - `darkChainEntry(r,'stamina')` 同理，用在体力再次归零、`stop(r,'stamina')` 之前。
- * - `darkChainResolve(r)` 在链末（结算或 `stop()` 之前）调用，返回本局已经发生的
- *   事实所决定的结果标记，交给引擎按普通 Effects 写入。它只读已写入的事实，
- *   不掷骰，也不改写任何既有记录。
+ * - `darkChainResolve(r)` 在链末（结算或 `stop()` 之前）调用，把本局已经发生的
+ *   事实所决定的结果标记写进 `r.facts`，返回值为空。它只读已写入的事实，不掷骰，
+ *   也不覆盖任何既有记录；要拿到标记本身而不写入，用 `darkChainOutcome(r)`。
  * - 导演已在 `forceZeroEvent` 里按同一规则派发这两张入口卡。A 在 `interrupt()`
  *   里若已经走 `forceZeroEvent`，只需在收口前补一次 `darkChainResolve(r)`。
  *
@@ -81,11 +81,17 @@ export function darkChainEntry(r: Run, kind: 'san' | 'stamina', phase: EventPhas
   return eventToCard(event, { instanceId, day: r.day, phase, scope: { kind: 'personal', id: r.id }, actorId: 'jiang' });
 }
 
-/** 链末结算：按已经写入的事实给出结果标记，不掷骰、不覆盖既有记录。 */
-export function darkChainResolve(r: Run): Effects {
+/** 链末结算的标记本身：按已经写入的事实取值，不掷骰、不覆盖既有记录。 */
+export function darkChainOutcome(r: Run): Effects {
   const flags: string[] = [];
   if (has(r, '伤医-袭击发生') && !has(r, '伤医-受伤生还') && !has(r, '伤医-抢救无效')) flags.push(...assaultOutcome(r));
   if (has(r, '身体-本次归零已处理') && !has(r, '身体-救回') && !has(r, '身体-抢救无效')) flags.push(...collapseOutcome(r));
   if (!has(r, '精神-无法复岗') && !has(r, '精神-长期症状')) flags.push(...crisisOutcome(r));
   return flags.length ? { flags: [...new Set(flags)] } : {};
+}
+
+/** 链末结算：把上面的标记写进 `r.facts`。已经存在的记录保持原值与原日期。 */
+export function darkChainResolve(r: Run): void {
+  for (const key of darkChainOutcome(r).flags ?? [])
+    if (!r.facts[key]) r.facts[key] = { day: r.day, source: 'dark-chain', sequence: r.journal.length };
 }

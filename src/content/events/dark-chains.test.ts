@@ -2,18 +2,18 @@ import { describe, expect, it } from 'vitest';
 import { AUTHORED_EVENTS, EVENT_BY_ID, contextualOptions, eventEligible, eventToCard } from './catalog';
 import { EVENT_RESULTS, EVENT_FAILURES } from './narrative';
 import { RECORD_ONLY_EVENT_FACTS } from './fact-records';
-import { assaultOutcome, collapseOutcome, crisisOutcome, posthumousItems } from './dark-chains';
+import { assaultOutcome, collapseOutcome, crisisOutcome, darkChainEntry, darkChainOutcome, darkChainResolve, posthumousItems } from './dark-chains';
 import type { EventContext } from './types';
 import type { Run } from '../../game/types';
 
 const DARK = AUTHORED_EVENTS.filter(e => { const n = +e.id.slice(2); return n >= 213 && n <= 258; });
-const NIGHT_POOL = AUTHORED_EVENTS.filter(e => { const n = +e.id.slice(2); return n >= 259 && n <= 264; });
+const NIGHT_POOL = AUTHORED_EVENTS.filter(e => { const n = +e.id.slice(2); return n >= 259 && n <= 274; });
 /** These six close a chain: the outcome is already fixed by facts written
  * earlier, so they carry one acknowledgement instead of a false branch. */
 const RESOLUTIONS = ['E-217', 'E-221', 'E-232', 'E-236', 'E-237', 'E-239'];
 const context = (extra: Partial<EventContext> = {}): EventContext => ({ day: 8, phase: '结算', facts: {}, san: 60, emotion: 60, stamina: 60, depression: 20, cash: 5000, pressure: 50, ...extra });
 const fact = (day = 1) => ({ day, source: 'test', sequence: day });
-const run = (extra: Partial<Run> = {}) => ({ id: 'dark', day: 12, facts: {}, patients: [], receivable: 0, exhausted: 0, depression: 0, ...extra } as unknown as Run);
+const run = (extra: Partial<Run> = {}) => ({ id: 'dark', day: 12, facts: {}, patients: [], committed: [], journal: [], receivable: 0, exhausted: 0, sanBreaks: 0, depression: 0, ...extra } as unknown as Run);
 
 /** 合同 4.15 的新增事实。写入方分三处：事件选项、链末结算（dark-chains）、
  * 以及开局设置（`伴侣-在册` 由工程师 A 写入 Run）。 */
@@ -51,9 +51,9 @@ const WRITTEN_ELSEWHERE = ['伤医-施暴者已确定', '伤医-受伤生还', '
   '举报人', '知情', '互相把柄'];
 
 describe('dark chains DK-1 to DK-14', () => {
-  it('imports forty-six chain rows and six night rows with parsed triggers and phases', () => {
+  it('imports forty-six chain rows and sixteen night rows with parsed triggers and phases', () => {
     expect(DARK.map(e => e.id)).toEqual(Array.from({ length: 46 }, (_, i) => `E-${213 + i}`));
-    expect(NIGHT_POOL.map(e => e.id)).toEqual(Array.from({ length: 6 }, (_, i) => `E-${259 + i}`));
+    expect(NIGHT_POOL.map(e => e.id)).toEqual(Array.from({ length: 16 }, (_, i) => `E-${259 + i}`));
     for (const e of [...DARK, ...NIGHT_POOL]) {
       expect(e.phases.length, e.id).toBeGreaterThan(0);
       expect(e.options.length, e.id).toBeGreaterThanOrEqual(RESOLUTIONS.includes(e.id) ? 1 : 2);
@@ -148,6 +148,21 @@ describe('dark chains DK-1 to DK-14', () => {
     expect(collapseOutcome(run({ facts: { '身体-已就医': fact(5), '未就诊': fact(5) } }))).toEqual(['身体-救回']);
     expect(crisisOutcome(run({ facts: { '危机-评估已做': fact(5) } }))).toEqual(['精神-长期症状']);
     expect(crisisOutcome(run({ facts: { '危机-失联': fact(5) } }))).toEqual([]);
+  });
+
+  it('hands the engine one entry card per repeated zero and writes the close into the run itself', () => {
+    expect(darkChainEntry(run({ sanBreaks: 1 }), 'san')).toBeUndefined();
+    expect(darkChainEntry(run({ exhausted: 0 }), 'stamina')).toBeUndefined();
+    expect(darkChainEntry(run({ sanBreaks: 2 }), 'san')?.authoredEventId).toBe('E-230');
+    expect(darkChainEntry(run({ sanBreaks: 2, depression: 80 }), 'san')?.authoredEventId).toBe('E-233');
+    expect(darkChainEntry(run({ exhausted: 1 }), 'stamina')?.authoredEventId).toBe('E-238');
+    const closing = run({ day: 12, facts: { '伤医-袭击发生': fact(11), '伤医-已求援': fact(11), '伤医-陪同离院': fact(11) } });
+    expect(darkChainOutcome(closing).flags).toContain('伤医-受伤生还');
+    darkChainResolve(closing);
+    expect(closing.facts['伤医-受伤生还']).toMatchObject({ day: 12, source: 'dark-chain' });
+    expect(closing.facts['伤医-已求援'].day).toBe(11);
+    darkChainResolve(closing);
+    expect(closing.facts['伤医-受伤生还'].day).toBe(12);
   });
 
   it('writes the posthumous items from this run and never from a method or a preparation', () => {
