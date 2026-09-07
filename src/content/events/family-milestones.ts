@@ -3,6 +3,8 @@ import type {EventCard}from './types';
 import {RULES}from '../../game/rules';
 import {runRandom}from '../../game/run-random';
 
+/** DK-11 hangs off this card: `家庭-婚礼未到` / `wedding-absent` is what E-249
+ * reads, and E-248 supplies the contribution record E-105 never wrote. */
 export function weddingDayCard(r:Run):Card|undefined {
   const appointment=r.authored?.activeFacts['wedding-due'];
   if(!appointment||appointment.day>r.day||r.day>RULES.days)return;
@@ -17,7 +19,9 @@ export function weddingDayCard(r:Run):Card|undefined {
     ]:[{id:`${id}:absent`,label:'看完照片，给家里回消息',ap:0,minutes:0,cost:0,effects:{flags:['家庭-婚礼未到','wedding-absent']},result:'你回了一句祝福。照片里家人坐满了一桌，原来写着你名字的桌牌被挪到旁边。'}]};
 }
 /** Clinical care or a decision about money does not choose a parent's outcome.
- * The death variant is a separate course event and stops future ICU charges. */
+ * The death variant is a separate course event and stops future ICU charges.
+ * DK-12 hangs off it: E-252 reads `家庭-丧亲` and `father-deceased`, and never
+ * turns the parents-in-hospital variant into a death on its own. */
 export function familyDeathVariant(r:Run,card:EventCard):EventCard|undefined {
   if(card.authoredEventId!=='E-102'||runRandom(r,'family:icu-course')>=RULES.family.deathChance)return;
   const shared={flags:['家庭-丧亲','father-deceased'],clear:['家庭-车祸-ICU中','家庭-出院']};

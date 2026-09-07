@@ -99,11 +99,14 @@ for (const e of PATIENT_ENTITIES) {
   const pairs = CASE_PRESETS.flatMap(p => p.constraints.periods.filter(period => compatibleEntities(p, period).some(x => x.id === e.id)).map(period => `${p.id}:${period}`));
   check(pairs.length, `${e.id}: no legal pairing`); records.push({ kind: 'entity', id: e.id, original: e.original, source: e.source, consumer: 'presets.instantiatePatientPreset / patient-director', legalPairs: pairs });
 }
-consecutive(AUTHORED_EVENTS.map(e => e.id), 'E-', 212);
+consecutive(AUTHORED_EVENTS.map(e => e.id), 'E-', 264);
+// Chain resolutions carry a single acknowledgement: the outcome is already
+// fixed by facts written earlier, so offering a second branch would be a lie.
+const RESOLUTION_EVENTS = ['E-217', 'E-221', 'E-232', 'E-236', 'E-237', 'E-239'];
 const eventConsumers = [director, read('src/content/events/catalog.ts').split('function has(ctx:')[1] ?? '', ...['modifiers', 'ending-adapter', 'followups', 'trolley', 'talent-adapter', 'fact-records'].map(name => read(`src/content/events/${name}.ts`)), engine, read('src/game/talents.ts'), ...AUTHORED_EVENTS.flatMap(e => [e.trigger, ...e.options.flatMap(o => [...o.deferred.flatMap(d => d.until ?? []), ...o.modifiers.flatMap(m => m.until ?? [])])])].join('\n');
 const unverifiedEventFlags: { event: string; flag: string }[] = [];
 for (const e of AUTHORED_EVENTS) {
-  check(e.options.length >= 2 && e.phases.length, `${e.id}: no usable choices/phase`);
+  check(e.options.length >= (RESOLUTION_EVENTS.includes(e.id) ? 1 : 2) && e.phases.length, `${e.id}: no usable choices/phase`);
   const card = eventToCard(e, { scope: { kind: e.scopeKind, id: 'audit-subject' }, patientId: e.scopeKind === 'patient' ? 'audit-subject' : undefined, instanceId: `audit-${e.id}`, day: 6, phase: e.phases[0], patients: [{ id: 'audit-subject', bed: 1 }, { id: 'audit-second', bed: 2 }] });
   check(card.options.length, `${e.id}: empty emitted card`);
   const flags = [...new Set(e.options.flatMap(o => [...(o.effects.flags ?? []), ...(o.failureTotal?.flags ?? []), ...o.deferred.flatMap(d => d.effects.flags ?? [])]))];
@@ -117,7 +120,7 @@ for (const e of AUTHORED_EVENTS) {
 }
 if (sourceRoot) for (const path of sourceFiles('13_事件库')) for (const m of sourceText(path).matchAll(/^###?\s+(E-\d{3})/gm)) check(AUTHORED_EVENTS.some(e => e.id === m[1]), `${m[1]}: source event omitted`);
 if (unverifiedEventFlags.length) gaps.push(`${unverifiedEventFlags.length} event flags lack a named consumer candidate; history-only use is not certified gameplay impact`);
-gaps.push('All 212 actual host-world event trigger paths have not been individually replayed by this audit');
+gaps.push('All 264 actual host-world event trigger paths have not been individually replayed by this audit');
 check(BUTTERFLY_NODES.length === 32 && BUTTERFLY_MERGES.length === 3, 'Expected 32 butterfly nodes / 3 merges');
 const butterflyTargets = new Set([...BUTTERFLY_NODES.map(n => n.id), ...BUTTERFLY_RESOLUTIONS.map(r => r.id)]);
 for (const n of BUTTERFLY_NODES) { check(n.options.length, `${n.id}: no choices`); records.push({ kind: 'butterfly', id: n.id, source: n.source.path, consumer: 'director → routeButterfly / commitButterflyChoice', requiredFacts: n.requiredFacts, options: n.options.map(o => o.id), textualTargetsNotIds: n.options.flatMap(o => o.targets).filter(t => !butterflyTargets.has(t)), reachability: 'dedicated legal commitment tests required; acceptance is not completion' }); }

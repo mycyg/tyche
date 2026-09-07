@@ -8,6 +8,8 @@ import type { EventContext } from './types';
 import type { ButterflyWorld } from './butterfly';
 import {eventTuning}from './modifiers';
 
+/** Chain resolutions have no branch: the outcome is fixed by earlier facts. */
+const CHAIN_RESOLUTIONS=['E-217','E-221','E-232','E-236','E-237','E-239'];
 const context = (extra: Partial<EventContext> = {}): EventContext => ({ day: 6, phase: '结算', cash: 8000, san: 70, emotion: 60, stamina: 70, facts: {}, ...extra });
 describe('authored event coverage and meaningful execution', () => {
   it('keeps butterfly branch feedback readable without source instructions or punctuation-only results',()=>{
@@ -29,8 +31,8 @@ describe('authored event coverage and meaningful execution', () => {
     const completed=commitButterflyMerge('XJ-01','XJ01c',[accepted,other],collision);expect(completed.states[0].consumed).toContain('BTF-004:LABOR');
     expect(butterflyMergeClaim('XJ-01',completed.states[0],collision)).toBeUndefined();
   });
-  it('has authored readable results for all 212 events and every actual check, including delayed replies',()=>{
-    expect(Object.keys(EVENT_RESULTS)).toHaveLength(212);
+  it('has authored readable results for all 264 events and every actual check, including delayed replies',()=>{
+    expect(Object.keys(EVENT_RESULTS)).toHaveLength(264);
     const remnants=/同[①②③]|强制。|[RCDF]\s*[+−-]\s*\d|DC\s*\d|写入\s*`|[、，]\s*[、。]|或\s*[−-]\d/;
     for(const e of AUTHORED_EVENTS)for(const [i,o]of e.options.entries()){
       expect(EVENT_RESULTS[e.id][i],o.id).toBeTruthy();expect(o.result,o.id).not.toMatch(remnants);
@@ -67,10 +69,10 @@ describe('authored event coverage and meaningful execution', () => {
     expect(eventTuning(ledger,6,{kind:'patient',id:'other'}).patientDailyCost).toBe(0);
   });
   it('imports every E id exactly once with source hashes, authored choices and all X definitions', () => {
-    expect(AUTHORED_EVENTS.map(e => e.id)).toEqual(Array.from({ length: 212 }, (_, i) => `E-${String(i + 1).padStart(3, '0')}`));
+    expect(AUTHORED_EVENTS.map(e => e.id)).toEqual(Array.from({ length: 264 }, (_, i) => `E-${String(i + 1).padStart(3, '0')}`));
     for (const e of AUTHORED_EVENTS) {
       expect(e.source.sha256).toMatch(/^[a-f0-9]{64}$/);
-      expect(e.options.length).toBeGreaterThanOrEqual(2);
+      expect(e.options.length).toBeGreaterThanOrEqual(CHAIN_RESOLUTIONS.includes(e.id) ? 1 : 2);
       expect(e.options.every(o => o.label.length > 0 && o.consequence.length > 0)).toBe(true);
       expect(e.phases.length).toBeGreaterThan(0);
     }
