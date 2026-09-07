@@ -98,7 +98,7 @@ function lastEventOutcome(r:EndingRun,event:string){return [...r.authored?.ledge
 function collapseVideoPublished(r:EndingRun,f:Set<string>):boolean{
   const outcome=lastEventOutcome(r,'E-198');
   if(outcome)return outcome.choiceId.endsWith('E-198-a')&&!outcome.success||outcome.choiceId.endsWith('E-198-c');
-  return f.has('视频上网');
+  return any(f,'视频上网','视频在网上');
 }
 function mature(r:EndingRun){return r.day>=15||r.phase==='tribunal'||r.phase==='ending';}
 function currentSeeds(r:EndingRun):SeedHistory[]{return r.patients.filter(p=>p.damage>=2&&p.caseId!=='C020').flatMap(p=>r.hazards.filter(h=>h.scope.kind==='patient'&&h.scope.id===p.uid&&h.causal).map(h=>({runId:r.id,caseId:p.caseId,trapId:p.clinical?.causalChoices.find(id=>h.choiceId.includes(id))??h.choiceId.replace(`${p.uid}:`, '').replace(/:\d+$/,'')})));}
