@@ -1,4 +1,4 @@
-# Tyche
+# Tyche · 轮班
 
 [简体中文](README.md) · [日本語](README.ja.md)
 
@@ -6,9 +6,22 @@ A Chinese-language 2D pixel JRPG about a resident doctor's fourteen-day hospital
 
 [Play in your browser](https://mycyg.github.io/tyche/) · [Report an issue](https://github.com/mycyg/tyche/issues)
 
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/01-title.webp" width="260" alt="Title screen" /><br />Title screen</td>
+    <td align="center"><img src="docs/screenshots/03-ward-map.webp" width="260" alt="Ward map" /><br />Ward map</td>
+    <td align="center"><img src="docs/screenshots/04-bedside.webp" width="260" alt="Bedside consultation" /><br />Bedside consultation</td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/05-dice.webp" width="260" alt="Skill check roll" /><br />Skill check roll</td>
+    <td align="center"><img src="docs/screenshots/07-ending-end12.webp" width="260" alt="Ending document" /><br />Ending document</td>
+    <td align="center"><img src="docs/screenshots/11-mobile-ward-map.webp" width="140" alt="Mobile layout" /><br />Mobile layout</td>
+  </tr>
+</table>
+
 Development version: 0.9.0. Complete branch coverage, voice coverage and multi-run verification are still pending. See the [verification record](docs/verification.md) for evidence and limitations. The game itself is in Chinese.
 
-The content catalog contains 20 branching clinical cases, 208 case presets, 251 patient identities, 212 events, 30 talents and ending entries X01–X41. Four intertwined storylines track favors, private loans, family recordings and research. Catalog totals do not certify that every route has passed testing.
+The content catalog contains 20 branching clinical cases, 208 case presets, 251 patient identities, 212 events, 30 talents, 40 main endings (END-01–END-40) and existing attachment-type endings. Four intertwined storylines track favors, private loans, family recordings and research. Catalog totals do not certify that every route has passed testing.
 
 Move with WASD, arrow keys, click-to-walk or the touch joystick. Use E or Space near a person or bed. J opens the records. Action points, stamina, SAN, emotions and personal debt persist through the rotation. Music, voices and sound effects have separate controls. Portrait and landscape layouts, larger text and reduced motion are supported.
 
