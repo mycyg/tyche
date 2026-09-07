@@ -181,7 +181,7 @@ function Portrait({
 function Title({ save, begin, resume, archive, settings }: { save: Save; begin: () => void; resume: () => void; archive: () => void; settings: () => void }) {
   const active = save.run && save.run.phase !== 'ending';
   return <main class="rpg-title"><div class="rpg-title-background" aria-hidden="true" />
-    <div class="rpg-title-content"><h1 class="rpg-title-logo">TYCHE</h1><p class="rpg-title-subtitle">你是一名住院医师，今天起要接手病区的诊疗和值班工作。<br/>十四天后，患者的结局和你的处置记录会一起接受复核。</p>
+    <div class="rpg-title-content"><h1 class="rpg-title-logo">TYCHE</h1><p class="rpg-title-cn" lang="zh-CN">轮班</p><p class="rpg-title-subtitle">你是一名住院医师，今天起要接手病区的诊疗和值班工作。<br/>十四天后，患者的结局和你的处置记录会一起接受复核。</p>
       <nav class="rpg-title-menu" aria-label="主菜单">
         {active && <button aria-label={`继续轮转 · 第 ${save.run!.day} 天`} onClick={resume}>继续轮转 · 第 {save.run!.day} 天</button>}
         <button aria-label="新的轮转" onClick={begin}>新的轮转</button>
