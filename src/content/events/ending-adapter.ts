@@ -4,26 +4,36 @@ import { DOCUMENTED_ENDINGS, DOCUMENTED_ROUTES } from './catalog';
 import { RULES } from '../../game/rules';
 import { butterflyResolutionView, routeButterfly } from './butterfly';
 import type { AuthoredDirectorState } from '../../game/director';
-import { ENDING_PROSE } from './ending-prose';
+import { ENDING_PROSE, END_PROSE } from './ending-prose';
+import {isStoryEndingId,STORY_ENDING_IDS,type StoryEndingId}from '../story/endings';
+import {recordedSanBreaks}from '../../game/interruption';
+import {playerClinicalSource,playerEarlyDischargeSource}from '../../game/discharge-responsibility';
+import {isDeathEnding,posthumousAttachmentIds,posthumousAttachmentText,posthumousChainNote,posthumousClosureText,posthumousLiabilityNote,posthumousStandingNotes,CRIMINAL_CASE_TERMINATED}from './posthumous-annexes';
 import {talentNotPresentThreshold}from '../../game/talents';
 import {eventFactNotes}from './fact-records';
 import {courtPreparationNotes}from './court-preparation';
 import {clinicalAssignment}from './clinical-ownership';
-import {playerClinicalSource}from '../../game/discharge-responsibility';
 import {interruptionPhase}from '../../game/interruption';
 import type {EventPhase}from './types';
 import {auditScore}from '../../game/audit-score';
 export {auditScore}from '../../game/audit-score';
 export interface SeedHistory {runId:string;caseId:string;trapId:string}
 export type EndingRun=Run&{authored?:AuthoredDirectorState;shiftPhase?:string;priorSeeds?:SeedHistory[];lampSignals?:{patientId:string;nodeId:string;day:number}[]};
-export interface EndingOptions {response?:'facts'|'admit'|'silent';requested?:string;early?:'san'|'stamina'|'emotion'|'interest'|'debt'|'quit';occurredPhase?:EventPhase}
+export interface EndingOptions {response?:'facts'|'admit'|'silent';requested?:string;early?:'san'|'stamina'|'emotion'|'interest'|'debt'|'quit';occurredPhase?:EventPhase;
+  /** Set only by the ending selector after every END has been refused: the
+   * chosen fallback then carries the run's remaining state instead of throwing. */
+  fallback?:boolean}
 export interface DocumentedEnding extends Ending {annexIds:string[];sourceId:string;liability?:Liability;seedHistory:SeedHistory[]}
 export const ENDING_DEFINITIONS=DOCUMENTED_ENDINGS;
 export const ENDING_IDS=ENDING_DEFINITIONS.map(e=>e.id);
 const definitions=new Map(ENDING_DEFINITIONS.map(e=>[e.id,e]));
 const priority=(id:string)=>{const value=definitions.get(id)?.priority;return typeof value==='number'?value:0;};
-const MAIN_ENDINGS=['X01','X02','X03','X04','X05','X06','X07','X09','X10','X11','X12','X13','X14','X15','X16','X17','X18','X19','X20','X21','X22','X23','X24','X25','X26','X27','X28','X29','X31','X32','X33','X34','X35','X36']
-  .sort((a,b)=>priority(b)-priority(a)||a.localeCompare(b));
+/** Contract §2.0: the forty END pages are the only main endings, ordered by
+ * priority band; the first eligible one is the run's ending. */
+export const MAIN_ENDINGS:string[]=[...STORY_ENDING_IDS].sort((a,b)=>priority(b)-priority(a)||a.localeCompare(b));
+/** Contract §5.3: the attachment pool of retained X pages. */
+export const ATTACHMENT_POOL=['X05','X08','X09','X10','X11','X12','X13','X14','X15','X16','X17','X18','X19','X20','X21','X22','X23','X24','X25','X26','X31','X35','X37','X38','X39','X40','X41'];
+const DEATH_FACTS=['伤医-抢救无效','身体-抢救无效','自杀-死亡确认'];
 const clamp=(n:number,lo:number,hi:number)=>Math.max(lo,Math.min(hi,n));
 const money=(n:number)=>`¥${Math.round(n).toLocaleString('zh-CN')}`;
 function facts(r:EndingRun):Set<string>{return new Set([...Object.keys(r.facts),...Object.keys(r.authored?.activeFacts??{}),...(r.authored?.chains??[]).flatMap(c=>c.facts.map(f=>`${c.chain}:${f.type}`))]);}
@@ -140,7 +150,80 @@ export function endingEligibility(r:EndingRun,id:string,options:EndingOptions={}
   const acquittal=(a.filed||any(pf,'prosecuted'))&&a.worst?.damage===3&&!any(pf,'autopsy-done','autopsy_completed')&&!!l&&l.D<10&&l.R<30&&runRandom(r,'court:acquittal')<.1;
   const suspended=a.filed&&response==='admit'&&a.paid&&a.forgiven&&!acquittal;
   const exempt=a.filed&&!!l&&l.L>=50&&l.L<60&&a.forgiven&&!acquittal;
+  const dead=any(f,...DEATH_FACTS),alive:[boolean,string]=[!dead||!!options.fallback,'本人在世'];
+  const bereaved=any(f,'家庭-丧亲','father-deceased','丧亲');
+  const chainFact=(...types:string[])=>[...f].some(k=>k.startsWith('BTF-')&&types.some(t=>k.endsWith(`:${t}`)));
+  const patientHas=(...names:string[])=>r.patients.some(p=>any(patientFacts(r,p),...names));
+  const suspension=!!l&&l.level>=3&&!a.filed||!!a.review&&a.review.A>=30;
+  const convicted=a.filed&&!acquittal&&(!exempt||suspended);
+  const dismissed=collapseVideoPublished(r,f)&&r.reputation<20;
+  /** Contract §2.0 G/H rule: the clinical post is gone after the leaving
+   * procedure, a suspension or revocation, a dismissal, or a resignation. */
+  const leftPost=any(f,'离岗-手续已办','暂停执业','注销','resign-requested','quit-confirmed','身体-自行离院')||options.early==='quit'||options.early==='emotion'||suspension||convicted||dismissed;
+  const employed=!leftPost;
+  const sanTwice=recordedSanBreaks(r)>=2||options.early==='san';
+  const exhaustedTwice=r.exhausted>=2||options.early==='stamina';
+  const healthLine=any(f,'自身健康线开启','健康-开启','health-open');
+  const debtTotal=r.debt+r.privateDebt;
+  const ledgerFacts=r.authored?.ledger.facts??[];
+  const factCount=(id:string)=>Math.max(ledgerFacts.filter(x=>x.id===id).length,f.has(id)?1:0);
+  const factSource=(key:string)=>r.facts[key]?.source??r.authored?.activeFacts[key]?.source??'';
+  const pushedDischarge=(p:Patient)=>{const key=`early-discharge:${p.uid}`;return f.has(key)&&(!!playerEarlyDischargeSource(r,p)||/E-218/.test(factSource(key)));};
+  const brokenPromises=['家庭-婚礼未到','wedding-absent','家庭-婚事出资未付','家庭-再次许诺','家庭-争执','家庭-划清负担','家庭-消息未接到','家庭-未赶上告别','家庭-弟弟停止联系'].filter(k=>f.has(k)).map(k=>k==='wedding-absent'?'家庭-婚礼未到':k);
+  const brokenPromiseCount=new Set(brokenPromises).size;
+  const familyOutlay=(r.authored?.familyInvoices??[]).some(i=>(i as {paid?:number}).paid!==undefined?((i as {paid?:number}).paid??0)>0:true)||(r.authored?.familyRegistrations?.length??0)>0||[...f].some(k=>/^家庭-(已用该款|已请护工|本人垫付|已补缴|婚事已付)/.test(k));
+  const relativeLoan=any(f,'family-funding')||r.journal.some(e=>e.talentAction==='relative-loan')||(r.talentMemory?.processed??[]).some(id=>id.startsWith('relative-loan:'));
+  const caseOpen=patientHas('police_report_received','reported')||f.has('飞检-通报');
+  const inpatients=r.patients.filter(p=>p.active&&p.inpatient&&p.damage<3);
+  const handoffs=r.authored?.clinicalHandoffs??[];
+  const handedOff=inpatients.every(p=>any(patientFacts(r,p),'handoff','handoff_done')||handoffs.some(h=>(h as {patientId?:string}).patientId===p.uid));
+  const chainOpened=(chain:string)=>(r.authored?.chains??[]).some(c=>c.chain===chain);
+  const materials=chainFact('record_received','contemporary_record_submitted')&&[...f].some(k=>/^BTF-003:(record_received|contemporary_record_submitted)$/.test(k))||f.has('BTF-004:original_file_retained')&&f.has('BTF-004:verification_completed')||patientHas('superior_order_recorded','superior-signed');
+  const boundary=!a.seeds.length&&!chainFact('false_exam_entry','shared_false_witness','department_false_statement','false_patient_statement','false_handoff_statement','reply_false','scapegoat_statement','knowingly_false_submission')&&!any(f,'篡改','药代-4统方','药代-5回扣','科研-造假','政治-背了','离岗-代写记录')&&!patientHas('tampered','record_tampered');
+  const handoffComplete=(handedOff||f.has('离岗-交接已完成'))&&!f.has('离岗-交接口头')&&!(r.deferredWork?.length)&&(!chainOpened('BTF-001')||f.has('BTF-001:handoff_completed'));
+  const arrangement=any(f,'离岗-手续已办')&&any(f,'离岗-新工作已落实')&&any(f,'离岗-住处已落实')&&any(f,'还款-已约定')&&!f.has('离岗-未安排');
+  const fb=!!options.fallback;
   const checks:Record<string,[boolean,string][] >={
+    'END-01':[alive,[a.filed,'同一患者满足刑事移交条件'],[!suspended&&!exempt&&!acquittal,'不符合缓刑、免刑或无罪情形'],[!!l&&l.causal,'诊疗过失与损害有因果关系'],[!!a.worst&&a.worst.damage>=2,'患者出现严重损害']],
+    'END-02':[alive,[a.filed,'同一患者满足刑事移交条件'],[!suspended&&!exempt&&!acquittal,'不符合缓刑、免刑或无罪情形'],[!!l&&l.causal,'诊疗过失与损害有因果关系'],[f.has('刑事-推动出院'),'写入 刑事-推动出院'],[!!a.worst&&pushedDischarge(a.worst),'该患者由本人决定提前出院']],
+    'END-03':[alive,[!acquittal,'不属于无罪情形'],[a.corruption&&a.corruptionCaught,'实际发生回扣并被查获'],[f.has('药代-5回扣'),'写入 药代-5回扣'],[f.has('刑事-回扣已履行交换'),'写入 刑事-回扣已履行交换'],[any(f,'家庭-车祸-ICU中','家庭-父母住院')&&familyOutlay,'家庭费用已实际支出']],
+    'END-04':[alive,[!acquittal,'不属于无罪情形'],[f.has('刑事-虚假申报参与'),'写入 刑事-虚假申报参与'],[f.has('刑事-申报取得款项'),'写入 刑事-申报取得款项'],[f.has('飞检-通报'),'写入 飞检-通报'],[a.fees>=60,'费用问题达到六十']],
+    'END-05':[alive,[a.filed,'同一患者满足刑事移交条件'],[!acquittal,'不属于无罪情形'],[f.has('刑事-证据掩盖')&&f.has('刑事-掩盖被查实')||a.tamperingDiscovered,'证据掩盖被查实或病历篡改被发现']],
+    'END-06':[alive,[a.filed,'同一患者满足刑事移交条件'],[!acquittal,'不属于无罪情形'],[f.has('政治-签了'),'写入 政治-签了'],[!!a.worst&&r.hazards.some(h=>h.type==='R'&&h.scope.kind==='patient'&&h.scope.id===a.worst!.uid&&h.choiceId.includes('E-053')),'该患者的临床隐患来自代签分支']],
+    'END-07':[alive,[!acquittal,'不属于无罪情形'],[f.has('共犯-共同签署'),'写入 共犯-共同签署'],[f.has('共犯-分配已收'),'写入 共犯-分配已收'],[any(f,'共犯-本人翻供','共犯-他人翻供'),'本人或他人翻供'],[any(f,'药代-5回扣','刑事-虚假申报参与','BTF-004:knowingly_false_submission'),'本人有主动参与事实']],
+    'END-08':[alive,[!acquittal,'不属于无罪情形'],[any(f,'resign-requested','quit-confirmed')||options.early==='quit','已申请离职或提前离开'],[a.corruption,'实际发生统方或回扣'],[f.has('刑事-出行被拦'),'写入 刑事-出行被拦'],[a.filed||a.corruptionCaught,'刑事门或查获成立']],
+    'END-38':[alive,[acquittal,'二审证据复核结果符合无罪']],
+    'END-09':[[f.has('伤医-抢救无效'),'写入 伤医-抢救无效'],[f.has('伤医-施暴者已确定')||fb,'写入 伤医-施暴者已确定'],[f.has('伤医-明确威胁')||fb,'写入 伤医-明确威胁'],[f.has('伤医-再次接触')||fb,'写入 伤医-再次接触'],[f.has('伤医-袭击发生')||fb,'写入 伤医-袭击发生']],
+    'END-10':[alive,[f.has('伤医-袭击发生'),'写入 伤医-袭击发生'],[f.has('伤医-受伤生还'),'写入 伤医-受伤生还'],[f.has('伤医-手部功能损失'),'写入 伤医-手部功能损失']],
+    'END-11':[alive,[f.has('伤医-袭击发生'),'写入 伤医-袭击发生'],[f.has('伤医-受伤生还'),'写入 伤医-受伤生还'],[f.has('伤医-长期行动障碍'),'写入 伤医-长期行动障碍']],
+    'END-12':[[f.has('身体-抢救无效'),'写入 身体-抢救无效'],[exhaustedTwice||fb,'第二次体力耗尽'],[healthLine||fb,'自身健康线已开启']],
+    'END-13':[alive,[sanTwice,'精神第二次归零'],[f.has('精神-持续住院'),'写入 精神-持续住院'],[f.has('精神-无法复岗'),'写入 精神-无法复岗']],
+    'END-14':[alive,[sanTwice,'精神第二次归零'],[f.has('精神-长期症状'),'写入 精神-长期症状'],[!f.has('精神-持续住院'),'未写入 精神-持续住院']],
+    'END-15':[[f.has('自杀-死亡确认'),'写入 自杀-死亡确认'],[sanTwice||fb,'精神第二次归零'],[f.has('危机-失联')||fb,'写入 危机-失联'],[!f.has('危机-支持联系已建立')||fb,'未建立支持联系'],[!f.has('天台-被找到')||fb,'无人找到'],[r.depression>=75||fb,'抑郁达到七十五']],
+    'END-16':[alive,[f.has('天台-危机发生'),'写入 天台-危机发生'],[f.has('天台-被找到'),'写入 天台-被找到'],[f.has('天台-中止当班'),'写入 天台-中止当班'],[r.debt>0||f.has('离岗-手续已办'),'有负债或已办离岗手续']],
+    'END-17':[alive,[any(f,'家庭-婚事','wedding-planned'),'家庭事项是婚礼'],[any(f,'家庭-婚礼未到','wedding-absent'),'没有到场'],[!any(f,'家庭-婚事已付','家庭-婚事已付一半','wedding-paid','wedding-half-paid','wedding-gift-paid'),'没有承担支出'],[r.relations.family===0,'家人关系破裂']],
+    'END-18':[alive,[any(f,'伴侣-在册')||(r.partner!==undefined&&r.partner!=='none'),'本局设有伴侣'],[f.has('伴侣-分开'),'写入 伴侣-分开'],[any(f,'伴侣-挪用共同存款','伴侣-隐瞒负债')||factCount('伴侣-矛盾')>=2,'挪用共同存款、隐瞒负债或矛盾累计两次']],
+    'END-19':[alive,[f.has('家庭-断联'),'写入 家庭-断联'],[r.relations.family===0,'家人关系破裂'],[brokenPromiseCount>=2,'本局至少两次失约'],[!bereaved,'未发生丧亲']],
+    'END-20':[alive,[any(f,'家庭-丧亲')&&any(f,'father-deceased'),'本局真实丧亲'],[f.has('家庭-未赶上告别'),'写入 家庭-未赶上告别'],[!f.has('家庭-已赶上告别'),'未写入 家庭-已赶上告别']],
+    'END-21':[alive,[f.has('家庭-资产耗尽'),'写入 家庭-资产耗尽'],[f.has('家庭-住处失去'),'写入 家庭-住处失去'],[any(f,'asset-sold','卖车','car-sold','家庭-卖车'),'资产或车辆已售'],[debtTotal>0,'仍有债务'],[!bereaved,'未发生丧亲']],
+    'END-22':[alive,[employed||fb,'仍有临床岗位'],[!!l&&l.personalRecovery>0||a.paid||fb,'个人追偿或已付赔偿成立'],[r.income-(l?.personalRecovery??0)<RULES.rent+RULES.living*30||fb,'扣款后的收入不足以维持'],[!a.filed||fb,'未进入刑事程序']],
+    'END-23':[alive,[employed,'仍有临床岗位'],[r.uncoveredDays>=RULES.debtGrace||options.early==='interest','连续两个结算日的近期实际日均收入不足以覆盖当日利息']],
+    'END-24':[alive,[employed,'仍有临床岗位'],[f.has('家庭-担保违约'),'写入 家庭-担保违约'],[relativeLoan,'家人出资或亲属借款已发生'],[r.privateDebt>0,'仍有私人借款']],
+    'END-25':[alive,[employed,'仍有临床岗位'],[f.has('家庭-住处失去'),'写入 家庭-住处失去'],[any(f,'asset-sold'),'资产已售'],[debtTotal>0,'仍有债务'],[f.has('家庭-借住已约定'),'写入 家庭-借住已约定']],
+    'END-26':[alive,[r.debt>RULES.debtMax||options.early==='debt','信用债务超过五万元或因债务终止轮转'],[leftPost||options.early==='debt','已离开临床岗位']],
+    'END-27':[alive,[employed,'仍有临床岗位'],[any(f,'卖车','car-sold','家庭-卖车'),'实际出售车辆'],[debtTotal>0,'卖车后仍有债务'],[[...f].some(k=>k.startsWith('家庭-'))||patientHas('compensated','hospital_compensated','compensation_paid'),'售车款对应实际支出']],
+    'END-28':[alive,[leftPost,'已离开临床岗位'],[r.debt>0,'仍有信用债务'],[!f.has('伤医-长期行动障碍'),'无长期行动障碍'],[!f.has('精神-长期症状'),'无长期精神症状']],
+    'END-29':[alive,[leftPost,'已离开临床岗位'],[r.debt>0,'仍有信用债务'],[!a.filed&&caseOpen,'未进入刑事程序但旧案材料仍在办理']],
+    'END-30':[alive,[leftPost,'已离开临床岗位'],[f.has('家庭-住处失去'),'写入 家庭-住处失去'],[f.has('家庭-断联'),'写入 家庭-断联'],[f.has('伴侣-分开')||!(any(f,'伴侣-在册')||(r.partner!==undefined&&r.partner!=='none')),'伴侣已分开或本局无伴侣'],[f.has('family-funding'),'家人资助已用尽']],
+    'END-31':[alive,[leftPost,'已离开临床岗位'],[healthLine,'自身健康线已开启'],[any(f,'已就诊','未就诊'),'体检报告已有结论']],
+    'END-32':[alive,[leftPost,'已离开临床岗位'],[r.debt>0,'仍有信用债务'],[caseOpen||f.has('科研-通报'),'案件仍在补材料']],
+    'END-33':[alive,[leftPost||fb,'已离开临床岗位'],[any(f,'qualification-exam-failed','伤医-长期行动障碍')||suspension||fb,'资格、履历或身体限制仍未解决'],[atEnd,'本轮结束']],
+    'END-34':[alive,[f.has('科室-向新人转嫁'),'写入 科室-向新人转嫁'],[r.relations.chief>=3,'主任关系达到三'],[patientHas('unrest_suppressed_once')||any(f,'政治-沉默','同事造假-知情'),'本局有被压下的问题']],
+    'END-35':[alive,[a.corruption&&!a.corruptionCaught,'实际发生统方或回扣且未被查获'],[f.has('利益-继续承接'),'写入 利益-继续承接'],[r.cash>0,'余额为正']],
+    'END-36':[alive,[f.has('BTF-004:scapegoat_statement')||f.has('政治-举报'),'牺牲同事的事实'],[f.has('科室-接受继续施压'),'写入 科室-接受继续施压'],[r.relations.chief>=4,'主任关系达到四']],
+    'END-37':[alive,[patientHas('unrest_suppressed_once'),'投诉被压下'],[chainFact('false_patient_statement','department_false_statement','reply_false'),'链事实中有不实陈述'],[r.reputation>=60,'声望达到六十'],[!patientHas('unrest_escalated','医闹升级'),'无投诉升级']],
+    'END-39':[alive,[suspension,'主要以上责任未进入刑事，或抽卷发现严重履职问题'],[f.has('复岗-已办理'),'写入 复岗-已办理'],[any(f,'已就诊','健康-确诊','身体-已就医'),'有治疗前史'],[r.debt>0||r.privateDebt>0||!!l&&l.personalRecovery>0,'有欠款前史']],
+    'END-40':[alive,[mature(r),'本轮完整结束'],[recordedSanBreaks(r)===0&&r.vitals.san>0,'精神从未归零'],[materials,'取得关键来源材料'],[boundary,'守住本人责任边界'],[handoffComplete,'落实必要交接'],[arrangement,'建立可持续的离岗与生活安排']],
     X01:[[a.filed,'同一患者满足刑事移交条件'],[!suspended&&!exempt&&!acquittal,'不符合缓刑、免刑或无罪情形']],
     X02:[[a.filed,'同一患者满足刑事移交条件'],[response==='admit','本人选择认罪认罚'],[a.paid,'医院已经实际赔偿'],[a.forgiven,'该患者家属出具了谅解']],
     X03:[[a.filed,'已进入刑事处理'],[!!l&&l.L>=50&&l.L<60,'责任分值为50至59'],[a.forgiven,'该患者家属出具了谅解']],
@@ -201,34 +284,59 @@ export function chainAnnexes(r:Run):string[]{
   result.push(...courtPreparationNotes(r));
   return [...new Set(result)];
 }
-function attachmentIds(r:EndingRun,main:string,options:EndingOptions):string[]{
-  const ids=['X09','X10','X11','X13','X14','X15','X16','X24','X26','X30','X37','X38','X39','X40','X41'].filter(id=>id!==main&&endingEligibility(r,id,options).eligible).sort((a,b)=>priority(b)-priority(a)||a.localeCompare(b));
-  if(['X01','X02'].includes(main))ids.unshift('X08');
-  if(ids.includes('X16'))return ids.filter(id=>!['X13','X14','X15'].includes(id));
-  if(ids.includes('X15'))return ids.filter(id=>!['X13','X14'].includes(id));
-  return ids;
+export function attachmentIds(r:EndingRun,main:string,options:EndingOptions):string[]{
+  const eligible=ATTACHMENT_POOL.filter(id=>id!==main&&endingEligibility(r,id,options).eligible).sort((a,b)=>priority(b)-priority(a)||a.localeCompare(b));
+  // Revocation follows a conviction; it heads the criminal pages as before.
+  const ids=eligible.includes('X08')&&definitions.get(main)?.category==='刑事'?['X08',...eligible.filter(id=>id!=='X08')]:eligible;
+  const converged=ids.includes('X16')?ids.filter(id=>!['X13','X14','X15'].includes(id)):ids.includes('X15')?ids.filter(id=>!['X13','X14'].includes(id)):ids;
+  return isDeathEnding(main)?posthumousAttachmentIds(converged):converged;
 }
 export function documentedEnding(r:Run,id:string,options:EndingOptions={}):DocumentedEnding{
   const rr=r as EndingRun,def=definitions.get(id);if(!def)throw new Error(`Unknown ending ${id}`);
   const eligibility=endingEligibility(rr,id,options);if(!eligibility.eligible)throw new Error(`${id} prerequisites missing: ${eligibility.missing.join('；')}`);
-  const a=assessEnding(rr),[decision,baseEpilogue]=id==='X14'&&a.paid?PAID_SETTLEMENT_PROSE:ENDING_PROSE[id],annexIds=attachmentIds(rr,id,options),annexes=chainAnnexes(rr);
-  for(const annex of annexIds){const prose=annex==='X14'&&a.paid?PAID_SETTLEMENT_PROSE:ENDING_PROSE[annex];annexes.push(`${definitions.get(annex)!.title}\n${prose[0]}\n${prose[1]}`);}
+  const a=assessEnding(rr),story=isStoryEndingId(id)?id:undefined,death=isDeathEnding(id);
+  const [decision,baseEpilogue]=story?END_PROSE[story]:id==='X14'&&a.paid?PAID_SETTLEMENT_PROSE:ENDING_PROSE[id];
+  const annexIds=attachmentIds(rr,id,options),annexes=death?posthumousChainAnnexes(rr):chainAnnexes(rr);
+  for(const annex of annexIds){const prose=annex==='X14'&&a.paid?PAID_SETTLEMENT_PROSE:ENDING_PROSE[annex];annexes.push(death?posthumousAttachmentText(definitions.get(annex)!.title,prose[0]):`${definitions.get(annex)!.title}\n${prose[0]}\n${prose[1]}`);}
+  if(death&&(a.filed||any(facts(rr),'刑事-移交'))&&!annexes.includes(CRIMINAL_CASE_TERMINATED))annexes.push(CRIMINAL_CASE_TERMINATED);
   for(const note of rr.authored?.endNotes??[])if(note.trim()&&!annexes.includes(note.trim()))annexes.push(note.trim());
   for(const note of eventFactNotes(rr))if(!annexes.includes(note))annexes.push(note);
-  if(a.liability&&['X01','X02','X03','X05','X07','X13','X14','X15','X16'].some(x=>x===id||annexIds.includes(x))){const l=a.liability,monthly=RULES.wages*2,month=2026*12+8+Math.ceil(l.personalRecovery/monthly);annexes.push(`医疗损害赔偿明细\n${a.worst!.name}：总损失 ${money(l.loss)}；医院按${l.levelName}责任承担 ${money(l.hospitalCompensation)}。${l.personalRecovery?`个人追偿 ${money(l.personalRecovery)}；按每月 ${money(monthly)} 扣还测算，绩效扣至 ${Math.floor(month/12)} 年 ${month%12+1} 月。`:'已购医责险承担个人追偿部分。'}`);}
+  if(a.liability&&['END-01','END-02','END-05','END-06','END-22','END-38','END-39','X01','X02','X03','X05','X07','X13','X14','X15','X16'].some(x=>x===id||annexIds.includes(x))){
+    const l=a.liability,monthly=RULES.wages*2,month=2026*12+8+Math.ceil(l.personalRecovery/monthly);
+    annexes.push(death?posthumousLiabilityNote(a.worst!.name,l.loss,l.levelName,l.hospitalCompensation,l.personalRecovery):`医疗损害赔偿明细\n${a.worst!.name}：总损失 ${money(l.loss)}；医院按${l.levelName}责任承担 ${money(l.hospitalCompensation)}。${l.personalRecovery?`个人追偿 ${money(l.personalRecovery)}；按每月 ${money(monthly)} 扣还测算，绩效扣至 ${Math.floor(month/12)} 年 ${month%12+1} 月。`:'已购医责险承担个人追偿部分。'}`);
+  }
+  if(death)for(const note of posthumousStandingNotes(rr))if(!annexes.includes(note))annexes.push(note);
   let epilogue=baseEpilogue;if(id==='X34'&&any(facts(rr),'liaison-job-obtained'))epilogue='第一天上班，你把医院门禁卡放进抽屉。新工作群里有几个熟悉的名字。';
-  return{id,title:def.title,category:def.category,decision,epilogue,annexes,court:['刑事','行政','民事'].includes(def.category),annexIds,sourceId:def.id,liability:a.liability,seedHistory:currentSeeds(rr)};
+  return{id,title:def.title,category:def.category,decision,epilogue,annexes,court:['刑事','行政','民事'].includes(def.category),annexIds,sourceId:def.id,liability:a.liability,seedHistory:currentSeeds(rr),...(story?{storyId:story}:{})};
+}
+/** Contract §5.2: after a death the run notes describe what others now hold. */
+function posthumousChainAnnexes(r:EndingRun):string[]{
+  const closures=new Map(documentedRouteClosures(r).map(c=>[`${c.title}\n${c.text}`,c]));
+  const result:string[]=[];
+  for(const note of chainAnnexes(r)){
+    const closure=closures.get(note);
+    const rewritten=closure?posthumousClosureText(closure.title,closure.text,closure.status):posthumousChainNote(note,r);
+    if(rewritten!==undefined&&!result.includes(rewritten))result.push(rewritten);
+  }
+  return result;
+}
+/** Contract §2.0: the first eligible END by priority. When none holds, the
+ * remaining state still needs a page: a death fact keeps its death page, a
+ * seed patient keeps the compensation page (END-22), anything else lands on
+ * END-33, the bottom of the leaving band. */
+export function selectMainEnding(r:Run,options:EndingOptions={}):DocumentedEnding{
+  const rr=r as EndingRun;
+  for(const id of MAIN_ENDINGS)if(endingEligibility(rr,id,options).eligible)return documentedEnding(r,id,options);
+  const f=facts(rr),a=assessEnding(rr,options.occurredPhase);
+  const fallback=f.has('伤医-抢救无效')?'END-09':f.has('身体-抢救无效')?'END-12':f.has('自杀-死亡确认')?'END-15':a.worst?'END-22':'END-33';
+  return documentedEnding(r,fallback,{...options,fallback:true});
 }
 export const PAID_SETTLEMENT_PROSE=['医务科结算回执：已经接受的赔偿方案完成付款，医院与个人部分分别列在凭证中。家属是否出具谅解仍另行记录。','你把付款凭证放回文件袋，核对了一遍收款人和金额。']as const;
 export function earlyEnding(r:Run,kind:NonNullable<EndingOptions['early']>,occurredPhase=interruptionPhase(r)):Ending{
-  const a=assessEnding(r,occurredPhase),options:EndingOptions={early:kind,occurredPhase};
-  const id=kind==='san'?(a.night?'X22':'X21'):kind==='stamina'?(a.night?'X20':'X17'):kind==='emotion'?'X25':kind==='interest'?'X28':kind==='debt'?'X29':a.corruption?'X32':'X31';
-  return documentedEnding(r,id,options);
+  return selectMainEnding(r,{early:kind,occurredPhase});
 }
 export function tribunalEnding(r:Run,response:'facts'|'admit'|'silent'):Ending{
   const rr=r as EndingRun,a=assessEnding(rr),options:EndingOptions={response};
   if(a.worst&&(a.liability?.level??0)>=3&&a.liability?.causal)r.roll={id:'court:case',kind:'tribunal',face:a.face,modifier:0,dc:a.dc,success:a.face>=a.dc,label:'立案审查'};
-  for(const id of MAIN_ENDINGS)if(endingEligibility(rr,id,options).eligible)return documentedEnding(r,id,options);
-  if(a.worst)return{id:'X14',title:'调解',category:'民事',decision:`本次损害已完成复核，医院按已核实的${a.liability!.levelName}责任处理。`,epilogue:ENDING_PROSE.X14[1],annexes:chainAnnexes(rr),court:true,annexIds:attachmentIds(rr,'X14',options),sourceId:'X14',seedHistory:currentSeeds(rr)} as DocumentedEnding;
-  return documentedEnding({...r,day:Math.max(15,r.day)},'X33',options);
+  return selectMainEnding(r,options);
 }
