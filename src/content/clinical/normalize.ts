@@ -76,8 +76,8 @@ export function normalizeClinicalGraph(g:ClinicalGraph):ClinicalGraph {
     variant('onsite','本院有导管室','facility',3);variant('本院无导管室','本院无导管室','facility');
     multi('s2',1,3);multi('s3',1,4,['s3_observe']);multi('s4',1,2,['s4_ccu','s4_ccu_no_cath','s4_transfer_far']);
     for(const id of ['s3_dapt','s3_fluid','s3_atropine'])req(id,F('stemi_known'));
-    req('s3_ecg_late',N(F('stemi_known')));add('s3','s3_observe','留观至天亮','o_worst',{flags:['observed_without_ecg'],hazards:[{type:'R',weight:30,reason:'未行心电图即留观，病因评估延迟。',norm:'急危重患者评估',causal:true}]},5,1,0,N(F('stemi_known')));
-    add('s3','s3_rescue_fluid','快速补液并复评血压','s3',{flags:['pressure_rescued','mitigated:s3_ntg','mitigated:s3_lasix']},10,1,25,fc('ntg_given lasix_given'));
+    req('s3_ecg_late',N(F('stemi_known')));add('s3','s3_observe','留观至天亮','o_worst',{flags:['observed_without_ecg'],hazards:[{type:'R',weight:30,reason:'未行心电图即留观，病因评估延迟。',norm:'急危重患者评估',causal:true}]},5,1,0,N(F('stemi_known'))).result='你让患者留观至天亮。';
+    add('s3','s3_rescue_fluid','快速补液并复评血压','s3',{flags:['pressure_rescued','mitigated:s3_ntg','mitigated:s3_lasix']},10,1,25,fc('ntg_given lasix_given')).result='你快速补液并复评血压。';
     for(const id of ['s4_pci','s4_ccu','s4_gi_consult','s4_inform'])req(id,V('onsite'));
     for(const id of ['s4_lysis','s4_transfer_far','s4_ccu_no_cath','s4_inform_lysis'])req(id,V('本院无导管室'));
     op('s4_inform').retry={max:2,dcIncrease:2,exhaustedNext:'o_refuse'};
@@ -142,7 +142,7 @@ export function normalizeClinicalGraph(g:ClinicalGraph):ClinicalGraph {
   if(g.id==='C007'){
     variant('usual','常规随访','coronary',4);variant('coronary_thrombosis','延误后冠状动脉血栓','coronary');
     multi('s3',1,3);op('s3_echo').modifiers=[{when:N(fc('criteria_5 day6_known')),minutes:240}];
-    req('s5_inform',N(fc('treated_as_scarlet no_workup')));add('s5','s5_return_only','嘱三天后复诊','s6',{flags:['return_only']},2,1,0,fc('treated_as_scarlet no_workup'));
+    req('s5_inform',N(fc('treated_as_scarlet no_workup')));add('s5','s5_return_only','嘱三天后复诊','s6',{flags:['return_only']},2,1,0,fc('treated_as_scarlet no_workup')).result='你嘱三天后复诊。';
     op('s5_inform').retry={max:2,dcIncrease:2,exhaustedNext:'o_refuse'};
     const missed=O(C('s4_abx_home'),fc('treated_as_scarlet no_workup'));
     outcome('o_worst',A(missed,C('s6_scarlet_dx'),V('coronary_thrombosis')),400);
@@ -169,7 +169,7 @@ export function normalizeClinicalGraph(g:ClinicalGraph):ClinicalGraph {
     set('s4_ask_history',['self_type_O']);set('s4_two_person',['self_type_O']);
     op('s4_two_person').effects.flags=['check_ok'];op('s5_observe').effects.flags=['observed'];op('s5_leave').effects.flags=['not_observed'];
     op('s4_two_person').transitions=[{when:mismatch,next:'s2r'}];set('s4_two_person',['mismatch_found'],'always',mismatch);
-    add('s4','s4_redraw','暂停输注，核查疑问并重新采样','s2r',{},2,1,0,A(mismatch,fc('type_doubt self_type_O')));
+    add('s4','s4_redraw','暂停输注，核查疑问并重新采样','s2r',{},2,1,0,A(mismatch,fc('type_doubt self_type_O'))).result='你暂停输注，核查疑问并重新采样。';
     node('s4').exitOn?.push('s4_two_person','s4_redraw');
     for(const id of ['s5_observe','s5_leave','s5_speed_up'])op(id).transitions=[{when:mismatch,next:'s6'},{when:N(mismatch),next:'s7'}];
     set('s5_observe',['reaction_seen','transfusion_started'],'always',mismatch);set('s5_leave',['reaction_late','transfusion_started'],'always',mismatch);
@@ -201,7 +201,7 @@ export function normalizeClinicalGraph(g:ClinicalGraph):ClinicalGraph {
     outcome('o_biphasic',F('early_discharge'),300);outcome('o_rescued',A({entered:'s4'},F('epi_given'),fc('resuscitated icu'),N(F('early_discharge'))),100);
     outcome('o_good',A(F('safe_drug'),N({entered:'s4'})),0);
     report(0,cc('s2_pen_test s2_double'));report(1,C('s1_exam_labs'));report(2,{entered:'s4'});report(3,C('s4_epi_iv'));
-    add('s1','s1_exam_labs','加做血常规与 CRP','s2',{},15,1,22);multi('s1',1,2);
+    add('s1','s1_exam_labs','加做血常规与 CRP','s2',{},15,1,22).result='你加做血常规与 CRP。';multi('s1',1,2);
     g.normalizationNotes.push('s5 原文将气道延误随机归因于察觉失败；按“临床步骤不掷骰”契约补为明确气道评估和心律失常处置选项，已经完成的气道处置不被骰点撤销。s6 原表单选导致记录/报告/过敏标识互斥，补为至多三项。');
   }
   if(g.id==='C012'){
@@ -289,9 +289,9 @@ export function normalizeClinicalGraph(g:ClinicalGraph):ClinicalGraph {
     outcome('o_lung_path',A(V('lung_infection'),cs('s2_exam s3_sputum s4_cxr s5_abx s6_resp'),noCausal));
     g.outcomes.find(o=>o.id==='o_worst')!.textVariants=[{when:V('leak'),text:'夜间病情恶化，手术探查见吻合口裂开及弥漫性腹膜炎，术后发生感染性休克。原始病程和交班记录进入鉴定材料。'},{when:V('lung_infection'),text:'夜间呼吸状态恶化，患者转入监护病房。腹盆腔复查未发现吻合口漏。交班材料列出了呼吸支持与监护升级的时间。'}];
     report(0,C('s3_sepsis'));report(1,A(C('s3_sputum'),V('leak')));report(2,A(C('s4_ct'),V('leak')));report(3,A(C('s4_cxr'),V('leak')));report(4,A(C('s4_ct'),V('lung_infection')));
-    const lungReports=[{from:1,id:'C017_lung_sputum',when:A(C('s3_sputum'),V('lung_infection')),title:'痰培养、血气和床旁胸片',text:'血气 pH 7.46，PaO₂ 62 mmHg（室内空气），PaCO₂ 33 mmHg。痰标本可用于培养，结果待回。胸片左下肺见片状实变，伴支气管充气征。腹部无肌紧张，引流液淡红。'},
-      {from:3,id:'C017_lung_cxr',when:A(C('s4_cxr'),V('lung_infection')),title:'床旁胸片与外科会诊',text:'左下肺新发片状实变，伴支气管充气征。外科复核腹部柔软，无肌紧张，引流液无进行性浑浊；未发现支持吻合口漏的临床证据。后续按病情复评腹盆腔。'}];
-    for(const r of lungReports)g.reports.push({...structuredClone(g.reports[r.from]),id:r.id,title:r.title,when:r.when,full:r.text,skimmed:r.text});
+    const lungReports=[{from:1,id:'C017_lung_sputum',when:A(C('s3_sputum'),V('lung_infection')),title:'痰培养、血气和床旁胸片',text:'血气 pH 7.46，PaO₂ 62 mmHg（室内空气），PaCO₂ 33 mmHg。痰标本可用于培养，结果待回。胸片左下肺见片状实变，伴支气管充气征。腹部无肌紧张，引流液淡红。',skim:'pH 7.46，PaO₂ 62 mmHg（室内空气），PaCO₂ 33 mmHg……痰培养待回……左下肺片状实变，伴支气管充气征。'},
+      {from:3,id:'C017_lung_cxr',when:A(C('s4_cxr'),V('lung_infection')),title:'床旁胸片与外科会诊',text:'左下肺新发片状实变，伴支气管充气征。外科复核腹部柔软，无肌紧张，引流液无进行性浑浊；未发现支持吻合口漏的临床证据。后续按病情复评腹盆腔。',skim:'左下肺新发片状实变，伴支气管充气征……未发现支持吻合口漏的临床证据。'}];
+    for(const r of lungReports)g.reports.push({...structuredClone(g.reports[r.from]),id:r.id,title:r.title,when:r.when,full:r.text,skimmed:r.skim});
     g.presentation.appearance='患者半坐在床上，鼻导管挂在耳后，床旁痰杯有少量黄白色痰。腹部切口敷料干燥，左下腹引流袋挂在床边。';
     g.normalizationNotes.push('肺感染诊断变体在进入时固定。原文仅替换 CT 而胸片/痰回报仍声称无肺炎，补齐变体胸片、痰标本、腹部和引流回报；不让肺感染变体继承吻合口漏阳性事实。');
   }
@@ -329,7 +329,8 @@ export function normalizeClinicalGraph(g:ClinicalGraph):ClinicalGraph {
     // Replace combined post-treatment report with independently gated patient reports.
     const screening=g.reports.pop()!;
     const screens=[['child_screen','女儿：血糖初筛','女儿床旁血糖 2.9 mmol/L。',C('s2_child')],['child_repeat','女儿：低血糖复查','女儿低血糖纠正后复测 4.8 mmol/L，进入儿科监护。',C('s4_ped')],['maternal_screen','母亲：胎心初筛','母亲胎心监护出现短暂变异减少，产科已收到联络。',C('s2_mother')],['maternal_review','母亲：产科复评','产科复评后胎心变异恢复，继续观察母体意识与胎儿情况。',C('s4_obst')],['paternal_review','父亲：心肌损伤评估','父亲 ST-T 改变，肌钙蛋白 I 轻度升高，乳酸 4.8 mmol/L。重症团队结合神经与心脏状态安排监护。',C('s4_ob')]] as const;
-    for(const [id,title,text,when] of screens)g.reports.push({...structuredClone(screening),id:`C019_${id}`,title,full:text,skimmed:text,when});
+    const screenSkim:Record<string,string>={paternal_review:'父亲 ST-T 改变，肌钙蛋白 I 轻度升高，乳酸 4.8 mmol/L。'};
+    for(const [id,title,text,when] of screens)g.reports.push({...structuredClone(screening),id:`C019_${id}`,title,full:text,skimmed:screenSkim[id as string]??text,when});
     g.normalizationNotes.push('s3 原 single 与两个良好结局同时要求氧疗/CO-oximetry 矛盾，改为最多两项且各项独立付费；系统“继续”行保留源 ID，不计实质选择、不收费。三名患者筛查和处理后回报按各自来源分开，未治疗不显示“纠正后正常”。');
   }
   if(g.id==='C020'){
@@ -349,7 +350,7 @@ export function normalizeClinicalGraph(g:ClinicalGraph):ClinicalGraph {
     sign.mechanics={operation:'consent',actor:'family',quality:'correct'};
     op('s4_autopsy').successText='你说明尸检的目的、签字要求和观察安排。妻子表示听明白了，但同意书还没有签；需要另行核实并接收签字。';
     report(0,C('s2_timeline'));report(1,C('s2_scene'));report(2,C('s4_autopsy'));
-    g.reports[2].full=g.reports[2].skimmed='死因尚待确认。感染进展、心源性事件、药物与设备因素均未在现阶段排除。家属可提出尸检意见，后续结论须结合病理和临床时间线。';
+    g.reports[2].full='死因尚待确认。感染进展、心源性事件、药物与设备因素均未在现阶段排除。家属可提出尸检意见，后续结论须结合病理和临床时间线。';g.reports[2].skimmed='死因尚待确认……感染进展、心源性事件、药物与设备因素均未在现阶段排除。';
     g.normalizationNotes.push('结局表表头多一列严重度，行内实际五列；按 ID/触发/优先级/种子/文本解析。死亡已先于记录选择发生，行政阻碍不再追加患者死亡因果。尸检讨论、接收签字和拒签分开记录，接收同意书不等于已经完成尸检或取得病理报告。');
   }
 
@@ -424,7 +425,7 @@ export function normalizeClinicalGraph(g:ClinicalGraph):ClinicalGraph {
   if(g.id==='C013'){
     context('full_beds','上级医院满床','transfer');context('wife_present','妻子在场','family');
     mod('s5_transfer',V('full_beds'),{when:V('full_beds'),minutes:70,dc:2});mod('s1_ask_meds',A(V('wife_present'),N(F('wife_out'))),{when:V('wife_present'),dc:2});
-    add('s1','s1_wife_out','请家属回避后单独问诊','s1',{flags:['wife_out']},2,1,0,V('wife_present'));multi('s1',1,2,['s1_ortho']);
+    add('s1','s1_wife_out','请家属回避后单独问诊','s1',{flags:['wife_out']},2,1,0,V('wife_present')).result='你请家属回避后单独问诊。';multi('s1',1,2,['s1_ortho']);
   }
   if(g.id==='C014'){
     context('father_calls','父亲电话施压','family');context('bed_pressure','床位紧张','beds');allChecks('father_calls',1,['comfort']);
@@ -440,7 +441,7 @@ export function normalizeClinicalGraph(g:ClinicalGraph):ClinicalGraph {
     context('sendout_level','本院无血药浓度检测','laboratory');context('no_night_psych','精神科夜间无值班','staff');
     mod('s2_labs',V('sendout_level'),{when:V('sendout_level'),label:'外送药物浓度，急查肝功、凝血、肾功、血气'});
     g.reports[0].when=A(C('s2_labs'),N(V('sendout_level')));
-    const sent=structuredClone(g.reports[0]);sent.id='C016_sendout';sent.when=A(C('s2_labs'),V('sendout_level'));sent.full=sent.skimmed='药物浓度标本已外送，预计次日回报。解毒决定依据已获得的服药史与风险评估，不能为等待外送结果延迟。';g.reports.push(sent);
+    const sent=structuredClone(g.reports[0]);sent.id='C016_sendout';sent.when=A(C('s2_labs'),V('sendout_level'));sent.full='药物浓度标本已外送，预计次日回报。解毒决定依据已获得的服药史与风险评估，不能为等待外送结果延迟。';sent.skimmed='药物浓度标本已外送，预计次日回报……不能为等待外送结果延迟。';g.reports.push(sent);
     mod('s3_psych',V('no_night_psych'),{when:V('no_night_psych'),label:'电话请精神科会诊，预约次晨到场'});
     effect('s4_no_family',{hazards:[{type:'R',weight:5,reason:'精神科尚未到场且无人持续看护。',norm:'高风险患者看护与交接',causal:false}]},'always',V('no_night_psych'));
   }
@@ -463,7 +464,7 @@ export function normalizeClinicalGraph(g:ClinicalGraph):ClinicalGraph {
     context('autopsy_requested','家属提出尸检','family');context('drug_event_suspected','疑似用药不良事件','cause');context('ward_camera','病区有监控录像','records');context('isolation','传染病隔离患者','isolation');
     set('s4_autopsy',['family_autopsy_request'],'always',V('autopsy_requested'));set('s2_scene',['drug_event_materials'],'always',V('drug_event_suspected'));set('s2_scene',['camera_export_preserved'],'always',V('ward_camera'));
     mod('s4_morgue',V('isolation'),{when:V('isolation'),minutes:22,cost:120,label:'按隔离转运流程移放遗体并交接防护要求'});
-    g.reports[1].full=g.reports[1].skimmed='18:00 后无医生病程新增；护理记录原始版本保留「胸闷」字样；22:28 报警有静音操作；输液泵内余液 42 mL，药袋标签和批号可辨。原始电子记录已经封存，设备操作不等于死因认定。';
+    g.reports[1].full='18:00 后无医生病程新增；护理记录原始版本保留「胸闷」字样；22:28 报警有静音操作；输液泵内余液 42 mL，药袋标签和批号可辨。原始电子记录已经封存，设备操作不等于死因认定。';g.reports[1].skimmed='18:00 后无医生病程新增；护理记录保留「胸闷」字样；22:28 报警有静音操作；输液泵内余液 42 mL……原始电子记录已经封存。';
   }
 
   // Original result tables are not exhaustive; explicitly complete uncovered routes.
