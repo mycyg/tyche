@@ -16,8 +16,8 @@ it('enumerates every source node separately from its source choices and endings'
  expect(new Set(keys).size).toBe(keys.length);
  expect(keys.filter(k=>k.startsWith('clinical-node:'))).toHaveLength(134);
  expect(keys.filter(k=>k.startsWith('butterfly-node:'))).toHaveLength(32);
- expect(keys.filter(k=>k.startsWith('event:'))).toHaveLength(212);
- expect(keys.filter(k=>k.startsWith('event-choice:'))).toHaveLength(634);
+ expect(keys.filter(k=>k.startsWith('event:'))).toHaveLength(274);
+ expect(keys.filter(k=>k.startsWith('event-choice:'))).toHaveLength(809);
  expect(keys.filter(k=>k.startsWith('event-condition:'))).toEqual(['event-condition:E-209-c']);
  expect(keys.filter(k=>k.startsWith('patient:'))).toHaveLength(251);
  expect(keys.filter(k=>k.startsWith('ending:'))).toHaveLength(81);

@@ -45,11 +45,14 @@ describe('acute events reach their endings through act()',()=>{
       expect(out.ending?.id).toBe('END-33');expect(out.ending?.annexIds).toContain('X21');expect(out.phase).toBe('ending');
     }
   });
-  it('a second stamina collapse before the night shift is the daytime body ending',()=>{
+  it('a second stamina collapse opens the body chain instead of closing the day',()=>{
     let r=settle(base('x17'),[story('trigger',{stamina:-200}),nightCard('n1')]);r.exhausted=1;
-    r=act(r,{type:'choose',id:'trigger:go'});expect(r.ending?.id).toBe('END-33');expect(r.ending?.annexIds).toContain('X17');expect(r.exhausted).toBe(2);
+    r=act(r,{type:'choose',id:'trigger:go'});
+    expect(r.ending).toBeUndefined();expect(r.phase).toBe('play');expect(r.exhausted).toBe(2);
+    expect(r.emergency?.vital).toBe('stamina');expect(r.facts['dark-chain:stamina']).toBeDefined();
+    expect((currentCard(r) as Card&{authoredEventId?:string}).authoredEventId).toBe('E-238');
   });
-  it('first SAN collapse offers one dice rescue; the next collapse ends the run even after saving',()=>{
+  it('first SAN collapse offers one dice rescue; the next collapse opens the crisis chain even after saving',()=>{
     let r=settle(base('san-rescue',[]),[story('t1',{san:-200})]);
     r=act(r,{type:'choose',id:'t1:go'});
     const rescue=availableOptions(r).find(o=>o.id.endsWith('E-200-b'))!;expect(rescue).toBeDefined();
@@ -61,14 +64,18 @@ describe('acute events reach their endings through act()',()=>{
     r=decode(encode({...emptySave(),run:r})).run!;
     r.vitals.san=80;r=settle(r,[story('t2',{san:-200})]);
     r=act(r,{type:'choose',id:'t2:go'});
-    expect(r.phase).toBe('ending');expect(r.ending?.id).toBe('END-33');expect(r.ending?.annexIds).toContain('X21');expect(r.sanBreaks).toBe(2);
+    expect(r.phase).toBe('play');expect(r.ending).toBeUndefined();expect(r.sanBreaks).toBe(2);
+    expect(r.facts['dark-chain:san']).toBeDefined();
+    expect((currentCard(r) as Card&{authoredEventId?:string}).authoredEventId).toBe('E-230');
   });
   it('the survival talent spends the same single rescue chance',()=>{
     let r=settle(base('t23',['T23']),[story('t1',{san:-200})]);
     r=act(r,{type:'choose',id:'t1:go'});expect(r.vitals.san).toBeGreaterThan(0);expect(r.sanBreaks).toBe(1);expect(r.emergency).toBeUndefined();
     if(r.phase==='feedback')r=act(r,{type:'continue'});
     r.vitals.san=80;r=settle(r,[story('t2',{san:-200})]);
-    r=act(r,{type:'choose',id:'t2:go'});expect(r.phase).toBe('ending');expect(r.ending?.id).toBe('END-33');expect(r.ending?.annexIds).toContain('X21');
+    r=act(r,{type:'choose',id:'t2:go'});
+    expect(r.ending).toBeUndefined();expect(r.vitals.san).toBe(0);expect(r.sanBreaks).toBe(2);
+    expect(r.facts['dark-chain:san']).toBeDefined();
   });
   it('the second emotional collapse ends the run through act()',()=>{
     let r=settle(base('emotion'),[story('trig1',{emotion:-200})]);

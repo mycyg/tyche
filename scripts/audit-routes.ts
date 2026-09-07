@@ -18,13 +18,13 @@ import {select}from './simulate';
 import {exploreCheckpoint}from './explore-checkpoint';
 import {plannedChoice,plannedEncounter,ROUTE_PLANS,type RoutePlan}from './route-plans';
 import {sourceExitWitnesses,type SourceExitWitness}from './source-exits';
-import type {Action,Card,Meta,Option,Run}from '../src/game/types';
+import type {Action,Card,Meta,Option,PartnerSetting,Run}from '../src/game/types';
 
 export const fingerprint=(value:unknown)=>createHash('sha256').update(JSON.stringify(value)).digest('hex');
 interface Purchase {kind:UpgradeKind;key?:string;}
 interface Trace {
  index:number;seed:string;instanceId:string;talents:string[];difficulty:Run['difficulty'];
- metaBefore:string;actions:Action[];finalHash?:string;ending?:string;error?:string;failedAttempt?:Action;purchases:Purchase[];
+ metaBefore:string;partner?:PartnerSetting;actions:Action[];finalHash?:string;ending?:string;error?:string;failedAttempt?:Action;purchases:Purchase[];
  strategy?:RoutePlan;summary?:{day:number;chains:unknown[]};
 }
 interface Witness {run:number;action:number;day:number;branch?:string;via?:SourceExitWitness;}
@@ -202,7 +202,7 @@ export function replayCampaign(directory:string):number{
  for(const file of manifest.traceFiles){
   const t=JSON.parse(readFileSync(join(directory,file),'utf8'))as Trace;
   assertLegalStart(t,meta);
-  let r=startRun(t.seed,'程医生',t.talents,meta,t.difficulty,t.instanceId);
+  let r=startRun(t.seed,'程医生',t.talents,meta,t.difficulty,t.instanceId,{partner:t.partner});
   const forks=branches.filter(b=>b.trace.run===t.index),required=new Set(forks.map(b=>b.trace.prefixActions)),roots=new Map<number,Run>();
   for(let index=0;index<t.actions.length;index++){
    if(required.has(index))roots.set(index,r);
@@ -235,9 +235,12 @@ export function auditRoutes(samples:number,directory:string,failureLimit=5,branc
  for(let index=0;index<samples;index++){
   const seed=`${seedPrefix}-${index}`;
   const plan=plans[index%plans.length];
-  const t:Trace={index,seed,instanceId:`route-audit-${index}`,talents:chooseTalents(seed,meta,index),difficulty:meta.attendingUnlocked&&index%9===8?'attending':'rotation',metaBefore:fingerprint(meta),actions:[],purchases:[],strategy:plan};
+  // The registration page offers three partner settings and DK-10 exists only
+  // on the two that put a partner on record, so the campaign uses all three.
+  const partner=(['none','female','male']as const)[index%3];
+  const t:Trace={index,seed,instanceId:`route-audit-${index}`,talents:chooseTalents(seed,meta,index),difficulty:meta.attendingUnlocked&&index%9===8?'attending':'rotation',metaBefore:fingerprint(meta),partner,actions:[],purchases:[],strategy:plan};
   assertLegalStart(t,meta);
-  let r=startRun(seed,'程医生',t.talents,meta,t.difficulty,t.instanceId);
+  let r=startRun(seed,'程医生',t.talents,meta,t.difficulty,t.instanceId,{partner});
   const pending=new Map<string,{nodes:string[];choices:string[]}>();
   const explored=new Set<string>();
   let attempted:Action|undefined;

@@ -44,6 +44,9 @@ import {auditEventWeight,auditEchoCard}from '../content/events/audit-echo';
 import {weddingDayCard,familyDeathVariant}from '../content/events/family-milestones';
 import {butterflyPermissionCards,PERMISSION_FACTS,permissionActor,type ButterflyPermissionCard}from '../content/events/butterfly-permissions';
 import {extraShiftPlan,extraShiftCompleted}from './extra-shift';
+import {assaultOutcome,collapseOutcome,crisisOutcome,posthumousItems}from '../content/events/dark-chains';
+import {playerClinicalSource}from './discharge-responsibility';
+import {recordedSanBreaks}from './interruption';
 import {patientAssessmentComplete}from './care-completion';
 import {butterflyCommitmentCard,commitmentDelivery}from '../content/events/butterfly-commitments';
 import {scheduleEventClauses}from '../content/events/ledger';
@@ -269,6 +272,12 @@ function contextFor(r: AuthoredRun, s: AuthoredDirectorState, phase: EventPhase,
     if (r.day >= 13 && runRandom(r, 'authored:arrest:13') < (f['药代-刑拘候选'] ? .8 : .45)) q.push('局末判定命中');
   }
   if (r.facts['resign-requested']) q.push('玩家在结算页选择「提桶跑路」（确认前）');
+  // Dark-chain qualifiers. The partner is an opening setting written elsewhere;
+  // the assailant is named by the escalated dispute, never by an ordinary complaint.
+  if (f['伴侣-在册']) q.push('伴侣在册');
+  if (f['伤医-施暴者已确定']) q.push('已确定施暴者');
+  if (recordedSanBreaks(r) >= 1 || r.exhausted >= 1) q.push('再次归零');
+  if (r.relations.family <= 1) q.push('家人关系 ≤1');
   if (f['人情债'] || r.facts['li-owes-time']) q.push('写入 人情债');
   if (s.actor.liAwayDays.includes(r.day + 1)) q.push('同事需要');
   if (s.returnedFromLeave === r.day) q.push('归零事件后请假返岗的第一天');
@@ -378,10 +387,32 @@ function addDueAppointments(r:AuthoredRun,s:AuthoredDirectorState,result:Directo
     }
   }
 }
+/** Dark-chain preconditions that a trigger string cannot state: they read the
+ * run's own patients, counters and per-patient records rather than a flag name.
+ * Withdrawal and escort lower how often the next approach happens at all. */
+const DARK_CHAIN_GATES: Record<string, (r: AuthoredRun, s: AuthoredDirectorState) => boolean> = {
+  'E-216': (r, s) => {
+    const f = factsFor(r, s), chance = f['伤医-陪同离院'] ? .3 : f['伤医-避开单独会面'] ? .5 : 1;
+    return chance >= 1 || runRandom(r, `assault:approach:${r.day}`) < chance;
+  },
+  'E-221': r => r.patients.some(p => p.damage >= 2 && p.caseId !== 'C020' && !!playerClinicalSource(r, p)),
+  'E-225': (r, s) => { const f = factsFor(r, s); return Boolean(f['药代-4统方'] || f['药代-5回扣'] || f['刑事-回扣已履行交换']); },
+  'E-236': r => recordedSanBreaks(r) >= 2,
+  'E-241': (r, s) => {
+    const f = factsFor(r, s);
+    return r.relations.family <= 1 || Boolean(f['家庭-婚礼未到'] || f['家庭-消息未接到'] || f['家庭-病重消息被压下'] || f['家庭-婚事出资未付']);
+  },
+  'E-256': r => r.patients.some(p => p.active && p.inpatient && p.damage < 3),
+  'E-258': (r, s) => {
+    const f = factsFor(r, s);
+    return Boolean(f['政治-沉默'] || f['同事造假-知情'] || f['知情']) || Object.keys(f).some(k => k.endsWith(':unrest_suppressed_once'));
+  },
+};
 function chooseBinding(r: AuthoredRun, s: AuthoredDirectorState, e: AuthoredEvent, phase: EventPhase): { binding: EventBinding; context: EventContext; extra?: EventParticipant } | undefined {
   if(authoredTalentWeight(r,e,1)===0)return;
   const pending=[...r.queue.slice(r.cursor),...(s.sceneAgenda??[]).flatMap(a=>s.published[a.cardId]?[s.published[a.cardId]]:[])];
   if(pending.some(c=>(c as Partial<EventCard>).authoredEventId===e.id&&!c.options.some(o=>r.committed.includes(o.id))))return;
+  if(DARK_CHAIN_GATES[e.id]&&!DARK_CHAIN_GATES[e.id](r,s))return;
   const stage=({'E-132':1,'E-134':2,'E-136':3,'E-137':4,'E-138':5}as Record<string,number>)[e.id];
   if(stage){
     if(Object.keys(s.activeFacts).some(k=>k.startsWith('rep-recontact-due:'))||s.activeFacts['rep-recontact-closed'])return;
@@ -406,6 +437,10 @@ function chooseBinding(r: AuthoredRun, s: AuthoredDirectorState, e: AuthoredEven
   // A night shift walks the ward; an outpatient of that day is not on it.
   if (phase === '夜班') candidates = candidates.filter(p => !p || p.inpatient);
   if (phase === '门诊'&&e.id!=='E-046') candidates = candidates.filter(p => !p || !p.inpatient);
+  // The assault chain stays on the patient whose dispute actually escalated;
+  // the discharge chain stays on the patient who was sent home early.
+  if(['E-213','E-214','E-215','E-216','E-217'].includes(e.id))candidates=candidates.filter(p=>!!p&&Boolean(r.facts[`伤医-家属:${p.uid}`]??s.activeFacts[`伤医-家属:${p.uid}`]));
+  if(['E-219','E-220'].includes(e.id))candidates=candidates.filter(p=>!!p&&(p.readmitted||Boolean(r.facts[`early-discharge:${p.uid}`]??s.activeFacts[`early-discharge:${p.uid}`])));
   if(e.id==='E-043'||e.id==='E-053')candidates=candidates.filter(p=>p&&s.clinicalAssignments?.some(a=>a.patientId===p.uid&&a.owner===(e.id==='E-043'?'peer':'chief')));
   else if(e.id!=='E-056')candidates=candidates.filter(p=>!p||isPlayerResponsibleForPatient({...r,authored:s},p));
   if(e.id==='E-048'){
@@ -543,6 +578,19 @@ export function buildAuthoredEvents(r: AuthoredRun, phase: EventPhase): Director
     const card:Card&{talentPaperRetraction:string}={id,kind:'story',title:'期刊撤稿通知',text:'期刊核对原始数据后，决定撤回这篇稿件。通知同时抄送了通讯作者和科室，主任已经看到删改前后的表格。周乔把你留存的原稿放在桌边。',scope:{kind:'project',id:projectId},talentPaperRetraction:projectId,options:[{id:`id:ack:${projectId}`,label:'确认收到，保留原始材料并说明删改经过',ap:1,minutes:0,cost:0,effects:{reputation:-10,relations:{chief:-2},flags:['科研-撤稿',`retracted:${projectId}`,`chief_knows:${projectId}`]},result:'你确认收到通知，把原始资料与更正说明一并归档。撤稿记录已经公开，署名与数据问题还需要继续说明。'}]};
     s.published[id]=card;result.cards.push(card);
   }
+  // DK-1 entry from the standing-complaint side. A harmed patient whose dispute
+  // is still open names one family member; a settled dispute names nobody, and
+  // an ordinary complaint without harm never opens this chain.
+  if(!leave&&r.day>=6&&!s.activeFacts['伤医-施暴者已确定']){
+    const df=factsFor(r,s);
+    const target=r.patients.find(p=>p.active&&p.damage>=1&&p.damage<3&&!df[`clinical:${p.uid}:unrest_3_success`]&&Boolean(df[`clinical:${p.uid}:unrest_escalated`]||df[`complaint:${p.uid}`]));
+    if(target){
+      const effects={flags:['伤医-施暴者已确定',`伤医-家属:${target.uid}`,`伤医-施暴者:family:${target.uid}`]};
+      const id=`${r.id}:assault-entry:${target.uid}`;
+      activateFacts(s,effects,r.day,id);
+      result.effects.push({id,scope:{kind:'patient',id:target.uid},effects,text:`${target.name}的家属这几天一直在病区等答复。护士站记下了他的姓名和联系方式，值班表上也留了一行。`});
+    }
+  }
   result.removeCardIds.push(...r.queue.slice(r.cursor).filter(c=>shouldSuppressLegacyStory(r,c.id)).map(c=>c.id));
   if(!leave&&phase==='夜班' && s.activeFacts[`extra-night:${r.day}`]) {
     const work=structuredClone(r), ids:string[]=[],plan=extraShiftPlan(s,r.day);
@@ -674,6 +722,8 @@ export function buildAuthoredEvents(r: AuthoredRun, phase: EventPhase): Director
       if(age<18){card.text='你解释完腰穿的目的，孩子的监护人仍然摇头：「听人说做了以后腰会一直疼。我们不同意。」你把检查目的、拒绝后的风险与可以先做的治疗再次说明。';card.options=card.options.map(o=>({...o,result:o.result.replaceAll('患者','监护人'),check:o.check?{...o.check,failureText:o.check.failureText?.replaceAll('患者','监护人')}:undefined}));}
     }
     if(e.id==='E-156'&&r.facts['forced_audit_interview'])card.text='稽核组发来约谈通知，请你带上实际经手的处方、审批材料和往来款项记录。哪些内容由你签署、依据在哪里，需要分别说明；询问本身还不是调查结论。';
+    // The posthumous items are chosen from what this run actually produced.
+    if(e.id==='E-237')card.text=posthumousItems({...r,authored:s});
     if(['E-139','E-141','E-152'].includes(e.id)){
       const due=Math.max(0,(s.benefitsReceived??0)-(s.benefitsReturned??0));
       card.options[0].effects.cash=-due;
@@ -758,7 +808,14 @@ export function forceZeroEvent(r:AuthoredRun,vital:'stamina'|'san'|'emotion',pha
   const current=r.patients.find(p=>p.uid===triggeringPatientId)??r.patients.find(p=>p.uid===r.queue[r.cursor]?.patientId&&p.active&&p.damage<3);
   const marked=Object.keys(s.activeFacts).filter(k=>k.startsWith('san-wrong-record:')).map(k=>k.slice('san-wrong-record:'.length));
   const qualityPatient=r.patients.find(p=>marked.includes(p.uid)&&r.journal.some(e=>e.scope.kind==='patient'&&e.scope.id===p.uid&&/质控|退回|复核/.test(e.title)&&e.day>=s.activeFacts[`san-wrong-record:${p.uid}`].day));
-  let id=vital==='stamina'?['E-197','E-198','E-199'][Math.floor(runRandom(r,`acute:stamina:${r.exhausted}`)*3)]:vital==='san'?qualityPatient?'E-202':night?'E-201':'E-200':night?'E-204':'E-203';
+  // A second collapse opens the dark chain instead of repeating the first-time
+  // rescue card. Which entry it is depends on facts already written this run.
+  const df=factsFor(r,s);
+  // engine.interrupt raises sanBreaks before it asks for a card, so a second
+  // SAN zero reads as two; the exhaustion counter is raised afterwards.
+  const repeat=vital==='san'&&recordedSanBreaks(r)>=2?(r.depression>=70&&!df['危机-支持联系已建立']&&!df['精神-持续住院']?'E-233':'E-230')
+    :vital==='stamina'&&r.exhausted>=1?'E-238':undefined;
+  let id=repeat??(vital==='stamina'?['E-197','E-198','E-199'][Math.floor(runRandom(r,`acute:stamina:${r.exhausted}`)*3)]:vital==='san'?qualityPatient?'E-202':night?'E-201':'E-200':night?'E-204':'E-203');
   const event=EVENT_BY_ID[id],p=qualityPatient??current;
   const binding:EventBinding={instanceId:`${r.id}:acute:${vital}:${r.day}:${vital==='stamina'?r.exhausted:vital==='emotion'?r.emotionalBreaks:s.seen[id]??0}`,day:r.day,phase,scope:p?{kind:'patient',id:p.uid}:{kind:'personal',id:r.id},patientId:p?.uid,patientName:p?.name,bed:p?.bed,actorId:'jiang'};
   if(p&&id==='E-200'){
@@ -768,7 +825,8 @@ export function forceZeroEvent(r:AuthoredRun,vital:'stamina'|'san'|'emotion',pha
   const ctx=contextFor(r,s,phase,p),scopedEvent={...event,scopeKind:p?'patient' as const:'personal' as const};
   const card=prepareTalentEvent(r,eventToCard(scopedEvent,binding,ctx))as EventCard&{acuteVital:string};card.acuteVital=vital;
   if(!p){
-    card.text=vital==='stamina'?'你在值班室支撑不住，护士长扶你坐下，叫同事接管工作。现在先决定怎么休息。':vital==='san'?'你发现自己无法再集中注意。护士长关掉工作电话，联系二线接管，陪你坐在值班室里。':'你停下手里的工作，发现自己已经没法平静交谈。护士长让同事接手，请你先到值班室坐下。';
+    // The dark-chain entries carry their own personal-scope scene text.
+    if(!repeat)card.text=vital==='stamina'?'你在值班室支撑不住，护士长扶你坐下，叫同事接管工作。现在先决定怎么休息。':vital==='san'?'你发现自己无法再集中注意。护士长关掉工作电话，联系二线接管，陪你坐在值班室里。':'你停下手里的工作，发现自己已经没法平静交谈。护士长让同事接手，请你先到值班室坐下。';
     for(const o of card.options){o.effects.hazards=undefined;if(o.failureTotal)o.failureTotal.hazards=undefined;if(o.check)o.check.failure.hazards=undefined;}
   }
   if(id==='E-200'&&p&&!binding.patients)card.text=`你写完病程，发现其中一段内容并不属于${p.name}。护士长拿着病历站在桌边，安排二线接手你下午的工作。`;
@@ -1589,6 +1647,41 @@ export function afterAuthoredChoice(r:AuthoredRun,card:Card,option:Option,succes
     }
   }
   activateFacts(s,actual,r.day,option.id);
+  // ---- Dark chains: per-patient records and chain closings ----
+  if(e.id==='E-218'&&option.id.endsWith('E-218-c')&&card.patientId){
+    const effects={discharge:true,flags:[`early-discharge:${card.patientId}`]};
+    activateFacts(s,effects,r.day,option.id);
+    result.effects.push({id:`${option.id}:early-discharge`,scope:card.scope,effects,text:`${ec.eventBinding.patientName??'这位患者'}在评估未完成的情况下按今天出院办理，未做的评估与出院日期分别留在记录里。`});
+  }
+  if(e.id==='E-219'&&option.id.endsWith('E-219-c')&&card.patientId)s.activeFacts[`tampered:${card.patientId}`]={day:r.day,source:option.id};
+  if(e.id==='E-220'&&card.patientId&&(option.id.endsWith('E-220-b')||option.id.endsWith('E-220-c'))){
+    s.activeFacts[`tampered:${card.patientId}`]??={day:r.day,source:option.id};
+    s.activeFacts[`tampering-discovered:${card.patientId}`]={day:r.day,source:option.id};
+  }
+  if(e.id==='E-217'||e.id==='E-232'||e.id==='E-239'){
+    const flags=e.id==='E-217'?assaultOutcome({...r,authored:s}):e.id==='E-232'?crisisOutcome({...r,authored:s}):collapseOutcome({...r,authored:s});
+    if(flags.length){
+      activateFacts(s,{flags},r.day,option.id);
+      result.effects.push({id:`${option.id}:dark-chain-outcome`,scope:card.scope,effects:{flags},text:'这次的结果按此前已经写入的求援、退出与就医经过结算。'});
+    }
+  }
+  // A refund returns what this run actually still holds, never a fixed amount.
+  if(e.id==='E-224'&&option.id.endsWith('E-224-a')){
+    const due=Math.max(0,(s.benefitsReceived??0)-(s.benefitsReturned??0));
+    s.benefitsReturned=(s.benefitsReturned??0)+due;
+    if(due)result.effects.push({id:`${option.id}:refund`,scope:card.scope,effects:{cash:-due},text:`你按收款记录退回 ¥${due.toLocaleString('en-US')}，凭证上写明金额和日期。`});
+  }
+  // Staying on the roof a second time is what ends the contact, not the first refusal.
+  if(e.id==='E-234'&&option.id.endsWith('E-234-b')&&s.activeFacts['天台-已劝一次']){
+    activateFacts(s,{flags:['危机-失联']},r.day,option.id);
+    result.effects.push({id:`${option.id}:no-contact`,scope:card.scope,effects:{flags:['危机-失联']},text:'她第二次上来叫你，你还是让她先回去。这一次她没有再等。'});
+  }
+  if(e.id==='E-234'&&option.id.endsWith('E-234-b'))s.activeFacts['天台-已劝一次']={day:r.day,source:option.id};
+  // Design 03 §5: two people who each signed for the other hold the same record.
+  if((e.id==='E-055'||e.id==='E-143')&&s.seen['E-055']!==undefined&&s.seen['E-143']!==undefined&&!s.activeFacts['互相把柄']){
+    activateFacts(s,{flags:['互相把柄']},r.day,option.id);
+    result.effects.push({id:`${option.id}:mutual-leverage`,scope:card.scope,effects:{flags:['互相把柄']},text:'你们各自签过、也各自看见过对方签的那一份，两份材料都还在。'});
+  }
   if(e.id==='E-171'&&option.id.endsWith(':E-171-c')&&success&&card.patientId){
     const p=r.patients.find(p=>p.uid===card.patientId),episode=p?createClaimedReadmission({...r,authored:s},p,option.id):undefined;
     if(episode){(s.billingEpisodes??=[]).push(episode);result.effects.push({id:episode.id,scope:card.scope,effects:{flags:[`billing-split:${card.patientId}`]},text:`${p!.name}的实际住院和原账单保持连续，结算材料却报成出院后再入院。新增额度只抵之后的费用，原来的超支仍保留，稽核能够对照这两份记录。`});}

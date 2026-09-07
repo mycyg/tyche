@@ -403,6 +403,8 @@ export const AUTHORED_EVENTS: AuthoredEvent[] = source.events.map(row => {
   }
   // A colleague refinancing debt is a transfer of creditor, not debt forgiveness.
   if (row.id === 'E-206') options[0].effects.privateDebt = 10000;
+  // The guarantor pays the bank; the obligation moves to a person, not the bank.
+  if (row.id === 'E-254') options[1].effects.privateDebt = 30000;
   if (row.id === 'E-064') for (const i of [0, 2]) {
     const principal = i === 0 ? 3000 : 1500;
     options[i].effects.receivable = principal;
@@ -632,6 +634,18 @@ export function contextualOptions(event: AuthoredEvent, context: EventContext): 
     const options=structuredClone(event.options),fee=Number(context.facts['family-icu-daily-fee']??(has(context,'家庭-降级')?2000:8000));
     options[0].effects.cash=-fee;options[0].label=`转 ¥${fee.toLocaleString('en-US')}，补交今天的住院预交金`;options[0].consequence=`余额 −¥${fee.toLocaleString('en-US')}；现金压力 +5`;options[0].hint=options[0].consequence;return options;
   }
+  // Dark chains. A choice that needs a person, a copy or an escort only appears
+  // when this run actually produced it; withdrawal lowers the meeting's DC.
+  if(event.id==='E-216'){
+    const options=structuredClone(event.options),escorted=has(context,'伤医-陪同离院'),avoided=has(context,'伤医-避开单独会面');
+    if(options[1].check)options[1].check.dc=escorted?8:avoided?11:14;
+    return has(context,'伤医-安保到场')?options:options.slice(1);
+  }
+  if(event.id==='E-229')return has(context,'共犯-留有复印件')||has(context,'共犯-转账留痕')?event.options:event.options.filter((_,i)=>i!==1);
+  if(event.id==='E-230')return (context.relations?.family??2)>=1?event.options:event.options.slice(0,2);
+  if(event.id==='E-241')return (context.relations?.family??2)>=2?event.options:event.options.filter((_,i)=>i!==1);
+  if(event.id==='E-251')return has(context,'家庭-亲戚代办')?event.options:event.options.filter((_,i)=>i!==1);
+  if(event.id==='E-252')return has(context,'家庭-本人陪护')&&has(context,'家庭-消息已接到')?event.options:event.options.slice(1);
   const original = source.events.find(e => e.id === event.id)!;
   const row = structuredClone(original);
   const familySupports = (context.relations?.family ?? 2) >= 3;

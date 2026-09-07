@@ -164,7 +164,9 @@ describe("healthy save compatibility", () => {
       expect(decode(encode(save))).toEqual(save);
     }
     } finally {clock.mockRestore();}
-  },60000);
+    // A second zero now opens a dark chain and the run keeps playing, so these
+    // three simulations reach day fourteen instead of stopping in the first week.
+  },180000);
 });
 
 function authoredFixture():Save {

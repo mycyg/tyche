@@ -7,6 +7,7 @@ import { buildAuthoredEvents, afterAuthoredChoice, settleAuthoredEvents, authore
 import {beginClinical}from './clinical';
 import {createPatient}from './cards';
 import type {Card}from './types';
+import type {EventPhase}from '../content/events/types';
 import type { AuthoredRun, ButterflyCard, ButterflyCommitmentCard } from './director';
 import { startButterfly, commitButterflyChoice, eventToCard, EVENT_BY_ID } from '../content/events';
 import { authoredTalentWeight, prepareTalentEvent } from '../content/events/talent-adapter';
@@ -332,6 +333,75 @@ describe('the pressure curve and the night beat',()=>{
     expect(build(false)).not.toContain('局末判定命中');
     expect(build(true)).toContain('局末判定命中');
     expect(build(false)).toContain('或 D13 结算');
+  });
+  it('opens the second-collapse chain instead of repeating the first rescue card',()=>{
+    const zeroEvent=(run:AuthoredRun,kind:'san'|'stamina',phase:EventPhase)=>(forceZeroEvent(run,kind,phase).cards[0] as Card&{authoredEventId?:string}).authoredEventId;
+    const r=initialized();r.day=9;r.vitals.san=0;r.sanBreaks=2;r.patients=[];r.queue=[];
+    expect(zeroEvent(r,'san','查房')).toBe('E-230');
+    const roof={...r,depression:82};
+    expect(zeroEvent(roof,'san','夜班')).toBe('E-233');
+    const supported={...r,depression:82,facts:{...r.facts,'危机-支持联系已建立':{day:8,source:'call',sequence:1}}};
+    expect(zeroEvent(supported,'san','夜班')).toBe('E-230');
+    const first={...r,sanBreaks:1,committed:[],facts:{}};
+    expect(zeroEvent(first,'san','查房')).toBe('E-200');
+    const tired={...r,vitals:{...r.vitals,san:60,stamina:0},sanBreaks:0,exhausted:1};
+    expect(zeroEvent(tired,'stamina','结算')).toBe('E-238');
+    expect(zeroEvent({...tired,exhausted:0},'stamina','结算')).toMatch(/E-19[789]/);
+  });
+  it('publishes the dark-chain qualifiers only when the run actually produced them',()=>{
+    const r=initialized();r.day=8;
+    expect(authoredQualifiers(r,'结算')).not.toContain('已确定施暴者');
+    r.authored.activeFacts['伤医-施暴者已确定']={day:7,source:'unrest'};
+    r.authored.activeFacts['伴侣-在册']={day:1,source:'setup'};
+    r.sanBreaks=1;r.relations.family=1;
+    const q=authoredQualifiers(r,'结算');
+    expect(q).toEqual(expect.arrayContaining(['已确定施暴者','伴侣在册','再次归零','家人关系 ≤1']));
+  });
+  it('names one family member only after a harmed patient dispute has escalated',()=>{
+    const r=initialized();r.day=7;
+    const p=createPatient(r,'C-001','assault-subject');r.patients=[p];p.active=true;p.inpatient=true;p.damage=1;
+    expect(buildAuthoredEvents(r,'交班').effects.some(e=>e.effects.flags?.includes('伤医-施暴者已确定'))).toBe(false);
+    const opened=initialized();opened.day=7;opened.patients=[p];
+    opened.facts[`complaint:${p.uid}`]={day:6,source:'ward',sequence:1};
+    const named=buildAuthoredEvents(opened,'交班');
+    expect(named.effects.some(e=>e.effects.flags?.includes(`伤医-家属:${p.uid}`))).toBe(true);
+    const settled=initialized();settled.day=7;settled.patients=[p];
+    settled.facts[`complaint:${p.uid}`]={day:6,source:'ward',sequence:1};
+    settled.facts[`clinical:${p.uid}:unrest_3_success`]={day:6,source:'resolved',sequence:2};
+    expect(buildAuthoredEvents(settled,'交班').effects.some(e=>e.effects.flags?.includes('伤医-施暴者已确定'))).toBe(false);
+  });
+  it('closes the assault and collapse chains from the facts already written',()=>{
+    const r=initialized();r.day=11;
+    const p=createPatient(r,'C-001','assault-outcome');r.patients=[p];p.active=true;p.inpatient=true;p.damage=1;
+    for(const key of ['伤医-袭击发生','伤医-已求援','伤医-陪同离院'])r.authored.activeFacts[key]={day:10,source:'chain'};
+    const card=eventToCard(EVENT_BY_ID['E-217'],{instanceId:'assault-close',scope:{kind:'patient',id:p.uid},patientId:p.uid,patientName:p.name,bed:p.bed,day:11,phase:'日终'});
+    const closed=afterAuthoredChoice(r,card,card.options[0],true);
+    expect(closed.effects.some(e=>e.effects.flags?.includes('伤医-受伤生还'))).toBe(true);
+    expect(closed.effects.some(e=>e.effects.flags?.includes('伤医-抢救无效'))).toBe(false);
+    const alone=initialized();alone.day=11;alone.authored.activeFacts['身体-本次归零已处理']={day:11,source:'collapse'};
+    alone.authored.activeFacts['纸带']={day:5,source:'ecg'};
+    const rescue=eventToCard(EVENT_BY_ID['E-239'],{instanceId:'collapse-close',scope:{kind:'personal',id:alone.id},day:11,phase:'日终'});
+    expect(afterAuthoredChoice(alone,rescue,rescue.options[0],true).effects.some(e=>e.effects.flags?.includes('身体-抢救无效'))).toBe(true);
+  });
+  it('records the early discharge, the reprinted page and the mutual leverage on the real subject',()=>{
+    const r=initialized();r.day=8;
+    const p=createPatient(r,'C-001','discharge-subject');r.patients=[p];p.active=true;p.inpatient=true;
+    const push=eventToCard(EVENT_BY_ID['E-218'],{instanceId:'push',scope:{kind:'patient',id:p.uid},patientId:p.uid,patientName:p.name,bed:p.bed,day:8,phase:'结算'});
+    const pushed=afterAuthoredChoice(r,push,push.options[2],true);
+    expect(pushed.effects.some(e=>e.effects.flags?.includes(`early-discharge:${p.uid}`)&&e.effects.discharge)).toBe(true);
+    const audit=eventToCard(EVENT_BY_ID['E-220'],{instanceId:'audit',scope:{kind:'patient',id:p.uid},patientId:p.uid,patientName:p.name,bed:p.bed,day:11,phase:'结算'});
+    const denied=afterAuthoredChoice({...r,day:11},audit,audit.options[1],true);
+    expect(denied.patch.authored!.activeFacts[`tampering-discovered:${p.uid}`]).toBeDefined();
+    const both=initialized();both.day=10;both.authored.seen['E-055']=6;both.authored.seen['E-143']=9;
+    const leverage=eventToCard(EVENT_BY_ID['E-143'],{instanceId:'leverage',scope:{kind:'project',id:`${both.id}:representative-account`},day:10,phase:'结算'});
+    expect(afterAuthoredChoice(both,leverage,leverage.options[1],true).effects.some(e=>e.effects.flags?.includes('互相把柄'))).toBe(true);
+  });
+  it('refunds only what the representative ladder has actually not returned',()=>{
+    const r=initialized();r.day=12;r.authored.benefitsReceived=9000;r.authored.benefitsReturned=2000;
+    const card=eventToCard(EVENT_BY_ID['E-224'],{instanceId:'refund',scope:{kind:'project',id:`${r.id}:representative-account`},day:12,phase:'结算'});
+    const refunded=afterAuthoredChoice(r,card,card.options[0],true);
+    expect(refunded.effects.find(e=>e.id.endsWith(':refund'))?.effects.cash).toBe(-7000);
+    expect(refunded.patch.authored!.benefitsReturned).toBe(9000);
   });
   it('lets the next representative rung follow an offer of grey income',()=>{
     const r=initialized();r.day=9;r.authored.drugStage=1;r.authored.drugNextDay=13;

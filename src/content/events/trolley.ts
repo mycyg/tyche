@@ -97,7 +97,7 @@ export function makeTrolleyCard(d:TrolleyDefinition,r:Run,bound:Patient[]):Troll
     case 2:text=`重症监护病房只剩一张床。年轻外伤患者${name}与老年患者${other!.name}都在等待安排。`;
       options=[o('a','先安排年轻外伤患者',{},'你把床位给了年轻患者。老人家属要求当面说明分配依据。'),o('b','先安排老年患者',{reputation:-10},'你把床位给了老人。年轻患者家属把等待经过发到了网上。'),o('c','请主任协调并记录分配依据',{relations:{chief:-1}},'你把两人的情况同时交给主任，请他协调床位。',2,20)];break;
     case 3:text='周乔的原始表格与已提交的论文不一致，你已经核对过对应数据。她知道你看到了，问你接下来准备怎么做。';
-      options=[o('a','报告已经核实的数据问题',{relations:{peer:-3},emotion:-20,flags:['政治-举报']},'你提交核对材料，没有扩写未见过的部分。周乔知道了你的决定。'),o('b','保持沉默',{san:-10,flags:['同事造假-知情']},'你没有报告。原始表格仍在，周乔知道你已经看过。'),check(o('c','私下劝她更正',{relations:{peer:1}},'周乔答应按原始资料办理更正。'),'persuade',14,{relations:{peer:-1}},'她没有接受你的劝告。原始材料没有因此改变。')];break;
+      options=[o('a','报告已经核实的数据问题',{relations:{peer:-3},emotion:-20,flags:['政治-举报','举报人']},'你提交核对材料，没有扩写未见过的部分。周乔知道了你的决定。'),o('b','保持沉默',{san:-10,flags:['同事造假-知情','知情']},'你没有报告。原始表格仍在，周乔知道你已经看过。'),check(o('c','私下劝她更正',{relations:{peer:1}},'周乔答应按原始资料办理更正。'),'persuade',14,{relations:{peer:-1}},'她没有接受你的劝告。原始材料没有因此改变。')];break;
     case 4:text=`${name}说明自己是高危妊娠，希望现在由你接诊。她担心再次转诊会耽误，产科目前不在这间诊室。`;
       options=[o('a','接诊，先承担当前评估',add(risk('R',10,'缺少专科支持的高危妊娠接诊'),{stamina:-10}),'你接下患者，先完成当前评估，后续仍需获得专科支持。'),o('b','说明能力限制，安排转上级医院',{reputation:-5,flags:[`defensive-transfer:${p!.uid}`],discharge:true},'你安排转上级医院并交接信息。患者对再次转诊不满。'),o('c','接诊并请产科会诊',risk('F',5,'新增产科会诊流程'),'你接诊后联系产科，把风险和目前情况说清。',2)];break;
     case 5:text=`药房为${name}核对了这次新增用药：费用 ¥${medicationBill}，尚未开出。计入患者账单后，你需承担的新增超支为 ¥${gap.toLocaleString('en-US')}。有预算内替代药，但并非同等方案。`;

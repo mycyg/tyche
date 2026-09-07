@@ -45,10 +45,12 @@ describe('review: acute events use the actual interruption, never the next task'
     const result = chooseAcute(reload(trigger(fixture('夜班', { san: -200 }))), 'E-201-a');
     expect(result.ending?.id).toBe('END-33'); expect(result.ending?.annexIds).toContain('X22'); expect(result.ending?.annexIds).not.toContain('X21');
   });
-  it.each([['结算', 'X17', 'X20'], ['夜班', 'X20', 'X17']] as const)('routes repeated stamina loss in %s to the %s record', (phase, record, other) => {
+  it.each(['结算', '夜班'] as const)('opens the body chain on a repeated stamina loss in %s and keeps that origin', phase => {
     const r = fixture(phase, { stamina: -200 }); r.exhausted = 1; r.queue.splice(1, 1);
-    const ending = trigger(r).ending!;
-    expect(ending.id).toBe('END-33'); expect(ending.annexIds).toContain(record); expect(ending.annexIds).not.toContain(other);
+    const result = trigger(r);
+    expect(result.ending).toBeUndefined(); expect(result.exhausted).toBe(2);
+    expect(result.emergency?.vital).toBe('stamina'); expect(result.emergency?.occurred?.phase).toBe(phase);
+    expect(result.facts['dark-chain:stamina']).toBeDefined();
   });
   it('ends the second emotional breakdown without inventing an escalated complaint', () => {
     const r = fixture('查房', { emotion: -200 }); r.emotionalBreaks = 1;
@@ -118,19 +120,21 @@ describe('one SAN rescue for the entire run',()=>{
     expect(result.vitals.san).toBe(phase==='夜班'?10:15);
     return act(reload(result),{type:'continue'});
   }
-  it.each([['查房','夜班','X22'],['夜班','查房','X21']] as const)('does not renew the rescue from %s to %s', (first,next,id)=>{
+  it.each([['查房','夜班'],['夜班','查房']] as const)('does not renew the rescue from %s to %s', (first,next)=>{
     const r=rescued(first);r.day++;r.phase='play';r.shiftPhase=next;
     r.queue=[task('second-zero',next,{san:-200})];r.cursor=0;
     const result=act(reload(r),{type:'choose',id:'second-zero:answer'});
-    expect(result.ending?.id).toBe('END-33');expect(result.ending?.annexIds).toContain(id);expect(result.sanBreaks).toBe(2);
-    expect(result.emergency).toBeUndefined();expect(result.pendingCheck).toBeUndefined();
+    expect(result.ending).toBeUndefined();expect(result.sanBreaks).toBe(2);
+    expect(result.facts['dark-chain:san']).toBeDefined();
+    expect(result.emergency?.vital).toBe('san');expect(result.pendingCheck).toBeUndefined();
   });
   it('uses existing choices and zero-state records when an old save lacks the new counter',()=>{
     const r=rescued('查房');delete r.sanBreaks;
     delete r.facts['san-ever-zero']; // older saves still have their real E-200-b commitment
     r.phase='play';r.queue=[task('old-save-zero','查房',{san:-200})];r.cursor=0;
     const result=act(reload(r),{type:'choose',id:'old-save-zero:answer'});
-    expect(result.ending?.id).toBe('END-33');expect(result.ending?.annexIds).toContain('X21');expect(result.sanBreaks).toBe(2);
+    expect(result.ending).toBeUndefined();expect(result.sanBreaks).toBe(2);
+    expect(result.facts['dark-chain:san']).toBeDefined();
   });
   it('counts a first T23 protection and never grants it on a later SAN zero',()=>{
     const r=fixture('查房',{san:-200});r.talents=['T23'];
@@ -138,7 +142,8 @@ describe('one SAN rescue for the entire run',()=>{
     expect(first.talentMemory?.survivalUsed).toBe(true);
     first.phase='play';first.queue=[task('protected-second','查房',{san:-200})];first.cursor=0;
     const result=act(reload(first),{type:'choose',id:'protected-second:answer'});
-    expect(result.ending?.id).toBe('END-33');expect(result.ending?.annexIds).toContain('X21');
+    expect(result.ending).toBeUndefined();expect(result.vitals.san).toBe(0);expect(result.sanBreaks).toBe(2);
+    expect(result.facts['dark-chain:san']).toBeDefined();
   });
   it('rejects non-integer counters and future-dated interruption origins',()=>{
     const r=trigger(fixture('查房',{stamina:-200}));

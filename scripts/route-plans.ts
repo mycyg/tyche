@@ -14,8 +14,20 @@ const BASE_ROUTE_PLANS={
  representative:['E-131-a','E-132-a','E-133-b','E-134-a','E-136-a','E-137-a','E-138-a','E-146-a'],
  privateHelp:['BTF-002:N01d','BTF-002:N02d','BTF-002:N03a','BTF-002:N04c','BTF-002:N05b','BTF-002:N06a','BTF-002:N07d','BTF-002:N08a'],
 }as const;
+/** Dark chains DK-1 to DK-14. Each entry names one option of one event, so the
+ * order inside a list never decides anything; the list only says which branch
+ * this route takes when the event is actually offered. A step whose own
+ * prerequisite never occurs in a run is skipped, exactly like the other plans. */
+const DARK_ROUTE_PLANS={
+ darkDischarge:['E-218-c','E-219-c','E-220-c','E-221-a','E-213-b','E-214-b','E-215-c','E-216-b','E-217-a'],
+ darkClaim:['E-222-c','E-223-b','E-224-c','E-226-c','E-227-b','E-228-b','E-229-a','E-225-a'],
+ darkFamily:['E-241-c','E-242-c','E-243-c','E-248-c','E-249-b','E-250-b','E-251-c','E-252-b'],
+ darkExit:['E-253-b','E-254-b','E-255-a','E-256-a','E-257-a','E-258-b','E-231-a','E-232-a','E-240-a'],
+}as const;
 export const ROUTE_PLANS={
  ...BASE_ROUTE_PLANS,
+ ...DARK_ROUTE_PLANS,
+ darkRepresentativeClaim:[...BASE_ROUTE_PLANS.representative,...DARK_ROUTE_PLANS.darkClaim],
  fundingResearch:[...BASE_ROUTE_PLANS.cash,...BASE_ROUTE_PLANS.research,'XJ02a'],
  familyWork:['BTF-001:N03a','BTF-001:N04b','BTF-004:N04b',...BASE_ROUTE_PLANS.privateHelp,...BASE_ROUTE_PLANS.shift,...BASE_ROUTE_PLANS.research,'XJ01d','XJ01b','XJ01c','XJ01a'],
  recordedHandoff:[...BASE_ROUTE_PLANS.falseShift,...BASE_ROUTE_PLANS.recording,'XJ03a','XJ03d','XJ03b'],
