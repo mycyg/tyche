@@ -68,6 +68,19 @@ for (let day = 1; day <= RULES.days; day++) {
   const pool = nightPools[day] ? `${Math.min(...nightPools[day])}-${Math.max(...nightPools[day])}` : '-';
   console.log(`D${String(day).padStart(2)} | ${mean(dayTotals[day]).toFixed(1).padStart(5)} | ${pool.padStart(9)} | ${list.join(' ') || '-'}`);
 }
+// Structural supply: how much weight each day's time windows leave open,
+// independent of run state. This is the curve 01 §7 asks to rise to D14.
+console.log('day | events in window | weight in window');
+for (let day = 1; day <= RULES.days; day++) {
+  const open = AUTHORED_EVENTS.filter(e => {
+    if (e.weight <= 0) return false;
+    const range = e.trigger.match(/D(\d+)[–-]D(\d+)/), exact = e.trigger.match(/D(\d+)(?![\d–-])/);
+    if (range) return day >= +range[1] && day <= +range[2];
+    if (exact && !/任意日/.test(e.trigger)) return day === +exact[1];
+    return true;
+  });
+  console.log(`D${String(day).padStart(2)} | ${String(open.length).padStart(17)} | ${String(open.reduce((n, e) => n + e.weight, 0)).padStart(16)}`);
+}
 const never = AUTHORED_EVENTS.filter(e => !union.has(e.id));
 console.log(`never offered in any seed: ${never.length}`);
 console.log(never.map(e => `${e.id}(w${e.weight})`).join(' '));

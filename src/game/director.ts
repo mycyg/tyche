@@ -384,11 +384,14 @@ function chooseBinding(r: AuthoredRun, s: AuthoredDirectorState, e: AuthoredEven
   const stage=({'E-132':1,'E-134':2,'E-136':3,'E-137':4,'E-138':5}as Record<string,number>)[e.id];
   if(stage){
     if(Object.keys(s.activeFacts).some(k=>k.startsWith('rep-recontact-due:'))||s.activeFacts['rep-recontact-closed'])return;
-    if(r.day<(s.drugCooldownUntil??0))return;
+    // After the player was offered grey income at a funding break, the next
+    // rung of the ladder arrives without waiting out the usual interval.
+    const invited=!!s.activeFacts['gray-income-offered']&&stage===(s.drugStage??0)+1;
+    if(!invited&&r.day<(s.drugCooldownUntil??0))return;
     if(s.drugStage!==undefined&&stage>s.drugStage+1)return;
     // The explicit D8 invitation in book 13 keeps its fixed beat; other new
     // stages use the 2–3 day interval in 03 §2.6.
-    if(!(e.id==='E-134'&&r.day===8)&&r.day<(s.drugNextDay??0))return;
+    if(!invited&&!(e.id==='E-134'&&r.day===8)&&r.day<(s.drugNextDay??0))return;
   }
   const project = e.category===7||e.id==='E-135'?'research-project':e.category===5?'representative-account':'audit-project';
   const sourceChain=e.category===7?(s.chains.find(c=>c.chain==='BTF-004'&&c.subjects.projectId&&c.status!=='closed')??[...s.chains].reverse().find(c=>c.chain==='BTF-004'&&c.subjects.projectId&&c.facts.some(f=>f.type==='submitted'))):
