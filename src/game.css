@@ -1404,6 +1404,61 @@ dialog::backdrop {
   image-rendering: pixelated;
   margin: -30px -30px 0;
 }
+.ending-story-image {
+  display: block;
+  width: calc(100% + 60px);
+  max-width: none;
+  aspect-ratio: 1672 / 941;
+  height: auto;
+  object-fit: cover;
+  margin: -45px -30px 0;
+}
+.ending-intro-story {
+  margin-top: 26px;
+}
+.ending-story-author {
+  display: block;
+  color: var(--muted);
+  font-size: 0.82rem;
+  margin-top: 6px;
+  letter-spacing: 0.05em;
+}
+.ending-support {
+  background: #17232a;
+  border: 1px solid var(--line);
+  padding: 28px 30px;
+  margin-top: 30px;
+}
+.ending-support h2 {
+  font-size: 1.05rem;
+  margin: 0 0 16px;
+  color: var(--paper);
+  font-weight: 500;
+}
+.ending-support p {
+  font-size: 0.9rem;
+  line-height: 1.95;
+  color: #c7d2ce;
+  margin: 0 0 14px;
+}
+.ending-support-info {
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+  margin-top: 4px;
+}
+.ending-support-info p {
+  font-size: 0.82rem;
+  color: #aebcb8;
+}
+.ending-support-info a {
+  color: var(--gold);
+}
+.ending-support-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 6px;
+}
 .ending-intro {
   position: relative;
   margin-top: -40px;
@@ -2261,6 +2316,19 @@ dialog::backdrop {
     margin: -20px -19px 0;
     height: 190px;
     background-size: auto 280px;
+  }
+  .ending-story-image {
+    width: calc(100% + 38px);
+    margin: -30px -19px 0;
+  }
+  .ending-support {
+    padding: 20px 18px;
+  }
+  .ending-support h2 {
+    font-size: 0.95rem;
+  }
+  .ending-support p {
+    font-size: 0.83rem;
   }
   .ending-intro h1 {
     font-size: 2.6rem;

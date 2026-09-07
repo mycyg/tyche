@@ -301,9 +301,8 @@ describe('all status recovery contracts',()=>{
     expect(weights.find(x=>x.id==='B09')?.weight).toBe(2);expect(weights.find(x=>x.id==='B23')).toBeUndefined();
     expect(new Set(t.drawTalentDebuffs(ctx(),{debt:1,afterNight:true,san:49},()=>.5)).size).toBe(3);
   });
-  it('B05 skim probability clamps, and B06 night emergency loss is once per actual arrival',()=>{
+  it('B05 skim probability clamps, and B06 night loss is charged by the night baseline rather than an action hook',()=>{
     expect(t.talentSkimChance(ctx([],['B05']),.9)).toBe(1);
-    const s=ctx([],['B06']);const r=t.talentAfterAction(s,{id:'arrival-A',operation:'other',nightEmergency:true});expect(r.effects.san).toBe(-3);
-    expect(t.talentAfterAction({...s,memory:r.memory},{id:'arrival-A',operation:'other',nightEmergency:true}).effects).toEqual({});
+    const s=ctx([],['B06']);expect(t.talentAfterAction(s,{id:'arrival-A',operation:'other'}).effects).toEqual({});
   });
 });

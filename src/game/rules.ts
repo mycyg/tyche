@@ -25,7 +25,6 @@ export const RULES = {
   halfDayAp: 4,
   assetSale: 3500,
   consultationPay: 140,
-  goodCasePay: 200,
   performance: { goodMin: 80, goodMax: 300, budgetRate: .05, roundTo: 10, ordinary: 40 },
   budgetShare: 1,
   billing:{inpatientBaseRate:.6,outpatientBaseRate:.08},

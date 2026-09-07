@@ -15,7 +15,9 @@ import { clinicalCard, progressClinical, scopedClinicalEffects, refreshClinicalC
 import type { GraphAdvance } from '../content/clinical';
 import { presetCard, isPresetEnd, refreshPresetEntryCopy } from './presets';
 import {refreshPeerReferralOffer}from './peer-referrals';
-import { buildAuthoredEvents, afterAuthoredChoice, settleAuthoredEvents, authoredTuning, forceZeroEvent, authoredRequestedEnding, pendingClinicalEvent,refreshButterflyOptions,lateWeeklyBudgetEvents } from './director';
+import { buildAuthoredEvents, afterAuthoredChoice, settleAuthoredEvents, authoredTuning, forceZeroEvent, authoredRequestedEnding, pendingClinicalEvent,refreshButterflyOptions,lateWeeklyBudgetEvents,eligibleAuthoredEvents } from './director';
+import {eventToCard}from '../content/events/catalog';
+import {prepareTalentEvent}from '../content/events/talent-adapter';
 import type { DirectorResult, ClinicalEventCard } from './director';
 import {finalizeFamilyPayments,refreshFamilyInvoiceCard}from '../content/events/family-accounts';
 import { SHIFT_PHASES, scenePhase, orderPendingScenes } from './shift';
@@ -313,7 +315,7 @@ function spendAp(r: Run, ap: number): number {
   return over;
 }
 function addHazards(r: Run, effects: Effects, card: Card, option: Option) {
-  const hazards=talent.talentHazards(talentContext(r),effects.hazards??[],{patientId:card.patientId,unsignedConsent:option.mechanics?.unsignedConsent});
+  const hazards=talent.talentHazards(talentContext(r),effects.hazards??[],{patientId:card.patientId,unsignedConsent:option.mechanics?.unsignedConsent,newAfterTransfer:true});
   for (const [index, h] of hazards.entries()) {
     if(h.weight<=0)continue;
     r.hazards.push({
@@ -878,6 +880,12 @@ function commitChoice(r: Run, option: Option, card: Card, before: Run, acceptedR
   });
   r.phase = showRoll ? "roll" : "feedback";
   const requested=option.talentAction?undefined:authoredRequestedEnding(r,card,option,checkSuccess);
+  if(requested==='X31'||requested==='X32') {
+    // E-209 confirms the resignation already requested from the settlement page.
+    flag(r,'quit-confirmed',option.id);
+    stop(r,'quit');
+    return;
+  }
   if(requested) {
     applyDirector(r,settleAuthoredEvents(r,r.shiftPhase??'日终',true));
     r.ending=documentedEnding(r,requested,{requested});r.phase='ending';delete r.emergency;delete r.pendingCheck;delete r.pendingResume;
@@ -963,7 +971,9 @@ function endDay(r: Run) {
     r.debt * talent.talentInterestRate(talentContext(r),RULES.debtRate),
   );
   r.debt += r.interest;
-  r.uncoveredDays = r.interest > 0 && r.interest > incomeCoverage(r).daily ? r.uncoveredDays + 1 : 0;
+  // A day off has no scheduled work: it neither adds an uncovered day nor
+  // clears the count that scheduled days already produced.
+  if(!isFullDayLeave(r))r.uncoveredDays = r.interest > 0 && r.interest > incomeCoverage(r).daily ? r.uncoveredDays + 1 : 0;
   flag(r,`day-ledger-settled:${r.day}`,'day-end');
   }
   if (r.uncoveredDays >= RULES.debtGrace) {
@@ -1137,8 +1147,59 @@ export function availableOptions(r: Run): Option[] {
   const visible=patient?patientVisibleOptions(r,patient,card,choices):choices;
   return talent.talentTransferFirst(talentContext(r))?visible.sort((a,b)=>Number(b.talentAction==='transfer'||b.interaction==='transfer')-Number(a.talentAction==='transfer'||a.interaction==='transfer')):visible;
 }
+/** B24 shows the current patient's bill against the DIP budget. */
+export function visibleBudget(r:Run):{patientId:string;spent:number;budget:number;gap:number}|undefined {
+  if(!talent.talentShowBudget(talentContext(r)))return;
+  const p=r.patients.find(p=>p.uid===currentCard(r)?.patientId);
+  if(!p)return;
+  return {patientId:p.uid,spent:p.spent,budget:p.budget,gap:p.budget-p.spent};
+}
+export interface AssetSaleOffer {id:string;label:string;amount:number;soldFlag:string}
+/** An event can put a specific asset on offer with a fact `asset-offer:<id>:<amount>`.
+ * Without one, the idle equipment from the rules is sold once per run. */
+export function assetSaleOffer(r:Run):AssetSaleOffer|undefined {
+  const offers=Object.keys(r.facts).flatMap(key=>{
+    const m=key.match(/^asset-offer:([^:]+):(\d+)$/);
+    if(!m||r.facts[`asset-sold:${m[1]}`])return [];
+    return [{id:m[1],label:r.facts[key].source||m[1],amount:Number(m[2]),soldFlag:`asset-sold:${m[1]}`}];
+  }).sort((a,b)=>b.amount-a.amount);
+  if(offers.length)return offers[0];
+  if(r.facts['asset-sold'])return;
+  return {id:'equipment',label:'卖掉闲置设备',amount:RULES.assetSale,soldFlag:'asset-sold'};
+}
+export interface GrayIncomeOffer {amount:number;flags:string[]}
+/** Only an open representative line can offer money on the spot. The director
+ * writes `gray-income-offer:<amount>`; accepting it records the kickback. */
+export function grayIncomeOffer(r:Run):GrayIncomeOffer|undefined {
+  if(r.facts['gray-income-accepted'])return;
+  const key=Object.keys(r.facts).find(key=>/^gray-income-offer:\d+$/.test(key));
+  if(!key)return;
+  return {amount:Number(key.split(':')[1]),flags:['gray-income-accepted','kickback-received']};
+}
+/** Available from the evening settlement page until the day-end check. */
+export function resignationAvailable(r:Run):boolean {
+  if(r.emergency||r.day>RULES.days||r.facts['resign-requested'])return false;
+  if(r.phase==='play')return r.shiftPhase==='结算'||r.shiftPhase==='日终';
+  return r.phase==='feedback'&&r.feedback?.next==='check';
+}
+function requestResignation(r:Run) {
+  flag(r,'resign-requested',`resign:${r.day}`);
+  // The locker-room scene is a settlement-page scene even when the request
+  // arrives at the day-end summary; a rest-desk card would offer rest abilities.
+  const match=eligibleAuthoredEvents(r,'结算').find(x=>x.event.id==='E-209');
+  if(!match)throw new Error('E-209 is not eligible after resign-requested');
+  const card=prepareTalentEvent(r,eventToCard(match.event,match.binding,match.context));
+  card.shiftPhase=r.shiftPhase??'结算';
+  if(r.authored)r.authored.published[card.id]=card;
+  if(!r.queue.some(c=>c.id===card.id))r.queue.splice(r.cursor,0,card);
+  delete r.feedback;delete r.pendingCheck;delete r.roll;
+  r.phase='play';
+}
 export function act(input: Run, action: Action): Run {
   if (input.phase === "ending") return input;
+  // Exhaustion is handled by the acute event cards (E-197 to E-199); the old
+  // collapse panel no longer exists and its action is rejected.
+  if (action.type === "collapse") return input;
   if (action.type === "focus") {
     if (!availableEncounters(input).some(c => c.id === action.id)) return input;
     const index = input.queue.findIndex(c => c.id === action.id);
@@ -1373,10 +1434,19 @@ export function act(input: Run, action: Action): Run {
       flag(r, "family-funding", `fund:${r.day}`);
     }
     if (action.method === "asset") {
-      if (r.facts["asset-sold"]) return input;
-      r.cash += RULES.assetSale;
-      flag(r, "asset-sold", `fund:${r.day}`);
+      const offer=assetSaleOffer(r);
+      if (!offer) return input;
+      r.cash += offer.amount;
+      flag(r, offer.soldFlag, `fund:${r.day}`);
       r.vitals.emotion = Math.max(0, r.vitals.emotion - 5);
+      r.journal.push({id:`asset-sale:${r.day}:${offer.id}`,day:r.day,title:'变卖资产',choice:offer.label,result:`${offer.label}换来 ¥${offer.amount.toLocaleString('zh-CN')}。这件东西以后不能再用了。`,scope:{kind:'personal',id:r.id},flags:[offer.soldFlag]});
+    }
+    if (action.method === "gray") {
+      const offer=grayIncomeOffer(r);
+      if (!offer) return input;
+      r.cash += offer.amount;
+      for(const key of offer.flags)flag(r,key,`fund:${r.day}`);
+      r.journal.push({id:`gray-income:${r.day}`,day:r.day,title:'眼前的钱',choice:'接受眼前的灰色收入',result:`你收下了 ¥${offer.amount.toLocaleString('zh-CN')}。这笔钱的来路会留在记录里。`,scope:{kind:'personal',id:r.id},flags:offer.flags});
     }
     finalizeFamilyPayments(r);
     r.phase = resumePhase(r);
@@ -1384,22 +1454,9 @@ export function act(input: Run, action: Action): Run {
     delete r.pendingResume;
     interrupt(r);
     resumeWork(r);
-  } else if (action.type === "collapse") {
-    if (r.phase !== "collapse") return input;
-    r.caps.stamina = Math.max(1, r.caps.stamina - 20);
-    r.vitals.stamina = Math.max(1, Math.floor(r.caps.stamina / 2));
-    if (action.method === "help")
-      r.relations.peer = Math.max(0, r.relations.peer - 1);
-    if (action.method === "report")
-      r.reputation = Math.max(0, r.reputation - 15);
-    if (action.method === "clinic") {
-      r.cash -= 600;
-      r.debuffs = r.debuffs.filter((x) => x !== "B03");
-    }
-    r.phase = resumePhase(r);
-    if(r.phase!=='feedback')delete r.feedback;
-    delete r.pendingResume;
-    interrupt(r);
+  } else if (action.type === "resign") {
+    if (!resignationAvailable(r)) return input;
+    requestResignation(r);
   } else if (action.type === "testify") {
     if (r.phase !== "tribunal") return input;
     r.tribunalResponse = action.response;
@@ -1429,7 +1486,7 @@ export function reward(meta: Meta, r: Run): Meta {
   const newEndings=endingIds.filter(id=>!meta.endings.includes(id)).length;
   const newTalents=r.talents.filter(id=>!meta.usedTalents?.includes(id)).length;
   const xp=(r.day>=15?3:0)+newEndings*2+newEntries+newTalents+Math.min(5,scenes.filter(s=>!meta.scenes.includes(s)).length*.5);
-  next.xp+=xp*(r.difficulty==='attending'?1.5:1);
+  next.xp+=Math.round(xp*(r.difficulty==='attending'?1.5:1)*2)/2;
   const caught=r.patients.filter(p=>p.clinical?.outcomeId&&p.damage<2&&p.clinical.causalChoices.length===0).length;
   next.insight=(next.insight??0)+caught+newEndings*2+newEntries+(r.day>=15?2:0);
   next.runs++;
@@ -1501,6 +1558,7 @@ export function publicState(r: Run) {
     borrowed: r.borrowed,
     relations: r.relations,
     debuffs: r.debuffs,
+    budget: visibleBudget(r),
     card:
       r.phase === "play"
         ? {

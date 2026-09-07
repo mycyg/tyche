@@ -8,6 +8,14 @@ const cells = (s: string) => s.trim().replace(/^\||\|$/g,'').split('|').map(x =>
 const f = (flag: string): GraphCondition => ({flag});
 const choice = (choice: string): GraphCondition => ({choice});
 
+export const missingTribunalRows: string[] = [];
+function tribunalReason(graph: ClinicalGraph, optionId: string, value: string, fallback: string): string {
+  const authored = graph.tribunal[optionId];
+  if (authored) return authored;
+  if (/\b[RCDF]\s*\+?\s*\d/.test(value)) missingTribunalRows.push(`${graph.id}/${optionId}`);
+  return fallback;
+}
+
 export function parseHazards(value: string, reason: string): HazardInput[] {
   return [...value.matchAll(/\b([RCDF])\s*\+?\s*(\d+)([^；;]*)(?=；|;|$)/g)].map(m => ({
     type: m[1] as HazardInput['type'], weight: Number(m[2]), reason,
@@ -74,7 +82,7 @@ export function parseClinicalSource(raw: string, file: string): ClinicalGraph {
       const d=Object.fromEntries(header.map((h,n)=>[h,c[n]??'']));
       const checkRaw=d['检定']; const checkMatch=checkRaw.match(/(问诊|察觉|安抚|说服|文书)\s*DC\s*(\d+)/);
       const flags=flagEffects(d['设置 flag'],!!checkMatch);
-      const hazards=parseHazards(d['隐患'],graph.tribunal[c[0]]??clean(d['选项文本']));
+      const hazards=parseHazards(d['隐患'],tribunalReason(graph,c[0],d['隐患'],clean(d['选项文本'])));
       const effects: Effects={stamina:-num(d['体力']),flags:flags.base};
       const conditionalHazard=d['隐患'].match(/(?:未设|未设置)\s*([a-z_]+)\s*时|([a-z_]+)\s*时[：:]/);
       if(!conditionalHazard&&hazards.length)effects.hazards=hazards;
@@ -84,7 +92,7 @@ export function parseClinicalSource(raw: string, file: string): ClinicalGraph {
       if(variantTable&&variantTable!=='default')option.requires={variant:variantTable};
       if(checkMatch) {
         const failureText=clean((checkRaw.match(/(?:失败|败)\s*(?:[：:→]\s*)?([\s\S]*)$/)?.[1]??'').replace(/可再选.*/,''))||'对方没有补充更多信息。';
-        const failure:Effects={};const failureHazards=parseHazards(failureText,graph.tribunal[c[0]]??failureText);
+        const failure:Effects={};const failureHazards=parseHazards(failureText,tribunalReason(graph,c[0],failureText,failureText));
         if(failureHazards.length)failure.hazards=failureHazards;
         const em=failureText.match(/情绪\s*[−-]\s*(\d+)/);if(em)failure.emotion=-Number(em[1]);
         option.check={skill:skillMap[checkMatch[1]],dc:Number(checkMatch[2]),failure,failureText};
@@ -103,7 +111,8 @@ export function parseClinicalSource(raw: string, file: string): ClinicalGraph {
     // All original lines remain in node.source.raw for provenance.
     if(line.trim()&&!/^(说明|医嘱|处方|转运医嘱|溶栓医嘱|叙事（|系统档|CT 对比|此步|本步骤|节点规则|s\d|默认|变体|皮试液|《|死亡病例|疑似|重大医疗)/.test(line)&&!/^台词|^查体回报/.test(line))node.text+=(node.text?'\n':'')+clean(line);
     const dialogue=line.match(/^(?:台词|查体回报|叙事|医嘱|处方|转运医嘱|溶栓医嘱)（([^）]+)）[：:](.*)/);
-    if(dialogue){for(const op of node.options.filter(o=>dialogue[1].includes(o.id))){
+    if(dialogue){const targets=new Set(dialogue[1].split(/[^A-Za-z0-9_]+/).filter(Boolean));
+      for(const op of node.options.filter(o=>targets.has(o.id))){
       if(/失败/.test(dialogue[1])&&op.check)op.check.failureText=clean(dialogue[2]);
       else if(/成功/.test(dialogue[1]))op.successText=clean(dialogue[2]);
       else op.result+=(op.result?'\n':'')+clean(dialogue[2]);
@@ -118,8 +127,8 @@ export function parseClinicalSource(raw: string, file: string): ClinicalGraph {
     const m=line.match(/^(?:- )?全文[：:](.*)/);if(!m)continue;
     const full=clean(m[1]);
     let end=i+1;while(end<labs.lines.length&&!/^\*\*/.test(labs.lines[end]))end++;
-    const excerpt=labs.lines.slice(i+1,end).find(l=>/^\[扫读\]/.test(l));
-    const skimmed=excerpt?clean(excerpt.replace(/^\[扫读\][：:\s]*/,'')):full;
+    const excerpt=labs.lines.slice(i+1,end).find(l=>/\[扫读\]/.test(l));
+    const skimmed=excerpt?clean(excerpt.replace(/^.*?\[扫读\][：:\s]*/,'').replace(/^[「『]/,'').replace(/[」』]\s*$/,'')):full;
     let reportWhen:GraphCondition={always:true};const refs=ids(reportHint).filter(x=>/^s\d/.test(x));
     if(refs.length)reportWhen={any:refs.map(choice)};
     graph.reports.push({id:`${id}_r${graph.reports.length+1}`,title:reportTitle,full,skimmed,source:source(reportLine,'检查回报',reportHint+'\n'+labs.lines.slice(i,end).join('\n')),when:reportWhen});

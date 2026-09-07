@@ -2,7 +2,7 @@ import { pronounce, voiceKey, voiceSentences, voiceText } from './voice-text';
 import { audioLevel, crossfadeProgress } from './audio-mix';
 import { createVoicePlanner,voiceAssetUrl,type VoiceClip } from './voice-plan';
 import { dialogueSegments,type SpeechSegment } from './dialogue-voice';
-import type {MusicScene}from '../shared/audio-assets';
+import { MUSIC_LOOP_POINTS, MUSIC_OGG_SCENES, type MusicScene } from '../shared/audio-assets';
 
 export interface AudioSettings {
   sound: boolean;
@@ -31,13 +31,30 @@ function levels() {
   if (outgoing) outgoing.volume = volume(music * (1 - scoreMix));
   if (speech) speech.volume = volume(settings.voiceVolume, .85);
 }
+let oggSupport: boolean | undefined;
+/** Cached once: jsdom and very old browsers report no codec support, which just keeps every scene on mp3. */
+function supportsOgg(): boolean {
+  if (oggSupport !== undefined) return oggSupport;
+  try { oggSupport = typeof Audio !== 'undefined' && !!new Audio().canPlayType('audio/ogg; codecs="vorbis"'); }
+  catch { oggSupport = false; }
+  return oggSupport;
+}
 function switchScore() {
   if (!unlocked || settings.music === false || hidden()) { score?.pause(); outgoing?.pause(); return; }
   if (activeScene === playingScene && score) { levels(); void safePlay(score); return; }
   cancelAnimationFrame(fadeFrame);
   outgoing?.pause(); outgoing = score;
-  score = new Audio(`${import.meta.env.BASE_URL}audio/music/${activeScene}.mp3`);
-  score.loop = true; score.preload = 'metadata'; score.volume = 0;
+  const ext = MUSIC_OGG_SCENES.has(activeScene) && supportsOgg() ? 'ogg' : 'mp3';
+  const audio = new Audio(`${import.meta.env.BASE_URL}audio/music/${activeScene}.${ext}`);
+  const loop = MUSIC_LOOP_POINTS[activeScene];
+  if (loop) {
+    // Seek to the manifest's loop point instead of native <audio loop>, which just restarts
+    // at 0:00 and would ignore a future track whose loop body starts after an intro.
+    const loopStart = loop.loopStart / loop.sampleRate, loopEnd = loop.loopEndSamples / loop.sampleRate;
+    audio.addEventListener('timeupdate', () => { if (audio.currentTime >= loopEnd) audio.currentTime = loopStart; });
+  } else audio.loop = true;
+  audio.preload = 'metadata'; audio.volume = 0;
+  score = audio;
   playingScene = activeScene; scoreMix = outgoing ? 0 : 1;
   void safePlay(score);
   const start = performance.now();

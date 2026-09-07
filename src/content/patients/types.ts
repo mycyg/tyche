@@ -32,6 +32,10 @@ export interface CasePreset extends PresetSource {
   hazards: HazardInput[]; scenes: Scene[]; entry: string;
   /** Option IDs in a complete safe route; used by content traversal and voice collection. */
   safeRoute: string[]; echoFlags: { success: string; pending: string; resolved: string };
+  /** Flags that must all be set before this preset's own risks count as closed,
+   * and the sentence to show for each one that is still missing. The two arrays
+   * are parallel: `pending[i]` explains the absence of `requires[i]`. */
+  riskClosure: { requires: string[]; pending: string[] };
 }
 export interface InstantiatedPreset extends ClinicalCase {
   performanceGood: number;
