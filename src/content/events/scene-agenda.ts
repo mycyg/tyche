@@ -13,7 +13,8 @@ export interface SceneAgendaState {
 const scenePhases:EventPhase[]=['交班','查房','门诊','结算','夜班','日终'];
 const phaseIndex=(phase:EventPhase)=>scenePhases.indexOf(phase);
 const byFirstDue=(a:SceneAgendaItem,b:SceneAgendaItem)=>a.due-b.due||phaseIndex(a.phase)-phaseIndex(b.phase)||(a.cardId<b.cardId?-1:a.cardId>b.cardId?1:0);
-export const randomSceneSlots=(day:number,phase:EventPhase)=>phase==='结算'?Math.max(1,RULES.events.echoDailyCaps[Math.max(0,Math.min(13,day-1))]):1;
+/** 01 §7 pressure curve: how many random scenes one phase of one day offers. */
+export const randomSceneSlots=(day:number,phase:EventPhase)=>RULES.events.randomSlots[phase][Math.max(0,Math.min(13,day-1))];
 export const obligatoryScene=(card:Card|undefined,published:Record<string,Card>={},chains:SceneAgendaState['chains']=[]):boolean=>{
  if(!card)return false;
  const followup=(card as Card&{sourceFollowup?:{kind:string;stage?:number}}).sourceFollowup;

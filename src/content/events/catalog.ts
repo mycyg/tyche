@@ -24,12 +24,18 @@ const sum = (a: Effects, b: Effects): Effects => {
   return out;
 };
 
+/** “写入 `X` 或 `Y`” names two possible records. The choice decides which one,
+ * so neither name may be written for every option of the event. */
+function factAlternatives(s: string): string[][] {
+  return [...s.matchAll(/写入\s*(`[^`]+`(?:\s*(?:或|／)\s*`[^`]+`)+)/g)].map(m => [...m[1].matchAll(/`([^`]+)`/g)].map(x => x[1]));
+}
 /** Only explicit writes count as facts; mentions, questions and refusals never imply consent. */
 function factWrites(s: string): string[] {
+  const alternatives = new Set(factAlternatives(s).flat());
   const result: string[] = [];
   for (const m of s.matchAll(/写入\s*((?:`[^`]+`(?:\s*[、与]\s*)?)+)/g)) result.push(...[...m[1].matchAll(/`([^`]+)`/g)].map(x => x[1]));
   for (const m of s.matchAll(/`([^`]+)`\s*\+1/g)) result.push(m[1]);
-  return [...new Set(result)];
+  return [...new Set(result)].filter(flag => !alternatives.has(flag));
 }
 function immediateEffects(raw: string): Effects {
   const text = clean(raw);
@@ -196,6 +202,9 @@ function optionsFor(row: typeof source.events[number]): EventOption[] {
       option.failureDeferred = fail.deferred; option.failureModifiers = fail.modifiers;
       if(!checkMatch)option.chanceCheck={successAtLeast:chanceDC};
     }
+    // A silent roll still needs a warning before the click, even when the
+    // source row lists no immediate cost.
+    if (!option.hint && (option.check || option.chanceCheck)) option.hint = '这一项要掷一次骰子，没有通过会另有代价。';
     return option;
   });
   // “失败转①” inherits the actual alternative consequences, never a new click/cost twice.
@@ -221,17 +230,21 @@ const phaseFor = (r: typeof source.events[number]): EventPhase[] => {
   if (/晨间交班/.test(r.trigger)) return ['交班'];
   return r.category === 8 ? phaseNames : r.category === 3 ? ['日终'] : ['结算'];
 };
-const scopeFor = (r: typeof source.events[number]): AuthoredEvent['scopeKind'] => {
-  if(['E-052','E-053','E-054'].includes(r.id))return 'patient';
-  if (r.category === 7 || r.category === 5) return 'project';
-  if (r.category === 1 || /（[^）]*(?:床|病人|患者)/.test(r.options.map(o => o.consequence).join(''))) return 'patient';
-  if(r.category===6)return 'project';
-  return 'personal';
-};
+/** The source row states its scope; it is never inferred from consequence text. */
+const scopeFor = (r: typeof source.events[number]): AuthoredEvent['scopeKind'] => r.scope as AuthoredEvent['scopeKind'];
+/** “互斥组：X（与 E-YYY 同组）” registers both rows, not only the row that names the group. */
+const groupOverrides: Record<string, string> = { 'E-200': 'SAN归零', 'E-201': 'SAN归零', 'E-202': 'SAN归零' };
+for (const row of source.events) {
+  const group = (row.followup.match(/互斥组[：:]\s*([^；（]+)/) ?? row.trigger.match(/互斥组[：:]\s*([^；（]+)/))?.[1]?.trim();
+  if (!group) continue;
+  for (const m of `${row.followup}${row.trigger}`.matchAll(/与\s*(E-\d{3})\s*同组/g)) groupOverrides[m[1]] = group;
+}
 
 export const AUTHORED_EVENTS: AuthoredEvent[] = source.events.map(row => {
   const options = optionsFor(row);
-  const follow = row.followup.split('；').filter(c => !/选[①②③]|成功|失败|使|为|抽取|候选|至写入|已触发|未触发/.test(c));
+  // A clause that merely names a later condition is dropped, but a plain write
+  // is kept even when the recorded name itself ends in “候选”.
+  const follow = row.followup.split('；').filter(c => !/选[①②③]|成功|失败|使|为|抽取|至写入|已触发|未触发/.test(c));
   const commonFlags = follow.flatMap(factWrites);
   const commonClear=follow.flatMap(c=>immediateEffects(c).clear??[]);
   for (const opt of options) { opt.effects.flags = [...new Set([...(opt.effects.flags ?? []), ...commonFlags])]; if(opt.failureTotal)opt.failureTotal.flags=[...new Set([...(opt.failureTotal.flags??[]),...commonFlags])];if(commonClear.length){opt.effects.clear=[...new Set([...opt.effects.clear??[],...commonClear])];if(opt.failureTotal)opt.failureTotal.clear=[...new Set([...opt.failureTotal.clear??[],...commonClear])];} }
@@ -241,6 +254,24 @@ export const AUTHORED_EVENTS: AuthoredEvent[] = source.events.map(row => {
       const opt = options['①②③'.indexOf(marker)];
       if (opt) opt.effects.flags = [...new Set([...(opt.effects.flags ?? []), m[2]])];
     }
+  }
+  // “失败时写入 `X`” belongs to the failed branch of each checked option.
+  for (const m of row.followup.matchAll(/失败时写入\s*`([^`]+)`/g)) for (const opt of options) {
+    if (!opt.check) continue;
+    opt.check.failure.flags = [...new Set([...(opt.check.failure.flags ?? []), m[1]])];
+    opt.failureTotal = { ...opt.failureTotal, flags: [...new Set([...(opt.failureTotal?.flags ?? []), m[1]])] };
+  }
+  // 家人到访 and 被接走 are two different evenings; option ③ is the visit.
+  if (row.id === 'E-205') {
+    for (const i of [0, 1]) options[i].effects.flags = [...new Set([...(options[i].effects.flags ?? []), '被接走'])];
+    options[1].failureTotal = { ...options[1].failureTotal, flags: [...new Set([...(options[1].failureTotal?.flags ?? []), '被接走'])] };
+    options[2].effects.flags = [...(options[2].effects.flags ?? []).filter(f => f !== '被接走'), '家人到访'];
+  }
+  if (row.id === 'E-209') {
+    // The third source row states how the ending is dispatched; it is not a choice.
+    options.length = 2;
+    options[0].effects.flags = [...(options[0].effects.flags ?? []), '离职-带走白大褂'];
+    options[1].effects.flags = [...(options[1].effects.flags ?? []), '离职-留下白大褂'];
   }
   if (row.id === 'E-001') for (const i of [0, 2]) {
     options[i].effects.flags = [...(options[i].effects.flags ?? []), '隐瞒-被抓'];
@@ -355,6 +386,8 @@ export const AUTHORED_EVENTS: AuthoredEvent[] = source.events.map(row => {
     for(const i of [0,2])delete options[i].effects.bill;
   }
   if(row.id==='E-171'){
+    // ① settles the excess now. The amount is this patient's actual unpaid
+    // excess, supplied by the bound context; nothing already settled is charged again.
     delete options[0].effects.cash;delete options[1].failureTotal!.cash;delete options[1].check!.failure.cash;
     options[0].hint='结清本患者尚未支付的实际超预算差额；此后每日新增 ¥600，至本患者出院。';
     options[1].effects.discharge=true;
@@ -384,8 +417,11 @@ export const AUTHORED_EVENTS: AuthoredEvent[] = source.events.map(row => {
     const sourceChoice=d.id.match(/E-\d{3}-[abc]/)?.[0];
     if(sourceChoice&&EVENT_DEFERRED_RESULTS[sourceChoice]&&!/exam-result|repayment|feeding|peer-absent|post-run-reimbursement/.test(d.id))d.description=EVENT_DEFERRED_RESULTS[sourceChoice];
   }
-  const exclusive = row.followup.match(/互斥组[：:]\s*([^；（]+)/)?.[1] ?? row.trigger.match(/互斥组[：:]\s*([^；（]+)/)?.[1];
-  return { ...row, text: eventPlayerText(row.text), options, phases: phaseFor(row), repeatable: /可重复/.test(row.followup), exclusiveGroup: exclusive,
+  const exclusive = groupOverrides[row.id] ?? row.followup.match(/互斥组[：:]\s*([^；（]+)/)?.[1] ?? row.trigger.match(/互斥组[：:]\s*([^；（]+)/)?.[1];
+  // “可重复（负债每增加 ¥10,000 一次）” is a measured repeat, not a daily one.
+  const measured = row.followup.match(/可重复（(体力|SAN|情绪|抑郁|声望|余额|负债)每增加\s*¥?([\d,]+)\s*一次）/);
+  const repeatEvery = measured ? { resource: resourceNames[measured[1]] as keyof Effects, amount: num(measured[2]) } : undefined;
+  return { ...row, text: eventPlayerText(row.text), options, phases: phaseFor(row), repeatable: /可重复/.test(row.followup), exclusiveGroup: exclusive, repeatEvery,
     scopeKind: scopeFor(row), requiredQualifiers: row.trigger.split('；').filter(c => !/`[^`]+`\s*[≥≤<>=]\s*\d+/.test(c)).map(clean).filter(c => !/^(?:D|否则 D|任意日|阶段|工资日|夜班日|夜班后|非夜班|已触发|未触发|必发|关系|体力|SAN|情绪|抑郁|声望|余额|负债|现金压力|累计超支|当日累计超支|利息|互斥组|权重)/.test(c)),
     onEnter: row.id==='E-157'?{san:-5,emotion:-10,depression:3,reputation:-10}:/触发时先/.test(row.followup) ? immediateEffects(row.followup.split('；')[0]) : {} };
 });
@@ -406,8 +442,13 @@ const compare = (a: number, op: string, b: number) => op === '≥' || op === '>=
 export function eventEligible(event: AuthoredEvent, ctx: EventContext): boolean {
   if (!event.phases.includes(ctx.phase)) return false;
   if(['E-159','E-160'].includes(event.id)&&!RULES.wageDays.includes(ctx.day as never))return false;
-  if(event.id==='E-106'&&!RULES.nightDays.includes((ctx.day+3) as never))return false;
   if(event.id==='E-100'&&has(ctx,'家庭-丧亲'))return false;
+  if (event.repeatEvery && ctx.seen?.[event.id] !== undefined) {
+    const times = Number(ctx.facts[`event-count:${event.id}`] ?? 0);
+    const key = event.repeatEvery.resource as 'debt';
+    const base = num(event.trigger.match(/(?:体力|SAN|情绪|抑郁|声望|余额|负债)\s*[≥>]\s*¥?([\d,]+)/)?.[1] ?? '0');
+    if (Number(ctx[key] ?? 0) < base + event.repeatEvery.amount * times) return false;
+  }
   if (ctx.seen?.[event.id] !== undefined && (!event.repeatable || ctx.seen[event.id] === ctx.day)) return false;
   if (event.exclusiveGroup && AUTHORED_EVENTS.some(e => e.exclusiveGroup === event.exclusiveGroup && ctx.seen?.[e.id] !== undefined)) return false;
   if(event.id==='E-100'&&(has(ctx,'家庭-出院')||has(ctx,'家庭-放弃治疗')))return false;
@@ -429,6 +470,17 @@ export function eventEligible(event: AuthoredEvent, ctx: EventContext): boolean 
     if (['E-099', 'E-105'].includes(event.id) && /^D/.test(c)) continue;
     if (event.id === 'E-134' && /D8 必发|药代-上交|药代-拒绝|否则 D7/.test(c)) continue;
     if (/^(?:阶段=|必发|互斥组|任意日)/.test(c)) continue;
+    // The department talk follows the published notice, whichever amount it named.
+    if (event.id === 'E-160' && /累计超支/.test(c) && has(ctx, 'DIP-首通报')) continue;
+    // Relative days count from today (“D+3 为夜班日”) or from the day the
+    // triggering record was written (“D+3 起”).
+    const relativeNight = c.match(/^D\+(\d+)\s*为夜班日/);
+    if (relativeNight && !RULES.nightDays.includes((ctx.day + +relativeNight[1]) as never)) return false;
+    const relativeStart = c.match(/^D\+(\d+)\s*起/);
+    if (relativeStart) {
+      const keys = [...raw.matchAll(/(?:写入|已触发)\s*`([^`]+)`/g)].map(m => m[1]);
+      if (!keys.length || !keys.some(k => flagAge(ctx, k) >= +relativeStart[1] + 1)) return false;
+    }
     if (c === '夜班日' && !night) return false;
     if (c === '非夜班日' && night) return false;
     if (c === '夜班后一天' && ![4, 7, 10, 13].includes(ctx.day)) return false;
@@ -467,11 +519,21 @@ export function eventEligible(event: AuthoredEvent, ctx: EventContext): boolean 
     if (answers.length && !answers.some(Boolean)) return false;
     if (/利息\s*>\s*当日收入/.test(c) && !((ctx.interest ?? 0) > (ctx.income ?? 0))) return false;
   }
-  return event.requiredQualifiers.every(q => ctx.qualifiers?.includes(q));
+  // “或 X” continues the preceding qualifier as an alternative, not a second requirement.
+  const groups: string[][] = [];
+  for (const q of event.requiredQualifiers) {
+    if (/^或\s/.test(q) && groups.length) groups[groups.length - 1].push(q);
+    else groups.push([q]);
+  }
+  return groups.every(group => group.some(q => ctx.qualifiers?.includes(q)));
 }
 export function eventWeight(event: AuthoredEvent, ctx: EventContext): number {
   let w = event.weight || 1;
   if(event.id==='E-170'&&ctx.day===4)w=4;
+  // The five night shifts draw from the bedside library too, and each bedside
+  // event happens once. Daytime rounds take them at half rate so the later
+  // nights still have something to offer; at night they keep their full weight.
+  if (event.category === 1 && event.phases.includes('夜班') && ctx.phase !== '夜班') w *= 0.5;
   if (event.category === 5 && (ctx.pressure ?? 0) >= 60) w *= 2;
   if (ctx.day >= 8 && /已触发/.test(event.trigger)) w *= 1.5;
   if (event.category === 1 && (ctx.san ?? 100) < 50 && event.options.some(o => o.check?.skill === 'observe')) w *= 1.5;
@@ -552,6 +614,20 @@ export function eventRiskTargets(event: AuthoredEvent, option: EventOption, bind
 /** Resolve resource/fact-dependent alternatives before the choice is offered. */
 export function contextualOptions(event: AuthoredEvent, context: EventContext): EventOption[] {
   if(event.id==='E-209')return event.options.slice(0,2);
+  if(event.id==='E-171'&&typeof context.facts['patient-budget-unpaid']==='number'){
+    const options=structuredClone(event.options);
+    const due=Math.min(Math.max(0,context.cash??0),Number(context.facts['patient-budget-unpaid']));
+    options[0].effects.cash=-due;
+    options[0].hint=`结清这位患者已经超出预算的 ¥${due.toLocaleString('en-US')}；此后每日新增 ¥600，至本患者出院。`;
+    return options;
+  }
+  if(event.id==='E-207'){
+    // The car can only be sold once; a second sale is the watch.
+    const sold=has(context,'卖车')||has(context,'car-sold')||has(context,'家庭-卖车');
+    const options=structuredClone(event.options);
+    options[0].effects.flags=[...(options[0].effects.flags??[]).filter(f=>f!=='卖车'&&f!=='卖表'),sold?'卖表':'卖车'];
+    return options;
+  }
   if(event.id==='E-100'){
     const options=structuredClone(event.options),fee=Number(context.facts['family-icu-daily-fee']??(has(context,'家庭-降级')?2000:8000));
     options[0].effects.cash=-fee;options[0].label=`转 ¥${fee.toLocaleString('en-US')}，补交今天的住院预交金`;options[0].consequence=`余额 −¥${fee.toLocaleString('en-US')}；现金压力 +5`;options[0].hint=options[0].consequence;return options;

@@ -246,7 +246,6 @@ function contextFor(r: AuthoredRun, s: AuthoredDirectorState, phase: EventPhase,
   if (reviewDay !== undefined && reviewDay >= r.day - 1 && s.ledger.commits.some(k => /E-045-c/.test(k))) q.push('当日有病历退回未改');
   if (r.overtime > 0) q.push('当日已加班');
   if (s.chains.some(c => c.facts.some(f => f.type === 'financial_need_disclosed')) || s.ledger.facts.some(f => f.id === 'financial-need-told-representative')) q.push('药代经实际交流已知资金困难');
-  if (r.day === 4) q.push('权重 4（飞检进驻前夜）');
   if (p?.inpatient && p.spent > p.budget) q.push('在床有超预算病人');
   if (p && (p.readmitted || !p.inpatient && /高血压|糖尿病|慢病/.test(base))) q.push('当前病人为慢病复诊');
   q.push(phase === '夜班' ? '时段=夜班' : '时段=白天');
@@ -256,10 +255,17 @@ function contextFor(r: AuthoredRun, s: AuthoredDirectorState, phase: EventPhase,
   const reducedIcuFee=s.ledger.modifiers.find(m=>m.target==='family-icu-fee'&&m.starts<=r.day&&m.expires>=r.day);
   if(reducedIcuFee)f['family-icu-daily-fee']=reducedIcuFee.value??4000;
   if(f['家庭-降级'])f['family-icu-daily-fee']=2000;
-  if(p)f['patient-budget-excess']=Math.max(0,p.spent-p.budget);
+  if(p){f['patient-budget-excess']=Math.max(0,p.spent-p.budget);f['patient-budget-unpaid']=Math.max(0,p.spent-p.budget-p.charged);}
+  // Published cards are the run's own record of how often an event has happened.
+  for(const card of Object.values(s.published)){
+    const id=(card as Partial<EventCard>).authoredEventId;
+    if(id)f[`event-count:${id}`]=Number(f[`event-count:${id}`]??0)+1;
+  }
   if (f['药代-4统方'] || f['药代-5回扣'] || r.facts['prescription-exported']) {
     q.push('写入 统方 或 回扣');
-    if (r.day === 13 && phase === '结算' && runRandom(r, 'authored:arrest:13') < 0.45) q.push('局末判定命中', '或 D13 结算');
+    // The source gives two ways in: a hit on the end-of-run check, or D13 settlement.
+    if (r.day === 13 && phase === '结算') q.push('或 D13 结算');
+    if (r.day >= 13 && runRandom(r, 'authored:arrest:13') < 0.45) q.push('局末判定命中');
   }
   if (r.facts['resign-requested']) q.push('玩家在结算页选择「提桶跑路」（确认前）');
   if (f['人情债'] || r.facts['li-owes-time']) q.push('写入 人情债');
@@ -393,6 +399,8 @@ function chooseBinding(r: AuthoredRun, s: AuthoredDirectorState, e: AuthoredEven
   if(e.id==='E-059')candidates=r.patients.filter(p=>p.damage===3&&p.caseId!=='C020'&&(p.caredDay>0||!!p.clinical?.choices.length)&&!!r.facts[`patient-death:${p.uid}`]&&r.facts[`patient-death:${p.uid}`].day>=r.day-1);
   if(e.id==='E-056')candidates=r.patients.filter(p=>historicalEventEligible(e.id,r,p));
   if (phase === '查房') candidates = candidates.filter(p => !p || p.inpatient || e.id==='E-036'&&p.dischargedDay===r.day);
+  // A night shift walks the ward; an outpatient of that day is not on it.
+  if (phase === '夜班') candidates = candidates.filter(p => !p || p.inpatient);
   if (phase === '门诊'&&e.id!=='E-046') candidates = candidates.filter(p => !p || !p.inpatient);
   if(e.id==='E-043'||e.id==='E-053')candidates=candidates.filter(p=>p&&s.clinicalAssignments?.some(a=>a.patientId===p.uid&&a.owner===(e.id==='E-043'?'peer':'chief')));
   else if(e.id!=='E-056')candidates=candidates.filter(p=>!p||isPlayerResponsibleForPatient({...r,authored:s},p));
@@ -572,7 +580,11 @@ export function buildAuthoredEvents(r: AuthoredRun, phase: EventPhase): Director
   const pool=eligible.filter(x=>!isMandatory(x.event,r) && !selected.includes(x)&&!contacts.includes(x)&&!(x.event.id==='E-100'&&selected.some(x=>x.event.id==='E-102')));
   const weights=pool.map(x=>authoredTalentWeight(r,x.event,eventWeight(x.event,x.context))*auditEventWeight(r,x.event)*(x.event.category===5?eventTuning(s.ledger,r.day).drugEventWeight:1)*(x.event.category===6&&s.activeFacts['低标入院']?1.5:1)*s.ledger.modifiers.filter(m=>m.target===`event-weight:${x.event.id}`&&m.starts<=r.day&&m.expires>=r.day).reduce((v,m)=>v*(m.factor??1),1));
   const randomPicks:typeof pool=[];
-  for(let slot=0;slot<randomSceneSlots(r.day,phase);slot++){
+  // A night beat exists only on an actual night shift; a day without one
+  // builds no night cards (V-24).
+  const nightOnDuty=phase!=='夜班'||r.nightBudget>0||!!s.activeFacts[`extra-night:${r.day}`];
+  const slots=nightOnDuty?randomSceneSlots(r.day,phase):0;
+  for(let slot=0;slot<slots;slot++){
     const total=pool.reduce((sum,item,i)=>sum+(randomPicks.includes(item)?0:weights[i]),0);
     if(total<=0)break;
     let ticket=runRandom(r,`authored:${key}:draw:${slot}`)*total;
@@ -608,13 +620,12 @@ export function buildAuthoredEvents(r: AuthoredRun, phase: EventPhase): Director
   const offeredEchoes=scheduleEchoScenes(r,s,phase,due);
   const merging=due.filter(c=>'butterflyMerge'in c);
   result.removeCardIds.push(...r.queue.slice(r.cursor).filter(c=>merging.some(m=>mergeClaimsScene(m,c))).map(c=>c.id));
-  const randomEchoCount=offeredEchoes.filter(card=>!obligatoryScene(card,s.published,s.chains)).length;
-  const replace=Math.min(randomPicks.length,randomEchoCount);
-  for(const picked of randomPicks.splice(0,replace))selected.splice(selected.indexOf(picked),1);
+  // Echoes keep their own daily quota (RULES.events.echoDailyCaps) and the
+  // trolley keeps its own draw, so neither cancels an authored random event.
   result.cards.push(...offeredEchoes);
-  if(!leave&&randomSceneSlots(r.day,phase)>randomEchoCount&&r.day>1&&runRandom(r,`trolley-slot:${key}`)<.3){
+  if(!leave&&r.day>1&&runRandom(r,`trolley-slot:${key}`)<.3){
     const trolley=pickTrolley(r,phase,s.trolley,authoredTrolleyWorld(r,s,phase));
-    if(trolley){const replaced=randomPicks.pop();if(replaced)selected.splice(selected.indexOf(replaced),1);s.trolley.seen.push(trolley.trolley.sourceId);s.published[trolley.id]=trolley;result.cards.push(trolley);}
+    if(trolley){s.trolley.seen.push(trolley.trolley.sourceId);s.published[trolley.id]=trolley;result.cards.push(trolley);}
   }
   for(const chain of s.chains){
     const prefix=({'BTF-001':'shift-','BTF-002':'cash-','BTF-003':'record-','BTF-004':'research-'}as const)[chain.chain];

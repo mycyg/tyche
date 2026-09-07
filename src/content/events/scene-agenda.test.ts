@@ -55,7 +55,7 @@ it('uses late-game slots for actual due scenes and never offers one scene twice'
  const offered=scheduleEchoScenes({day:12,committed:[]},state,'结算',cards);expect(offered).toHaveLength(3);expect(state.sceneAgenda?.map(a=>a.cardId)).toEqual(['d']);
  expect(scheduleEchoScenes({day:12,committed:[]},state,'结算',cards)).toEqual([]);
  expect(scheduleEchoScenes({day:13,committed:[]},state,'结算',[]).map(c=>c.id)).toEqual(['d']);
- expect(randomSceneSlots(8,'结算')).toBe(2);expect(randomSceneSlots(12,'结算')).toBe(3);expect(randomSceneSlots(12,'夜班')).toBe(1);
+ expect(randomSceneSlots(8,'结算')).toBe(2);expect(randomSceneSlots(12,'结算')).toBe(3);expect(randomSceneSlots(12,'夜班')).toBe(3);expect(randomSceneSlots(11,'夜班')).toBe(0);
 });
 it('mandatory family-recording milestones do not consume the delayed-echo quota',()=>{
  const state:SceneAgendaState={published:{}},card={...scene('unrest'),sourceFollowup:{kind:'dispute',stage:1}};
@@ -84,11 +84,11 @@ it('does not let a new morning arrival displace an older evening appointment',()
 });
 it('retains phase capacity when the same stage is visited again',()=>{
  const state:SceneAgendaState={published:{}};
- expect(scheduleEchoScenes({day:12,committed:[]},state,'交班',[scene('morning-a'),scene('morning-b')])).toHaveLength(1);
+ expect(scheduleEchoScenes({day:12,committed:[]},state,'交班',[scene('morning-a'),scene('morning-b'),scene('morning-c')])).toHaveLength(2);
  expect(scheduleEchoScenes({day:12,committed:[]},state,'交班',[])).toEqual([]);
- expect(scheduleEchoScenes({day:12,committed:[]},state,'结算',[scene('evening-a'),scene('evening-b')])).toHaveLength(2);
+ expect(scheduleEchoScenes({day:12,committed:[]},state,'结算',[scene('evening-a'),scene('evening-b')])).toHaveLength(1);
  expect(state.echoDays?.[0].cardIds).toHaveLength(3);
- expect(state.sceneAgenda).toEqual([{cardId:'morning-b',due:12,phase:'交班'}]);
+ expect(state.sceneAgenda?.map(a=>a.cardId)).toEqual(['morning-c','evening-b']);
 });
 it('a later-stage reservation does not suppress an obligatory delivery',()=>{
  const old=scene('reserved'),mandatory={...scene('accepted-delivery'),butterflyCommitment:{chainStateId:'a',commitmentId:'b',phase:'交班'}};

@@ -72,6 +72,8 @@ export interface AuthoredEvent {
   requiredQualifiers: string[];
   repeatable: boolean;
   exclusiveGroup?: string;
+  /** A repeat that needs a measured change, such as another ¥10,000 of debt. */
+  repeatEvery?: { resource: keyof Effects; amount: number };
   scopeKind: Scope['kind'];
   onEnter: Effects;
 }
