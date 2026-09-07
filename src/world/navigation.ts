@@ -74,6 +74,27 @@ export function findPath(from: Point, to: Point, extra:readonly Rect[]=[]): Poin
   for (let i = goal; i !== start; i = previous.get(i)!) path.push(point(i));
   return path.reverse();
 }
+/** Route to a target, or to the closest floor point from which the target can still be reached on foot.
+ *  A character standing behind a counter or inside furniture has no walkable cell of its own; the walk then
+ *  ends beside it instead of silently doing nothing. */
+export function routeTo(from: Point, to: Point, extra:readonly Rect[]=[]): Point[] {
+  const direct = findPath(from, to, extra);
+  if (direct.length) return direct;
+  const rings = [12, 24, 36, 48, 64, 80, 96, 120];
+  for (const radius of rings) {
+    let best: Point[] = [];
+    for (let k = 0; k < 16; k++) {
+      const angle = k / 16 * Math.PI * 2;
+      const candidate = { x: to.x + Math.cos(angle) * radius, y: to.y + Math.sin(angle) * radius };
+      if (candidate.x < 0 || candidate.y < 0 || candidate.x >= WORLD.width || candidate.y >= WORLD.height) continue;
+      if (!walkable(candidate, extra)) continue;
+      const path = findPath(from, candidate, extra);
+      if (path.length && (!best.length || path.length < best.length)) best = path;
+    }
+    if (best.length) return best;
+  }
+  return [];
+}
 export function roomName(p: Point): string {
   const room = ROOMS.find(r => p.x >= r.target.x && p.x < r.target.x + r.target.w &&
     p.y >= r.target.y && p.y < r.target.y + r.target.h);

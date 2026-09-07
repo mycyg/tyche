@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { availableEncounters } from '../game/engine';
 import { ACTORS, VITAL_LABELS } from '../game/rules';
 import type { Action, Card, Patient, Run, Vital } from '../game/types';
-import { distance, findPath, followPath, move, nearestFloor, roomName, SPAWN, walkable, WORLD, type Point } from './navigation';
+import { distance, findPath, followPath, move, nearestFloor, roomName, routeTo, SPAWN, walkable, WORLD, type Point } from './navigation';
 import { BED_PLACES, PROPS, paintProp, paintWorldMap, CORRIDOR_BED_PROP, CORRIDOR_BED_OBSTACLE } from './scene';
 import { idlePose,ambientDropout } from './idle';
 import { patientArt } from './patients';
@@ -130,7 +130,7 @@ export function WorldStage(props: Props) {
   const pad = useRef({ x: 0, y: 0, pointer: -1 });
   const stick = useRef<HTMLSpanElement>(null);
   const input = useRef(new Set<string>());
-  const state = useRef({ x: SPAWN.x, y: SPAWN.y, facing: SPAWN.facing, moving: false, path: [] as Point[], destination: '' });
+  const state = useRef({ x: SPAWN.x, y: SPAWN.y, facing: SPAWN.facing, moving: false, path: [] as Point[], destination: '', arrive: '' });
   const camera = useRef({ x: 0, y: 0, scale: 1 });
   const engine = useRef({ interact: (_t?: Target) => {}, navigate: (_t: Target) => {} });
   const open = (t: Target) => {
@@ -173,7 +173,7 @@ export function WorldStage(props: Props) {
   useEffect(() => {
     const saved = latest.current.r.world;
     const pos = saved?.day === r.day && walkable(saved,corridorBedInUse(r)?[CORRIDOR_BED_OBSTACLE]:[]) ? saved : SPAWN;
-    state.current = { ...pos, moving: false, path: [], destination: '' };
+    state.current = { ...pos, moving: false, path: [], destination: '', arrive: '' };
   }, [r.id, r.day]);
   useEffect(() => {
     if (props.frozen || selection || quests || overview) {
@@ -201,7 +201,7 @@ export function WorldStage(props: Props) {
     const nearest = () => targetsRef.current.filter(t => distance(state.current, livePoint(t)) < 45).sort((a, b) => distance(state.current, livePoint(a)) - distance(state.current, livePoint(b)))[0];
     const interact = (target?: Target) => { if (!blocked.current) { const t = target ?? nearest(); if (t && distance(state.current, livePoint(t)) < 52) openRef.current(t); } };
     const obstacles=()=>corridorBedInUse(latest.current.r)?[CORRIDOR_BED_OBSTACLE]:[];
-    const navigate = (t: Target) => { const to=livePoint(t); follows = 0; state.current.path = findPath(state.current, to,obstacles()); state.current.destination = t.id; if (distance(state.current, to) < 30) interact(t); };
+    const navigate = (t: Target) => { const to=livePoint(t); follows = 0; state.current.path = routeTo(state.current, to,obstacles()); state.current.destination = t.id; state.current.arrive = t.id; if (distance(state.current, to) < 30) interact(t); };
     engine.current = { interact, navigate };
     // Depth entries are reused between frames so a busy floor allocates nothing
     // per frame beyond the movement step itself.
@@ -279,14 +279,19 @@ export function WorldStage(props: Props) {
           // again, so a required card is never lost to the walk.
           const t = targetsRef.current.find(t => t.id === player.destination);
           const to = t?.npc ? livePoint(t) : undefined;
-          if (to && distance(player, to) > 46 && follows < 8) { follows++; player.path = findPath(player, to, obstacles()); }
-          if (!player.path.length) { player.destination = ''; if (t) interact(t); }
+          if (to && distance(player, to) > 46 && follows < 8) { follows++; player.path = routeTo(player, to, obstacles()); }
+          if (!player.path.length) {
+            player.destination = '';
+            // A deliberate walk opens the target from beside it even when a counter or bed keeps the last step away.
+            const intended = player.arrive === t?.id; player.arrive = '';
+            if (t && (intended ? distance(player, livePoint(t)) < 110 : distance(player, livePoint(t)) < 52) && !blocked.current) openRef.current(t);
+          }
         } else if (player.destination && time - lastFollow > 260) {
           // Following a walking character: keep the route pointed at them.
           lastFollow = time;
           const t = targetsRef.current.find(t => t.id === player.destination);
           const to = t?.npc ? livePoint(t) : undefined;
-          if (to && distance(player.path[player.path.length - 1], to) > 22) player.path = findPath(player, to, obstacles());
+          if (to && distance(player.path[player.path.length - 1], to) > 22) { const next = routeTo(player, to, obstacles()); if (next.length) player.path = next; }
         }
       } else player.moving = false;
       if(corridorBedInUse(p.r)&&!walkable(player,obstacles())){
