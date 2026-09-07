@@ -1,6 +1,7 @@
 import {describe,it,expect}from 'vitest';
 import {act,startRun,availableOptions}from './engine';
 import {eventToCard,EVENT_BY_ID}from '../content/events';
+import {RULES}from './rules';
 import {decode,emptySave,encode}from './storage';
 import {scheduledChoiceWork}from '../ui/scheduled-work';
 import {EVENT_DEFERRED_RESULTS}from '../content/events/narrative';
@@ -95,7 +96,7 @@ describe('booked attendance consumes actual actions, unlike a smaller workday al
   r.skipNextDay=true;r.phase='feedback';r.feedback={title:'次日',text:'交班已完成。',changes:[],next:'day'};
   r=act(r,{type:'continue'});
   expect(r.day).toBe(4);expect(r.ap).toBe(0);expect(r.overtime).toBe(ap);
-  expect(r.caps.stamina).toBe(100-ap*2);expect(r.vitals.stamina).toBe(100-ap*7);
+  expect(r.caps.stamina).toBe(100-ap*RULES.overtimeCapLoss);expect(r.vitals.stamina).toBe(100-ap*(RULES.overtimeCapLoss+RULES.overtimeStamina));
   const entry=r.journal.find(e=>e.id.includes(`${event}-`)&&e.title==='后续消息'&&e.result.includes('透支行动'))!;
   expect(entry.result).toContain(`透支行动 +${ap}`);
   const restored=decode(encode({...emptySave(),run:r})).run!;

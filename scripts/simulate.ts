@@ -1,13 +1,21 @@
 import { act, availableOptions, currentCard, newMeta, startRun } from '../src/game/engine';
 import { random } from '../src/game/random';
-import { worldCoffeeOffering } from '../src/world/refreshments';
+import { worldCoffeeOffering, worldNapOffering } from '../src/world/refreshments';
+import { hasPlannedNight, hasWorkedNight } from '../src/game/duty-state';
 import { RULES } from '../src/game/rules';
+import { optionAp } from '../src/game/costs';
 import type { Action, Option, Run } from '../src/game/types';
 export type Policy = 'random' | 'careful' | 'reckless';
 export function select(r: Run, policy: Policy): Option {
   const opts = availableOptions(r);
   if (!opts.length) throw new Error(`No available choice: ${JSON.stringify({seed:r.seed,day:r.day,card:currentCard(r),patient:r.patients.find(p=>p.uid===currentCard(r)?.patientId)?.clinical})}`);
-  if (policy === 'random') return opts[Math.floor(random(r.seed, `policy:${r.cursor}:${r.day}`) * opts.length)];
+  const patient = r.patients.find(x => x.uid === currentCard(r)?.patientId);
+  const repeated = (o: Option) => !!o.clinicalChoice && !!patient?.clinical?.choices.includes(o.clinicalChoice);
+  if (policy === 'random') {
+    // Even an aimless player does not repeat one action on one patient all day.
+    const fresh = opts.filter(o => !repeated(o)), pool = fresh.length ? fresh : opts;
+    return pool[Math.floor(random(r.seed, `policy:${r.cursor}:${r.day}`) * pool.length)];
+  }
   const score = (o: Option) => {
     const e = o.effects, h = e.hazards?.reduce((n, x) => n + x.weight * (x.type === 'R' ? 5 : 2), 0) ?? 0;
     if (policy === 'reckless') return o.ap * 30 + (e.cash ?? 0) * -.003 - h * .1;
@@ -18,14 +26,19 @@ export function select(r: Run, policy: Policy): Option {
     if (e.plannedDischarge) value -= 100;
     if (e.discharge && !e.plannedDischarge) value += 300;
     for (const [key, n] of Object.entries(e.relations ?? {})) value -= n * ((r.relations as Record<string, number>)[key] <= 1 ? 10 : 3);
-    const p = r.patients.find(x => x.uid === currentCard(r)?.patientId);
+    const p = patient;
     if (p && p.spent + o.cost > p.budget) value += (p.spent + o.cost - p.budget) / 150;
     if (o.id.endsWith(':wait')) value += 35;
-    // Leaving a patient for tomorrow costs the documented two hazards.
-    if (o.interaction === 'defer') value += RULES.deferredPatient.R * 5 + RULES.deferredPatient.D * 2;
+    // A stable inpatient keeps the free maintenance record; a careful player
+    // spends bedside actions on the patients who still need them.
+    const card = currentCard(r);
+    if (card?.kind === 'ward' && p && p.stability >= RULES.ward.stabilityNeed && p.damage === 0 && o.ap === 0 && !e.discharge) value -= 40;
+    // Leaving a patient for tomorrow costs the documented two hazards; an
+    // exhausted careful player accepts them rather than a second collapse.
+    if (o.interaction === 'defer') value += r.vitals.stamina < 40 || r.exhausted > 0 ? 10 : RULES.deferredPatient.R * 5 + RULES.deferredPatient.D * 2;
     // A player does not repeat the same clinical action on the same patient;
     // repeatable graph nodes would otherwise loop until exhaustion.
-    if (o.clinicalChoice && p?.clinical?.choices.includes(o.clinicalChoice)) value += 150;
+    if (repeated(o)) value += 150;
     return value;
   };
   return [...opts].sort((a, b) => score(a) - score(b))[0];
@@ -37,8 +50,17 @@ export function runSimulation(seed: string, policy: Policy, veteran = false) {
   while (r.phase !== 'ending' && steps++ < 2400) {
     let a: Action;
     if (r.phase === 'play') {
-      if (policy === 'careful' && r.vitals.stamina < Math.min(32, r.caps.stamina - 12) && r.coffee < 2 && worldCoffeeOffering(r).allowed&&!r.facts[`leave:${r.day}`]) a = { type: 'coffee' };
-      else a = { type: 'choose', id: select(r, policy).id };
+      const tired = r.vitals.stamina < Math.min(45, r.caps.stamina - 15), nightAhead = hasPlannedNight(r) && !hasWorkedNight(r);
+      if (policy === 'careful' && tired && r.coffee < 3 && worldCoffeeOffering(r).allowed && !r.facts[`leave:${r.day}`]) a = { type: 'coffee' };
+      // A careful player rests before a night shift when the clinic is done.
+      else if (policy === 'careful' && worldNapOffering(r).allowed && (nightAhead || tired) && r.ap > 1 && r.vitals.stamina <= r.caps.stamina - 10) a = { type: 'nap' };
+      else {
+        const choice = select(r, policy), card = currentCard(r);
+        // A careful player borrows tomorrow's point before paying overtime.
+        const needsOvertime = card?.kind !== 'night' && optionAp(r, choice, card) > r.ap;
+        if (policy === 'careful' && needsOvertime && r.borrowed < RULES.borrowMax && r.day < 14 && !r.emergency && !r.facts[`leave:${r.day}`]) a = { type: 'borrow' };
+        else a = { type: 'choose', id: choice.id };
+      }
     } else if (r.phase === 'feedback') a = { type: 'continue' };
     else if (r.phase === 'roll') a = { type: 'ack-roll' };
     else if (r.phase === 'debuff') {
