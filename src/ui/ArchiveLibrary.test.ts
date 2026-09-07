@@ -14,7 +14,7 @@ describe('collection library disclosure and discovery',()=>{
   for(const kind of ARCHIVE_KINDS)expect(entries.filter(e=>e.kind===kind.id)).toHaveLength(totals[kind.id]);
  });
  it('does not leak a name, demographic, department, symptom, rule, portrait or narration for any unseen entry',()=>{
-  for(const e of archiveEntries(newMeta())){expect(e.known).toBe(false);expect(e.name).toMatch(/^尚未收录的/);expect(e.fields).toEqual([]);expect(e.group).toBe('');expect(e.portrait).toBeUndefined();expect(e.summary).toBe('相遇之后，留下记录。');expect(archiveEntryNarration(e)).toBe('');}
+  for(const e of archiveEntries(newMeta())){expect(e.known).toBe(false);expect(e.name).toMatch(/^尚未收录的/);expect(e.fields).toEqual([]);expect(e.group).toBe('');expect(e.portrait).toBeUndefined();expect(e.summary).toBe('你还没有取得这份记录。');expect(archiveEntryNarration(e)).toBe('');}
  });
  it('searching an unseen name or hidden content cannot disclose a locked entry',()=>{
   const entries=archiveEntries(newMeta());
