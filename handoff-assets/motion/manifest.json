@@ -155,8 +155,8 @@
         2048,
         3584
       ],
-      "bytes": 1966298,
-      "sha256": "fbd236a08a45b887beaeed8ad52b3362101ea7481e90ea44424344e997d7592c"
+      "bytes": 2005188,
+      "sha256": "3c5810e59953c9965bc3d9e720f94a218918bc84a58cb7e7e5d96ff2022e8507"
     },
     {
       "output": "patient-transitions-atlas.webp",
@@ -164,8 +164,8 @@
         512,
         3584
       ],
-      "bytes": 657728,
-      "sha256": "2432370fb2ae3442011d0468aed807480eef1b5d4dfbcb3ffdf3568ca8ea86cc"
+      "bytes": 669150,
+      "sha256": "6a199ea4fd572eade60ed939069fe115443ceda6609da620882eec76486a181e"
     },
     {
       "file": "staff0.webp",
@@ -233,8 +233,8 @@
         2048,
         640
       ],
-      "bytes": 666754,
-      "sha256": "729794217255e13d8c90d19efcb2cdffef461748f34ff39ce314edaf7446bb59"
+      "bytes": 687536,
+      "sha256": "96f2536f57fdd738b845d73b9f7d6c5217c0e9647110b3c11cc635320474b174"
     },
     {
       "output": "staff-actions-atlas.webp",
@@ -242,8 +242,53 @@
         1536,
         640
       ],
-      "bytes": 369896,
-      "sha256": "52e7177169606e0a7bdbf3989b9008c8922c17511425c1995e67b9ed160b3e99"
+      "bytes": 393634,
+      "sha256": "e83f6b7bfcb58f13a999401d07afe08b625d58bbcb55c4ce8cd54333cf6d0727"
+    },
+    {
+      "file": "wardNurse.webp",
+      "sha256": "59a3a3f8fa792d8140922b6cf0916420818b9e81f6f7b73221bafcaf8904b49f",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid": [
+        4,
+        4
+      ]
+    },
+    {
+      "file": "wardPorter.webp",
+      "sha256": "8bca7e4d05c580acdbb907630f331783168e4fd33a5cc2d07a8c003165128604",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid": [
+        4,
+        4
+      ]
+    },
+    {
+      "file": "wardCleaner.webp",
+      "sha256": "bd06587bfb781e3c511cd1eb0754773c76e229285033da47d5aff274ffd20805",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid": [
+        4,
+        4
+      ]
+    },
+    {
+      "output": "ward-motion-atlas.webp",
+      "size": [
+        2048,
+        384
+      ],
+      "bytes": 401826,
+      "sha256": "eab6d22392b705b4cd6bd2c775fce43998fe96b50b27c7bf1e9cc17f128068fb"
     },
     {
       "file": "haul0.webp",
@@ -275,8 +320,8 @@
         4096,
         256
       ],
-      "bytes": 302566,
-      "sha256": "c7847d94ea53bccf8c688af8fc92e5e44bd3c7cb0245cb61f81951860b281a45"
+      "bytes": 308004,
+      "sha256": "b408bc586e2e1d47121618db97c5844a46805ffeddb06b79eefee07d2892de01"
     },
     {
       "output": "ward-care-atlas.webp",
@@ -284,8 +329,8 @@
         2048,
         256
       ],
-      "bytes": 178980,
-      "sha256": "5b124d80a3b2f731604096383505877ac4719c25dc47d43cf193417eea2ec968"
+      "bytes": 183312,
+      "sha256": "fc72d1973b4120eebfb7517393eba5f020d37d8728a15873a1566aa560567a1c"
     },
     {
       "file": "companionNeutral.webp",
@@ -329,8 +374,8 @@
         1024,
         384
       ],
-      "bytes": 146052,
-      "sha256": "a81d665ed54c0c7336d9bd846eeee76f3742a9e17c47e86e6a59251f10130611"
+      "bytes": 147428,
+      "sha256": "b1e9ec869ef0f2c7ee81109c0a833abff230d37cd8d63ecf72146f245941a475"
     }
   ]
 }

@@ -4,6 +4,22 @@ import { bedTransitionFrame } from './bed-transition';
 import { BED_PLACES } from './scene';
 import { walkFrame } from './npc-art';
 describe('getting into and out of bed', () => {
+  it('can rise and return even when another person stands at the landing', () => {
+    const life = createWardLife(), bed = { x: 96, y: 104 };
+    life.sync([
+      { id: 'waiting', speed: 0, offset: 0, stops: [{ ...bed, dwell: 60000 }] },
+      { id: 'patient', patientId: 'p', walk: { atlas: 'patient-motion', row: 15 }, speed: 28, offset: 0,
+        stops: [{ ...bed, dwell: 10, bed: true }, { x: 110, y: 132, dwell: 10 }] },
+    ]);
+    const seen = new Set<string>();
+    for (let f = 0; f < 60 * 12; f++) {
+      life.step(1 / 60, { motion: true });
+      const a = life.byId.get('patient')!;
+      if (a.moving) seen.add('walk');
+      if (a.transition) seen.add(a.transition.kind);
+    }
+    expect([...seen].sort()).toEqual(['lie','rise','walk']);
+  });
   it('plays authored postures before walking and before becoming bed art', () => {
     const life = createWardLife(), bed = { x: 96, y: 104 };
     life.sync([{ id: 'patient', patientId: 'p', walk: { atlas: 'patient-motion', row: 15 }, speed: 28, offset: 0,

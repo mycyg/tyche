@@ -1,7 +1,7 @@
 /** Atlas geometry for the ward cast. Frame rectangles and foot anchors follow
  * `handoff-assets/art/manifest.json` and
  * `handoff-assets/dark-expansion/characters/manifest.json`. */
-export type WalkAtlasId = 'staff-walk' | 'ward-life-walk' | 'patient-walk' | 'family-walk' | 'conflict-walk' | 'patient-motion' | 'staff-motion' | 'ward-haul' | 'companion-walk';
+export type WalkAtlasId = 'staff-walk' | 'ward-life-walk' | 'patient-walk' | 'family-walk' | 'conflict-walk' | 'patient-motion' | 'staff-motion' | 'ward-motion' | 'ward-haul' | 'companion-walk';
 export type ActionAtlasId = 'ward-actions' | 'family-actions' | 'conflict-actions' | 'staff-actions' | 'ward-care';
 export type AtlasId = WalkAtlasId | ActionAtlasId;
 
@@ -30,6 +30,7 @@ export const ATLASES: AtlasSpec[] = [
   action('ward-actions', 4, true), action('family-actions', 4, false), action('conflict-actions', 3, false),
   { ...walk('patient-motion', 28, false), columns: 16, steps: 4 },
   { ...walk('staff-motion', 5, true), columns: 16, steps: 4 },
+  { ...walk('ward-motion', 3, true), columns: 16, steps: 4 },
   { ...walk('ward-haul', 2, true), columns: 16, steps: 4, cellWidth: 256, anchorX: 128 },
   walk('companion-walk', 3, false),
   action('staff-actions', 5, true),
@@ -52,7 +53,7 @@ function frame(atlas: AtlasSpec, row: number, column: number, x: number, y: numb
     dx: Math.round(x - atlas.anchorX * SPRITE_SCALE), dy: Math.round(y - atlas.anchorY * SPRITE_SCALE), dw, dh };
 }
 
-/** A walking pose. `step` alternates the two frames of one direction. */
+/** A walking pose. `step` advances through the atlas's direction cycle. */
 export function walkFrame(id: WalkAtlasId, row: number, facing: number, step: number, x: number, y: number): FrameRect {
   const atlas = ATLAS_BY_ID.get(id)!;
   const steps = atlas.steps ?? 2;

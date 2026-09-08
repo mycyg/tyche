@@ -1,8 +1,8 @@
 {
   "date": "2026-09-08",
   "unitTests": {
-    "files": 136,
-    "passed": 2590
+    "files": 137,
+    "passed": 2594
   },
   "e2e": {
     "passed": 12,
@@ -13,83 +13,72 @@
       "webkit-landscape"
     ]
   },
-  "motionFrames": 432,
+  "motionFrames": 480,
   "patientAppearances": 15,
   "simulations": [
     {
       "policy": "random",
       "veteran": false,
-      "runs": 10,
-      "reachedDay4": "90.0%",
+      "runs": 3,
+      "reachedDay4": "100.0%",
       "reachedCourt": "0.0%",
-      "averageEndDay": 6.9,
-      "actions": 2802,
+      "averageEndDay": 6.67,
+      "actions": 982,
       "endings": {
-        "END-29": 1,
-        "END-28": 1,
-        "END-01": 8
+        "END-23": 1,
+        "END-01": 1,
+        "END-33": 1
       },
       "staminaEndings": "0.0%",
-      "topEndingShare": "80.0%",
-      "nonDark": "0.0%"
+      "topEndingShare": "33.3%",
+      "nonDark": "33.3%"
     },
     {
       "policy": "careful",
       "veteran": false,
-      "runs": 10,
+      "runs": 3,
       "reachedDay4": "100.0%",
       "reachedCourt": "0.0%",
-      "averageEndDay": 10.2,
-      "actions": 6822,
+      "averageEndDay": 10,
+      "actions": 2032,
       "endings": {
-        "END-33": 3,
-        "END-27": 1,
-        "END-26": 2,
-        "END-22": 2,
-        "END-19": 1,
-        "END-28": 1
+        "END-33": 2,
+        "END-26": 1
       },
       "staminaEndings": "0.0%",
-      "topEndingShare": "30.0%",
-      "nonDark": "30.0%"
+      "topEndingShare": "66.7%",
+      "nonDark": "66.7%"
     },
     {
       "policy": "careful",
       "veteran": true,
-      "runs": 10,
+      "runs": 3,
       "reachedDay4": "100.0%",
-      "reachedCourt": "20.0%",
-      "averageEndDay": 11.5,
-      "actions": 7199,
+      "reachedCourt": "0.0%",
+      "averageEndDay": 12,
+      "actions": 2780,
       "endings": {
-        "END-33": 2,
-        "END-26": 2,
-        "END-23": 1,
-        "END-28": 1,
-        "END-01": 1,
-        "END-22": 2,
-        "END-29": 1
+        "END-22": 1,
+        "END-23": 2
       },
       "staminaEndings": "0.0%",
-      "topEndingShare": "20.0%",
-      "nonDark": "20.0%"
+      "topEndingShare": "66.7%",
+      "nonDark": "0.0%"
     },
     {
       "policy": "reckless",
       "veteran": false,
-      "runs": 10,
+      "runs": 3,
       "reachedDay4": "100.0%",
       "reachedCourt": "0.0%",
-      "averageEndDay": 10,
-      "actions": 3173,
+      "averageEndDay": 11.33,
+      "actions": 1295,
       "endings": {
-        "END-05": 5,
-        "END-29": 1,
-        "END-01": 3,
-        "END-28": 1
+        "END-05": 2,
+        "END-01": 1
       },
       "staminaEndings": "0.0%",
-      "topEndingShare": "50.0%",
+      "topEndingShare": "66.7%",
       "nonDark": "0.0%"
     }
   ],
@@ -111,7 +100,7 @@
       "title": "骆驼祥子"
     },
     "steps": 600,
-    "minutes": 6.36,
+    "minutes": 6.02,
     "pageErrors": [],
     "consoleErrors": [],
     "navigationFailures": []
@@ -128,5 +117,15 @@
     "check:content",
     "audio:check",
     "build"
-  ]
+  ],
+  "sceneTests": {
+    "passed": 2,
+    "keyboardCrossing": true,
+    "wardGaitRows": [
+      0,
+      1,
+      2
+    ]
+  },
+  "simulationSeed": "ward-followup"
 }

@@ -20,7 +20,6 @@ import {observeLayout} from './observe-layout';
 import {wardCast} from './npc-schedule';
 import {createWardLife,actorAction,actorStep,restingInBed,type NpcActor} from './npc-runtime';
 import {ATLASES,actionFrame,walkFrame} from './npc-art';
-import {moveThroughCrowd,personObstacles} from './crowd';
 import {bedTransitionFrame} from './bed-transition';
 import './world-stage.css';
 
@@ -210,7 +209,7 @@ export function WorldStage(props: Props) {
     const atlases = new Map(ATLASES.filter(a => a.core && a.id !== 'staff-walk').map(a => [a.id, load(a.file)] as const));
     let transitions: HTMLImageElement | undefined;
     const drawable = (img?: HTMLImageElement) => !!img?.complete && img.naturalWidth > 0;
-    let stopped = false, raf = 0, width = 1, height = 1, last = 0, wasMoving = false, lastNear = '', lastRoom = '', lastTick = 0, lastFollow = 0, follows = 0, playerStalled = 0;
+    let stopped = false, raf = 0, width = 1, height = 1, last = 0, wasMoving = false, lastNear = '', lastRoom = '', lastTick = 0, lastFollow = 0, follows = 0;
     const resize = () => { width = container.clientWidth; height = container.clientHeight; if(c.width!==Math.round(width))c.width = Math.round(width); if(c.height!==Math.round(height))c.height = Math.round(height); };
     const stopObserving = observeLayout(container,resize); resize();
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -307,31 +306,18 @@ export function WorldStage(props: Props) {
         const speed = WORLD.speed * (keys.has('shift') ? 1.45 : 1);
         let next:Point;
         if(!dx&&!dy&&player.path.length){
-          const path = [...player.path];
-          const intended = followPath(player,path,speed*dt,obstacles());
-          const people = life.actors.filter(a=>!restingInBed(a));
-          next=moveThroughCrowd(player,intended,people,obstacles());
-          if (distance(next,intended)<.01) { player.path=path; playerStalled=0; }
-          else {
-            playerStalled+=dt*1000;
-            if (playerStalled>650) {
-              const target=targetsRef.current.find(t=>t.id===player.destination);
-              if(target)player.path=routeTo(player,livePoint(target),[...obstacles(),...personObstacles(people,player)]);
-              playerStalled=0;
-            }
-          }
+          next=followPath(player,player.path,speed*dt,obstacles());
           dx=next.x-player.x;dy=next.y-player.y;
         }else{
           const length=Math.hypot(dx,dy);if(length>1){dx/=length;dy/=length;}
           next=move(player,dx*speed*dt,dy*speed*dt,obstacles());
-          next=moveThroughCrowd(player,next,life.actors.filter(a=>!restingInBed(a)),obstacles());
         }
         player.moving = distance(player, next) > .01;
         player.x = next.x; player.y = next.y;
         if (Math.abs(dx) > Math.abs(dy)) player.facing = dx > 0 ? 3 : 1;
         else if (dy) player.facing = dy > 0 ? 0 : 2;
-        // A person's feet are occupied. Arrive beside them, before the path
-        // asks the doctor to enter the same collision circle.
+        // Stop within speaking distance when deliberately approaching a target.
+        // People themselves never obstruct manual movement or another route.
         const approached = player.destination && targetsRef.current.find(t => t.id === player.destination);
         if (approached && distance(player, livePoint(approached)) < 30) player.path = [];
         if (player.destination && !player.path.length) {
@@ -360,7 +346,7 @@ export function WorldStage(props: Props) {
       if (wasMoving && !player.moving) savePosition();
       wasMoving = player.moving;
       if (hold.current && !p.frozen && !p.dialogueOpen && !blocked.current && time - hold.current.since > 400) hold.current = null;
-      life.step(dt, { motion, freeze: blocked.current, extra: obstacles(), hold: hold.current, player,
+      life.step(dt, { motion, freeze: blocked.current, extra: obstacles(), hold: hold.current,
         ready: actor => !actor.def.patientId || drawable(atlases.get('patient-motion')) && drawable(transitions) });
       const cam=worldCamera(player,width,height,zoom),{scale}=cam;
       camera.current = cam;

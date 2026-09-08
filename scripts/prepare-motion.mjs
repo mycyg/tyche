@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import { createHash } from 'node:crypto';
+import { removeSpriteMatte } from './lib/sprite-matte.mjs';
 const require = createRequire(import.meta.url);
 const sharp = require(process.env.TYCHE_SHARP_PATH || 'sharp');
 const root = path.resolve(import.meta.dirname, '..');
@@ -22,16 +23,14 @@ function bounds(data, w, h) {
 async function sheet(spec) {
   const input = await fs.readFile(path.join(sourceRoot, spec.file));
   const { data, info } = await sharp(input).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
-  // Generated source sheets deliberately use an unambiguous compositing matte.
-  // This removes only that colour; hospital whites and pale blankets survive.
-  for (let i = 0; i < data.length; i += 4) {
-    const [r, g, b] = data.subarray(i, i + 3);
-    if (r > 45 && b > 45 && r - g > 25 && b - g > 25) data.fill(0, i, i + 4);
-  }
+  removeSpriteMatte(data, info.width, info.height);
   const cuts = (count, vertical) => {
     const size = vertical ? info.height : info.width, other = vertical ? info.width : info.height;
     return [0, ...Array.from({ length: count - 1 }, (_, i) => {
-      const ideal = Math.round((i + 1) * size / count), margin = Math.floor(size / count * .12);
+      // Authored grids can drift by more than a few percent. Search the full
+      // gutter near the nominal border, rather than slicing into the next
+      // row's crown and making the current body shrink or float above its feet.
+      const ideal = Math.round((i + 1) * size / count), margin = Math.floor(size / count * .35);
       let best = ideal, least = Infinity;
       for (let at = ideal - margin; at <= ideal + margin; at++) {
         let pixels = 0;
@@ -134,6 +133,12 @@ if (staffWalk.length) {
   await writeAtlas('staff-motion-atlas.webp', 16, 5, 128, staffWalk);
   await writeAtlas('staff-actions-atlas.webp', 8, 5, 192, staffActions);
 }
+const wardWalk = [];
+for (const spec of manifest.ward ?? []) {
+  const cells = await sheet(spec), scale = 112 / Math.max(...cells.flat().map(s => s.height));
+  for (let dir = 0; dir < 4; dir++) for (let step = 0; step < 4; step++) wardWalk.push({ input: await normalized(cells[dir][step], scale), left: (dir * 4 + step) * 128, top: spec.row * 128 });
+}
+if (wardWalk.length) await writeAtlas('ward-motion-atlas.webp', 16, 3, 128, wardWalk);
 const haul = [], care = [];
 for (const spec of manifest.haul ?? []) {
   const cells = await sheet(spec), scale = 112 / Math.max(...cells.slice(0, 4).flat().map(s => s.height));

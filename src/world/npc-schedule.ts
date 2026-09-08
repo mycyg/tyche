@@ -143,22 +143,22 @@ export function staffRoutes(night: boolean): NpcDefinition[] {
 /** Nurses, porters, cleaners and waiting visitors. None of them carry a card. */
 export function backgroundRoutes(night: boolean, _inpatients: number): NpcDefinition[] {
   const people: NpcDefinition[] = [
-    { id: 'ward-nurse-b', walk: { atlas: LIFE, row: LIFE_ROW.nurse }, speed: 54, offset: 1400,
+    { id: 'ward-nurse-b', walk: { atlas: 'ward-motion', row: LIFE_ROW.nurse }, speed: 54, offset: 1400,
       stops: [stop(SPOTS.wardB[0], 3200, { facing: 1 }), stop(SPOTS.wardB[3], 2800, { facing: 3 }),
         stop(SPOTS.hallCentre, 1800), stop(SPOTS.stationRight, 3400, { facing: 0 }), stop(SPOTS.wardB[2], 2600, { facing: 1 })] },
-    { id: 'porter', walk: { atlas: LIFE, row: LIFE_ROW.porter }, speed: 58, offset: 4300,
+    { id: 'porter', walk: { atlas: 'ward-motion', row: LIFE_ROW.porter }, speed: 58, offset: 4300,
       stops: [stop(SPOTS.pharmacyFront, 3400, { facing: 2 }), stop(SPOTS.hallEast, 1200), stop(SPOTS.stationFront, 3000, { facing: 2 }),
         stop(SPOTS.hallWest, 1200), stop(SPOTS.erFloor, 3200, { facing: 0 }), stop(SPOTS.hallStation, 1400)] },
   ];
   if (!night) {
     people.push(
-      { id: 'ward-nurse-c', walk: { atlas: LIFE, row: LIFE_ROW.nurse }, speed: 52, offset: 8100,
+      { id: 'ward-nurse-c', walk: { atlas: 'ward-motion', row: LIFE_ROW.nurse }, speed: 52, offset: 8100,
         stops: [stop(SPOTS.wardC[1], 3000, { facing: 3 }), stop(SPOTS.wardC[2], 2600, { facing: 1 }),
           stop(SPOTS.hallEast, 1600), stop(SPOTS.pharmacyBack, 3200, { facing: 2 }), stop(SPOTS.wardC[3], 2400, { facing: 3 })] },
       { id: 'cleaner-hall', alwaysHauls: true, haulWalk: { atlas: 'ward-haul', row: 1 }, speed: 24, offset: 600,
         stops: [stop(SPOTS.mopEast, 2600, { haul: true, action: { atlas: 'ward-care', row: 1, group: 0 } }),
           stop(SPOTS.mopWest, 2400, { haul: true, action: { atlas: 'ward-care', row: 1, group: 2 } })] },
-      { id: 'cleaner-rounds', walk: { atlas: LIFE, row: LIFE_ROW.cleaner }, speed: 46, offset: 6700,
+      { id: 'cleaner-rounds', walk: { atlas: 'ward-motion', row: LIFE_ROW.cleaner }, speed: 46, offset: 6700,
         stops: [stop(SPOTS.dutyBack, 3000, { facing: 2 }), stop(SPOTS.hallCentre, 1400), stop(SPOTS.wardC[0], 2800, { facing: 1 }),
           stop(SPOTS.hallEast, 1400), stop(SPOTS.archiveFloor, 3000, { facing: 0 })] },
     );

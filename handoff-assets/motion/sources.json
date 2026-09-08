@@ -230,5 +230,25 @@
       "row": 2,
       "height": 106
     }
+  ],
+  "ward": [
+    {
+      "file": "wardNurse.webp",
+      "columns": 4,
+      "rows": 4,
+      "row": 0
+    },
+    {
+      "file": "wardPorter.webp",
+      "columns": 4,
+      "rows": 4,
+      "row": 1
+    },
+    {
+      "file": "wardCleaner.webp",
+      "columns": 4,
+      "rows": 4,
+      "row": 2
+    }
   ]
 }

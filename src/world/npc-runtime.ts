@@ -1,7 +1,7 @@
 import { distance, findPath, followPath, nearestFloor, type Point, type Rect } from './navigation';
 import type { NpcAction, NpcDefinition, NpcStop } from './npc-schedule';
 import { WALK_FRAME_MS } from './npc-art';
-import { clearOfPeople, moveThroughCrowd, parkingPlace, personObstacles } from './crowd';
+import { parkingPlace } from './crowd';
 
 export interface NpcActor {
   id: string;
@@ -14,7 +14,7 @@ export interface NpcActor {
   /** Milliseconds left of the current dwell, or of the head start. */
   timer: number;
   path: Point[];
-  /** Milliseconds accumulated for the two-frame animation. */
+  /** Milliseconds accumulated for idle and action animation. */
   clock: number;
   travel: number;
   reroute: boolean;
@@ -23,7 +23,6 @@ export interface NpcActor {
   held: boolean;
   hauling: boolean;
   target: Point;
-  stalled: number;
   moving: boolean;
   transition?: { kind: 'rise' | 'lie'; elapsed: number; bedIndex: number };
 }
@@ -33,7 +32,6 @@ export interface StepOptions {
   extra?: readonly Rect[];
   /** The character the player is talking to, and where the player stands. */
   hold?: { id: string; at: Point } | null;
-  player?: Point;
   ready?: (actor: NpcActor) => boolean;
   freeze?: boolean;
 }
@@ -73,7 +71,7 @@ export function createWardLife(): WardLife {
           const at = start.bed ? start : parkingPlace(start, actors.filter(a => !restingInBed(a))) ?? start;
           const actor: NpcActor = { id: def.id, def, x: at.x, y: at.y, facing: start.facing ?? 0,
             state: 'dwell', index: 0, timer: start.dwell + def.offset, path: [], clock: def.offset, travel: 0, reroute: false, paused: false, held: false, hauling: false,
-            target: { x: at.x, y: at.y }, stalled: 0, moving: false };
+            target: { x: at.x, y: at.y }, moving: false };
           actors.push(actor); byId.set(def.id, actor);
           continue;
         }
@@ -105,12 +103,7 @@ export function createWardLife(): WardLife {
           actor.facing = Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 3 : 1) : (dy > 0 ? 0 : 2);
           continue;
         }
-        const people = actors.filter(a => a !== actor && !restingInBed(a));
-        const occupied: Point[] = options.player ? [...people, options.player] : people;
         if (actor.transition) {
-          // A patient gets up only when the landing is clear. During the
-          // authored sequence the feet stay reserved at the bedside.
-          if (actor.transition.kind === 'rise' && !clearOfPeople(actor, occupied)) continue;
           actor.transition.elapsed += dt * 1000;
           if (actor.transition.elapsed < BED_TRANSITION_MS) continue;
           const kind = actor.transition.kind; actor.transition = undefined;
@@ -126,10 +119,8 @@ export function createWardLife(): WardLife {
           const next = (actor.index + 1) % stops.length;
           if (searches <= 0) { actor.timer = 120; continue; }
           searches--;
-          const desired = place(stops[next], extra);
-          const reserved = [...occupied, ...people.filter(a => a.state === 'walk').map(a => a.target)];
-          const target = stops[next].bed ? (clearOfPeople(desired, occupied) ? desired : null) : parkingPlace(desired, reserved, extra);
-          if (!target) { actor.timer = 500; continue; }
+          // Other people never change a route or reserve a bed/doorway.
+          const target = place(stops[next], extra);
           // Consecutive work poses at one bedside do not move the stool.
           if (distance(actor, target) < 1.5 || stop.x === stops[next].x && stop.y === stops[next].y) {
             actor.index = next; actor.timer = stops[next].dwell; actor.clock = 0;
@@ -148,20 +139,14 @@ export function createWardLife(): WardLife {
           actor.timer -= dt * 1000;
           if (actor.timer > 0 || searches <= 0) continue;
           searches--;
-          const desired = place(stops[actor.index], extra);
-          const target = stops[actor.index].bed ? (clearOfPeople(desired, occupied) ? desired : null) : parkingPlace(desired, occupied, extra);
-          if (!target) { actor.timer = 500; continue; }
+          const target = place(stops[actor.index], extra);
           actor.target = target;
-          actor.path = findPath(actor, target, [...extra, ...personObstacles(occupied, actor)]);
+          actor.path = findPath(actor, target, extra);
           if (!actor.path.length) { actor.timer = 1000; continue; }
           actor.reroute = false;
         }
         const before = { x: actor.x, y: actor.y };
-        const path = [...actor.path];
-        const intended = followPath(actor, path, actor.def.speed * dt, extra);
-        const moved = moveThroughCrowd(actor, intended, occupied, extra);
-        if (distance(moved, intended) < .01) { actor.path = path; actor.stalled = 0; }
-        else actor.stalled += dt * 1000;
+        const moved = followPath(actor, actor.path, actor.def.speed * dt, extra);
         const dx = moved.x - before.x, dy = moved.y - before.y;
         actor.x = moved.x; actor.y = moved.y;
         actor.moving = distance(before, moved) > .01;
@@ -172,11 +157,10 @@ export function createWardLife(): WardLife {
           actor.path.length = 0; actor.state = 'dwell'; actor.timer = stop.dwell; actor.hauling = false; actor.clock = 0;
           if (stop.facing !== undefined) actor.facing = stop.facing;
           if (stop.bed && actor.def.walk?.atlas === 'patient-motion') actor.transition = { kind: 'lie', elapsed: 0, bedIndex: actor.index };
-        } else if (actor.stalled > 650 || Math.abs(dx) < 1e-6 && Math.abs(dy) < 1e-6) {
+        } else if (Math.abs(dx) < 1e-6 && Math.abs(dy) < 1e-6) {
           // Retry from the actual feet. A blocked route must never teleport
           // someone through furniture or mark a distant patient as in bed.
           actor.path.length = 0; actor.reroute = true; actor.timer = 500;
-          actor.stalled = 0;
         }
       }
     },
@@ -203,7 +187,7 @@ export function restingInBed(actor: NpcActor): boolean {
   const stop = actor.def.stops[Math.min(actor.index, actor.def.stops.length - 1)];
   return !actor.transition && actor.state === 'dwell' && !!stop.bed && distance(actor, stop) < 2;
 }
-/** Alternates the two frames of the current pose. */
+/** Walking advances with distance; stationary gestures advance with time. */
 export function actorStep(actor: NpcActor): number {
   if (actor.paused || actor.reroute) return 0;
   if (actor.held) return actor.clock % 3600 >= 2800 ? 1 : 0;
