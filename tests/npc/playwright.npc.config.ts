@@ -2,7 +2,7 @@ import {defineConfig}from '@playwright/test';
 
 /** Scene-cast verification. Separate from the shared e2e config and port. */
 export default defineConfig({
-  testDir:'.',fullyParallel:false,retries:0,workers:1,
+  testDir:'.',fullyParallel:false,retries:0,workers: 1,
   timeout:180_000,expect:{timeout:20_000},
   reporter:[['list']],
   outputDir:'../../test-results/npc',

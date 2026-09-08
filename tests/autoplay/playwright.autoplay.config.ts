@@ -9,7 +9,7 @@ const baseURL = `http://127.0.0.1:${port}/tyche/`;
 export default defineConfig({
   testDir: import.meta.dirname,
   fullyParallel: true,
-  workers: process.env.CI ? 2 : 3,
+  workers: 1,
   retries: 0,
   // A full fourteen-day rotation plus the tribunal needs its own budget.
   timeout: 35 * 60_000,
