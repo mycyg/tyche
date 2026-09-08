@@ -14,6 +14,5 @@ output/
 handoff-assets/**/*.png
 handoff-assets/**/*.wav
 handoff-assets/**/qa/
-public/audio/voice/
 tsconfig.tsbuildinfo
 route-audit-*/
