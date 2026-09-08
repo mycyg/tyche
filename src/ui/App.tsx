@@ -66,6 +66,7 @@ import { WorldStage } from "../world/WorldStage";
 import { worldCoffeeOffering,worldNapOffering } from '../world/refreshments';
 import { walkable } from "../world/navigation";
 import { Bedside, PatientPortrait } from "../world/Bedside";
+import { DialoguePortrait } from './DialoguePortrait';
 import {incomeCoverage}from '../game/income-coverage';
 import { RecordBook, type RecordPage } from "./RecordBook";
 import { TALENT_GUIDE, choiceResourceCopy, visibleChoiceEffects } from "./copy";
@@ -537,14 +538,14 @@ function PaymentPreview({ o, r }: { o: Option; r: Run }) {
     <small>诊疗费计入该患者的病组账本，不是医生收入。{approval ? "若申请未通过，不追加预算。" : ""}</small>
   </section>;
 }
-function Dialogue({ actor, title, text, close, children, patient, speechActor }: { actor?: string; title: string; text: string; close?: () => void; children?: ComponentChildren; patient?:Patient;speechActor?:string }) {
+export function Dialogue({ actor, title, text, close, children, patient, speechActor }: { actor?: string; title: string; text: string; close?: () => void; children?: ComponentChildren; patient?:Patient;speechActor?:string }) {
   const el = useRef<HTMLElement>(null);
   const voiceActor=speechActor??actor??(patient?clinicalVoiceActor(patient.caseId,patientCase(patient).sex):'narrator');
   const speech=dialogueSegments(text,voiceActor);
   useEffect(() => { void narrateDialogue(text, voiceActor); return stopVoice; }, [text, voiceActor]);
   useEffect(() => { const listener = (e: KeyboardEvent) => { if(e.defaultPrevented||document.querySelector('dialog[open]'))return;if(e.key === 'Escape' && close) { e.preventDefault(); e.stopPropagation(); close(); } }; const first = el.current?.querySelector<HTMLElement>('button'); first?.focus({preventScroll:true}); window.addEventListener('keydown',listener); return () => window.removeEventListener('keydown',listener); }, []);
   return <section class="rpg-dialogue" ref={el} role="dialog" aria-label={title}>
-    {actor && ACTORS[actor] ? <div class="dialogue-portrait"><Portrait actor={actor} /></div> : patient && <div class="dialogue-portrait dialogue-patient"><PatientPortrait caseId={patient.caseId} name={patient.name} patient={patient} /></div>}
+    {actor && ACTORS[actor] ? <div class="dialogue-portrait"><DialoguePortrait actor={actor} /></div> : patient && <div class="dialogue-portrait dialogue-patient"><PatientPortrait caseId={patient.caseId} name={patient.name} patient={patient} /></div>}
     <div class="dialogue-main"><div class="dialogue-heading"><h2>{title}</h2>{actor && ACTORS[actor] && <span>{ACTORS[actor].name}</span>}<button class="voice-replay" onClick={()=>void narrateDialogue(text, voiceActor)} aria-label="重听这段话">重听</button>{close && <button onClick={close} aria-label="结束交谈">×</button>}</div>
       <div class="dialogue-body"><p class="dialogue-text">{speech.map((part,i)=><span key={i} class={part.speaker==='narrator'?'dialogue-narration':'dialogue-speech'}>{part.text}</span>)}</p><div>{children}</div></div>
     </div></section>;

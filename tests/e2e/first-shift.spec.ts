@@ -12,6 +12,25 @@ async function startAtDesk(page:Page){
   await expect(page.getByRole('region',{name:'南屏医院',exact:true})).toBeVisible();
   await expect(page.locator('.world-loading')).toHaveCount(0);
 }
+test('viewing the schedule keeps the first shift saved across a reload',async({page})=>{
+  await startAtDesk(page);
+  await page.getByRole('button',{name:'暂停与设置',exact:true}).click();
+  await page.getByRole('button',{name:'查看排班表',exact:true}).click();
+  await expect(page.locator('.storage-warning')).toHaveCount(0);
+  const saved=()=>page.evaluate(()=>{
+    const envelope=JSON.parse(localStorage.getItem('tyche.save.1')!);
+    const save=JSON.parse(envelope.payload);
+    return {runId:save.run.id,guide:save.guide,day:save.run.day};
+  });
+  await expect.poll(async()=>(await saved()).guide.seen).toContain('schedule-open');
+  const before=await saved();
+  await page.reload();
+  await expect(page.locator('.storage-warning')).toHaveCount(0);
+  expect(await saved()).toEqual(before);
+  await page.getByRole('button',{name:'继续轮转 · 第 1 天',exact:true}).click();
+  await expect(page.getByRole('region',{name:'南屏医院',exact:true})).toBeVisible();
+  expect((await saved()).runId).toBe(before.runId);
+});
 test('fresh start, readable HUD, map navigation and modal focus',async({page})=>{
   const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
   const played:string[]=[];

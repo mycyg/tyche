@@ -11,6 +11,7 @@ import { clinicalCard } from './clinical';
 import type { Card } from './types';
 import {buildAuthoredEvents}from './director';
 import {runDie}from './run-random';
+import {GUIDE_EVENTS,GUIDE_VERSION}from '../shared/guide-state';
 
 const fresh = (): Save => ({ ...emptySave(), run: startRun("storage-shapes", "程医生", ["T06", "T16", "T11"]) });
 describe('plain probability roll persistence',()=>{
@@ -109,6 +110,17 @@ describe("import integrity", () => {
 });
 
 describe("healthy save compatibility", () => {
+  it('saves and reloads progress after viewing the schedule and recovery guide, including every guide milestone',()=>{
+    const save=fresh(),entries=new Map<string,string>();
+    const storage={getItem:(key:string)=>entries.get(key)??null,setItem:(key:string,value:string)=>entries.set(key,value)};
+    save.guide={version:GUIDE_VERSION,enabled:true,seen:[]};
+    for(const event of GUIDE_EVENTS){
+      save.guide.seen.push(event);
+      expect(persist(save,storage),event).toBe('');
+      expect(load(storage)).toEqual({save,warning:''});
+      expect(decode(encode(save))).toEqual(save);
+    }
+  });
   it("accepts the prior save format without guide or world and preserves old beds", () => {
     const save = fresh();
     delete save.guide; delete save.run!.world;

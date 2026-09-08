@@ -2,10 +2,10 @@
   "date": "2026-09-08",
   "unitTests": {
     "files": 137,
-    "passed": 2594
+    "passed": 2595
   },
   "e2e": {
-    "passed": 12,
+    "passed": 16,
     "projects": [
       "chromium-desktop",
       "chromium-portrait",
@@ -22,11 +22,26 @@
       "runs": 3,
       "reachedDay4": "100.0%",
       "reachedCourt": "0.0%",
-      "averageEndDay": 6.67,
-      "actions": 982,
+      "averageEndDay": 6,
+      "actions": 837,
       "endings": {
-        "END-23": 1,
-        "END-01": 1,
+        "END-01": 3
+      },
+      "staminaEndings": "0.0%",
+      "topEndingShare": "100.0%",
+      "nonDark": "0.0%"
+    },
+    {
+      "policy": "careful",
+      "veteran": false,
+      "runs": 3,
+      "reachedDay4": "100.0%",
+      "reachedCourt": "0.0%",
+      "averageEndDay": 10.67,
+      "actions": 1834,
+      "endings": {
+        "END-26": 1,
+        "END-20": 1,
         "END-33": 1
       },
       "staminaEndings": "0.0%",
@@ -35,34 +50,19 @@
     },
     {
       "policy": "careful",
-      "veteran": false,
-      "runs": 3,
-      "reachedDay4": "100.0%",
-      "reachedCourt": "0.0%",
-      "averageEndDay": 10,
-      "actions": 2032,
-      "endings": {
-        "END-33": 2,
-        "END-26": 1
-      },
-      "staminaEndings": "0.0%",
-      "topEndingShare": "66.7%",
-      "nonDark": "66.7%"
-    },
-    {
-      "policy": "careful",
       "veteran": true,
       "runs": 3,
       "reachedDay4": "100.0%",
-      "reachedCourt": "0.0%",
-      "averageEndDay": 12,
-      "actions": 2780,
+      "reachedCourt": "33.3%",
+      "averageEndDay": 12.67,
+      "actions": 2308,
       "endings": {
-        "END-22": 1,
-        "END-23": 2
+        "END-26": 1,
+        "END-23": 1,
+        "END-29": 1
       },
       "staminaEndings": "0.0%",
-      "topEndingShare": "66.7%",
+      "topEndingShare": "33.3%",
       "nonDark": "0.0%"
     },
     {
@@ -71,14 +71,13 @@
       "runs": 3,
       "reachedDay4": "100.0%",
       "reachedCourt": "0.0%",
-      "averageEndDay": 11.33,
-      "actions": 1295,
+      "averageEndDay": 12,
+      "actions": 1094,
       "endings": {
-        "END-05": 2,
-        "END-01": 1
+        "END-05": 3
       },
       "staminaEndings": "0.0%",
-      "topEndingShare": "66.7%",
+      "topEndingShare": "100.0%",
       "nonDark": "0.0%"
     }
   ],
@@ -127,5 +126,29 @@
       2
     ]
   },
-  "simulationSeed": "ward-followup"
+  "simulationSeed": "dialogue-portrait",
+  "dialoguePortraits": {
+    "passed": 12,
+    "browsers": [
+      "chromium",
+      "webkit"
+    ],
+    "viewports": [
+      "375x667",
+      "390x844",
+      "412x780",
+      "768x1024",
+      "844x390",
+      "1440x900"
+    ],
+    "actors": 8,
+    "patient": true,
+    "proportional": true,
+    "isolatedSourceWindows": true
+  },
+  "guideSave": {
+    "milestones": 9,
+    "scheduleAndRecoveryAccepted": true,
+    "browserReloadProjects": 4
+  }
 }

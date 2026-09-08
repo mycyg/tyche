@@ -3,7 +3,7 @@ import { availableOptions, newMeta } from "./engine";
 import { CASES, DEBUFFS, TALENTS } from "./catalog";
 import type { Meta, PatientCheckMember, Run } from "./types";
 import { PARTNER_SETTINGS } from "./types";
-import type { GuideState } from "../shared/guide-state";
+import { GUIDE_EVENTS, GUIDE_VERSION, type GuideState } from "../shared/guide-state";
 import { getClinicalGraph } from '../content/clinical';
 import { CASE_PRESETS, ENTITY_BY_ID, PRESET_BY_ID, isCompatible } from '../content/patients';
 import { EVENT_BY_ID, BUTTERFLY_NODES, BUTTERFLY_MERGES, BUTTERFLY_RESOLUTIONS } from '../content/events';
@@ -295,8 +295,8 @@ function roll(x: unknown): boolean {
     (x.advantage!==true||x.second!==undefined)&&(!(integer(x.second)&&integer(x.face))||(x.advantage===true?x.face>=x.second:x.face<=x.second));
 }
 function guide(x: unknown): boolean {
-  return isRecord(x) && x.version === 1 && isBool(x.enabled) && strings(x.seen) && x.seen.length <= 7 &&
-    x.seen.every(member(["welcome-seen", "bed-near", "chart-open", "choice-committed", "choice-roll-seen", "choice-without-check", "handoff-completed"]));
+  return isRecord(x) && x.version === GUIDE_VERSION && isBool(x.enabled) && strings(x.seen) && x.seen.length <= GUIDE_EVENTS.length &&
+    x.seen.every(member(GUIDE_EVENTS));
 }
 /** Membership checks are separate from shape checks: additional documented event
  * patients are registered actors even though they do not occupy Run.patients. */
