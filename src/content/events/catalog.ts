@@ -385,6 +385,10 @@ export const AUTHORED_EVENTS: AuthoredEvent[] = source.events.map(row => {
     // refund today's incurred treatment; E-023 instead continues care today.
     for(const i of [0,2])delete options[i].effects.bill;
   }
+  if(row.id==='E-023'){
+    options[0].effects.discharge=true;options[2].effects.discharge=true;
+    options[1].failureTotal!.discharge=true;options[1].check!.failure.discharge=true;
+  }
   if(row.id==='E-171'){
     // ① settles the excess now. The amount is this patient's actual unpaid
     // excess, supplied by the bound context; nothing already settled is charged again.
@@ -424,7 +428,7 @@ export const AUTHORED_EVENTS: AuthoredEvent[] = source.events.map(row => {
   const measured = row.followup.match(/可重复（(体力|SAN|情绪|抑郁|声望|余额|负债)每增加\s*¥?([\d,]+)\s*一次）/);
   const repeatEvery = measured ? { resource: resourceNames[measured[1]] as keyof Effects, amount: num(measured[2]) } : undefined;
   return { ...row, text: eventPlayerText(row.text), options, phases: phaseFor(row), repeatable: /可重复/.test(row.followup), exclusiveGroup: exclusive, repeatEvery,
-    scopeKind: scopeFor(row), requiredQualifiers: row.trigger.split('；').filter(c => !/`[^`]+`\s*[≥≤<>=]\s*\d+/.test(c)).map(clean).filter(c => !/^(?:D|否则 D|任意日|阶段|工资日|夜班日|夜班后|非夜班|已触发|未触发|必发|关系|体力|SAN|情绪|抑郁|声望|余额|负债|现金压力|累计超支|当日累计超支|利息|互斥组|权重)/.test(c)),
+    scopeKind: row.id==='E-058'?'personal':scopeFor(row), requiredQualifiers: row.trigger.split('；').filter(c => !/`[^`]+`\s*[≥≤<>=]\s*\d+/.test(c)).map(clean).filter(c => !/^(?:D|否则 D|任意日|阶段|工资日|夜班日|夜班后|非夜班|已触发|未触发|必发|关系|体力|SAN|情绪|抑郁|声望|余额|负债|现金压力|累计超支|当日累计超支|利息|互斥组|权重)/.test(c)),
     onEnter: row.id==='E-157'?{san:-5,emotion:-10,depression:3,reputation:-10}:/触发时先/.test(row.followup) ? immediateEffects(row.followup.split('；')[0]) : {} };
 });
 export const EVENT_BY_ID = Object.fromEntries(AUTHORED_EVENTS.map(e => [e.id, e])) as Record<string, AuthoredEvent>;
@@ -443,6 +447,7 @@ const compare = (a: number, op: string, b: number) => op === '≥' || op === '>=
 
 export function eventEligible(event: AuthoredEvent, ctx: EventContext): boolean {
   if (!event.phases.includes(ctx.phase)) return false;
+  if(['E-115','E-116','E-127','E-244','E-245','E-246','E-247'].includes(event.id)&&!has(ctx,'伴侣-在册'))return false;
   if(['E-159','E-160'].includes(event.id)&&!RULES.wageDays.includes(ctx.day as never))return false;
   if(event.id==='E-100'&&has(ctx,'家庭-丧亲'))return false;
   if (event.repeatEvery && ctx.seen?.[event.id] !== undefined) {
@@ -564,6 +569,8 @@ const EVENT_SPEAKERS:Record<string,string[]>={
 };
 /** Casting is separate from evidence identity: binding.actorId remains the exact source person. */
 export function eventRuntimeActor(event:AuthoredEvent,binding:EventBinding):string|undefined{
+  if(event.id==='E-058')return 'nurse';
+  if(['E-115','E-116','E-127','E-244','E-245','E-246','E-247'].includes(event.id))return 'partner';
   for(const [actor,ids]of Object.entries(EVENT_SPEAKERS))if(ids.includes(event.id))return actor;
   if(event.category===1)return undefined;
   if(event.category===4)return 'mother';
@@ -616,6 +623,7 @@ export function eventRiskTargets(event: AuthoredEvent, option: EventOption, bind
 /** Resolve resource/fact-dependent alternatives before the choice is offered. */
 export function contextualOptions(event: AuthoredEvent, context: EventContext): EventOption[] {
   if(event.id==='E-209')return event.options.slice(0,2);
+  if(['E-097','E-108','E-111'].includes(event.id)&&!has(context,'伴侣-在册'))return event.options.filter(o=>!o.id.endsWith('-c'));
   if(event.id==='E-171'&&typeof context.facts['patient-budget-unpaid']==='number'){
     const options=structuredClone(event.options);
     const due=Math.min(Math.max(0,context.cash??0),Number(context.facts['patient-budget-unpaid']));

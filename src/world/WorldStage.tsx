@@ -73,7 +73,8 @@ export function worldTargets(r: Run): Target[] {
     let key: string, point: Point, label: string;
     const waitingGroup=waiting.find(g=>g.patients.some(p=>p.uid===card.patientId));
     const assignedPlace=occupants.find(o=>o.patient.uid===card.patientId);
-    if(waitingGroup){key=waitingGroup.id;point=waitingGroup.place.target;label=`${waitingGroup.label} · ${waitingGroup.patients.length} 位`;}
+    if('authoredEventId'in card&&card.authoredEventId==='E-058'){key='nurse';point=targets.find(t=>t.id==='nurse')!;label='护理站 · 医嘱系统';}
+    else if(waitingGroup){key=waitingGroup.id;point=waitingGroup.place.target;label=`${waitingGroup.label} · ${waitingGroup.patients.length} 位`;}
     else if(assignedPlace){const p=assignedPlace.patient;key=p.inpatient?`bed:${p.bed}`:`observation:${p.uid}`;point=assignedPlace.place.target;label=`${p.inpatient?`${p.bed} 床`:point.x<256?'急救室':'留观'} · ${p.name}`;}
     else if (card.patientId && card.kind !== 'night' && card.kind !== 'quick') {
       const p = r.patients.find(p => p.uid === card.patientId);
@@ -91,7 +92,7 @@ export function worldTargets(r: Run): Target[] {
     } else if (card.kind === 'night') { key = 'emergency'; point = { x: 132, y: 367 }; label = '急救呼叫'; }
     else if (card.kind === 'quick') { key = 'outpatient'; point = { x: 316, y: 273 }; label = '待诊患者'; }
     else if (card.kind === 'rest') { key = 'day-end'; point = { x: 678, y: 373 }; label = '日终 · 休息与结算'; }
-    else if (card.actor === 'father'||card.actor === 'mother') { key = 'phone'; point = { x: 54, y: 270 }; label = '家里来电'; }
+    else if (card.actor === 'father'||card.actor === 'mother'||card.actor === 'partner') { key = 'phone'; point = { x: 54, y: 270 }; label = '家里来电'; }
     else { key = card.actor ?? 'nurse'; point = targets.find(t=>t.id===key)??PEOPLE.find(p => p.id === key) ?? PEOPLE[1]; label = ACTORS[key]?.name ?? card.title; }
     const existing = targets.find(t => t.id === key);
     if (existing) { (existing.cards ??= []).push(card); existing.label = label; }
@@ -510,6 +511,7 @@ export function WorldStage(props: Props) {
     </>}
     {(selection || quests) && <div ref={menu} class="rpg-map-menu" role="dialog" aria-modal="true" aria-label={selection?.label ?? '当班待办'}>
       <div class="rpg-menu-heading"><h2>{selection?.label ?? '当班待办'}</h2><button aria-label="关闭" onClick={() => { setSelection(null); setQuests(false); }}>×</button></div>
+      {quests&&<p class="rpg-agenda-scope">当前阶段：{r.shiftPhase??'当班'}。这里只列本阶段待办；后续门诊、复评和突发情况可能继续增加任务。</p>}
       {(selection?.cards ?? availableEncounters(r)).map(card => {const patient=r.patients.find(p=>p.uid===card.patientId),title=card.title==='信息'?'入院核查':card.title,who=patient?`${patient.bed?`${patient.bed} 床 · `:awaitingBed(r,patient)||underObservation(r,patient)?'留观 · ':''}${patient.name}`:ACTORS[card.actor ?? '']?.name ?? '值班室';return <button class="rpg-menu-row" key={card.id} aria-label={`${title}，${who}，${selection?'开始交互':'前往办理'}`} onClick={() => { setSelection(null); setQuests(false); if (selection) props.onEncounter(card); else { const t = targets.find(t => t.cards?.some(c => c.id === card.id)); if (t) engine.current.navigate(t); } }}><span aria-hidden="true">▸</span><b>{title}</b><small>{who}</small></button>;})}
       {selection?.waitingPatients?.map(patient=><button class="rpg-menu-row" key={`waiting:${patient.uid}`} onClick={()=>{setSelection(null);props.onPatient(patient.uid);}}><span aria-hidden="true">▤</span><b>{patient.name}</b><small>候床 · 查看现有病历</small></button>)}
       {!selection && <p>选定目的地后沿路线前往。</p>}

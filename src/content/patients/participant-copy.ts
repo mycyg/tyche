@@ -42,6 +42,7 @@ export function projectParticipantOption(saved:Option,entity:PatientEntity):Opti
  return o;
 }
 export function projectParticipantScene<T extends Scene>(scene:T,entity:PatientEntity):T{
+ if(entity.id==='P-086'&&!/腹胀|肚子胀/.test(scene.text.replace(entity.dialogue,'')))scene={...scene,text:scene.text.replace(entity.dialogue,'「我们做酒的不喝酒还怎么做。」')};
  const role=minorDialogue(entity);if(!role)return scene;
  let text=scene.text,title=scene.title;
  if(scene.id.endsWith(':communication')||scene.id.includes(':communication:visit:')){

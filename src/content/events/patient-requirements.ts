@@ -27,6 +27,7 @@ export function patientIdentityMatches(eventId:string,r:Run,p:Patient):boolean{
  if(['E-006','E-007','E-009','E-019','E-020','E-023','E-025','E-026','E-027','E-030','E-034','E-038','E-172'].includes(eventId)&&c.age<12)return false;
  if(eventId==='E-001')return c.age>=18&&has('daughter');
  if(eventId==='E-014')return c.age>=18;
+ if(eventId==='E-038')return /腰痛|腰背痛|腰疼/.test(c.complaint);
  if(eventId==='E-034')return c.age>=18;
  if(eventId==='E-002')return has('son');
  if(eventId==='E-003'||eventId==='E-030')return c.age>=18&&c.sex==='男'&&has('spouse');

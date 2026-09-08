@@ -425,6 +425,7 @@ function applyEffects(r: Run, e: Effects, card: Card, option: Option, chargeTrea
     if ((e.patience ?? 0) > 0) p.explainedDay = r.day;
     if (e.discharge) {
       p.active = false;
+      p.inpatient = false;
       p.bed = 0;
       delete r.facts[`awaiting-bed:${p.uid}`];
       delete r.facts[`observation:${p.uid}`];
@@ -872,7 +873,7 @@ function commitChoice(r: Run, option: Option, card: Card, before: Run, acceptedR
     if(patientResult.cards?.length)r.queue.splice(r.cursor,0,...patientResult.cards.filter(c=>!r.queue.some(old=>old.id===c.id)));
     if(patientResult.stopLocalCare)stopLocalCare=true;
   }
-  if(interacted&&(option.interaction==='transfer'||stopLocalCare)) {
+  if(interacted&&(option.interaction==='transfer'||stopLocalCare||effects.discharge&&'authoredEventId'in card)) {
       interacted.active=false;interacted.inpatient=false;interacted.bed=0;
       flag(r,option.talentAction==='transfer'||option.interaction==='transfer'?`local-care-transferred:${interacted.uid}`:`local-care-ended:${interacted.uid}`,option.id);
       r.queue=r.queue.filter((c,i)=>i<r.cursor||c.patientId!==interacted.uid||!['clinical','night','ward','quick'].includes(c.kind)||'authoredEventId'in c||c.last===false&&!c.clinicalGraph&&!c.presetNode&&!isPatientGate(c));
@@ -1316,6 +1317,15 @@ export function act(input: Run, action: Action): Run {
       }
       const pending=r.pendingCheck,card=currentCard(r),option=availableOptions(r).find(o=>o.id===pending.optionId);
       if(!card||card.id!==pending.cardId||!option||r.committed.includes(option.id))return input;
+      // A pre-update oral-treatment save may already be showing the die for
+      // rescue documentation. No rescue happened, so close that unperformed
+      // order without charging it or fabricating a rescue in the case history.
+      if(owner?.caseId==='C011'&&owner.clinical&&!owner.clinical.entered.includes('s4')&&option.clinicalChoice==='s6_record'){
+        delete r.pendingCheck;delete r.roll;
+        r.queue[r.cursor]=refreshClinicalCardCopy(r,card);
+        r.phase='feedback';r.feedback={title:'据实记录',text:'本次未发生抢救，无需补记抢救记录。该项未执行、未计费，请按实际处置完善过敏与用药记录。',changes:[],next:'play'};
+        return r;
+      }
       delete r.pendingCheck;
       commitChoice(r,option,card,input,r.roll);
       for(const key of Object.keys(r.vitals) as Vital[])r.vitals[key]=clamp(Math.round(r.vitals[key]),0,liveCap(r,key));

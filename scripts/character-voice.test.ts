@@ -9,8 +9,8 @@ function fixture(check:(directory:string)=>void){
   try{cpSync('public/audio/character-voice',root,{recursive:true});check(root);}
   finally{rmSync(root,{recursive:true,force:true});}
 }
-it('the release has exactly 36 verified reactions and no narration',()=>fixture(root=>{
-  expect(checkCharacterVoice(root)).toMatchObject({characters:12,clips:36,narration:false});
+it('the release has exactly 39 verified reactions and no narration',()=>fixture(root=>{
+  expect(checkCharacterVoice(root)).toMatchObject({characters:13,clips:39,narration:false});
   const index=JSON.parse(readFileSync(join(root,'index.json'),'utf8'));
   expect(Object.values(index).every((row:any)=>row.speaker!=='narrator'&&/^[a-f0-9]{12}$/.test(row.version))).toBe(true);
 }));

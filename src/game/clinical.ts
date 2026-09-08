@@ -43,7 +43,7 @@ export function clinicalCard(r: Run, p: Patient): Card | undefined {
     options,
   };
 }
-/** Refresh only current clinical copy in old snapshots; pending dice, prices and identities survive. */
+/** Refresh current clinical copy and remove unavailable unchosen actions; pending dice, prices and identities survive. */
 export function refreshClinicalCardCopy(r:Run,card:Card):Card {
   if(!card.clinicalGraph||!card.patientId)return card;
   const p=r.patients.find(p=>p.uid===card.patientId);
@@ -56,7 +56,7 @@ export function refreshClinicalCardCopy(r:Run,card:Card):Card {
     (entry.id.startsWith(`contact:${p.uid}:`)||entry.id.startsWith(`archive-notice:${p.uid}:`))&&
     !!entry.result&&card.text.includes(entry.result)).map(entry=>entry.result);
   const text=[fresh.text,...new Set(notices.filter(text=>!fresh.text.includes(text)))].join('\n');
-  return {...card,title:fresh.title,text,options:card.options.map(option=>{
+  return {...card,title:fresh.title,text,options:card.options.filter(option=>!option.clinicalChoice||fresh.options.some(next=>next.clinicalChoice===option.clinicalChoice)||(r.pendingCheck?.kind==='choice'&&r.pendingCheck.cardId===card.id&&r.pendingCheck.optionId===option.id)).map(option=>{
     const copy=fresh.options.find(candidate=>candidate.clinicalChoice===option.clinicalChoice);
     if(!option.clinicalChoice||!copy)return option;
     return {...option,label:copy.label,result:copy.result,hint:copy.hint,

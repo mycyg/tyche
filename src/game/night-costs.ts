@@ -9,7 +9,7 @@ import {eventTuning}from '../content/events/modifiers';
 export function nightClinicalCharge(r:Run,card:Card|undefined,o:Option) {
   const none={stamina:0,san:0,key:undefined as string|undefined};
   if(!card||card.kind!=='night'||!card.patientId||o.talentAction||o.interaction==='hallucination'||o.interaction==='graph-continue'||'patientGate'in card)return none;
-  if('butterfly'in card||'butterflyMerge'in card||'butterflyCommitment'in card||'butterflyPermission'in card||'sourceFollowup'in card)return none;
+  if('butterfly'in card||'butterflyMerge'in card||'butterflyCommitment'in card||'butterflyPermission'in card||'sourceFollowup'in card||'trolley'in card)return none;
   const authored=(card as Card&{authoredEventId?:string}).authoredEventId;
   if(authored&&!NEW_NIGHT_CLINICAL_EVENT_IDS.some(id=>id===authored))return none;
   const key=authored?`night-baseline:${r.day}:${card.id}`:`night-baseline:${r.day}:${card.patientId}`;

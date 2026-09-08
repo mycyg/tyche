@@ -82,6 +82,8 @@ export function normalizeClinicalGraph(g:ClinicalGraph):ClinicalGraph {
     for(const id of ['s4_lysis','s4_transfer_far','s4_ccu_no_cath','s4_inform_lysis'])req(id,V('本院无导管室'));
     op('s4_inform').retry={max:2,dcIncrease:2,exhaustedNext:'o_refuse'};
     op('s4_inform_lysis').retry={max:2,dcIncrease:2,exhaustedNext:'o_refuse'};op('s4_inform_lysis').effects.flags=[];set('s4_inform_lysis',['consented'],'success');
+    for(const id of ['s4_inform','s4_inform_lysis'])op(id).failureNext='s4';
+    req('s4_pci',A(V('onsite'),F('consented')));req('s4_lysis',A(V('本院无导管室'),F('consented')));
     const reperf=cc('s4_pci s4_lysis');
     outcome('o_worst',F('observed_without_ecg'),400);outcome('o_refuse',F('refusal_persisted'),350);
     outcome('o_delay',O(cc('s4_ccu s4_ccu_no_cath s4_transfer_far'),A(C('s4_gi_consult'),minutes(181))),300);
@@ -197,6 +199,7 @@ export function normalizeClinicalGraph(g:ClinicalGraph):ClinicalGraph {
     const airway=add('s5','s5_airway','呼叫气道团队，评估并准备插管','s5',{flags:['airway_supported']},12,1,0,F('epi_delayed'));
     airway.result='气道团队到床旁接手气道评估。血氧读数降至 84%，复苏继续。';
     multi('s5',1,3,['s5_observe30']);multi('s6',1,3);node('s7').kind='auto';node('s7').exit='outcomes';
+    for(const id of ['s6_record','s6_skip','s6_adr'])req(id,{entered:'s4'});
     outcome('o_hypoxic',O(A(F('epi_delayed'),N(F('airway_supported'))),A(F('epi_iv'),N(F('arrhythmia_treated')))),400);
     outcome('o_biphasic',F('early_discharge'),300);outcome('o_rescued',A({entered:'s4'},F('epi_given'),fc('resuscitated icu'),N(F('early_discharge'))),100);
     outcome('o_good',A(F('safe_drug'),N({entered:'s4'})),0);

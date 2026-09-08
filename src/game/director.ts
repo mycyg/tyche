@@ -726,11 +726,11 @@ export function buildAuthoredEvents(r: AuthoredRun, phase: EventPhase): Director
     if(e.id==='E-237')card.text=posthumousItems({...r,authored:s});
     if(['E-139','E-141','E-152'].includes(e.id)){
       const due=Math.max(0,(s.benefitsReceived??0)-(s.benefitsReturned??0));
-      card.options[0].effects.cash=-due;
+      card.options[0].effects.cash=due===0?0:-due;
       card.options[0].hint=`退缴实际尚未退还的款项 ¥${due.toLocaleString('en-US')}`;
       card.options[0].result=due>0?`你按实际收款记录退缴了 ¥${due.toLocaleString('en-US')}，收据上写明金额和日期。`:'你核对了收款记录，没有还需要退的钱。';
       if(e.id==='E-141'){
-        const returned=Math.min(3000,due);card.options[1].effects.cash=-returned;
+        const returned=Math.min(3000,due);card.options[1].effects.cash=returned===0?0:-returned;
         card.options[1].hint=`退缴 ¥${returned.toLocaleString('en-US')}，尚余 ¥${(due-returned).toLocaleString('en-US')}`;
         card.options[1].result=`收据记录本次退缴 ¥${returned.toLocaleString('en-US')}。此前尚未退还的款项还剩 ¥${(due-returned).toLocaleString('en-US')}。`;
       }
@@ -1606,6 +1606,12 @@ export function afterAuthoredChoice(r:AuthoredRun,card:Card,option:Option,succes
   if(e.id==='E-014'&&card.patientId){
     const returned=option.id.endsWith('E-014-a')&&success;
     result.effects.push({id:`${option.id}:self-departure`,scope:card.scope,effects:{...(returned?{}:{discharge:true}),flags:[`self-departure:${card.patientId}`,...(returned?[`self-departure-returned:${card.patientId}`]:[])]},text:returned?'患者已经返回病区，原来的自行离院经过仍保留。':'患者已经自行离开，本院床位释放。自行离院经过与未完成的评估分别保留，没有记成已劝返。'});
+  }
+  if(e.id==='E-023'&&actual.discharge&&card.patientId){
+    const unsafe=option.id.endsWith('E-023-c');
+    const effects={flags:[`${unsafe?'early-discharge':'self-departure'}:${card.patientId}`]};
+    activateFacts(s,effects,r.day,option.id);
+    result.effects.push({id:`${option.id}:departure-record`,scope:card.scope,effects,text:'患者已离院，床位释放；本次离院决定、未完成评估和原有风险继续留档。'});
   }
   if(PAPER_SUBMISSION_CHOICES.some(id=>option.id.endsWith(id)))consumePaperCredit(r,s,result,card.scope,option.id);
   if(e.id==='E-031'&&option.id.endsWith('E-031-c'))for(const affected of ec.eventBinding.patients??[])result.effects.push({id:`${option.id}:oxygen:${affected.id}`,scope:{kind:'patient',id:affected.id},effects:{hazards:structuredClone(e.options[2].effects.hazards)},text:`同病房抽烟没有得到处理，${affected.name??'吸氧患者'}所在的用氧环境仍有安全隐患。`});

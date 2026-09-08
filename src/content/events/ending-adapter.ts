@@ -292,6 +292,9 @@ export function attachmentIds(r:EndingRun,main:string,options:EndingOptions):str
   const converged=ids.includes('X16')?ids.filter(id=>!['X13','X14','X15'].includes(id)):ids.includes('X15')?ids.filter(id=>!['X13','X14'].includes(id)):ids;
   return isDeathEnding(main)?posthumousAttachmentIds(converged):converged;
 }
+export function uniqueEndingNotes(notes:readonly string[]):string[]{
+  const seen=new Set<string>();return notes.filter(note=>{const key=note.trim().replace(/[\s：:]/g,'');if(!key||seen.has(key))return false;seen.add(key);return true;});
+}
 export function documentedEnding(r:Run,id:string,options:EndingOptions={}):DocumentedEnding{
   const rr=r as EndingRun,def=definitions.get(id);if(!def)throw new Error(`Unknown ending ${id}`);
   // An acute-event choice still names its old X page (E-200/E-201/E-202/E-205/E-208).
@@ -311,7 +314,7 @@ export function documentedEnding(r:Run,id:string,options:EndingOptions={}):Docum
   }
   if(death)for(const note of posthumousStandingNotes(rr))if(!annexes.includes(note))annexes.push(note);
   let epilogue=baseEpilogue;if(id==='X34'&&any(facts(rr),'liaison-job-obtained'))epilogue='第一天上班，你把医院门禁卡放进抽屉。新工作群里有几个熟悉的名字。';
-  return{id,title:def.title,category:def.category,decision,epilogue,annexes,court:['刑事','行政','民事'].includes(def.category),annexIds,sourceId:def.id,liability:a.liability,seedHistory:currentSeeds(rr),...(story?{storyId:story}:{})};
+  return{id,title:def.title,category:def.category,decision,epilogue,annexes:uniqueEndingNotes(annexes),court:['刑事','行政','民事'].includes(def.category),annexIds,sourceId:def.id,liability:a.liability,seedHistory:currentSeeds(rr),...(story?{storyId:story}:{})};
 }
 /** Contract §5.2: after a death the run notes describe what others now hold. */
 function posthumousChainAnnexes(r:EndingRun):string[]{

@@ -41,6 +41,7 @@ export function choiceResourceCopy(r:Run,o:Option,card:Card|undefined=r.queue[r.
   const add=(text:string,danger=false)=>rows.push({text,danger});
   const show=(e:Effects,prefix:string,includeStamina:boolean)=>{
     const effect=visibleChoiceEffects(r,e,card);
+    if((e.cash??0)>0&&effect.cash!==e.cash)add(`${prefix}原金额 ¥${e.cash!.toLocaleString('zh-CN')}；天赋调整后实际到账 ¥${Math.floor(effect.cash??0).toLocaleString('zh-CN')}`,false);
     for(const vital of ['stamina','san','emotion'] as Vital[]){
       if(vital==='stamina'&&!includeStamina)continue;
       const raw=effect[vital]??0,value=raw<0?Math.ceil(raw):Math.floor(raw);
@@ -58,6 +59,7 @@ export function choiceResourceCopy(r:Run,o:Option,card:Card|undefined=r.queue[r.
   const failure=o.check?('failureTotal'in o?(o as Option&{failureTotal?:Effects}).failureTotal??o.check.failure:o.check.failure):undefined;
   const failedCost=conditional&&failure?optionCosts(r,{...o,effects:failure},card):undefined;
   const prefix=conditional?'通过后：':'';
+  if(card?.kind!=='night'&&cost.ap>o.ap)add(`本步基础 ${o.ap} 点行动，当前工作分担与状态追加 ${cost.ap-o.ap} 点，合计 ${cost.ap} 点`,true);
   add(`${failedCost?.stamina===cost.stamina?'':prefix}操作体力${cost.stamina?` −${cost.stamina} 点`:'消耗 0 点'}`,cost.stamina>0);
   show(o.effects,prefix,(o.effects.stamina??0)>0);
   if(o.check&&failure){

@@ -22,7 +22,7 @@ export function nightTelephoneRequired(r:Run,card:Card):boolean {
 export function nightTelephoneOption(card:Card):Option {
   const incident='authoredEventId'in card&&card.authoredEventId==='E-012';
   return {id:nightTelephoneId(card),label:'电话交代当前情况，请二线到场接手',ap:0,cost:0,minutes:RULES.nightTelephone.minutes,
-    result:'夜班时间已经用尽，你没有及时到床旁，只能先通过电话交代情况。二线接手后，仍须完成患者尚缺的床旁评估；这次响应延误保留在接诊记录中。',
+    result:'夜班时间已经用尽，你先通过电话交代情况，请二线到场协助。此时还没有完成床旁评估或整体交班签收，未完成事项仍在你的清单中；这次响应延误保留在接诊记录里。',
     hint:'没有完成查体、检查或治疗，不计为正常接诊绩效。',mechanics:{operation:'other',quality:'incorrect'},
     effects:{hazards:[{type:'R',weight:RULES.nightTelephone.risk,reason:incident?'夜班预算耗尽，患者跌倒后仅获电话处置，床旁评估延误':'夜班预算耗尽，新到急诊仅获电话处置，床旁评估延误',norm:'急诊接诊与交接应及时完成，电话交代不能替代必要的床旁评估',causal:false}]}};
 }

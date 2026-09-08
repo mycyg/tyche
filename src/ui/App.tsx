@@ -1,7 +1,7 @@
 import { SUPPORT_PARAGRAPHS } from '../content/story/support-card';
 import type { ComponentChildren } from "preact";
 import {version as gameVersion}from '../../package.json';
-import { useEffect, useRef, useState } from "preact/hooks";
+import { useEffect, useLayoutEffect, useRef, useState } from "preact/hooks";
 import {
   act,
   availableOptions,
@@ -542,14 +542,23 @@ function PaymentPreview({ o, r }: { o: Option; r: Run }) {
 export function Dialogue({ actor, title, text, close, children, patient, speechActor }: { actor?: string; title: string; text: string; close?: () => void; children?: ComponentChildren; patient?:Patient;speechActor?:string }) {
   const el = useRef<HTMLElement>(null);
   const voiceActor=speechActor??actor??(patient?clinicalVoiceActor(patient.caseId,patientCase(patient).sex):'narrator');
+  const scroll=useRef<HTMLDivElement>(null),[more,setMore]=useState(false);
+  useLayoutEffect(()=>{if(scroll.current)scroll.current.scrollTop=0;},[text,voiceActor]);
+  useLayoutEffect(()=>{
+    const element=scroll.current;if(!element)return;
+    const update=()=>setMore(element.scrollHeight-element.clientHeight-element.scrollTop>8);
+    const observer=new ResizeObserver(update);observer.observe(element);for(const child of element.children)observer.observe(child);
+    element.addEventListener('scroll',update,{passive:true});update();
+    return()=>{observer.disconnect();element.removeEventListener('scroll',update);};
+  },[text,children]);
   const speech=dialogueSegments(text,voiceActor);
   useEffect(() => { void narrateDialogue(text, voiceActor); return stopVoice; }, [text, voiceActor]);
   useEffect(() => { const listener = (e: KeyboardEvent) => { if(e.defaultPrevented||document.querySelector('dialog[open]'))return;if(e.key === 'Escape' && close) { e.preventDefault(); e.stopPropagation(); close(); } }; const first = el.current?.querySelector<HTMLElement>('button'); first?.focus({preventScroll:true}); window.addEventListener('keydown',listener); return () => window.removeEventListener('keydown',listener); }, []);
   return <section class="rpg-dialogue" ref={el} role="dialog" aria-label={title}>
     {actor && ACTORS[actor] ? <div class="dialogue-portrait"><DialoguePortrait actor={actor} /></div> : patient && <div class="dialogue-portrait dialogue-patient"><PatientPortrait caseId={patient.caseId} name={patient.name} patient={patient} /></div>}
-    <div class="dialogue-main"><div class="dialogue-heading"><h2>{title}</h2>{actor && ACTORS[actor] && <span>{ACTORS[actor].name}</span>}{characterSpeaker(text,voiceActor)&&<button class="voice-replay" onClick={()=>void replayVoice()} aria-label="重听角色短语音">重听</button>}{close && <button onClick={close} aria-label="结束交谈">×</button>}</div>
+    <div class="dialogue-main" ref={scroll}><div class="dialogue-heading"><h2>{title}</h2>{actor && ACTORS[actor] && <span>{ACTORS[actor].name}</span>}{characterSpeaker(text,voiceActor)&&<button class="voice-replay" onClick={()=>void replayVoice()} aria-label="重听角色短语音">重听</button>}{close && <button onClick={close} aria-label="结束交谈">×</button>}</div>
       <div class="dialogue-body"><p class="dialogue-text">{speech.map((part,i)=><span key={i} class={part.speaker==='narrator'?'dialogue-narration':'dialogue-speech'}>{part.text}</span>)}</p><div>{children}</div></div>
-    </div></section>;
+    </div>{more&&<span class="dialogue-scroll-more" aria-hidden="true">下方还有内容 ↓</span>}</section>;
 }
 /** Parity with the dedicated "collapse" (stamina) modal's quantified text: SAN/emotion zero only
  * ever reach this scene once per run (engine ends the run outright on the second occurrence), so
@@ -562,13 +571,14 @@ function EmergencyNotice({ r, card }: { r: Run; card: Card }) {
     : '情绪归零本局只有一次现场处理机会。这次选择决定恢复多少、怎样交接；情绪再次归零会结束轮转。';
   return <aside class="clinical-action-help emergency-notice" aria-label={`${VITAL_LABELS[emergency.vital]}归零说明`}><strong>{VITAL_LABELS[emergency.vital]}归零</strong><p>{text}</p></aside>;
 }
-function RpgScene({ r, onSelect, close, records }: { r:Run; onSelect:(id:string)=>void; close:()=>void; records:()=>void }) {
+export function RpgScene({ r, onSelect, close, records }: { r:Run; onSelect:(id:string)=>void; close:()=>void; records:()=>void }) {
   const card = currentCard(r); if(!card) return null;
   const patient = r.patients.find(p=>p.uid === card.patientId);
   const help=clinicalActionHelp(r,card);
   return <Dialogue actor={card.actor} patient={patient} title={patient ? patient.name+' · '+card.title : card.title} text={card.text} close={close}>
     <EmergencyNotice r={r} card={card} />
-    {help&&<aside class="clinical-action-help" aria-label="本组操作说明"><strong>本组操作</strong><p>{help}</p></aside>}
+    {card.kind==='night'&&card.clinicalGraph&&patient?.clinical?.choices.length===0&&<p class="clinical-start-note">本次接诊包含后续处置与复评。夜班剩余 {Math.max(0,r.nightMinutes)} 分钟，当前体力 {r.vitals.stamina}；超时后每项操作还会额外消耗体力与精神。</p>}
+    {help&&<details class="clinical-action-help" aria-label="本组操作说明"><summary>{help.split('。')[0]} · 操作说明</summary><p>{help.slice(help.indexOf('。')+1)}</p></details>}
     <div class="dialogue-options">{availableOptions(r).filter(o=>o.interaction!=='graph-continue').map((o,i)=><button class="dialogue-option" key={o.id} onClick={()=>onSelect(o.id)}><b>{i+1}</b><span>{o.label}<Cost o={o} r={r} /><ClinicalChoiceNotice r={r} o={o}/></span></button>)}</div>
     {availableOptions(r).filter(o=>o.interaction==='graph-continue').map(o=><button class="dialogue-next graph-continue" key={o.id} onClick={()=>onSelect(o.id)}>{o.label} ▸</button>)}
     {patient && <button class="dialogue-record" onClick={records}>翻开床头病历夹</button>}
@@ -1357,7 +1367,7 @@ export function App() {
             onAmbient={(title,text,actor)=>{setAmbient({title,text,actor});}} onMenu={p=>p==='journal'?openRecords():p==='schedule'?openSchedule():setPanel(p)} onAction={a=>{closeEncounter();if(a.type==='coffee'||a.type==='nap'){observeGuide('recovery-open');setUtility(a.type);}else dispatch(a);}}
             onPosition={savePosition} onTitle={()=>setView('title')}>
           {bedside && <Bedside r={r} patientId={bedside} motion={save.settings.motion} onRecords={page=>openRecords(bedside,page)} onClose={closeEncounter} />}
-          {talking && <RpgScene r={r} onSelect={setSelected} close={closeEncounter} records={()=>openRecords(activeCard?.patientId)} />}
+          {talking && <RpgScene r={r} onSelect={id=>{if(availableOptions(r).find(o=>o.id===id)?.interaction==='graph-continue')dispatch({type:'choose',id});else setSelected(id);}} close={closeEncounter} records={()=>openRecords(activeCard?.patientId)} />}
           {welcome && <Dialogue actor="nurse" title="第一班 · 带教" text="“先看右上角的当班待办，点一项就能走过去。走近人物或病床，按 E，也可以点右下角的交互键。接诊前先翻床头病历夹；没查过的，别当成正常。排班和状态不明白，就翻值班手册。”"><div class="dialogue-result"><button class="dialogue-next" onClick={()=>observeGuide('welcome-seen')}>开始值班 ▸</button><button class="text-button" onClick={()=>commit({...ref.current,guide:reduceGuide(guide,{type:'skip'})})}>我熟悉操作，跳过指引</button></div></Dialogue>}
           {ambient && <Dialogue actor={ambient.actor} title={ambient.title} text={ambient.text} close={()=>setAmbient(null)}><div class="dialogue-result"><button class="dialogue-next" onClick={()=>setAmbient(null)}>结束交谈 ▸</button></div></Dialogue>}
           {r.phase === 'feedback' && r.feedback && <Dialogue actor={feedbackCard?.actor} speechActor={feedbackVoiceActor(r)} patient={r.patients.find(p=>p.uid===feedbackCard?.patientId)} title={r.feedback.title} text={r.feedback.text}><div class="dialogue-result"><div class="delta-list">{r.feedback.changes.map((t,i)=><span key={i}>{t}</span>)}</div><button class="dialogue-next" onClick={continueFeedback}>{r.feedback.next === 'check' ? '结束本日 · 掷骰' : r.feedback.next === 'day' ? r.day === 14 ? '参加医疗纠纷复核 ▸' : '迎接下一天 ▸' : '继续 ▸'}</button>{resignationAvailable(r) && <button class="text-button" onClick={()=>setResigning(true)}>提桶跑路</button>}</div></Dialogue>}

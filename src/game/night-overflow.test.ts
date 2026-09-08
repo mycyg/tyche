@@ -15,7 +15,7 @@ const fixture=():Run=>{
 };
 describe('exhausted night emergency arrivals',()=>{
  it('does not replace a family chart-access conversation with emergency telephone care',()=>{
-  const r=fixture(),p=r.patients.at(-1)!;
+  const r=fixture(),p=r.patients.at(-1)!;r.nightBudget=120;
   const card=makeTrolleyCard(TROLLEY_DEFINITIONS.find(d=>d.id==='TROLLEY-19')!,r,[p]);
   r.queue=[card];r.cursor=0;
   expect(card.kind).toBe('night');expect(nightTelephoneRequired(r,card)).toBe(false);

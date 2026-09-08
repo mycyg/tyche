@@ -133,11 +133,11 @@ export function makeTrolleyCard(d:TrolleyDefinition,r:Run,bound:Patient[]):Troll
     case 20:text='小李请你替他值一次夜班。他把自己的安排和排班表一起发来，说这次实在腾不开。';
       options=[o('a','接下夜班',{stamina:-20,san:-5,flags:['trolley-extra-night']},'你接下完整夜班，双方确认了具体日期和接诊安排。'),o('b','拒绝替班',{relations:{peer:-2}},'你没有接下夜班。小李说会再找人，之后没再回复。'),o('c','换他一个白班，先留时间交接',{flags:['trolley-shift-exchange']},'你们约定交换白班与夜班，明天先留时间完成交接。')];break;
   }
-  const night=d.phases.includes('夜班')&&r.shiftPhase==='夜班';
+  const night=d.phases.includes('夜班')&&r.shiftPhase==='夜班'&&(n!==19||r.nightBudget>0);
   if(night)for(const option of options)if(option.ap>0&&option.minutes===0)option.minutes=option.ap*12;
   options.forEach(x=>{x.hint=[!night&&x.ap?`精力 ${x.ap}`:'',x.minutes?`时间 ${x.minutes} 分钟`:'',x.effects.cash?`${x.effects.cash>0?'到账':'支付'} ¥${Math.abs(x.effects.cash).toLocaleString('en-US')}`:''].filter(Boolean).join('；')||undefined;});
   if(n===5||n===18){options[0].cost=TROLLEY_DRUG_QUOTE;delete options[0].effects.cash;options[0].hint=`患者账单 +¥${medicationBill}；本次个人负担 ¥${gap.toLocaleString('en-US')}`;options[0].result='你开了药，药费计入这位患者的账单。你只需付这次新增的超支差额，先前已经付过的部分不再收取。';}
-  return {id,kind:night?'night':'story',title:d.title,text,scope,patientId:p?.uid,actor:({1:'nurse',3:'research',8:'nurse',9:'chief',10:'rep',16:'peer',17:'nurse',20:'peer'}as Record<number,string>)[n],options,trolley:{sourceId:d.id,stage:1,patientIds:bound.map(p=>p.uid),tokenId:`${id}:echo`}};
+  return {id,kind:night?'night':'story',shiftPhase:r.shiftPhase==='夜班'&&d.phases.includes('夜班')?'夜班':undefined,title:d.title,text,scope,patientId:p?.uid,actor:({1:'nurse',3:'research',8:'nurse',9:'chief',10:'rep',16:'peer',17:'nurse',20:'peer'}as Record<number,string>)[n],options,trolley:{sourceId:d.id,stage:1,patientIds:bound.map(p=>p.uid),tokenId:`${id}:echo`}};
 }
 export function trolleyEchoCard(r:Run,token:TrolleyToken):TrolleyCard {
   const d=TROLLEY_DEFINITIONS.find(d=>d.id===token.sourceId)!,id=`${token.id}:${token.stage}`,who=token.patientIds.map(id=>r.patients.find(p=>p.uid===id)?.name).filter(Boolean).join('与');

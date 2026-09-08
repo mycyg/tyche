@@ -27,7 +27,7 @@ function play(id:string,path:string,variants:string[]=[]){
 const good:Record<string,string>={
   C001:'s1_feeding s2_full s3_us s4_npo s5_consult s6_preop s7_note',
   C002:'s1_allergy s2_lung s3_cxr s4_amox s5_return s6_note',
-  C003:'s1_history s2_ecg s3_dapt s3_fluid s4_pci s4_inform s5_prep s6_note',
+  C003:'s1_history s2_ecg s3_dapt s3_fluid s4_inform s4_pci s5_prep s6_note',
   C004:'s1_review s2_ask_bleed s3_inr s4_reverse s5_gi s5_blood s6_note',
   C005:'s1_meds s2_neuro s3_ctv s4_admit_lmwh s5_stop_ocp s6_note',
   C006:'s1_glucose s2_d50 s3_history s3_infusion s4_observe s5_endo_referral s6_note',
@@ -35,7 +35,7 @@ const good:Record<string,string>={
   C008:'s1_exam s2_labs s2_lp s3_persuade s4_empiric s5_picu s6_note',
   C009:'s1_indication s1_form_full s1_consent s2_wristband s3_pickup s4_two_person s5_observe s7_note',
   C010:'s1_readback s2_monitor s2_ask s3_repeat s3_stop_k s4_protocol s4_calcium s5_nephro s6_note',
-  C011:'s1_record s2_azith s6_record s6_adr s6_label',
+  C011:'s1_record s2_azith s6_label',
   C012:'s1_exam s2_labs s2_ct s3_urgent s4_escalate s5_inform s6_prep s6_record',
   C013:'s1_bp_both s2_ecg_ddimer s3_cta s4_control s5_transfer s6_record',
   C014:'s1_trend s2_sleep_spo2 s3_stay s4_explain s6_record',

@@ -1,22 +1,22 @@
 {
-  "characters": 12,
-  "cues": 36,
-  "covered": 36,
+  "characters": 13,
+  "cues": 39,
+  "covered": 39,
   "missing": 0,
   "complete": true,
   "narration": false,
   "mode": "fixed-character-reactions",
   "clipsPerCharacter": 3,
-  "bytes": 454464,
-  "seconds": 42.304,
-  "asrMatched": 36,
+  "bytes": 502836,
+  "seconds": 46.883,
+  "asrMatched": 39,
   "renderer": "qwen-voice-design-and-clone-cuda",
   "gpu": "NVIDIA GeForce RTX 3090",
-  "indexBytes": 4517,
-  "manifestSnapshotSha256": "7a7c40445ef3cc5c81bb3e886bf98242ca3fc06ad9088b6b33f81c4590fbd753",
+  "indexBytes": 4898,
+  "manifestSnapshotSha256": "6e9574651af87a92a15360814b098a60df7cb1d387c7d4a3187195040c6927da",
   "browsers": [
     "chromium",
     "webkit"
   ],
-  "realPlaybackClipsPerBrowser": 36
+  "realPlaybackClipsPerBrowser": 39
 }

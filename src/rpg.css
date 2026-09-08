@@ -205,3 +205,11 @@
   .world-stage:not(.with-dialogue) .rpg-tools span { font-size:11px; }
 }
 .clinical-step-warning { display:block; margin-top:.45rem; color:#f2ce8f; font-size:.86em; line-height:1.55; }
+
+.clinical-action-help summary { cursor:pointer; color:#e6d9b7; }
+.dialogue-scroll-more { position:absolute; right:16px; bottom:4px; padding:3px 9px; background:#0d1836ed; color:#f8dca2; font-size:11px; border-radius:3px; pointer-events:none; }
+@media (orientation:landscape) and (max-height:600px) {
+  .world-stage.with-dialogue { --hud-space:61px; }
+  .world-stage.with-dialogue .rpg-location,.world-stage.with-dialogue .rpg-quest-button { display:none; }
+}
+.clinical-start-note { color:#e9c98e; font-size:12px; line-height:1.6; margin:5px 0 9px; }

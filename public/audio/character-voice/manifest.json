@@ -826,5 +826,74 @@
       "transcript": "我听着呢。",
       "similarity": 1.0
     }
+  },
+  "reaction-partner-1": {
+    "file": "reaction-partner-1.mp3",
+    "text": "嗯，我听着呢。",
+    "speaker": "partner",
+    "seconds": 2.08,
+    "sha256": "f17cbc05e815687473791f7768d749f99fabfd9c78084ddc69a7fda9cb8bb674",
+    "textSha256": "aa0776e025e10a59ea49c19123dc3a2c6a6580b43aa3eac3640213f45ca023ef",
+    "referenceSha256": "87313b1cfad9a6eac2c9457f59c95a81d179747cee37e961d38c5bec096c25a7",
+    "direction": "三十岁左右的成年伴侣，中性的中低音，温和亲近，家常交谈，略带疲惫，普通话，不使用播音腔。",
+    "renderer": "qwen-voice-design-and-clone-cuda",
+    "model": "Qwen/Qwen3-TTS-12Hz-1.7B-Base",
+    "modelRevision": "53a097f58d6aa0d688ae0985b4c5e34cfdad2626",
+    "voiceDesignRevision": "98393ab8928e60376379ecb99a992b80b5926433",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "seed": 4102786689,
+    "sourcePeak": 0.57812,
+    "qa": "asr-matched",
+    "asr": {
+      "model": "mlx-community/Qwen3-ASR-1.7B-8bit",
+      "transcript": "嗯，我听着呢。",
+      "similarity": 1.0
+    }
+  },
+  "reaction-partner-2": {
+    "file": "reaction-partner-2.mp3",
+    "text": "你慢慢说。",
+    "speaker": "partner",
+    "seconds": 0.996,
+    "sha256": "6af1cce29467cbda8f8f832fc910f9bcf311dba986ba079b938994e17758152a",
+    "textSha256": "3b728734fc94ac20c35cae9dee1fbe46653d3d984de1dc3d2abe6ebfadd6914d",
+    "referenceSha256": "87313b1cfad9a6eac2c9457f59c95a81d179747cee37e961d38c5bec096c25a7",
+    "direction": "三十岁左右的成年伴侣，中性的中低音，温和亲近，家常交谈，略带疲惫，普通话，不使用播音腔。",
+    "renderer": "qwen-voice-design-and-clone-cuda",
+    "model": "Qwen/Qwen3-TTS-12Hz-1.7B-Base",
+    "modelRevision": "53a097f58d6aa0d688ae0985b4c5e34cfdad2626",
+    "voiceDesignRevision": "98393ab8928e60376379ecb99a992b80b5926433",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "seed": 3267016775,
+    "sourcePeak": 0.70312,
+    "qa": "asr-matched",
+    "asr": {
+      "model": "mlx-community/Qwen3-ASR-1.7B-8bit",
+      "transcript": "你慢慢说。",
+      "similarity": 1.0
+    }
+  },
+  "reaction-partner-3": {
+    "file": "reaction-partner-3.mp3",
+    "text": "我在这里。",
+    "speaker": "partner",
+    "seconds": 1.503,
+    "sha256": "d14f79931d1d18de6c9b5c502555a6ab5e87f2d8fcea3eacd059ee73f19bbdd1",
+    "textSha256": "ade3fda56763d908dc9a769007326c5c3cde30946f339a589f7650ce419e3d08",
+    "referenceSha256": "87313b1cfad9a6eac2c9457f59c95a81d179747cee37e961d38c5bec096c25a7",
+    "direction": "三十岁左右的成年伴侣，中性的中低音，温和亲近，家常交谈，略带疲惫，普通话，不使用播音腔。",
+    "renderer": "qwen-voice-design-and-clone-cuda",
+    "model": "Qwen/Qwen3-TTS-12Hz-1.7B-Base",
+    "modelRevision": "53a097f58d6aa0d688ae0985b4c5e34cfdad2626",
+    "voiceDesignRevision": "98393ab8928e60376379ecb99a992b80b5926433",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "seed": 4173095884,
+    "sourcePeak": 0.56641,
+    "qa": "asr-matched",
+    "asr": {
+      "model": "mlx-community/Qwen3-ASR-1.7B-8bit",
+      "transcript": "我在这里。",
+      "similarity": 1.0
+    }
   }
 }

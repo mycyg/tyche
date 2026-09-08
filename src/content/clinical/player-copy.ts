@@ -60,6 +60,9 @@ export function applyClinicalPlayerCopy(g:ClinicalGraph):void {
     node('s4').text='女儿陪在旁边。来院前，老人还坚持说这次疼痛和以前的「胃痛」一样。';
   }
   if(g.id==='C005'){
+    node('s1').textVariants=[{when:F('mother_out'),text:'母亲在诊室外等候。她把帆布包放在膝盖上，现在可以单独回答你的问题。'}];
+    node('s2').textVariants=[{when:F('mother_out'),text:'母亲仍在诊室外等候。她把帆布包放到椅子上，扶着诊床坐好，自己说明眼前的变化。'}];
+    node('s3').textVariants=[{when:F('mother_out'),text:'她独自坐在诊室里，问做检查需不需要摘掉耳钉。'}];
     node('s4').text='她来诊时说，头痛已持续 5 天，今晨看电脑屏幕时字迹模糊。';
     node('s4').textVariants=[
       {when:F('mrv_done'),text:'MRV 回报已经送到。'},
@@ -114,6 +117,8 @@ export function applyClinicalPlayerCopy(g:ClinicalGraph):void {
     op('s7_inform').result='向家属说明本次输血的实际经过。';
   }
   if(g.id==='C011'){
+    node('s6').textVariants=[{when:N({entered:'s4'}),text:'本次未发生抢救。处方与已取得的过敏资料需要据实记录，并向患者交代用药与复诊注意事项。'}];
+    op('s6_label').resultVariants=[{when:N({entered:'s4'}),text:'你在病历首页标注本次取得的过敏资料，向患者说明用药注意事项。患者问：「我下次怎么跟医生说？」'}];
     node('s5').text='5 分钟后，监护仪上血压数字换了一次。';
     node('s5').textVariants=[
       {when:F('arrhythmia_treated'),text:'室性心律失常已经处理，抢救团队继续复评血压、心律与气道。'},

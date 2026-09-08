@@ -204,7 +204,7 @@ function build(source: PresetSource): CasePreset {
     ] },
     { id: f('echo'), title: `${source.title} · 复评结果`, text: '接班人带回这次处置后的记录，患者也有了回应。你需要决定怎样处理后续事项。', options: [
       make('echo', 'closed', '核实改善情况，完成本次随访交接', 0, Math.max(2, echoMinutes), fees.review, `你核对了处置后的变化，确认接下来要${followup}。患者知道下一次该找谁。`, { care: true, patience: 6, emotion: 2, reputation: 1, stability: 4, flags: [f('resolved'), f('success')], clear: [f('pending')] }, PRESET_END, { all: [f('treated'), f('informed'), f('handoff')], none: [f('unresolved')] }),
-      make('echo', 'repair', '逐项补上未完成的沟通、复查与交接', 1, Math.max(5, echoMinutes + 6), fees.review + 100, '你补齐了能够补救的项目，保留原记录和补记时间。此前的风险与已发生的损害仍需按事实处理。', { care: true, stamina: -4, patience: 4, mitigate: 1, flags: [f('resolved'), f('repaired')], clear: [f('pending'), f('unresolved')] }, PRESET_END),
+      make('echo', 'repair', '逐项补上未完成的沟通、复查与交接', 1, Math.max(5, echoMinutes + 6), fees.review + 100, '你补充说明风险并记录患者的决定，核对复查安排与接班人，保留原记录和补记时间。未查明的病因、尚未完成的治疗与既往损害仍分别留档。', { care: true, stamina: -4, patience: 4, mitigate: 1, flags: [f('resolved'), f('repaired'), f('informed'), f('handoff')], clear: [f('pending'), f('unresolved'),f('communication-incomplete')] }, PRESET_END),
       make('echo', 'ignore', '暂不处理回访，结束本次接诊', 0, 1, 0, '未完成事项留在了患者的记录里。后续审查仍能看到当时的处置、告知和交班。', { patience: -10, reputation: -1, flags: [f('resolved'), f('followup-neglected')], clear: [f('pending')] }, PRESET_END),
     ] },
   ];

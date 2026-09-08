@@ -17,7 +17,7 @@ describe('20 source trolley dilemmas',()=>{
    expect(chosen.patch.authored.activeFacts['extra-night-agreed']).toBeUndefined();
  });
  it('charges night paperwork in minutes without double-charging an explicit duration',()=>{
-   const r=fixture();r.shiftPhase='夜班';r.debuffs=[];r.talents=[];
+   const r=fixture();r.shiftPhase='夜班';r.nightBudget=120;r.debuffs=[];r.talents=[];
    const chart=makeTrolleyCard(TROLLEY_DEFINITIONS[18],r,r.patients.slice(0,1));expect(chart.kind).toBe('night');expect(chart.options[2].minutes).toBe(12);expect(optionCosts(r,chart.options[2],chart).minutes).toBe(12);
    const triage=makeTrolleyCard(TROLLEY_DEFINITIONS[1],r,r.patients.slice(0,2));expect(triage.options[2].minutes).toBe(20);
  });

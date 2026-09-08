@@ -5,7 +5,7 @@ export default defineConfig({
   outputDir:'../../test-results/visual',
   projects:[
     {name:'chromium'},
-    {name:'webkit-dialogue',testMatch:['dialogue-portrait.spec.ts','character-voice.spec.ts'],use:{browserName:'webkit'}},
+    {name:'webkit-dialogue',testMatch:['dialogue-portrait.spec.ts','character-voice.spec.ts','player-flow.spec.ts'],use:{browserName:'webkit'}},
   ],
   use:{baseURL:'http://127.0.0.1:5197/tyche/',browserName:'chromium',viewport:{width:1280,height:720},screenshot:'only-on-failure'},
   webServer:{command:'npm run dev -- --port 5197 --strictPort',url:'http://127.0.0.1:5197/tyche/',reuseExistingServer:false,cwd:'../..'},

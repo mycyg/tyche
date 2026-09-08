@@ -1,6 +1,6 @@
 import type { Effects, Scope } from '../../game/types';
 import type { EventCard, EventLedger, EventPhase,EventBinding,EventModifier,DelayedEffect } from './types';
-import { mergeEventEffects,authoredChoiceEffects } from './catalog';
+import { mergeEventEffects,authoredChoiceEffects,EVENT_BY_ID } from './catalog';
 
 export const createEventLedger = (): EventLedger => ({ commits: [], pending: [], applied: [], modifiers: [], facts: [] });
 /** Shared scheduling for ordinary events and graph choices. It does not invent
@@ -51,7 +51,9 @@ export function settleEventLedger(ledger: EventLedger, day: number, phase: Event
       if (d.probability === undefined || draw(d.id) < d.probability) effects.push({ id: d.id, scope: d.scope, effects: d.effects, description: d.description });
       else if(d.otherwiseEffects)effects.push({id:d.id,scope:d.scope,effects:d.otherwiseEffects,description:d.otherwiseDescription??d.description});
     } else if (final) {
-      epilogue.push(`第 ${d.due} 天待办：${d.description}`);
+      const eventId=d.id.match(/E-\d{3}/)?.[0],title=eventId?EVENT_BY_ID[eventId]?.title:undefined;
+      const money=d.effects.cash?`原约定${d.effects.cash>0?'收款':'付款'} ¥${Math.abs(d.effects.cash).toLocaleString('zh-CN')}。`:'';
+      epilogue.push(`第 ${d.due} 天「${title??'后续安排'}」${d.due>day?'尚未到期':'条件尚未满足'}，未执行。${money}`);
       next.applied.push(d.id);
     } else remaining.push(d);
   }

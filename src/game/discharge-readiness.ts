@@ -12,7 +12,14 @@ export function presetRiskPending(p:Pick<Patient,'uid'|'preset'|'presetNode'>,fa
  const preset=p.preset&&p.presetNode?PRESET_BY_ID.get(p.preset.presetId):undefined;
  if(!preset)return [];
  const {requires,pending}=preset.riskClosure;
- return requires.flatMap((flag,index)=>facts[flag.replace(`preset:${preset.id}`,`preset:${preset.id}:${p.uid}`)]?[]:[pending[index]]);
+ const prefix=`preset:${preset.id}:${p.uid}`;
+ return requires.flatMap((flag,index)=>{
+  if(facts[flag.replace(`preset:${preset.id}`,prefix)])return [];
+  if((flag.endsWith(':informed')||flag.endsWith(':handoff'))&&facts[`${prefix}:repaired`])return [];
+  if(flag.endsWith(':informed')&&facts[`${prefix}:communication-incomplete`])return ['已进行告知，但患者仍未理解后续安排，需要补充说明并记录本人的决定。'];
+  if(flag.endsWith(':informed')&&facts[`${prefix}:refused`])return ['已有拒绝记录，仍需核对已解释的风险、替代安排和本人的决定。'];
+  return [pending[index]];
+ });
 }
 
 /** A stability counter measures recovery, not completion of a diagnostic graph.

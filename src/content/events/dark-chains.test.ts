@@ -109,8 +109,8 @@ describe('dark chains DK-1 to DK-14', () => {
     expect(eventEligible(EVENT_BY_ID['E-227'], context({ day: 11, facts: { '共犯-共同签署': fact(9) } }))).toBe(false);
     expect(eventEligible(EVENT_BY_ID['E-227'], context({ day: 11, facts: { '共犯-共同签署': fact(9), '药代-5回扣': fact(9) } }))).toBe(true);
     expect(eventEligible(EVENT_BY_ID['E-244'], context({ day: 9, pressure: 50 }))).toBe(false);
-    expect(eventEligible(EVENT_BY_ID['E-244'], context({ day: 9, pressure: 30, qualifiers: ['伴侣在册'] }))).toBe(false);
-    expect(eventEligible(EVENT_BY_ID['E-244'], context({ day: 9, pressure: 50, qualifiers: ['伴侣在册'] }))).toBe(true);
+    expect(eventEligible(EVENT_BY_ID['E-244'], context({ day: 9, pressure: 30, qualifiers: ['伴侣在册'], facts: {'伴侣-在册':fact(1)} }))).toBe(false);
+    expect(eventEligible(EVENT_BY_ID['E-244'], context({ day: 9, pressure: 50, qualifiers: ['伴侣在册'], facts: {'伴侣-在册':fact(1)} }))).toBe(true);
     expect(eventEligible(EVENT_BY_ID['E-233'], context({ day: 9, san: 0, depression: 60, qualifiers: ['再次归零'] }))).toBe(false);
     expect(eventEligible(EVENT_BY_ID['E-233'], context({ day: 9, san: 0, depression: 75, qualifiers: ['再次归零'] }))).toBe(true);
     expect(eventEligible(EVENT_BY_ID['E-258'], context({ day: 14, phase: '交班' }))).toBe(false);

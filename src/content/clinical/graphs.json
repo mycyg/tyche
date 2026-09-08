@@ -4642,7 +4642,14 @@
             "reports": [],
             "system": false,
             "requires": {
-              "variant": "onsite"
+              "all": [
+                {
+                  "variant": "onsite"
+                },
+                {
+                  "flag": "consented"
+                }
+              ]
             },
             "mechanics": {
               "operation": "treatment",
@@ -4822,7 +4829,14 @@
             "reports": [],
             "system": false,
             "requires": {
-              "variant": "本院无导管室"
+              "all": [
+                {
+                  "variant": "本院无导管室"
+                },
+                {
+                  "flag": "consented"
+                }
+              ]
             },
             "mechanics": {
               "operation": "treatment",
@@ -4969,6 +4983,7 @@
               "dcIncrease": 2,
               "exhaustedNext": "o_refuse"
             },
+            "failureNext": "s4",
             "mechanics": {
               "operation": "consent",
               "checkOperation": "comfort",
@@ -5852,6 +5867,14 @@
         }
       ],
       "consented": [
+        {
+          "kind": "condition",
+          "id": "s4_pci"
+        },
+        {
+          "kind": "condition",
+          "id": "s4_lysis"
+        },
         {
           "kind": "record",
           "id": "s4_inform,s4_inform_lysis"
@@ -7883,6 +7906,14 @@
         ],
         "exitOn": [
           "s1_migraine"
+        ],
+        "textVariants": [
+          {
+            "when": {
+              "flag": "mother_out"
+            },
+            "text": "母亲在诊室外等候。她把帆布包放在膝盖上，现在可以单独回答你的问题。"
+          }
         ]
       },
       {
@@ -8227,6 +8258,14 @@
           "s2_fundus",
           "s2_neuro",
           "s2_vitals_only"
+        ],
+        "textVariants": [
+          {
+            "when": {
+              "flag": "mother_out"
+            },
+            "text": "母亲仍在诊室外等候。她把帆布包放到椅子上，扶着诊床坐好，自己说明眼前的变化。"
+          }
         ]
       },
       {
@@ -8533,6 +8572,14 @@
           "s3_ctv",
           "s3_none",
           "s3_ct_home"
+        ],
+        "textVariants": [
+          {
+            "when": {
+              "flag": "mother_out"
+            },
+            "text": "她独自坐在诊室里，问做检查需不需要摘掉耳钉。"
+          }
         ]
       },
       {
@@ -20834,6 +20881,9 @@
               "purpose": "能否把这次处置和沟通完整记入文书"
             },
             "successText": "",
+            "requires": {
+              "entered": "s4"
+            },
             "mechanics": {
               "operation": "rescue-record",
               "checkOperation": "record",
@@ -20864,6 +20914,9 @@
             "rules": [],
             "reports": [],
             "system": false,
+            "requires": {
+              "entered": "s4"
+            },
             "mechanics": {
               "operation": "record",
               "actor": "patient",
@@ -20897,7 +20950,17 @@
               "operation": "record",
               "actor": "patient",
               "quality": "correct"
-            }
+            },
+            "resultVariants": [
+              {
+                "when": {
+                  "not": {
+                    "entered": "s4"
+                  }
+                },
+                "text": "你在病历首页标注本次取得的过敏资料，向患者说明用药注意事项。患者问：「我下次怎么跟医生说？」"
+              }
+            ]
           },
           {
             "id": "s6_tamper",
@@ -20974,6 +21037,9 @@
             "rules": [],
             "reports": [],
             "system": false,
+            "requires": {
+              "entered": "s4"
+            },
             "mechanics": {
               "operation": "rescue-record",
               "actor": "patient",
@@ -20981,7 +21047,17 @@
             }
           }
         ],
-        "exitOn": []
+        "exitOn": [],
+        "textVariants": [
+          {
+            "when": {
+              "not": {
+                "entered": "s4"
+              }
+            },
+            "text": "本次未发生抢救。处方与已取得的过敏资料需要据实记录，并向患者交代用药与复诊注意事项。"
+          }
+        ]
       },
       {
         "id": "s7",
