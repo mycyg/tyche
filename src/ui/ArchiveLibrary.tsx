@@ -1,9 +1,8 @@
 import {useId,useMemo,useRef,useState} from 'preact/hooks';
 import type {Meta} from '../game/types';
 import {patientArt,patientArtFile,type PatientArtIdentity} from '../world/patients';
-import {ARCHIVE_KINDS,ARCHIVE_PATIENT_SCOPE,archiveEntries,filterArchiveEntries,archiveEntryNarration,type ArchiveKind,type ArchiveStatus} from './archive-data';
+import {ARCHIVE_KINDS,ARCHIVE_PATIENT_SCOPE,archiveEntries,filterArchiveEntries,type ArchiveKind,type ArchiveStatus} from './archive-data';
 export * from './archive-data';
-import {narrate} from './audio';
 import './archive-library.css';
 
 function Portrait({identity,name}:{identity:PatientArtIdentity;name:string}) {
@@ -35,7 +34,6 @@ export function ArchiveLibrary({meta}:{meta:Meta}) {
    {selectedEntry&&<section ref={detail} tabIndex={-1} class="archive-library__detail" id={`${id}-detail`} aria-labelledby={`${id}-detail-title`}>
     <div class="archive-library__detail-top">{selectedEntry.portrait&&<Portrait identity={selectedEntry.portrait} name={selectedEntry.name}/>}<div><small>{category.label} · 已收录</small><h4 id={`${id}-detail-title`}>{selectedEntry.name}</h4></div><button type="button" class="archive-library__close" aria-label="收起记录" onClick={()=>{setSelected(undefined);selectedButton.current?.focus();}}>×</button></div>
     <dl>{selectedEntry.fields.map((f,i)=><div key={`${f.label}:${i}`}><dt>{f.label}</dt><dd>{f.text}</dd></div>)}</dl>
-    <button type="button" class="archive-library__read" onClick={()=>void narrate(archiveEntryNarration(selectedEntry))}>朗读这份记录</button>
     {(kind==='cases'||kind==='presets')&&<p class="archive-library__privacy">这里保留接诊时已知的资料。未核实的病史、检查结果与后续决定不在此页。</p>}
    </section>}
    <div class="archive-library__results">

@@ -22,17 +22,17 @@ export function publishedAssets(publicRoot:string):PublicAsset[]{
     }
   };
   walk();
-  const voiceIndexPath=join(publicRoot,'audio','voice','index.json');
+  const voiceIndexPath=join(publicRoot,'audio','character-voice','index.json');
   if(!existsSync(voiceIndexPath)&&process.env.TYCHE_ALLOW_MISSING_VOICE==='1'){
     // A worktree without the local voice store may still build for smoke checks; the release build stays strict.
     console.warn('Voice index missing; building without voice assets (TYCHE_ALLOW_MISSING_VOICE=1).');
   } else {
-    add('audio/voice/index.json');
-    const index:unknown=JSON.parse(assets.get('audio/voice/index.json')!.toString('utf8'));
+    add('audio/character-voice/index.json');
+    const index:unknown=JSON.parse(assets.get('audio/character-voice/index.json')!.toString('utf8'));
     if(!index||typeof index!=='object'||Array.isArray(index))throw new Error('Invalid voice index');
     for(const [id,raw]of Object.entries(index)){
       if(!raw||typeof raw!=='object'||!('file'in raw)||typeof raw.file!=='string'||!/^[a-zA-Z0-9_-]+\.mp3$/.test(raw.file))throw new Error(`Invalid voice file for ${id}`);
-      add(`audio/voice/${raw.file}`);
+      add(`audio/character-voice/${raw.file}`);
     }
   }
   for(const scene of MUSIC_SCENES){

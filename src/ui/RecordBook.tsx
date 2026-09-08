@@ -1,6 +1,5 @@
 import { useId, useState } from "preact/hooks";
 import { patientCase } from "../game/cards";
-import { narrate } from './audio';
 import type { Entry, Patient, Run } from "../game/types";
 import { ENTITY_BY_ID } from '../content/patients';
 import { patientAgeLabel } from '../content/clinical/identity';
@@ -100,7 +99,7 @@ export function RecordBook({ r, initialPatient, initialPage='admission' }: { r: 
           <h4>已取得的检查回报</h4>
           {!reports.length && <p class="record-book__empty">尚未取得独立检查报告。已执行的观察与检查记录列在下方；没有报告不等于结果正常。</p>}
           {reports.map(report => <section class="clinical-report" key={report.id}>
-            <div class="section-line"><h4>{report.title}</h4><button onClick={()=>void narrate(report.full)}>朗读</button></div>
+            <div class="section-line"><h4>{report.title}</h4></div>
             <p class="report-prose">{report.skimmedNow ? report.skimmed : report.full}</p>
             {report.skimmedNow&&reportReviewLines(report.full,report.skimmed).length>0&&<section aria-label="报告中的数值与关键记录"><h5>数值与关键记录</h5>{reportReviewLines(report.full,report.skimmed).map(line=><p class="report-prose" key={line}>{line}</p>)}</section>}
             {report.skimmedNow && <details><summary>逐项查看完整报告</summary><p class="report-prose">{report.full}</p></details>}

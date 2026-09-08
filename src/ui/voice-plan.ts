@@ -1,8 +1,8 @@
 import {pronounce} from './voice-text';
 
 export interface VoiceClip {file:string;text:string;speaker:string;version?:string}
-export function voiceAssetUrl(base:string,clip:Pick<VoiceClip,'file'|'version'>):string {
- return `${base}audio/voice/${clip.file}${clip.version?`?v=${encodeURIComponent(clip.version)}`:''}`;
+export function voiceAssetUrl(base:string,clip:Pick<VoiceClip,'file'|'version'>,directory='voice'):string {
+ return `${base}audio/${directory}/${clip.file}${clip.version?`?v=${encodeURIComponent(clip.version)}`:''}`;
 }
 interface Node {next:Map<string,Node>;clip?:VoiceClip}
 const ignored=/[\s，,。；;！!？?、：:·“”「」『』（）()【】\[\]]/g;

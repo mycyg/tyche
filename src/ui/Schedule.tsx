@@ -2,7 +2,6 @@ import { useState } from 'preact/hooks';
 import { RULES } from '../game/rules';
 import { nextShiftForecast, scheduleTuning } from '../game/schedule-preview';
 import type { Run } from '../game/types';
-import { narrate } from './audio';
 import { liveCap } from '../game/traits';
 import { hasWorkedNight, isFullDayLeave } from '../game/duty-state';
 import {pendingScheduledWork}from './scheduled-work';
@@ -18,7 +17,6 @@ export function Schedule({ r, borrow, handbook }: { r: Run; borrow: () => void; 
   const nightBudget = fullLeave ? 0 : selected === r.day && r.nightBudget > 0 ? r.nightBudget : index >= 0 ? RULES.nightBudget[index] : tuning.addedNightBudget;
   const canBorrow = r.phase === 'play' && !r.emergency && r.borrowed < RULES.borrowMax && r.day < RULES.days && !isFullDayLeave(r);
   const appointments=pendingScheduledWork(r,selected),tomorrowAppointments=pendingScheduledWork(r,r.day+1);
-  const narration = `${isFullDayLeave(r)?'今天已批准停诊休息，不能预支行动。到期的账单和私人事务仍需处理。':'白班使用行动值，夜班使用分钟。'}预支一次，今天增加一点行动，明天扣回一点；体力、精神和情绪上限各减少${RULES.borrowCapLoss}点。${r.day < RULES.days ? `按现有状态，明天预计${forecast.ap}点行动、${forecast.stamina}点体力。${forecast.leave?'明天已有停诊休息安排。':''}` : '这是最后一天，不能预支。'}`;
   return <div class="schedule">
     <p>当前为第 {r.day} 天 · {r.shiftPhase ?? '交班'}。白班剩余 {r.ap} 点行动{r.shiftPhase === '夜班' ? `，夜班剩余 ${Math.max(0, r.nightMinutes)} 分钟` : ''}。</p>
     <p>现在体力 {r.vitals.stamina}/{liveCap(r,'stamina')}，精神 {r.vitals.san}/{liveCap(r,'san')}，情绪 {r.vitals.emotion}/{liveCap(r,'emotion')}。斜线前是当前值，后面是本局上限。</p>
@@ -63,6 +61,5 @@ export function Schedule({ r, borrow, handbook }: { r: Run; borrow: () => void; 
       <p>行动值用完后，患者选项中会出现“今天先不处理，留给明天”。这不会扣体力，但未完成的诊疗和记录会留档，病情可能在等待中恶化；次日从未完成的步骤继续。午睡只能在门诊结束后的结算时段使用。</p>
     </section>
     <button class="secondary" onClick={handbook}>查看排班与体力说明</button>
-    <button class="text-button" onClick={() => void narrate(narration)}>朗读排班说明</button>
   </div>;
 }

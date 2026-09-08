@@ -1,6 +1,5 @@
 import {test,expect,type Page}from '@playwright/test';
 import {mkdirSync,readFileSync}from 'node:fs';
-import {voiceKey,voiceSentences}from '../../src/ui/voice-text';
 
 async function startAtDesk(page:Page){
   await page.goto('./');
@@ -63,11 +62,12 @@ test('fresh start, readable HUD, map navigation and modal focus',async({page})=>
   }
   await page.getByRole('button',{name:'暂停与设置',exact:true}).click();
   const settings=page.locator('dialog[open]');await expect(settings).toHaveCount(1);
-  const voiceIndex=JSON.parse(readFileSync('dist/audio/voice/index.json','utf8'));
-  const audition=voiceIndex[voiceKey(voiceSentences('先核对床号和姓名。家属刚送来的药也看一下，别漏了院外用药。')[0],'nurse')];
-  expect(audition).toBeDefined();expect(audition.version).toMatch(/^[a-f0-9]{12}$/);
+  const voiceIndex=JSON.parse(readFileSync('dist/audio/character-voice/index.json','utf8'));
+  const auditions=Object.values(voiceIndex).filter((clip:any)=>clip.speaker==='nurse') as {file:string;version:string}[];
+  expect(auditions).toHaveLength(3);for(const clip of auditions)expect(clip.version).toMatch(/^[a-f0-9]{12}$/);
+  const priorPlayback=played.length;
   await settings.getByRole('button',{name:'试听语音',exact:true}).click();
-  await expect.poll(()=>played.some(src=>src.endsWith('/'+audition.file+'?v='+audition.version))).toBe(true);
+  await expect.poll(()=>played.slice(priorPlayback).some(src=>auditions.some(clip=>src.endsWith('/'+clip.file+'?v='+clip.version)))).toBe(true);
   // ward-rounds and the other new scene tracks ship as .ogg first, .mp3 as the compatibility fallback.
   await expect.poll(()=>played.some(src=>/\/audio\/music\/[^/]+\.(mp3|ogg)$/.test(src))).toBe(true);
   await page.keyboard.press('Escape');await expect(settings).toHaveCount(0);

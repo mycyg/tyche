@@ -20,9 +20,9 @@
     "simulate": "tsx scripts/simulate.ts",
     "check:content": "tsx scripts/check-content.ts",
     "check:routes": "tsx scripts/audit-routes.ts",
-    "audio:collect": "tsx scripts/collect-voice.ts",
-    "audio:index": "tsx scripts/finalize-voice.ts",
-    "audio:check": "tsx scripts/collect-voice.ts && tsx scripts/finalize-voice.ts --require-complete"
+    "audio:collect": "tsx scripts/character-voice.ts --collect",
+    "audio:index": "tsx scripts/character-voice.ts",
+    "audio:check": "tsx scripts/character-voice.ts"
   },
   "dependencies": {
     "preact": "^10.27.2",

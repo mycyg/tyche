@@ -57,7 +57,7 @@ import type {
   Patient,
 } from "../game/types";
 import { Dice } from "./Dice";
-import { cue, bindAudioLifecycle, configureAudio, setMusicScene, narrate, narrateDialogue, stopVoice } from "./audio";
+import { cue, bindAudioLifecycle, configureAudio, setMusicScene, narrate, narrateDialogue, replayVoice, stopVoice } from "./audio";
 import { musicSceneFor } from "./music-scene";
 import { dialogueSegments } from './dialogue-voice';
 import { clinicalVoiceActor } from './clinical-voice';
@@ -67,6 +67,7 @@ import { worldCoffeeOffering,worldNapOffering } from '../world/refreshments';
 import { walkable } from "../world/navigation";
 import { Bedside, PatientPortrait } from "../world/Bedside";
 import { DialoguePortrait } from './DialoguePortrait';
+import { characterSpeaker } from './character-voice';
 import {incomeCoverage}from '../game/income-coverage';
 import { RecordBook, type RecordPage } from "./RecordBook";
 import { TALENT_GUIDE, choiceResourceCopy, visibleChoiceEffects } from "./copy";
@@ -546,7 +547,7 @@ export function Dialogue({ actor, title, text, close, children, patient, speechA
   useEffect(() => { const listener = (e: KeyboardEvent) => { if(e.defaultPrevented||document.querySelector('dialog[open]'))return;if(e.key === 'Escape' && close) { e.preventDefault(); e.stopPropagation(); close(); } }; const first = el.current?.querySelector<HTMLElement>('button'); first?.focus({preventScroll:true}); window.addEventListener('keydown',listener); return () => window.removeEventListener('keydown',listener); }, []);
   return <section class="rpg-dialogue" ref={el} role="dialog" aria-label={title}>
     {actor && ACTORS[actor] ? <div class="dialogue-portrait"><DialoguePortrait actor={actor} /></div> : patient && <div class="dialogue-portrait dialogue-patient"><PatientPortrait caseId={patient.caseId} name={patient.name} patient={patient} /></div>}
-    <div class="dialogue-main"><div class="dialogue-heading"><h2>{title}</h2>{actor && ACTORS[actor] && <span>{ACTORS[actor].name}</span>}<button class="voice-replay" onClick={()=>void narrateDialogue(text, voiceActor)} aria-label="重听这段话">重听</button>{close && <button onClick={close} aria-label="结束交谈">×</button>}</div>
+    <div class="dialogue-main"><div class="dialogue-heading"><h2>{title}</h2>{actor && ACTORS[actor] && <span>{ACTORS[actor].name}</span>}{characterSpeaker(text,voiceActor)&&<button class="voice-replay" onClick={()=>void replayVoice()} aria-label="重听角色短语音">重听</button>}{close && <button onClick={close} aria-label="结束交谈">×</button>}</div>
       <div class="dialogue-body"><p class="dialogue-text">{speech.map((part,i)=><span key={i} class={part.speaker==='narrator'?'dialogue-narration':'dialogue-speech'}>{part.text}</span>)}</p><div>{children}</div></div>
     </div></section>;
 }
@@ -1586,7 +1587,7 @@ export function App() {
             <div class="settings">
               <h3>声音</h3>
               {(['music', 'voice', 'sound'] as const).map(channel => {
-                const label = {music:'背景音乐', voice:'对白与文字朗读', sound:'操作音效'}[channel];
+                const label = {music:'背景音乐', voice:'角色短语音', sound:'操作音效'}[channel];
                 const key = `${channel}Volume` as 'musicVolume' | 'voiceVolume' | 'soundVolume';
                 const defaultLevel = {music:.4, voice:.85, sound:.5}[channel];
                 return <div class="audio-setting" key={channel}>
@@ -1594,8 +1595,8 @@ export function App() {
                   <label class="audio-volume"><span>{label}音量</span><input type="range" min="0" max="100" step="5" value={Math.round((save.settings[key] ?? defaultLevel)*100)} onInput={e=>commit({...save,settings:{...save.settings,[key]:Number(e.currentTarget.value)/100}})} /><output>{Math.round((save.settings[key] ?? defaultLevel)*100)}%</output></label>
                 </div>;
               })}
-              <button class="secondary full" onClick={()=>void narrate('先核对床号和姓名。家属刚送来的药也看一下，别漏了院外用药。','nurse')}>试听语音</button>
-              <p class="small muted">对白播放时，音乐会降低音量。字幕始终保留；关掉声音不影响选择和检定。</p>
+              <button class="secondary full" onClick={()=>void narrate('', 'nurse')}>试听语音</button>
+              <p class="small muted">角色每次互动说一句短语音，开口时音乐会降低音量。剧情文字始终保留；关掉声音不影响选择和检定。</p>
               <h3>画面与阅读</h3>
               <label class="setting-row">
                 <span>低精神状态的画面与环境干扰</span>

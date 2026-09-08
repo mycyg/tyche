@@ -1,1 +1,22 @@
-{"cues":23986,"covered":23986,"missing":0,"complete":true,"rejected":[],"orphanedManifestEntries":5815,"bytes":675241328,"seconds":94310.56000000067,"coveredCharacters":428616,"totalCharacters":428616,"estimatedFinalVoiceBytes":675241328,"estimateMethod":"current matching MP3 bytes per spoken character; estimate, not completed output","indexBytes":3869040,"manifestBytes":26848116,"cueSnapshotSha256":"3c72ec39cb49423aa1406c46ca7bae241ce5db210e2dbc56ccbaffe562d29a75","manifestSnapshotSha256":"090907e9e971346d3ed59b68f62bd4242c96eb58066ddb3a4f7dbc784b8f6701","projectedCompleteIndexBytes":3869040}
+{
+  "characters": 12,
+  "cues": 36,
+  "covered": 36,
+  "missing": 0,
+  "complete": true,
+  "narration": false,
+  "mode": "fixed-character-reactions",
+  "clipsPerCharacter": 3,
+  "bytes": 454464,
+  "seconds": 42.304,
+  "asrMatched": 36,
+  "renderer": "qwen-voice-design-and-clone-cuda",
+  "gpu": "NVIDIA GeForce RTX 3090",
+  "indexBytes": 4517,
+  "manifestSnapshotSha256": "7a7c40445ef3cc5c81bb3e886bf98242ca3fc06ad9088b6b33f81c4590fbd753",
+  "browsers": [
+    "chromium",
+    "webkit"
+  ],
+  "realPlaybackClipsPerBrowser": 36
+}

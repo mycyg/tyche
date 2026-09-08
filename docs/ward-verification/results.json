@@ -1,8 +1,8 @@
 {
   "date": "2026-09-08",
   "unitTests": {
-    "files": 137,
-    "passed": 2595
+    "files": 139,
+    "passed": 2605
   },
   "e2e": {
     "passed": 16,
@@ -105,10 +105,26 @@
     "navigationFailures": []
   },
   "voice": {
-    "cues": 23986,
-    "covered": 23986,
+    "characters": 12,
+    "cues": 36,
+    "covered": 36,
     "missing": 0,
-    "complete": true
+    "complete": true,
+    "narration": false,
+    "mode": "fixed-character-reactions",
+    "clipsPerCharacter": 3,
+    "bytes": 454464,
+    "seconds": 42.304,
+    "asrMatched": 36,
+    "renderer": "qwen-voice-design-and-clone-cuda",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "indexBytes": 4517,
+    "manifestSnapshotSha256": "7a7c40445ef3cc5c81bb3e886bf98242ca3fc06ad9088b6b33f81c4590fbd753",
+    "browsers": [
+      "chromium",
+      "webkit"
+    ],
+    "realPlaybackClipsPerBrowser": 36
   },
   "checks": [
     "lint",

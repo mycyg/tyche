@@ -1,7 +1,7 @@
-import { pronounce, voiceKey, voiceSentences, voiceText } from './voice-text';
 import { audioLevel, crossfadeProgress } from './audio-mix';
-import { createVoicePlanner,voiceAssetUrl,type VoiceClip } from './voice-plan';
-import { dialogueSegments,type SpeechSegment } from './dialogue-voice';
+import { voiceAssetUrl,type VoiceClip } from './voice-plan';
+import { CHARACTER_VOICES,characterVoiceId } from '../shared/character-voices';
+import { characterSpeaker } from './character-voice';
 import { MUSIC_LOOP_POINTS, MUSIC_OGG_SCENES, type MusicScene } from '../shared/audio-assets';
 
 export interface AudioSettings {
@@ -19,8 +19,8 @@ let unlocked = false, activeScene: MusicScene = 'title', playingScene = '';
 let score: HTMLAudioElement | undefined, outgoing: HTMLAudioElement | undefined;
 let speech: HTMLAudioElement | undefined, speaking = false, narrationEpoch = 0, fadeFrame = 0;
 let voiceIndex: Promise<Record<string, VoiceAsset>> | undefined;
-let planVoice:ReturnType<typeof createVoicePlanner>|undefined;
-let lastNarration: SpeechSegment[] | undefined;
+const voiceTurns=new Map<string,number>();
+let lastReaction:{speaker:string;id:string}|undefined;
 let scoreMix = 1;
 const volume = audioLevel;
 const safePlay = (audio: HTMLAudioElement) => audio.play().catch(() => {});
@@ -78,63 +78,45 @@ export function unlockAudio() {
 export function setMusicScene(scene: MusicScene) { activeScene = scene; switchScore(); }
 export function stopVoice() {
   narrationEpoch++; speech?.pause(); speech = undefined; speaking = false;
-  if (typeof speechSynthesis !== 'undefined') speechSynthesis.cancel();
   levels();
 }
 function index(): Promise<Record<string, VoiceAsset>> {
-  return voiceIndex ??= fetch(`${import.meta.env.BASE_URL}audio/voice/index.json`,{cache:'no-cache'})
+  return voiceIndex ??= fetch(`${import.meta.env.BASE_URL}audio/character-voice/index.json`,{cache:'no-cache'})
     .then(response => response.ok ? response.json() as Promise<Record<string, VoiceAsset>> : {} as Record<string, VoiceAsset>)
     .catch(() => ({} as Record<string, VoiceAsset>));
-}
-function nativeLine(text: string, speaker: string, epoch: number): Promise<void> {
-  return new Promise(resolve => {
-    if (typeof speechSynthesis === 'undefined' || epoch !== narrationEpoch) { resolve(); return; }
-    const utterance = new SpeechSynthesisUtterance(pronounce(text));
-    const chinese = speechSynthesis.getVoices().filter(v => /^zh/.test(v.lang));
-    utterance.voice = chinese.find(v => /tingting|婷婷|xiaoxiao|晓晓/i.test(v.name)) ?? chinese[0] ?? null;
-    utterance.lang = 'zh-CN'; utterance.rate = 1; utterance.pitch = ['chief', 'father', 'peer', 'patient-male'].includes(speaker) ? .8 : 1;
-    utterance.volume = volume(settings.voiceVolume, .85);
-    utterance.onend = () => resolve(); utterance.onerror = () => resolve();
-    speechSynthesis.speak(utterance);
-  });
 }
 async function assetLine(asset: VoiceAsset, epoch: number): Promise<boolean> {
   return new Promise(resolve => {
     if (epoch !== narrationEpoch) { resolve(true); return; }
-    const audio = new Audio(voiceAssetUrl(import.meta.env.BASE_URL,asset));
+    const audio = new Audio(voiceAssetUrl(import.meta.env.BASE_URL,asset,'character-voice'));
     speech = audio; audio.volume = volume(settings.voiceVolume, .85);
     audio.onended = () => resolve(true); audio.onerror = () => resolve(false);
     audio.onpause = () => { if (epoch !== narrationEpoch) resolve(true); };
     void audio.play().catch(() => resolve(false));
   });
 }
-/** One serial channel. Changing scenes invalidates every pending playback callback. */
-async function playNarration(segments:SpeechSegment[]) {
-  lastNarration = segments;
+/** Each interaction plays one fixed character reaction. Narration remains silent. */
+async function playCharacter(speaker:string,replay=false) {
   stopVoice();
-  if (!unlocked || settings.voice === false || hidden() || !segments.some(s=>voiceText(s.text))) return;
-  const epoch = narrationEpoch, catalog = await index();
-  if (epoch !== narrationEpoch) return;
-  speaking = true; levels();
-  for(const {text,speaker}of segments){
-   const whole = catalog[voiceKey(text, speaker)] ?? catalog[voiceKey(text)];
-   const lines = whole ? [text] : voiceSentences(text);
-   for (const line of lines) {
-    if (epoch !== narrationEpoch || hidden()) break;
-    const asset = catalog[voiceKey(line, speaker)] ?? catalog[voiceKey(line)];
-    if(asset){if(!await assetLine(asset,epoch))await nativeLine(line,speaker,epoch);continue;}
-    const composed=(planVoice??=createVoicePlanner(catalog))(line,speaker);
-    if(!composed){await nativeLine(line,speaker,epoch);continue;}
-    // Never skip a missing word. Composition is accepted only when the entire
-    // line can be voiced; native synthesis is the network-error fallback.
-    for(const part of composed){if(epoch!==narrationEpoch||hidden())break;if(!await assetLine(part,epoch)){await nativeLine(part.text,part.speaker,epoch);}}
-   }
-  }
-  if (epoch === narrationEpoch) { speaking = false; levels(); }
+  const actor=Object.hasOwn(CHARACTER_VOICES,speaker)?CHARACTER_VOICES[speaker]:undefined;
+  if(!actor){lastReaction=undefined;return;}
+  if(!unlocked||settings.voice===false||hidden())return;
+  const turn=voiceTurns.get(speaker)??0;
+  const id=replay&&lastReaction?.speaker===speaker?lastReaction.id:characterVoiceId(speaker,turn%actor.lines.length);
+  if(!replay)voiceTurns.set(speaker,turn+1);
+  lastReaction={speaker,id};
+  const epoch=narrationEpoch,catalog=await index();
+  if(epoch!==narrationEpoch||hidden())return;
+  const asset=catalog[id];
+  // Wrong-role, absent and unavailable clips stay quiet. Never substitute a narrator or system voice.
+  if(!asset||asset.file!==`${id}.mp3`||asset.speaker!==speaker||!actor.lines.includes(asset.text))return;
+  speaking=true;levels();
+  await assetLine(asset,epoch);
+  if(epoch===narrationEpoch){speaking=false;levels();}
 }
-export function narrate(text:string,speaker='narrator'){return playNarration([{text,speaker}]);}
-export function narrateDialogue(text:string,actor='narrator'){return playNarration(dialogueSegments(text,actor));}
-export function replayVoice() { if (lastNarration) void playNarration(lastNarration); }
+export function narrate(_text:string,speaker='narrator'){return playCharacter(speaker);}
+export function narrateDialogue(text:string,actor='narrator'){return playCharacter(characterSpeaker(text,actor)??'narrator');}
+export function replayVoice(){if(lastReaction)return playCharacter(lastReaction.speaker,true);}
 export function bindAudioLifecycle() {
   const unlock = () => unlockAudio();
   const visibility = () => {

@@ -2,7 +2,6 @@ import { TERM_GUIDE } from "./copy";
 import { useState } from 'preact/hooks';
 import { searchHandbook, contextualHelp, handbookTopicForHint } from './handbook';
 import type { Run } from '../game/types';
-import { narrate } from './audio';
 import "./guide.css";
 
 import {GUIDE_VERSION,GUIDE_EVENTS,type GuideEvent,type GuideState}from '../shared/guide-state';
@@ -112,7 +111,7 @@ export function GuideManual({ mode = "manual", initialQuery = '', onClose, onSta
     <label class="handbook-search">查找说明<input type="search" value={query} placeholder="排班、体力、费用、录音……" onInput={e=>setQuery(e.currentTarget.value)} /></label>
     <nav class="handbook-topics" aria-label="常用说明">{['排班','体力','精神','病历','费用','拒检','请假','悟性','录音','存档','声音'].map(topic=><button key={topic} aria-pressed={query===topic} onClick={()=>setQuery(topic)}>{topic}</button>)}{query&&<button onClick={()=>setQuery('')}>查看全部</button>}</nav>
     <p class="guide-note" role="status">{query.trim()?`找到 ${chapters.length} 节说明`:'按标题展开，也可以输入关键词查找。'}</p>
-    <div class="handbook-chapters">{chapters.map(chapter=><details key={chapter.id} open={!!query.trim()}><summary>{chapter.title}</summary>{chapter.paragraphs.map((text,i)=><p key={i}>{text}</p>)}<button class="text-button" aria-label={`朗读${chapter.title}`} onClick={()=>void narrate(chapter.paragraphs.join('\n'))}>朗读本节</button></details>)}</div>
+    <div class="handbook-chapters">{chapters.map(chapter=><details key={chapter.id} open={!!query.trim()}><summary>{chapter.title}</summary>{chapter.paragraphs.map((text,i)=><p key={i}>{text}</p>)}</details>)}</div>
     {!chapters.length&&<p>没有找到这项说明。试试「行动」「住院」或「夜班」。</p>}
     <details class="guide-terms" open={mode === "manual"}>
       <summary>值班手册 · 常用词</summary>

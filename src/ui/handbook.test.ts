@@ -61,7 +61,7 @@ describe('searchable, actionable handbook', () => {
     expect(text).toContain('逐项确认、逐项记账');
     expect(text).toContain('当前阶段的待办处理完');
     expect(text).toContain('导入存档会替换');
-    expect(text).toContain('字幕始终保留');
+    expect(text).toContain('文字始终保留');
     expect(text).not.toMatch(/待实现|TODO|此页面用于|我们可以|午睡大师/);
   });
   it('shows night time guidance instead of recommending unnecessary AP borrowing', () => {
