@@ -9,7 +9,7 @@ import './bedside.css';
 
 export function PatientPortrait({caseId,name,patient,motion=false,bed=false}: {caseId:string;name:string;patient?:Patient;motion?:boolean;bed?:boolean}) {
   const art=patientArt(patient??{caseId}),{index,columns,rows}=art;
-  return <div role="img" aria-label={name} class={`patient-portrait ${motion && caseId !== 'C020' ? 'patient-breathing' : ''}`}
+  return <div role="img" aria-label={name} class={`patient-portrait ${motion && !bed && caseId !== 'C020' ? 'patient-breathing' : ''}`}
     style={{backgroundImage:`url(${import.meta.env.BASE_URL}art/${patientArtFile(art,bed?'bedside':'portrait')})`,backgroundSize:`${columns*100}% ${rows*100}%`,backgroundPosition:`${index%columns*100/(columns-1)}% ${Math.floor(index/columns)*100/(rows-1)}%`,animationDelay:`-${index*.47}s`}} />;
 }
 

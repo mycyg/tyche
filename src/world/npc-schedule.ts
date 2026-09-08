@@ -1,7 +1,10 @@
 import { hash } from '../game/random';
 import type { Patient, Run } from '../game/types';
 import type { Occupant } from './occupants';
-import { patientBody } from './patients';
+import { patientArt, patientBody } from './patients';
+import { companionCarePriority, patientCompanions } from './companions';
+import { parkingPlace } from './crowd';
+import { patientCanWalk } from './patient-mobility';
 import type { ActionAtlasId, WalkAtlasId } from './npc-art';
 
 export interface NpcAction { atlas: ActionAtlasId; row: number; group: number }
@@ -29,6 +32,11 @@ export interface NpcDefinition {
   walk?: { atlas: WalkAtlasId; row: number };
   /** Frames used while moving with a cart or a mop. */
   haul?: { atlas: ActionAtlasId; row: number; right: number; left: number };
+  haulWalk?: { atlas: WalkAtlasId; row: number };
+  /** Tools stay with this worker during travel, pauses and conversation. */
+  alwaysHauls?: boolean;
+  companionOf?: string;
+  talk?: NpcAction;
   stops: NpcStop[];
   /** Pixels per second. */
   speed: number;
@@ -36,7 +44,7 @@ export interface NpcDefinition {
   offset: number;
 }
 
-const STAFF: WalkAtlasId = 'staff-walk', LIFE: WalkAtlasId = 'ward-life-walk', PATIENT: WalkAtlasId = 'patient-walk';
+const STAFF: WalkAtlasId = 'staff-motion', LIFE: WalkAtlasId = 'ward-life-walk', PATIENT: WalkAtlasId = 'patient-motion';
 const WARD_ACTIONS: ActionAtlasId = 'ward-actions';
 /** Row order of every atlas, from the two handoff manifests. */
 export const STAFF_ROW = { chief: 0, nurse: 1, peer: 2, research: 3, rep: 4 } as const;
@@ -47,7 +55,6 @@ export const FAMILY_ROW = { mother: 0, father: 1, partnerMale: 2, partnerFemale:
 export const CONFLICT_ROW = { security: 0, investigator: 1, relative: 2 } as const;
 /** Action groups, in the column order of each row. */
 const NURSE_WORK = { cartRight: 0, cartLeft: 1, chart: 2, listen: 3 };
-const CLEAN_WORK = { mopRight: 0, mopLeft: 1, wring: 2, bag: 3 };
 const RELATIVE_WORK = { sit: 0, record: 1, hand: 2, talk: 3 };
 const FAMILY_WORK = { wait: 0, phone: 1, argue: 2, luggage: 3 };
 const SECURITY_WORK = { radio: 0, stop: 1, escort: 2, watch: 3 };
@@ -113,17 +120,28 @@ export function staffRoutes(night: boolean): NpcDefinition[] {
     : [stop(SPOTS.hallCentre, 4200, { facing: 0 }), stop(SPOTS.hallOffice, 3000, { facing: 3 }),
        stop(SPOTS.waitCentre, 3600, { facing: 0 }), stop(SPOTS.hallStation, 2600, { facing: 1 })];
   const cart = { atlas: WARD_ACTIONS, row: ACTION_ROW.headNurse, right: NURSE_WORK.cartRight, left: NURSE_WORK.cartLeft };
-  return [
+  const people: NpcDefinition[] = [
     { id: 'chief', actor: 'chief', label: '唐济', walk: { atlas: STAFF, row: STAFF_ROW.chief }, stops: chief, speed: 46, offset: 0 },
-    { id: 'nurse', actor: 'nurse', label: '姜蓉', walk: { atlas: STAFF, row: STAFF_ROW.nurse }, haul: cart, stops: nurse, speed: 52, offset: 2600 },
+    { id: 'nurse', actor: 'nurse', label: '姜蓉', walk: { atlas: STAFF, row: STAFF_ROW.nurse }, haul: cart, haulWalk: { atlas: 'ward-haul', row: 0 }, stops: nurse, speed: 44, offset: 2600 },
     { id: 'peer', actor: 'peer', label: '李恂', walk: { atlas: STAFF, row: STAFF_ROW.peer }, stops: peer, speed: 50, offset: 5200 },
     { id: 'research', actor: 'research', label: '周乔', walk: { atlas: STAFF, row: STAFF_ROW.research }, stops: research, speed: 44, offset: 7600 },
     { id: 'rep', actor: 'rep', label: '叶茗', walk: { atlas: STAFF, row: STAFF_ROW.rep }, stops: rep, speed: 42, offset: 9800 },
   ];
+  for (const person of people) {
+    const row = person.walk!.row;
+    const nurse = person.id === 'nurse';
+    person.alwaysHauls = nurse;
+    person.talk = { atlas: nurse ? 'ward-care' : 'staff-actions', row: nurse ? 0 : row, group: 2 };
+    for (const s of person.stops) {
+      if (s.action) s.action = { atlas: nurse ? 'ward-care' : 'staff-actions', row: nurse ? 0 : row, group: s.action.group === NURSE_WORK.chart ? 0 : 2 };
+      else if (s.dwell >= 3600) s.action = { atlas: 'staff-actions', row, group: 0 };
+    }
+  }
+  return people;
 }
 
 /** Nurses, porters, cleaners and waiting visitors. None of them carry a card. */
-export function backgroundRoutes(night: boolean, inpatients: number): NpcDefinition[] {
+export function backgroundRoutes(night: boolean, _inpatients: number): NpcDefinition[] {
   const people: NpcDefinition[] = [
     { id: 'ward-nurse-b', walk: { atlas: LIFE, row: LIFE_ROW.nurse }, speed: 54, offset: 1400,
       stops: [stop(SPOTS.wardB[0], 3200, { facing: 1 }), stop(SPOTS.wardB[3], 2800, { facing: 3 }),
@@ -137,22 +155,14 @@ export function backgroundRoutes(night: boolean, inpatients: number): NpcDefinit
       { id: 'ward-nurse-c', walk: { atlas: LIFE, row: LIFE_ROW.nurse }, speed: 52, offset: 8100,
         stops: [stop(SPOTS.wardC[1], 3000, { facing: 3 }), stop(SPOTS.wardC[2], 2600, { facing: 1 }),
           stop(SPOTS.hallEast, 1600), stop(SPOTS.pharmacyBack, 3200, { facing: 2 }), stop(SPOTS.wardC[3], 2400, { facing: 3 })] },
-      { id: 'cleaner-hall', haul: { atlas: WARD_ACTIONS, row: ACTION_ROW.cleaner, right: CLEAN_WORK.mopRight, left: CLEAN_WORK.mopLeft }, speed: 24, offset: 600,
-        stops: [stop(SPOTS.mopEast, 2600, { haul: true, action: { atlas: WARD_ACTIONS, row: ACTION_ROW.cleaner, group: CLEAN_WORK.wring } }),
-          stop(SPOTS.mopWest, 2400, { haul: true, action: { atlas: WARD_ACTIONS, row: ACTION_ROW.cleaner, group: CLEAN_WORK.bag } })] },
+      { id: 'cleaner-hall', alwaysHauls: true, haulWalk: { atlas: 'ward-haul', row: 1 }, speed: 24, offset: 600,
+        stops: [stop(SPOTS.mopEast, 2600, { haul: true, action: { atlas: 'ward-care', row: 1, group: 0 } }),
+          stop(SPOTS.mopWest, 2400, { haul: true, action: { atlas: 'ward-care', row: 1, group: 2 } })] },
       { id: 'cleaner-rounds', walk: { atlas: LIFE, row: LIFE_ROW.cleaner }, speed: 46, offset: 6700,
         stops: [stop(SPOTS.dutyBack, 3000, { facing: 2 }), stop(SPOTS.hallCentre, 1400), stop(SPOTS.wardC[0], 2800, { facing: 1 }),
           stop(SPOTS.hallEast, 1400), stop(SPOTS.archiveFloor, 3000, { facing: 0 })] },
     );
   }
-  if (inpatients > 0) people.push(
-    { id: 'visitor-hall-a', walk: { atlas: LIFE, row: LIFE_ROW.middleWoman }, speed: 40, offset: 3100,
-      stops: [stop(SPOTS.waitWest, night ? 9000 : 5200, { facing: 0 }), stop(SPOTS.hallWest, 2200), stop(SPOTS.wardA[3], 3400, { facing: 3 }), stop(SPOTS.hallStation, 2000)] });
-  if (inpatients > 3 && !night) people.push(
-    { id: 'visitor-hall-b', walk: { atlas: LIFE, row: LIFE_ROW.youngMan }, speed: 48, offset: 7300,
-      stops: [stop(SPOTS.waitEast, 4600, { facing: 0 }), stop(SPOTS.wardB[1], 3000, { facing: 3 }), stop(SPOTS.hallCentre, 1800), stop(SPOTS.waitCentre, 3200, { facing: 0 })] },
-    { id: 'visitor-hall-c', walk: { atlas: LIFE, row: LIFE_ROW.oldMan }, speed: 32, offset: 10400,
-      stops: [stop(SPOTS.waitCentre, 6000, { facing: 0 }), stop(SPOTS.hallEast, 2600), stop(SPOTS.wardC[3], 3200, { facing: 3 })] });
   return people;
 }
 
@@ -163,19 +173,36 @@ const bedSlot = (bed: number) => (bed - 5) % 4;
  * with them. The recording pose appears only where a recording exists. */
 export function companionRoutes(r: Run, occupants: Occupant[]): NpcDefinition[] {
   const people: NpcDefinition[] = [];
-  for (const { patient } of occupants) {
+  const rooms = new Map<number, number>();
+  const candidates = occupants.map(o => ({ ...o, priority: hasRecording(r, o.patient) ? 100 : companionCarePriority(o.patient) }))
+    .filter(o => o.priority > 0).sort((a, b) => b.priority - a.priority || a.patient.bed - b.patient.bed);
+  for (const { patient } of candidates) {
     if (!patient.inpatient || patient.bed < 5 || patient.bed > 16) continue;
+    if (!patient.active) continue;
+    const room = Math.floor((patient.bed - 5) / 4);
+    if (people.length >= 4 || (rooms.get(room) ?? 0) >= 2) continue;
     const seed = hash(`companion:${patient.uid}`);
-    if (seed % 5 >= 2) continue;
     const slot = bedSlot(patient.bed), spot = wardSpots(patient.bed)[slot], bedOnLeft = slot % 2 === 0;
-    const x = spot.x + (bedOnLeft ? 16 : -16);
-    const row = seed % 2 ? ACTION_ROW.womanRelative : ACTION_ROW.manRelative;
-    const poses = hasRecording(r, patient)
-      ? [RELATIVE_WORK.sit, RELATIVE_WORK.record, RELATIVE_WORK.talk, RELATIVE_WORK.record]
-      : [RELATIVE_WORK.sit, RELATIVE_WORK.talk, RELATIVE_WORK.hand, RELATIVE_WORK.sit];
-    people.push({ id: `companion:${patient.uid}`, speed: 30, offset: seed % 9000,
-      stops: poses.map((group, index) => stop({ x: x + (index % 2 ? 6 : 0), y: spot.y }, 3400 + (seed % 5) * 400,
-        { action: { atlas: WARD_ACTIONS, row, group }, facing: bedOnLeft ? 1 : 3 })) });
+    // One primary caregiver at a bedside, including when both parents are
+    // listed in the record. Other relatives remain in their authored scenes.
+    for (const [index, profile] of patientCompanions(patient).slice(0, 1).entries()) {
+      const wanted = { x: spot.x + (bedOnLeft ? -14 : 14), y: spot.y + 14 + index * 20 };
+      if (profile.outside) { wanted.x = Math.floor(spot.x / 256) * 256 + 210; wanted.y = 262; }
+      const at = parkingPlace(wanted, people.map(p => p.stops[0]));
+      if (!at) continue;
+      const older = profile.ageGroup === 'older';
+      const walk: NpcDefinition['walk'] = profile.sex === 'unknown'
+        ? { atlas: 'companion-walk', row: older ? 2 : profile.ageGroup === 'young' ? 1 : 0 }
+        : older ? { atlas: 'family-walk', row: profile.sex === '女' ? FAMILY_ROW.mother : FAMILY_ROW.father }
+        : { atlas: LIFE, row: profile.sex === '女' ? LIFE_ROW.middleWoman : LIFE_ROW.youngMan };
+      const action: NpcAction | undefined = profile.sex === 'unknown' ? undefined : older
+        ? { atlas: 'family-actions', row: walk.row, group: hasRecording(r, patient) ? FAMILY_WORK.phone : FAMILY_WORK.wait }
+        : { atlas: WARD_ACTIONS, row: profile.sex === '女' ? ACTION_ROW.womanRelative : ACTION_ROW.manRelative,
+          group: hasRecording(r, patient) ? RELATIVE_WORK.record : RELATIVE_WORK.sit };
+      people.push({ id: `companion:${patient.uid}:${index}`, companionOf: patient.uid, walk, speed: older ? 28 : 36, offset: seed % 9000,
+        stops: [stop(at, 7000, { facing: profile.outside ? 0 : bedOnLeft ? 1 : 3, action }), stop(at, 1800, { facing: 0, action })] });
+      rooms.set(room, (rooms.get(room) ?? 0) + 1);
+    }
   }
   return people;
 }
@@ -186,12 +213,13 @@ export function ambulatoryRoutes(r: Run, occupants: Occupant[], night: boolean):
   const people: NpcDefinition[] = [];
   for (const { patient } of occupants) {
     if (!patient.inpatient || patient.bed < 5 || patient.bed > 16) continue;
+    if (!patientCanWalk(r, patient)) continue;
     const row = ambulatoryRow(patient);
     if (row === undefined) continue;
     const seed = hash(`ambulatory:${r.day}:${patient.uid}`);
     if (seed % 100 >= (night ? 12 : 34)) continue;
     const spots = wardSpots(patient.bed), slot = bedSlot(patient.bed);
-    const bedside = spots[slot], window = { x: spots[slot % 2 ? 1 : 0].x, y: 78 };
+    const bedside = { x: spots[slot].x + (slot % 2 ? 14 : -14), y: spots[slot].y }, window = { x: spots[slot % 2 ? 1 : 0].x, y: 78 };
     people.push({ id: `ambulatory:${patient.uid}`, patientId: patient.uid, walk: { atlas: PATIENT, row }, speed: 28, offset: seed % 12000,
       stops: [stop(bedside, 9000, { facing: slot < 2 ? 2 : 0, bed: true }), stop(window, 5200, { facing: 2 }),
         stop({ x: spots[slot < 2 ? 2 : 0].x, y: 132 }, 4200, { facing: slot % 2 ? 3 : 1 }), stop(bedside, 7000, { facing: 0, bed: true })] });
@@ -202,11 +230,9 @@ export function ambulatoryRoutes(r: Run, occupants: Occupant[], night: boolean):
 export function ambulatoryRow(patient: Patient): number | undefined {
   if (patient.damage >= 2 || patient.caseId === 'C020' || !patient.active) return undefined;
   const body = patientBody(patient);
-  if (body.age === undefined || body.age < 6) return undefined;
-  if (body.pregnant) return PATIENT_ROW.pregnant;
-  if (body.age < 18) return PATIENT_ROW.child;
-  if (body.age >= 68) return body.sex === '女' ? PATIENT_ROW.oldWoman : PATIENT_ROW.oldMan;
-  return body.sex === '女' ? PATIENT_ROW.woman : PATIENT_ROW.man;
+  if (body.age === undefined || body.age < 18 || body.pregnant) return undefined;
+  const art = patientArt(patient);
+  return art.atlas === 'original' ? art.index : undefined;
 }
 
 const fact = (r: Run, key: string) => !!r.facts[key] || !!r.authored?.activeFacts[key];
@@ -217,34 +243,35 @@ function hasRecording(r: Run, patient: Patient): boolean {
 /** Read from the settings once the engine carries one; the default keeps the
  * written relationship rather than inventing a second character. */
 export function partnerRow(r: Run): number {
-  return fact(r, '伴侣-男') ? FAMILY_ROW.partnerMale : FAMILY_ROW.partnerFemale;
+  return r.partner === 'male' || r.partner === undefined && fact(r, '伴侣-男') ? FAMILY_ROW.partnerMale : FAMILY_ROW.partnerFemale;
 }
 /** A broken relationship stops the visits instead of only moving a number. */
 export function familyVisitsStopped(r: Run): boolean {
-  return r.relations.family <= -3 || fact(r, '家庭-弟弟矛盾') && fact(r, '家庭-婚礼未到');
+  return fact(r, '家庭-断联') || r.relations.family <= -3;
 }
 
 /** Relatives and the partner come in on the family events of this run. */
 export function familyRoutes(r: Run): NpcDefinition[] {
-  if (familyVisitsStopped(r)) return [];
   const people: NpcDefinition[] = [];
+  const parentsVisit = !familyVisitsStopped(r);
   const family: WalkAtlasId = 'family-walk', actions: ActionAtlasId = 'family-actions';
   const bereaved = fact(r, '家庭-丧亲') || fact(r, 'father-deceased');
   const admitted = fact(r, '家庭-车祸-ICU中') || fact(r, '家庭-父母住院');
-  if (admitted || fact(r, '家庭-婚事') || fact(r, '家庭-婚事已付')) {
+  if (parentsVisit && (admitted || fact(r, '家庭-婚事') || fact(r, '家庭-婚事已付'))) {
     people.push({ id: 'family-mother', label: '母亲', walk: { atlas: family, row: FAMILY_ROW.mother }, speed: 34, offset: 2400,
       stops: [stop(SPOTS.waitCentre, 6200, { action: { atlas: actions, row: FAMILY_ROW.mother, group: FAMILY_WORK.wait }, facing: 0 }),
         stop(SPOTS.hallCentre, 2000), stop(SPOTS.familyDoor, 1600),
         stop(SPOTS.familyRoom, 5200, { action: { atlas: actions, row: FAMILY_ROW.mother, group: FAMILY_WORK.phone }, facing: 0 })] });
   }
-  if (!bereaved && (fact(r, '家庭-婚事') || fact(r, '家庭-婚礼未到'))) {
+  if (parentsVisit && !bereaved && (fact(r, '家庭-婚事') || fact(r, '家庭-婚礼未到'))) {
     people.push({ id: 'family-father', label: '父亲', walk: { atlas: family, row: FAMILY_ROW.father }, speed: 32, offset: 6100,
       stops: [stop(SPOTS.waitEast, 5000, { action: { atlas: actions, row: FAMILY_ROW.father, group: FAMILY_WORK.wait }, facing: 0 }),
         stop(SPOTS.hallCentre, 2400),
         stop(SPOTS.familyRoom, 4600, { action: { atlas: actions, row: FAMILY_ROW.father, group: fact(r, '家庭-婚礼未到') ? FAMILY_WORK.argue : FAMILY_WORK.wait }, facing: 0 })] });
   }
   const row = partnerRow(r);
-  if (fact(r, '伴侣-矛盾')) {
+  const hasPartner = r.partner === 'male' || r.partner === 'female' || r.partner === undefined && fact(r, '伴侣-在册');
+  if (hasPartner && !fact(r, '伴侣-分开') && fact(r, '伴侣-矛盾')) {
     const leaving = fact(r, '家庭-卖车') || fact(r, '家庭-降级');
     people.push({ id: 'family-partner', label: '对象', walk: { atlas: family, row }, speed: 38, offset: 9200,
       stops: [stop(SPOTS.familyRoom, 5400, { action: { atlas: actions, row, group: leaving ? FAMILY_WORK.luggage : FAMILY_WORK.argue }, facing: 0 }),

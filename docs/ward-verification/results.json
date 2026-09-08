@@ -1,0 +1,132 @@
+{
+  "date": "2026-09-08",
+  "unitTests": {
+    "files": 136,
+    "passed": 2590
+  },
+  "e2e": {
+    "passed": 12,
+    "projects": [
+      "chromium-desktop",
+      "chromium-portrait",
+      "webkit-portrait",
+      "webkit-landscape"
+    ]
+  },
+  "motionFrames": 432,
+  "patientAppearances": 15,
+  "simulations": [
+    {
+      "policy": "random",
+      "veteran": false,
+      "runs": 10,
+      "reachedDay4": "90.0%",
+      "reachedCourt": "0.0%",
+      "averageEndDay": 6.9,
+      "actions": 2802,
+      "endings": {
+        "END-29": 1,
+        "END-28": 1,
+        "END-01": 8
+      },
+      "staminaEndings": "0.0%",
+      "topEndingShare": "80.0%",
+      "nonDark": "0.0%"
+    },
+    {
+      "policy": "careful",
+      "veteran": false,
+      "runs": 10,
+      "reachedDay4": "100.0%",
+      "reachedCourt": "0.0%",
+      "averageEndDay": 10.2,
+      "actions": 6822,
+      "endings": {
+        "END-33": 3,
+        "END-27": 1,
+        "END-26": 2,
+        "END-22": 2,
+        "END-19": 1,
+        "END-28": 1
+      },
+      "staminaEndings": "0.0%",
+      "topEndingShare": "30.0%",
+      "nonDark": "30.0%"
+    },
+    {
+      "policy": "careful",
+      "veteran": true,
+      "runs": 10,
+      "reachedDay4": "100.0%",
+      "reachedCourt": "20.0%",
+      "averageEndDay": 11.5,
+      "actions": 7199,
+      "endings": {
+        "END-33": 2,
+        "END-26": 2,
+        "END-23": 1,
+        "END-28": 1,
+        "END-01": 1,
+        "END-22": 2,
+        "END-29": 1
+      },
+      "staminaEndings": "0.0%",
+      "topEndingShare": "20.0%",
+      "nonDark": "20.0%"
+    },
+    {
+      "policy": "reckless",
+      "veteran": false,
+      "runs": 10,
+      "reachedDay4": "100.0%",
+      "reachedCourt": "0.0%",
+      "averageEndDay": 10,
+      "actions": 3173,
+      "endings": {
+        "END-05": 5,
+        "END-29": 1,
+        "END-01": 3,
+        "END-28": 1
+      },
+      "staminaEndings": "0.0%",
+      "topEndingShare": "50.0%",
+      "nonDark": "0.0%"
+    }
+  ],
+  "autoplay": {
+    "seed": "autoplay-alpha",
+    "policy": "careful",
+    "label": "autoplay-alpha · careful · autoplay-desktop",
+    "viewport": "1440x900",
+    "talents": [
+      "美化",
+      "主任的人",
+      "抄规范"
+    ],
+    "finished": true,
+    "stuck": null,
+    "endDay": 11,
+    "ending": {
+      "id": "END-28",
+      "title": "骆驼祥子"
+    },
+    "steps": 600,
+    "minutes": 6.36,
+    "pageErrors": [],
+    "consoleErrors": [],
+    "navigationFailures": []
+  },
+  "voice": {
+    "cues": 23986,
+    "covered": 23986,
+    "missing": 0,
+    "complete": true
+  },
+  "checks": [
+    "lint",
+    "typecheck",
+    "check:content",
+    "audio:check",
+    "build"
+  ]
+}

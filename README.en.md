@@ -19,7 +19,7 @@ A Chinese-language 2D pixel JRPG about a resident doctor's fourteen-day hospital
   </tr>
 </table>
 
-Development version: 0.9.0. Complete branch coverage, voice coverage and multi-run verification are still pending. See the [verification record](docs/verification.md) for evidence and limitations. The game itself is in Chinese.
+Development version: 0.9.0. All 23,986 current voice cues are included. See the [ward and browser checks](docs/ward-visual-audit-2026-09-08.md) and [coverage criteria](docs/verification.md). The game itself is in Chinese.
 
 The content catalog contains 20 branching clinical cases, 208 case presets, 251 patient identities, 212 events, 30 talents, 40 main endings (END-01–END-40) and existing attachment-type endings. Four intertwined storylines track favors, private loans, family recordings and research. Catalog totals do not certify that every route has passed testing.
 

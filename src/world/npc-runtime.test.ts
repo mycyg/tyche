@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 import type { Patient, Run } from '../game/types';
 import { walkable, type Point } from './navigation';
 import { BED_PLACES, CORRIDOR_BED_OBSTACLE } from './scene';
-import { actorAction, actorStep, createWardLife } from './npc-runtime';
+import { actorAction, actorStep, createWardLife, restingInBed } from './npc-runtime';
+import { liveTargetPoint } from './WorldStage';
 import { SPOTS, staffRoutes, wardCast, type NpcDefinition } from './npc-schedule';
 
 const bedPatient = (bed: number, age: number, sex: '男' | '女'): Patient => ({
@@ -103,7 +104,8 @@ describe('ward life runtime', () => {
     const at = { x: actor.x + 40, y: actor.y };
     for (let i = 0; i < 120; i++) life.step(FRAME, { motion: true, hold: { id: 'nurse', at } });
     const held = { x: actor.x, y: actor.y };
-    expect(actor.state).toBe('dwell');
+    expect(actor.held).toBe(true);
+    expect(actorAction(actor)).toBeUndefined();
     expect(actor.facing).toBe(3);
     for (let i = 0; i < 120; i++) life.step(FRAME, { motion: true, hold: { id: 'nurse', at } });
     expect({ x: actor.x, y: actor.y }).toEqual(held);
@@ -170,5 +172,48 @@ describe('ward life runtime', () => {
     const seen = new Set<number>();
     for (let i = 0; i < 120; i++) { life.step(FRAME, { motion: true }); seen.add(actorStep(actor)); }
     expect([...seen].sort()).toEqual([0, 1]);
+  });
+
+  it('waits at an unreachable leg instead of teleporting across a closed room', () => {
+    const life = createWardLife();
+    const from = { x: 132, y: 148 }, to = { x: 132, y: 262 };
+    life.sync([{ id: 'blocked', speed: 28, offset: 0, stops: [{ ...from, dwell: 10 }, { ...to, dwell: 10 }] }]);
+    const extra = [{ x: 90, y: 184, w: 85, h: 20 }];
+    for (let i = 0; i < 300; i++) life.step(FRAME, { motion: true, extra });
+    expect(life.actors[0]).toMatchObject(from);
+    advance(life, 6);
+    expect(life.actors[0].y).toBeGreaterThan(200);
+  });
+
+  it('blinks briefly in a bedside work pose instead of closing the eyes for half the shift', () => {
+    const life = createWardLife();
+    life.sync([{ id: 'working', speed: 30, offset: 0, stops: [{ ...SPOTS.wardA[0], dwell: 9000,
+      action: { atlas: 'ward-actions', row: 0, group: 2 } }] }]);
+    let closed = 0;
+    for (let i = 0; i < 480; i++) { life.step(FRAME, { motion: true }); closed += actorStep(life.actors[0]); }
+    expect(closed).toBeGreaterThan(0); expect(closed / 480).toBeLessThan(.06);
+  });
+
+  it('keeps feet still when reduced motion is enabled halfway along a route', () => {
+    const life = createWardLife(); life.sync(staffRoutes(false)); advance(life, 20);
+    const before = life.actors.map(a => ({ x: a.x, y: a.y, index: a.index }));
+    expect(life.actors.some(a => a.state === 'walk')).toBe(true);
+    advance(life, 3, false);
+    life.actors.forEach((actor, i) => { expect(actor).toMatchObject(before[i]); expect(actorStep(actor)).toBe(0); });
+  });
+
+  it('keeps a returning patient visible at the actual feet through conversation and schedule changes', () => {
+    const life = createWardLife(), bed = { x: 110, y: 166 }, window = { x: 110, y: 78 };
+    const def: NpcDefinition = { id: 'ambulatory:p', patientId: 'p', walk: { atlas: 'patient-walk', row: 0 }, speed: 28, offset: 0,
+      stops: [{ ...bed, dwell: 10, bed: true }, { ...window, dwell: 10 }] };
+    life.sync([def]); advance(life, 4);
+    const actor = life.actors[0], before = { x: actor.x, y: actor.y };
+    expect(actor.index).toBe(0); expect(restingInBed(actor)).toBe(false);
+    for (let i = 0; i < 60; i++) life.step(FRAME, { motion: true, hold: { id: actor.id, at: { x: 132, y: 148 } } });
+    expect(actor).toMatchObject(before); expect(restingInBed(actor)).toBe(false);
+    const target = { id: 'bed:5', label: '患者', ...bed, npc: actor.id };
+    expect(liveTargetPoint(target, life.byId)).toEqual(before);
+    life.sync([{ ...def, stops: [{ ...bed, x: 878, dwell: 9000, bed: true }] }]);
+    expect(restingInBed(actor)).toBe(false); expect(liveTargetPoint(target, life.byId)).toEqual(before);
   });
 });

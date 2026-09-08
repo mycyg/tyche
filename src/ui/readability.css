@@ -81,6 +81,9 @@
  .large-text .world-stage .rpg-hud { height:auto; }
  .large-text .world-stage .rpg-ap { height:40px; }
  .large-text .world-stage .rpg-wallet { height:40px; }
+ .large-text .world-stage .rpg-wallet { flex-direction:column;align-items:flex-start;justify-content:center;gap:0; }
+ .large-text .world-stage .rpg-wallet strong { white-space:nowrap;font-size:16px;line-height:18px; }
+ .large-text .world-stage .rpg-wallet small { font-size:11px;line-height:12px; }
  .large-text .world-stage.world-stage-readable .rpg-location { top:152px; }
  .large-text .world-stage.world-stage-readable .rpg-quest-button { top:139px; }
  .large-text .world-stage .dialogue-body { display:block; }

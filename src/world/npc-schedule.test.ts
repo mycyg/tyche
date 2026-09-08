@@ -83,7 +83,8 @@ describe('ward npc routes', () => {
   it('gives every route more than one stop, so nobody stands still all shift', () => {
     for (const def of wardCast(run({ patients: [patient()] }), [occupant(patient())])) {
       expect(def.stops.length, def.id).toBeGreaterThan(1);
-      expect(new Set(def.stops.map(s => `${s.x},${s.y}`)).size, def.id).toBeGreaterThan(1);
+      if (def.id.startsWith('companion:')) expect(new Set(def.stops.map(s => `${s.x},${s.y}`)).size, def.id).toBe(1);
+      else expect(new Set(def.stops.map(s => `${s.x},${s.y}`)).size, def.id).toBeGreaterThan(1);
     }
   });
 });
@@ -115,17 +116,20 @@ describe('companions and patients out of bed', () => {
     expect(ambulatoryRow(patient(body(0, '女')))).toBeUndefined();
     expect(ambulatoryRow(patient({ ...body(44, '男'), damage: 3 }))).toBeUndefined();
     expect(ambulatoryRow(patient({ ...body(44, '男'), caseId: 'C020' }))).toBeUndefined();
-    expect(ambulatoryRow(patient(body(9, '男')))).toBe(4);
-    expect(ambulatoryRow(patient(body(31, '女')))).toBe(1);
-    expect(ambulatoryRow(patient(body(74, '男')))).toBe(2);
+    expect(ambulatoryRow(patient(body(9, '男')))).toBeUndefined();
+    expect(ambulatoryRow(patient(body(31, '女')))).toBe(4);
+    expect(ambulatoryRow(patient(body(74, '男')))).toBe(11);
   });
 
   it('walks a patient inside their own room and returns them to the bedside', () => {
     const beds = [5, 9, 13];
     for (const bed of beds) {
-      const p = patient({ uid: `walk-${bed}`, bed });
-      const routes = ambulatoryRoutes(run({ patients: [p], day: 4 }), [occupant(p)], false)
-        .concat(ambulatoryRoutes(run({ patients: [p], day: 7 }), [occupant(p)], false));
+      const p = patient({ uid: `walk-${bed}`, bed, caseId: 'C-131', settled: true });
+      const routes = Array.from({ length: 14 }, (_, i) => {
+        const day = i + 1, reviewed = { ...p, caredDay: day };
+        return ambulatoryRoutes(run({ patients: [reviewed], day }), [occupant(reviewed)], false);
+      }).flat();
+      expect(routes.length).toBeGreaterThan(0);
       for (const def of routes) {
         const room = bed >= 13 ? 1024 : bed >= 9 ? 768 : 0;
         for (const s of def.stops) { expect(s.x).toBeGreaterThan(room); expect(s.x).toBeLessThan(room + 256); expect(walkable(s)).toBe(true); }
@@ -145,7 +149,7 @@ describe('family and conflict attendance', () => {
 
   it('reads the visit from the facts of this run', () => {
     expect(familyRoutes(run({ facts: facts('家庭-车祸-ICU中') })).map(d => d.id)).toContain('family-mother');
-    expect(familyRoutes(run({ facts: facts('伴侣-矛盾') })).map(d => d.id)).toContain('family-partner');
+    expect(familyRoutes(run({ partner: 'female', facts: facts('伴侣-矛盾') })).map(d => d.id)).toContain('family-partner');
     const bereaved = familyRoutes(run({ facts: facts('家庭-婚事', 'father-deceased') }));
     expect(bereaved.map(d => d.id)).not.toContain('family-father');
   });
@@ -159,6 +163,28 @@ describe('family and conflict attendance', () => {
   it('follows the partner setting, and keeps the written partner by default', () => {
     expect(partnerRow(run())).toBe(3);
     expect(partnerRow(run({ facts: facts('伴侣-男') }))).toBe(2);
+  });
+
+  it('does not invent a partner or bring an ex back, and keeps parent and partner attendance independent', () => {
+    const partner = (state: Run) => familyRoutes(state).find(d => d.id === 'family-partner');
+    expect(partner(run({ partner: 'none', facts: facts('伴侣-矛盾', '伴侣-在册') }))).toBeUndefined();
+    expect(partner(run({ partner: 'female', facts: facts('伴侣-矛盾', '伴侣-分开') }))).toBeUndefined();
+    const state = run({ partner: 'male', facts: facts('伴侣-矛盾', '家庭-婚事', '家庭-断联') });
+    expect(familyRoutes(state).map(d => d.id)).toEqual(['family-partner']);
+    expect(partner(state)?.walk?.row).toBe(2);
+  });
+
+  it('keeps a seated companion and their stool at their own bedside', () => {
+    const patients = Array.from({ length: 12 }, (_, i) => patient({ uid: `companion-${i}`, caseId: 'C-002', bed: 5 + i, preset: { age: 8, sex: '男', companion: '父母' } as Patient['preset'] }));
+    const cast = companionRoutes(run({ patients }), patients.map(occupant));
+    expect(cast.length).toBeGreaterThan(0);
+    expect(cast.length).toBeLessThanOrEqual(4);
+    expect(new Set(cast.map(d => d.companionOf)).size).toBe(cast.length);
+    for (const room of [0,1,2]) expect(cast.filter(d => Math.floor((patients.find(p => p.uid === d.companionOf)!.bed - 5) / 4) === room).length).toBeLessThanOrEqual(2);
+    for (const def of cast) {
+      expect(new Set(def.stops.map(s => `${s.x}:${s.y}`)).size).toBe(1);
+      expect(def.companionOf).toBeTruthy();
+    }
   });
 
   it('sends security and the inspector only on their own events', () => {

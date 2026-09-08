@@ -1,5 +1,5 @@
 import {test,expect,type Page}from '@playwright/test';
-import {readFileSync}from 'node:fs';
+import {mkdirSync,readFileSync}from 'node:fs';
 import {voiceKey,voiceSentences}from '../../src/ui/voice-text';
 
 async function startAtDesk(page:Page){
@@ -36,6 +36,12 @@ test('fresh start, readable HUD, map navigation and modal focus',async({page})=>
   const overview=page.getByRole('dialog',{name:'病区地图',exact:true});await expect(overview).toBeVisible();
   await expect(overview.getByRole('button',{name:/A病房/})).toBeVisible();
   await page.keyboard.press('Escape');await expect(overview).not.toBeVisible();
+  // The shortcut and focus trap must be ready on the first visible frame,
+  // including rapid reopen/close cycles before passive effects would run.
+  for(let i=0;i<3;i++){
+    await page.getByRole('button',{name:'打开病区地图',exact:true}).click();
+    await expect(overview).toBeVisible();await page.keyboard.press('Escape');await expect(overview).not.toBeVisible();
+  }
   await page.getByRole('button',{name:'暂停与设置',exact:true}).click();
   const settings=page.locator('dialog[open]');await expect(settings).toHaveCount(1);
   const voiceIndex=JSON.parse(readFileSync('dist/audio/voice/index.json','utf8'));
@@ -51,4 +57,35 @@ test('fresh start, readable HUD, map navigation and modal focus',async({page})=>
   await agenda.locator('.rpg-menu-row').first().click();
   await expect(page.locator('.rpg-dialogue,.bedside-view')).not.toHaveCount(0,{timeout:30_000});
   expect(errors).toEqual([]);
+});
+
+test('large text keeps toolbar icons and labels inside touch targets',async({page},info)=>{
+  await startAtDesk(page);
+  await page.getByRole('button',{name:'暂停与设置',exact:true}).click();
+  await page.getByRole('checkbox',{name:'大号文字',exact:true}).check();
+  await page.getByRole('button',{name:'关闭',exact:true}).click();
+  await page.getByRole('button',{name:'打开病区地图',exact:true}).click();
+  await page.getByRole('dialog',{name:'病区地图',exact:true}).getByRole('button',{name:/A病房/}).click();
+  await expect(page.locator('.rpg-location b')).toHaveText('A病房');
+  const bounds=await page.locator('.rpg-tools button').evaluateAll(buttons=>buttons.filter(b=>b.getBoundingClientRect().width>0).map(b=>{
+    const button=b.getBoundingClientRect(),icon=b.querySelector('svg')!.getBoundingClientRect(),label=b.querySelector('span')!.getBoundingClientRect();
+    const bar=b.parentElement!.getBoundingClientRect();
+    return {width:button.width,height:button.height,inside:icon.top>=button.top&&label.bottom<=button.bottom&&label.left>=button.left&&label.right<=button.right,gap:label.top-icon.bottom,unclipped:button.top>=bar.top&&button.bottom<=bar.bottom+1};
+  }));
+  expect(bounds.length).toBeGreaterThanOrEqual(2);
+  for(const b of bounds){expect(b.width).toBeGreaterThanOrEqual(44);expect(b.height).toBeGreaterThanOrEqual(44);expect(b.inside).toBe(true);expect(b.gap).toBeGreaterThanOrEqual(1);expect(b.unclipped).toBe(true);}
+  const controls=await page.locator('.rpg-tools').boundingBox(),interact=await page.locator('.rpg-interact').boundingBox();
+  expect(controls).not.toBeNull();expect(interact).not.toBeNull();
+  expect(controls!.x+controls!.width<=interact!.x||controls!.y+controls!.height<=interact!.y||interact!.y+interact!.height<=controls!.y).toBe(true);
+  mkdirSync('output/ward-visual-audit',{recursive:true});
+  await page.screenshot({path:`output/ward-visual-audit/${info.project.name}-large.png`});
+  await page.getByRole('button',{name:'跳过',exact:true}).click();
+  await expect.poll(()=>page.locator('.world-viewport').evaluate(el=>{
+    const hud=Number.parseFloat(getComputedStyle(el.closest('.world-stage')!).getPropertyValue('--hud-space'));
+    return Math.abs(el.getBoundingClientRect().top-hud)<2;
+  })).toBe(true);
+  await page.screenshot({path:`output/ward-visual-audit/${info.project.name}-ward.png`});
+  await page.getByRole('button',{name:/前往床旁/}).first().click();
+  await expect(page.locator('.bedside-view')).toBeVisible();
+  await page.screenshot({path:`output/ward-visual-audit/${info.project.name}-bedside.png`});
 });

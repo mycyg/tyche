@@ -1,0 +1,336 @@
+{
+  "patientIds": [
+    15,
+    1,
+    5,
+    12,
+    14,
+    16,
+    2,
+    11,
+    10,
+    4,
+    18,
+    8,
+    17,
+    9,
+    3
+  ],
+  "reports": [
+    {
+      "file": "patient15.webp",
+      "sha256": "6d42cc6f29559f3f4f139c3b52474ebe7774ecf3c50064a4c4983790a489ed50",
+      "size": [
+        1024,
+        1536
+      ],
+      "grid": [
+        4,
+        6
+      ]
+    },
+    {
+      "file": "patient1.webp",
+      "sha256": "caded05b472b8ab73ccc6fad9d1399a3691c317dbae42fe4161ffc7f6e8c50e7",
+      "size": [
+        1024,
+        1536
+      ],
+      "grid": [
+        4,
+        6
+      ]
+    },
+    {
+      "file": "patient5.webp",
+      "sha256": "ce98e8aac549575a516716e1834010307b9a41bda51896ee38ebb40315d8ab55",
+      "size": [
+        1024,
+        1536
+      ],
+      "grid": [
+        4,
+        6
+      ]
+    },
+    {
+      "file": "patient12.webp",
+      "sha256": "f7f4964b0688c33df6dc84ce133c45c26663ac9976c60d0710af8eb86aea735a",
+      "size": [
+        1024,
+        1536
+      ],
+      "grid": [
+        4,
+        6
+      ]
+    },
+    {
+      "file": "patient14.webp",
+      "sha256": "46cc63c079e9cf30cc5a35132a47f75bb5ae9120dcd27505fc880eac74f5ccd3",
+      "size": [
+        1024,
+        1536
+      ],
+      "grid": [
+        4,
+        6
+      ]
+    },
+    {
+      "file": "patientMotionGroup2.webp",
+      "sha256": "f675b432e69fa5f7d1bd1c605abc41b25ee2ae027989f6fb06decc5fa4f45dee",
+      "size": [
+        1536,
+        1024
+      ],
+      "grid": [
+        9,
+        6
+      ]
+    },
+    {
+      "file": "patientMotionGroup3.webp",
+      "sha256": "59ae40bc02d970c4f75467a2d0118534179b062635636da1072cf61b579d5bf9",
+      "size": [
+        1536,
+        1024
+      ],
+      "grid": [
+        9,
+        6
+      ]
+    },
+    {
+      "file": "patient8.webp",
+      "sha256": "6ad8268eb4ee3092345c87105f1631d5517212a515250c6f68eb678bce4a235e",
+      "size": [
+        1024,
+        1536
+      ],
+      "grid": [
+        4,
+        6
+      ]
+    },
+    {
+      "file": "patient17.webp",
+      "sha256": "5b866e2bfbf15cc7cdd3f4c526d59e18e780ab8cfd22d58c09122872b69786c3",
+      "size": [
+        1024,
+        1536
+      ],
+      "grid": [
+        4,
+        6
+      ]
+    },
+    {
+      "file": "patient9.webp",
+      "sha256": "9e3ec8b798d3524a8289cbc55bc54be83491c132926249b4bae2b90e58c3a869",
+      "size": [
+        1024,
+        1536
+      ],
+      "grid": [
+        4,
+        6
+      ]
+    },
+    {
+      "file": "patient3.webp",
+      "sha256": "1310caa670a6464892918916200616500811d991bb17d15acdd0774cb956599a",
+      "size": [
+        1024,
+        1536
+      ],
+      "grid": [
+        4,
+        6
+      ]
+    },
+    {
+      "output": "patient-motion-atlas.webp",
+      "size": [
+        2048,
+        3584
+      ],
+      "bytes": 1966298,
+      "sha256": "fbd236a08a45b887beaeed8ad52b3362101ea7481e90ea44424344e997d7592c"
+    },
+    {
+      "output": "patient-transitions-atlas.webp",
+      "size": [
+        512,
+        3584
+      ],
+      "bytes": 657728,
+      "sha256": "2432370fb2ae3442011d0468aed807480eef1b5d4dfbcb3ffdf3568ca8ea86cc"
+    },
+    {
+      "file": "staff0.webp",
+      "sha256": "a152d1eaa198f64db034e267c0571dc1257b6f30a03432e256d18918a5d37a77",
+      "size": [
+        1024,
+        1536
+      ],
+      "grid": [
+        4,
+        6
+      ]
+    },
+    {
+      "file": "staff1.webp",
+      "sha256": "8ade5497dbb1f289d423170e0472711660a160dc04c9f50cad2a01543098def7",
+      "size": [
+        1024,
+        1536
+      ],
+      "grid": [
+        4,
+        6
+      ]
+    },
+    {
+      "file": "staff2.webp",
+      "sha256": "043a66ec1139770298bdd647b905d5c3379b1dda7cf1a6711b05ba34091b687f",
+      "size": [
+        1024,
+        1536
+      ],
+      "grid": [
+        4,
+        6
+      ]
+    },
+    {
+      "file": "staff3.webp",
+      "sha256": "ea2d1aad4043c5e5d5149c9f59ce3f35bff498bb05d4fec1526db86d686ff078",
+      "size": [
+        1024,
+        1536
+      ],
+      "grid": [
+        4,
+        6
+      ]
+    },
+    {
+      "file": "staff4.webp",
+      "sha256": "6789c7fa7d9636ec9ae9acefd7bf67ba6e3668c7a3e5f60da5cec5348a43ed46",
+      "size": [
+        1024,
+        1536
+      ],
+      "grid": [
+        4,
+        6
+      ]
+    },
+    {
+      "output": "staff-motion-atlas.webp",
+      "size": [
+        2048,
+        640
+      ],
+      "bytes": 666754,
+      "sha256": "729794217255e13d8c90d19efcb2cdffef461748f34ff39ce314edaf7446bb59"
+    },
+    {
+      "output": "staff-actions-atlas.webp",
+      "size": [
+        1536,
+        640
+      ],
+      "bytes": 369896,
+      "sha256": "52e7177169606e0a7bdbf3989b9008c8922c17511425c1995e67b9ed160b3e99"
+    },
+    {
+      "file": "haul0.webp",
+      "sha256": "30658030298343d124cb748f5202fdd277d559d4c73821d8abb3e99d9f3883a0",
+      "size": [
+        1024,
+        1536
+      ],
+      "grid": [
+        4,
+        6
+      ]
+    },
+    {
+      "file": "haul1.webp",
+      "sha256": "441fc7fe8e4c41b70c8115edf93ba5c305b0c0c4eb4dd8c690cd98bbab8a5a8b",
+      "size": [
+        1254,
+        1254
+      ],
+      "grid": [
+        4,
+        6
+      ]
+    },
+    {
+      "output": "ward-haul-atlas.webp",
+      "size": [
+        4096,
+        256
+      ],
+      "bytes": 302566,
+      "sha256": "c7847d94ea53bccf8c688af8fc92e5e44bd3c7cb0245cb61f81951860b281a45"
+    },
+    {
+      "output": "ward-care-atlas.webp",
+      "size": [
+        2048,
+        256
+      ],
+      "bytes": 178980,
+      "sha256": "5b124d80a3b2f731604096383505877ac4719c25dc47d43cf193417eea2ec968"
+    },
+    {
+      "file": "companionNeutral.webp",
+      "sha256": "1aade0a1264cf8473900f8f41e199809cca2a0934caae17e0676d4513be97541",
+      "size": [
+        1536,
+        1024
+      ],
+      "grid": [
+        6,
+        4
+      ]
+    },
+    {
+      "file": "companionNeutral.webp",
+      "sha256": "1aade0a1264cf8473900f8f41e199809cca2a0934caae17e0676d4513be97541",
+      "size": [
+        1536,
+        1024
+      ],
+      "grid": [
+        6,
+        4
+      ]
+    },
+    {
+      "file": "companionNeutral.webp",
+      "sha256": "1aade0a1264cf8473900f8f41e199809cca2a0934caae17e0676d4513be97541",
+      "size": [
+        1536,
+        1024
+      ],
+      "grid": [
+        6,
+        4
+      ]
+    },
+    {
+      "output": "companion-walk-atlas.webp",
+      "size": [
+        1024,
+        384
+      ],
+      "bytes": 146052,
+      "sha256": "a81d665ed54c0c7336d9bd846eeee76f3742a9e17c47e86e6a59251f10130611"
+    }
+  ]
+}

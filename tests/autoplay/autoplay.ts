@@ -684,22 +684,6 @@ async function worldPosition(page: Page): Promise<string> {
   return world ? `${Math.round(world.x)},${Math.round(world.y)}` : "";
 }
 
-/** A cheap fingerprint of one patch of the map, used to see the camera move. */
-function sampleWorld(): number {
-  const canvas = document.querySelector(
-    "canvas.world-canvas",
-  ) as HTMLCanvasElement | null;
-  const ctx = canvas?.getContext("2d");
-  if (!canvas || !ctx || canvas.width < 96 || canvas.height < 96) return -1;
-  const x = Math.floor(canvas.width / 2) - 40;
-  const y = Math.floor(canvas.height / 2) - 40;
-  const data = ctx.getImageData(x, y, 80, 80).data;
-  let sum = 0;
-  for (let i = 0; i < data.length; i += 12)
-    sum = (sum * 31 + data[i] * (i + 1)) % 1_000_000_007;
-  return sum;
-}
-
 const ARRIVED =
   ".rpg-dialogue, .bedside-view, .rpg-map-menu, dialog, .tribunal-page, .ending-page";
 
@@ -712,8 +696,8 @@ export interface Settled {
 
 /**
  * Waits for the walk to end. Any surface other than the bare map means the
- * doctor arrived somewhere; a map that stops moving means the route led
- * nowhere. On that second outcome the saved position says whether the doctor
+ * doctor arrived somewhere; a map still open at the route deadline means
+ * arrival was not observed. On that outcome the saved position says whether the doctor
  * walked at all, which separates a route the game refused to start from a
  * walk that ended without opening anything.
  */
@@ -730,23 +714,11 @@ async function settle(page: Page, timeout = 45_000): Promise<Settled> {
     .catch(() => {});
   const deadline = Date.now() + timeout;
   await wait(page, 500);
-  let last = -2;
-  let still = 0;
   while (Date.now() < deadline) {
     if (await page.locator(ARRIVED).count()) return done(true);
-    const now = await page.evaluate(sampleWorld).catch(() => -1);
-    if (now === last) still += 1;
-    else {
-      still = 0;
-      last = now;
-    }
-    // Six identical frames in a row: the camera is parked, nobody is walking.
-    // One more look after a pause, so a walk that pauses to re-route is not
-    // written down as a failure.
-    if (still >= 6) {
-      await wait(page, 1_500);
-      return done((await page.locator(ARRIVED).count()) > 0);
-    }
+    // A clamped camera can produce identical samples while the doctor is
+    // still crossing the room. Only the destination surface or the actual
+    // route timeout establishes arrival/failure; sampled floor pixels do not.
     await wait(page, 260);
   }
   return done((await page.locator(ARRIVED).count()) > 0);

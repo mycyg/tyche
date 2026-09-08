@@ -1,0 +1,234 @@
+{
+  "patients": [
+    {
+      "file": "patient15.webp",
+      "columns": 4,
+      "rows": 6,
+      "people": [
+        {
+          "row": 15,
+          "column": 0,
+          "frames": 4
+        }
+      ]
+    },
+    {
+      "file": "patient1.webp",
+      "columns": 4,
+      "rows": 6,
+      "people": [
+        {
+          "row": 1,
+          "column": 0,
+          "frames": 4
+        }
+      ]
+    },
+    {
+      "file": "patient5.webp",
+      "columns": 4,
+      "rows": 6,
+      "people": [
+        {
+          "row": 5,
+          "column": 0,
+          "frames": 4
+        }
+      ]
+    },
+    {
+      "file": "patient12.webp",
+      "columns": 4,
+      "rows": 6,
+      "people": [
+        {
+          "row": 12,
+          "column": 0,
+          "frames": 4
+        }
+      ]
+    },
+    {
+      "file": "patient14.webp",
+      "columns": 4,
+      "rows": 6,
+      "people": [
+        {
+          "row": 14,
+          "column": 0,
+          "frames": 4
+        }
+      ]
+    },
+    {
+      "file": "patientMotionGroup2.webp",
+      "columns": 9,
+      "rows": 6,
+      "people": [
+        {
+          "row": 16,
+          "column": 0,
+          "frames": 3
+        },
+        {
+          "row": 2,
+          "column": 3,
+          "frames": 3
+        },
+        {
+          "row": 11,
+          "column": 6,
+          "frames": 3
+        }
+      ]
+    },
+    {
+      "file": "patientMotionGroup3.webp",
+      "columns": 9,
+      "rows": 6,
+      "people": [
+        {
+          "row": 10,
+          "column": 0,
+          "frames": 3
+        },
+        {
+          "row": 4,
+          "column": 3,
+          "frames": 3
+        },
+        {
+          "row": 18,
+          "column": 6,
+          "frames": 3
+        }
+      ]
+    },
+    {
+      "file": "patient8.webp",
+      "columns": 4,
+      "rows": 6,
+      "people": [
+        {
+          "row": 8,
+          "column": 0,
+          "frames": 4
+        }
+      ]
+    },
+    {
+      "file": "patient17.webp",
+      "columns": 4,
+      "rows": 6,
+      "people": [
+        {
+          "row": 17,
+          "column": 0,
+          "frames": 4
+        }
+      ]
+    },
+    {
+      "file": "patient9.webp",
+      "columns": 4,
+      "rows": 6,
+      "people": [
+        {
+          "row": 9,
+          "column": 0,
+          "frames": 4
+        }
+      ]
+    },
+    {
+      "file": "patient3.webp",
+      "columns": 4,
+      "rows": 6,
+      "people": [
+        {
+          "row": 3,
+          "column": 0,
+          "frames": 4
+        }
+      ]
+    }
+  ],
+  "staff": [
+    {
+      "file": "staff0.webp",
+      "columns": 4,
+      "rows": 6,
+      "row": 0
+    },
+    {
+      "file": "staff1.webp",
+      "columns": 4,
+      "rows": 6,
+      "row": 1
+    },
+    {
+      "file": "staff2.webp",
+      "columns": 4,
+      "rows": 6,
+      "row": 2
+    },
+    {
+      "file": "staff3.webp",
+      "columns": 4,
+      "rows": 6,
+      "row": 3
+    },
+    {
+      "file": "staff4.webp",
+      "columns": 4,
+      "rows": 6,
+      "row": 4
+    }
+  ],
+  "haul": [
+    {
+      "file": "haul0.webp",
+      "columns": 4,
+      "rows": 6,
+      "row": 0
+    },
+    {
+      "file": "haul1.webp",
+      "columns": 4,
+      "rows": 6,
+      "row": 1,
+      "actionColumns": [
+        0,
+        2,
+        2,
+        3
+      ]
+    }
+  ],
+  "companions": [
+    {
+      "file": "companionNeutral.webp",
+      "columns": 6,
+      "rows": 4,
+      "column": 0,
+      "row": 0,
+      "height": 112
+    },
+    {
+      "file": "companionNeutral.webp",
+      "columns": 6,
+      "rows": 4,
+      "column": 2,
+      "row": 1,
+      "height": 82
+    },
+    {
+      "file": "companionNeutral.webp",
+      "columns": 6,
+      "rows": 4,
+      "column": 4,
+      "row": 2,
+      "height": 106
+    }
+  ]
+}

@@ -36939,7 +36939,8 @@
     "displayText": "女",
     "speaker": "narrator",
     "sources": [
-      "src/game/director.ts"
+      "src/game/director.ts",
+      "src/world/companions.ts"
     ]
   },
   {
@@ -37095,7 +37096,8 @@
     "displayText": "男",
     "speaker": "narrator",
     "sources": [
-      "src/game/director.ts"
+      "src/game/director.ts",
+      "src/world/companions.ts"
     ]
   },
   {
@@ -56876,7 +56878,8 @@
     "displayText": "伴侣-在册",
     "speaker": "narrator",
     "sources": [
-      "src/game/engine.ts"
+      "src/game/engine.ts",
+      "src/world/npc-schedule.ts"
     ]
   },
   {
@@ -59523,6 +59526,15 @@
     "speaker": "narrator",
     "sources": [
       "src/game/stories.ts"
+    ]
+  },
+  {
+    "id": "v-901552cd4765f5ac",
+    "text": "家庭-断联",
+    "displayText": "家庭-断联",
+    "speaker": "narrator",
+    "sources": [
+      "src/world/npc-schedule.ts"
     ]
   },
   {
@@ -70110,15 +70122,6 @@
     ]
   },
   {
-    "id": "v-2e11e846b13cba9b",
-    "text": "家庭-弟弟矛盾",
-    "displayText": "家庭-弟弟矛盾",
-    "speaker": "narrator",
-    "sources": [
-      "src/world/npc-schedule.ts"
-    ]
-  },
-  {
     "id": "v-2ecfd4ab9e5523f8",
     "text": "尿液变成酱油色",
     "displayText": "尿液变成酱油色",
@@ -74575,7 +74578,6 @@
     "displayText": "家庭-婚礼未到",
     "speaker": "narrator",
     "sources": [
-      "src/world/npc-schedule.ts",
       "src/content/events/ending-adapter.ts"
     ]
   },
@@ -303493,15 +303495,6 @@
     ]
   },
   {
-    "id": "v-f02e3bd2eee2fad3",
-    "text": "完整查体消耗 四 点体力，而不是通常的 三 点。",
-    "displayText": "完整查体消耗 4 点体力，而不是通常的 3 点。",
-    "speaker": "narrator",
-    "sources": [
-      "T12"
-    ]
-  },
-  {
     "id": "v-f133cf630f2a9e75",
     "text": "共同地点尚须核实，血氧读数不能独自排除暴露问题。",
     "displayText": "共同地点尚须核实，血氧读数不能独自排除暴露问题。",
@@ -314306,6 +314299,15 @@
       "voice:E-195:E-195-c",
       "E-195",
       "src/content/events/narrative.ts"
+    ]
+  },
+  {
+    "id": "v-f38d54ccfc251ed5",
+    "text": "完整查体额外消耗 一 点体力，具体费用见本次处置。",
+    "displayText": "完整查体额外消耗 1 点体力，具体费用见本次处置。",
+    "speaker": "narrator",
+    "sources": [
+      "T12"
     ]
   },
   {

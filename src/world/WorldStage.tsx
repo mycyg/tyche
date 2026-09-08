@@ -1,10 +1,10 @@
 import type { ComponentChildren } from 'preact';
-import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { availableEncounters } from '../game/engine';
-import { ACTORS, VITAL_LABELS } from '../game/rules';
+import { ACTORS, RULES, VITAL_LABELS } from '../game/rules';
 import type { Action, Card, Patient, Run, Vital } from '../game/types';
 import { distance, findPath, followPath, move, nearestFloor, roomName, routeTo, SPAWN, walkable, WORLD, type Point } from './navigation';
-import { BED_PLACES, PROPS, paintProp, paintWorldMap, CORRIDOR_BED_PROP, CORRIDOR_BED_OBSTACLE } from './scene';
+import { BED_PLACES, PROPS, paintProp, paintWorldMap, CORRIDOR_BED_PROP, CORRIDOR_BED_FOOT_PROP, CORRIDOR_BED_OBSTACLE } from './scene';
 import { idlePose,ambientDropout } from './idle';
 import { patientArt } from './patients';
 import { awaitingBed } from '../game/cards';
@@ -20,9 +20,24 @@ import {observeLayout} from './observe-layout';
 import {wardCast} from './npc-schedule';
 import {createWardLife,actorAction,actorStep,restingInBed,type NpcActor} from './npc-runtime';
 import {ATLASES,actionFrame,walkFrame} from './npc-art';
+import {moveThroughCrowd,personObstacles} from './crowd';
+import {bedTransitionFrame} from './bed-transition';
 import './world-stage.css';
 
 interface Target extends Point { id: string; label: string; actor?: string; npc?: string; patientId?: string; waitingPatients?:Patient[]; cards?: Card[]; action?: 'coffee' | 'nap' | 'borrow' | 'journal' | 'ward' | 'schedule'; text?: string }
+export function liveTargetPoint(target: Target, actors: Map<string, NpcActor>): Point {
+  const actor = actors.get(target.npc ?? '');
+  return actor && !restingInBed(actor) ? { x: actor.x, y: actor.y } : target;
+}
+function ToolIcon({ kind }: { kind: 'journal' | 'character' | 'map' | 'zoom' }) {
+  const paths = {
+    journal: 'M5 3h14v18H5z M8 7h8 M8 11h8 M8 15h8',
+    character: 'M12 3 21 12 12 21 3 12Z',
+    map: 'M3 3h18v18H3z M9 3v18 M15 3v18 M3 9h18 M3 15h18',
+    zoom: 'M16 10a6 6 0 1 1-12 0 6 6 0 0 1 12 0 M14.5 14.5 21 21',
+  };
+  return <svg class="rpg-tool-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d={paths[kind]} /></svg>;
+}
 /** Fallback positions and idle-sheet rows for the five people who carry cards.
  * The live route in `npc-schedule` moves them; these keep the map complete
  * while the walking atlas is still decoding. */
@@ -52,7 +67,7 @@ export function worldTargets(r: Run): Target[] {
   );
   for (const {patient,place} of occupants) {
     targets.push({...place.target,id:patient.inpatient?`bed:${patient.bed}`:`observation:${patient.uid}`,
-      label:`${patient.inpatient?`${patient.bed} 床`:place.target.x<256?'急救室':'留观'} · ${patient.name}`,patientId:patient.uid});
+      label:`${patient.inpatient?`${patient.bed} 床`:place.target.x<256?'急救室':'留观'} · ${patient.name}`,patientId:patient.uid,npc:`ambulatory:${patient.uid}`});
   }
   for(const group of waiting)targets.push({...group.place.target,id:group.id,label:`${group.label} · ${group.patients.length} 位`,waitingPatients:group.patients});
   for (const card of encounters) {
@@ -119,7 +134,7 @@ export function WorldStage(props: Props) {
   const hold=useRef<{id:string;at:Point;since:number}|null>(null);
   /** Names, markers, click areas and route ends all read the live position, so
    * a card never stays behind at the spot its owner left. */
-  const livePoint=(t:Target):Point=>{const a=t.npc?life.byId.get(t.npc):undefined;return a?{x:a.x,y:a.y}:t;};
+  const livePoint=(t:Target):Point=>liveTargetPoint(t,life.byId);
   const placards=useRef(new Map<string,HTMLButtonElement>());
   const [ready, setReady] = useState(false), [failed, setFailed] = useState(false);
   const [nearby, setNearby] = useState<Target | null>(null), [room, setRoom] = useState('南屏医院 · 住院部');
@@ -147,7 +162,7 @@ export function WorldStage(props: Props) {
     else latest.current.onAmbient(t.label, t.text ?? '暂时没有新的消息。', t.actor);
   };
   const openRef = useRef(open); openRef.current = open;
-  useEffect(()=>{
+  useLayoutEffect(()=>{
     const el=menu.current;
     if(!el) return;
     const previous=document.activeElement as HTMLElement|null;
@@ -170,12 +185,12 @@ export function WorldStage(props: Props) {
     if(!el){setGuideHeight(0);return;}
     return observeLayout(el,()=>setGuideHeight(el.getBoundingClientRect().height));
   },[!!props.guide]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const saved = latest.current.r.world;
     const pos = saved?.day === r.day && walkable(saved,corridorBedInUse(r)?[CORRIDOR_BED_OBSTACLE]:[]) ? saved : SPAWN;
     state.current = { ...pos, moving: false, path: [], destination: '', arrive: '' };
   }, [r.id, r.day]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (props.frozen || selection || quests || overview) {
       input.current.clear(); pad.current.x = pad.current.y = 0;
       state.current.path = []; state.current.destination = '';
@@ -192,9 +207,10 @@ export function WorldStage(props: Props) {
     const images = sources.map(load);
     // The four ward sheets arrive with the map; the family, conflict and
     // patient sheets stream in behind it and only their own people wait.
-    const atlases = new Map(ATLASES.map(a => [a.id, load(a.file)] as const));
+    const atlases = new Map(ATLASES.filter(a => a.core && a.id !== 'staff-walk').map(a => [a.id, load(a.file)] as const));
+    let transitions: HTMLImageElement | undefined;
     const drawable = (img?: HTMLImageElement) => !!img?.complete && img.naturalWidth > 0;
-    let stopped = false, raf = 0, width = 1, height = 1, last = 0, wasMoving = false, lastNear = '', lastRoom = '', lastTick = 0, lastFollow = 0, follows = 0;
+    let stopped = false, raf = 0, width = 1, height = 1, last = 0, wasMoving = false, lastNear = '', lastRoom = '', lastTick = 0, lastFollow = 0, follows = 0, playerStalled = 0;
     const resize = () => { width = container.clientWidth; height = container.clientHeight; if(c.width!==Math.round(width))c.width = Math.round(width); if(c.height!==Math.round(height))c.height = Math.round(height); };
     const stopObserving = observeLayout(container,resize); resize();
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -219,13 +235,30 @@ export function WorldStage(props: Props) {
       if (synced === castRef.current) return;
       synced = castRef.current;
       life.sync(castRef.current);
+      for (const def of castRef.current) {
+        const needed = [def.walk?.atlas, def.haulWalk?.atlas, ...def.stops.map(s => s.action?.atlas)];
+        for (const id of needed) if (id && !atlases.has(id)) atlases.set(id, load(ATLASES.find(a => a.id === id)!.file));
+        if (def.patientId && !transitions) transitions = load('patient-transitions-atlas.webp');
+      }
       upright.clear();
       for (const actor of life.actors) if (actor.def.patientId) upright.set(actor.def.patientId, actor);
     };
     const paintActor = (actor: NpcActor, motion: boolean, time: number) => {
-      const work = actorAction(actor), step = motion ? actorStep(actor) : 0;
-      const image = work ? atlases.get(work.atlas) : actor.def.walk && atlases.get(actor.def.walk.atlas);
-      ctx.fillStyle = 'rgba(8, 14, 28, .38)'; ctx.beginPath(); ctx.ellipse(actor.x, actor.y - 2, 12, 5, 0, 0, Math.PI * 2); ctx.fill();
+      if (actor.transition && drawable(transitions)) {
+        const occupant = occupantsRef.current.find(o => o.patient.uid === actor.def.patientId);
+        if (occupant) {
+          const f = bedTransitionFrame(actor, occupant.place);
+          ctx.save();
+          if (f.sx < 256) clipBlanket(f.dx, f.dy, f.dw, f.dh);
+          ctx.drawImage(transitions!, f.sx, f.sy, f.sw, f.sh, f.dx, f.dy, f.dw, f.dh);
+          ctx.restore();
+          return;
+        }
+      }
+      const hauling = actor.state === 'walk' && (actor.hauling || actor.def.alwaysHauls) && !actor.held ? actor.def.haulWalk : undefined;
+      const work = hauling ? undefined : actorAction(actor), step = motion ? actorStep(actor) : 0;
+      const walk = hauling ?? (actor.def.alwaysHauls ? actor.def.haulWalk : actor.def.walk);
+      const image = work ? atlases.get(work.atlas) : walk && atlases.get(walk.atlas);
       if (!drawable(image)) {
         // Only the five staff have a fallback sheet; it covers the first frames
         // while the walking atlas is still decoding.
@@ -235,9 +268,17 @@ export function WorldStage(props: Props) {
         ctx.drawImage(sheet, pose.frame * cw, PEOPLE[cell].cell * ch, cw, ch, Math.round(actor.x - 36), Math.round(actor.y - 67), 72, 72);
         return;
       }
+      ctx.fillStyle = 'rgba(8, 14, 28, .38)'; ctx.beginPath(); ctx.ellipse(actor.x, actor.y - 2, 12, 5, 0, 0, Math.PI * 2); ctx.fill();
       const frame = work ? actionFrame(work.atlas, work.row, work.group, step, actor.x, actor.y)
-        : walkFrame(actor.def.walk!.atlas, actor.def.walk!.row, actor.facing, actor.state === 'walk' ? step : 0, actor.x, actor.y);
+        : walkFrame(walk!.atlas, walk!.row, actor.facing, actor.moving && !actor.held || actor.def.companionOf && walk!.atlas === 'companion-walk' ? step : 0, actor.x, actor.y);
       ctx.drawImage(image!, frame.sx, frame.sy, frame.sw, frame.sh, frame.dx, frame.dy, frame.dw, frame.dh);
+    };
+    const clipBlanket = (x: number, y: number, w: number, h: number) => {
+      // Heads and arms can extend beyond a blanket; its lower half remains
+      // inside the mattress rails even for a broad or asymmetric cutout.
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x+w, y); ctx.lineTo(x+w, y+h*.61);
+      ctx.lineTo(x+w*.775, y+h*.61); ctx.lineTo(x+w*.775, y+h); ctx.lineTo(x+w*.225, y+h);
+      ctx.lineTo(x+w*.225, y+h*.61); ctx.lineTo(x, y+h*.61); ctx.closePath(); ctx.clip();
     };
     const savePosition = () => latest.current.onPosition({ x: state.current.x, y: state.current.y, facing: state.current.facing, day: latest.current.r.day });
     const reset = () => { input.current.clear(); pad.current.x = pad.current.y = 0; state.current.path = []; state.current.destination = ''; if (stick.current) stick.current.style.transform = 'translate(0, 0)'; if (wasMoving) savePosition(); wasMoving = false; };
@@ -257,6 +298,7 @@ export function WorldStage(props: Props) {
       const dt = Math.min(.04, last ? (time - last) / 1000 : 0); last = time;
       const player = state.current, p = latest.current;
       const motion = p.motion && !reducedMotion.matches;
+      syncCast();
       let dx = 0, dy = 0;
       if (!blocked.current) {
         const keys = input.current;
@@ -265,15 +307,33 @@ export function WorldStage(props: Props) {
         const speed = WORLD.speed * (keys.has('shift') ? 1.45 : 1);
         let next:Point;
         if(!dx&&!dy&&player.path.length){
-          next=followPath(player,player.path,speed*dt,obstacles());dx=next.x-player.x;dy=next.y-player.y;
+          const path = [...player.path];
+          const intended = followPath(player,path,speed*dt,obstacles());
+          const people = life.actors.filter(a=>!restingInBed(a));
+          next=moveThroughCrowd(player,intended,people,obstacles());
+          if (distance(next,intended)<.01) { player.path=path; playerStalled=0; }
+          else {
+            playerStalled+=dt*1000;
+            if (playerStalled>650) {
+              const target=targetsRef.current.find(t=>t.id===player.destination);
+              if(target)player.path=routeTo(player,livePoint(target),[...obstacles(),...personObstacles(people,player)]);
+              playerStalled=0;
+            }
+          }
+          dx=next.x-player.x;dy=next.y-player.y;
         }else{
           const length=Math.hypot(dx,dy);if(length>1){dx/=length;dy/=length;}
           next=move(player,dx*speed*dt,dy*speed*dt,obstacles());
+          next=moveThroughCrowd(player,next,life.actors.filter(a=>!restingInBed(a)),obstacles());
         }
         player.moving = distance(player, next) > .01;
         player.x = next.x; player.y = next.y;
         if (Math.abs(dx) > Math.abs(dy)) player.facing = dx > 0 ? 3 : 1;
         else if (dy) player.facing = dy > 0 ? 0 : 2;
+        // A person's feet are occupied. Arrive beside them, before the path
+        // asks the doctor to enter the same collision circle.
+        const approached = player.destination && targetsRef.current.find(t => t.id === player.destination);
+        if (approached && distance(player, livePoint(approached)) < 30) player.path = [];
         if (player.destination && !player.path.length) {
           // A route that ends short of a character who kept walking is issued
           // again, so a required card is never lost to the walk.
@@ -299,9 +359,9 @@ export function WorldStage(props: Props) {
       }
       if (wasMoving && !player.moving) savePosition();
       wasMoving = player.moving;
-      syncCast();
       if (hold.current && !p.frozen && !p.dialogueOpen && !blocked.current && time - hold.current.since > 400) hold.current = null;
-      life.step(dt, { motion, extra: obstacles(), hold: hold.current });
+      life.step(dt, { motion, freeze: blocked.current, extra: obstacles(), hold: hold.current, player,
+        ready: actor => !actor.def.patientId || drawable(atlases.get('patient-motion')) && drawable(transitions) });
       const cam=worldCamera(player,width,height,zoom),{scale}=cam;
       camera.current = cam;
       ctx.imageSmoothingEnabled = false;
@@ -312,17 +372,22 @@ export function WorldStage(props: Props) {
       if (player.path.length && !blocked.current) {
         ctx.fillStyle = '#ffe5a2'; player.path.forEach((p, i) => { if (i % 3 === 0) ctx.fillRect(p.x - 1, p.y - 1, 2, 2); });
       }
-      if (propList.length !== PROPS.length + (corridorBedInUse(p.r) ? 1 : 0)) {
-        propList.length = 0; propList.push(...PROPS); if (corridorBedInUse(p.r)) propList.push(CORRIDOR_BED_PROP);
+      if (propList.length !== PROPS.length + (corridorBedInUse(p.r) ? 2 : 0)) {
+        propList.length = 0; propList.push(...PROPS); if (corridorBedInUse(p.r)) propList.push(CORRIDOR_BED_PROP,CORRIDOR_BED_FOOT_PROP);
       }
       layers.length = 0;
       for (let i = 0; i < propList.length; i++) pushLayer(propList[i].depth, 0, i);
       const occupantList = occupantsRef.current;
       for (let i = 0; i < occupantList.length; i++) {
         const away = upright.get(occupantList[i].patient.uid);
-        if (!away || restingInBed(away)) pushLayer(occupantList[i].place.depth, 1, i);
+        if (!away || restingInBed(away) || !drawable(atlases.get('patient-motion')) || !drawable(transitions)) pushLayer(occupantList[i].place.depth, 1, i);
       }
-      for (let i = 0; i < life.actors.length; i++) { const a = life.actors[i]; if (!a.def.patientId || !restingInBed(a)) pushLayer(a.y, 2, i); }
+      for (let i = 0; i < life.actors.length; i++) {
+        const a = life.actors[i];
+        if (a.def.patientId && (restingInBed(a) || !drawable(atlases.get('patient-motion')) || !drawable(transitions))) continue;
+        const bed = a.transition && occupantList.find(o => o.patient.uid === a.def.patientId)?.place;
+        pushLayer(bed ? bedTransitionFrame(a, bed).depth : a.y, 2, i);
+      }
       pushLayer(player.y, 3, 0);
       layers.sort(byDepth);
       for (const layer of layers) {
@@ -330,9 +395,11 @@ export function WorldStage(props: Props) {
         if (layer.kind === 1) {
           const { patient, place: bed } = occupantList[layer.index];
           const art = patientArt(patient), { index, columns } = art;
-          const pose = idlePose(time, patient.uid, motion && patient.damage < 3 && patient.caseId !== 'C020');
-          const rise = pose.breathe * .55;
-          ctx.drawImage(images[art.atlas === 'original' ? 3 : 4], index % columns * 128, Math.floor(index / columns) * 128, 128, 128, bed.x, bed.y - rise, bed.width, bed.height + rise);
+          // Keep the blanket registered to the mattress instead of stretching
+          // the entire cutout on a breathing timer.
+          ctx.save(); clipBlanket(bed.x, bed.y, bed.width, bed.height);
+          ctx.drawImage(images[art.atlas === 'original' ? 3 : 4], index % columns * 128, Math.floor(index / columns) * 128, 128, 128, bed.x, bed.y, bed.width, bed.height);
+          ctx.restore();
           continue;
         }
         if (layer.kind === 2) { paintActor(life.actors[layer.index], motion, time); continue; }
@@ -375,7 +442,11 @@ export function WorldStage(props: Props) {
       ctx.restore();
       for(const occupant of occupantsRef.current){
         const label=placards.current.get(occupant.patient.uid);if(!label)continue;
-        const position=placardPosition(occupant.place,cam,{width,height});
+        const away=upright.get(occupant.patient.uid);
+        const place=away&&!restingInBed(away)&&drawable(atlases.get('patient-motion'))
+          ? {...occupant.place,x:away.x-occupant.place.width/2,y:away.y-occupant.place.height}
+          : occupant.place;
+        const position=placardPosition(place,cam,{width,height});
         label.hidden=!position.visible;label.style.width=`${position.width}px`;
         label.style.transform=`translate(${Math.round(position.x-position.width/2)}px,${Math.round(position.y)}px)`;
       }
@@ -430,14 +501,19 @@ export function WorldStage(props: Props) {
       <div class="rpg-vitals">{(['stamina', 'san', 'emotion'] as Vital[]).map(v => <div class={`rpg-meter meter-${v}`} key={v}>
         <span>{VITAL_LABELS[v]}</span><div role="meter" aria-label={VITAL_LABELS[v]} aria-valuenow={r.vitals[v]} aria-valuemin={0} aria-valuemax={liveCap(r,v)}><i style={{ width: `${Math.max(0, Math.min(100,r.vitals[v] / liveCap(r,v) * 100))}%` }} /></div><b>{Math.round(r.vitals[v])}<small>/{liveCap(r,v)}</small></b>
       </div>)}</div>
-      <div class="rpg-ap" title={`行动值 ${r.ap}，今日已预支 ${r.borrowed} 点`}><strong>行动 <b>{r.ap}</b></strong><div>{Array.from({ length: 10 }, (_, i) => <i class={i < r.ap ? 'filled' : ''} key={i} />)}</div><small>预支 {r.borrowed}/4</small></div>
+      <div class="rpg-ap" title={`行动值 ${r.ap}，今日已预支 ${r.borrowed} 点`}><strong>行动 <b>{r.ap}</b></strong><div>{Array.from({ length: Math.max(RULES.ap,r.ap) }, (_, i) => <i class={i < r.ap ? 'filled' : ''} key={i} />)}</div><small>预支 {r.borrowed}/{RULES.borrowMax}</small></div>
       <div class="rpg-wallet"><strong>余额 ¥ {Math.round(r.cash).toLocaleString('zh-CN')}</strong><small>负债 ¥{Math.round(r.debt + r.privateDebt).toLocaleString('zh-CN')}</small></div>
       <button class="rpg-pause" aria-label="暂停与设置" onClick={() => props.onMenu('settings')}>Ⅱ</button>
     </header>
     <div class="rpg-location"><span>第 {String(r.day).padStart(2, '0')} 天</span><b>{room}</b><small>{r.day === 15 ? '医疗纠纷复核' : `距本次轮转结束 ${15 - r.day} 天`}</small></div>
     <div class="rpg-quest-button"><button onClick={() => setQuests(true)} disabled={props.frozen}><span>！</span>当班待办 <b>{availableEncounters({...r,phase:'play'}).length}</b></button></div>
     {props.guide && <div class="world-guide" ref={guideBox}>{props.guide}</div>}
-    <div class="rpg-tools"><button onClick={() => props.onMenu('journal')} aria-label="病历夹">▤<span>病历</span></button><button onClick={() => props.onMenu('character')} aria-label="角色与天赋">◇<span>角色</span></button><button onClick={()=>setOverview(true)} aria-label="打开病区地图">▦<span>地图</span></button><button onClick={() => setZoom(z => z === 1 ? 1.3 : 1)} aria-label="切换地图缩放">⌕<span>视野</span></button></div>
+    <div class="rpg-tools">
+      <button onClick={() => props.onMenu('journal')} aria-label="病历夹"><ToolIcon kind="journal"/><span>病历</span></button>
+      <button onClick={() => props.onMenu('character')} aria-label="角色与天赋"><ToolIcon kind="character"/><span>角色</span></button>
+      <button onClick={()=>setOverview(true)} aria-label="打开病区地图"><ToolIcon kind="map"/><span>地图</span></button>
+      <button onClick={() => setZoom(z => z === 1 ? 1.3 : 1)} aria-label="切换地图缩放"><ToolIcon kind="zoom"/><span>视野</span></button>
+    </div>
     {!props.frozen && !selection && !quests && !overview && <>
       <div class="rpg-controls">
         <div class="joystick" role="group" aria-label="移动摇杆" onPointerDown={e => { if (pad.current.pointer !== -1) return; pad.current.pointer = e.pointerId; (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId); usePad(e); }} onPointerMove={usePad} onPointerUp={releasePad} onPointerCancel={releasePad} onLostPointerCapture={releasePad}><span class="joystick-cross" /><span ref={stick} class="joystick-knob" /></div>

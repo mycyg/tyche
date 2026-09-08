@@ -3,6 +3,9 @@
 .world-stage.world-stage-readable .rpg-quest-button button,
 .world-stage.world-stage-readable .rpg-tools button,
 .world-stage.world-stage-readable .rpg-menu-heading button { min-width:44px;min-height:44px; }
+.world-stage.world-stage-readable .rpg-tools button { display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:2px;line-height:1; }
+.world-stage.world-stage-readable .rpg-tools .rpg-tool-icon { display:block;width:18px;height:18px;flex:0 0 18px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round; }
+.world-stage.world-stage-readable .rpg-tools span { display:block;flex:none;line-height:1.1;white-space:nowrap; }
 .world-stage.world-stage-readable .rpg-location { max-width:calc(100% - 180px); }
 .world-stage.world-stage-readable .rpg-location b { overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
 .world-stage.world-stage-readable .rpg-quest-button { top:64px; }
@@ -44,10 +47,11 @@
  .world-stage.world-stage-readable { --hud-space:106px; }
  .world-stage.world-stage-readable .rpg-location { top:72px; }
  .world-stage.world-stage-readable .rpg-quest-button { top:57px; }
- .world-stage.world-stage-readable .rpg-tools { top:calc(var(--hud-space) + var(--guide-space,0px) + 7px);gap:4px;right:15px; }
+ .world-stage.world-stage-readable:not(.with-dialogue) .rpg-tools { top:calc(var(--hud-space) + var(--guide-space,0px) - 8px);bottom:102px;padding-block:0;gap:4px;right:15px; }
  .world-stage.world-stage-readable .rpg-tools button { height:44px;width:44px; }
  .world-stage.world-stage-readable .rpg-tools button:nth-child(2) { display:none; }
  .world-stage.world-stage-readable .rpg-tools button:last-child { display:none; }
+ .world-stage.world-stage-readable:not(.with-dialogue) .rpg-tools button:last-child { display:none; }
 }
 @media (prefers-reduced-motion:reduce) {
  .world-stage-readable .world-perception-message,.world-stage-readable .world-ambient-dropout,.world-stage-readable .rpg-meter i { animation:none;transition:none; }

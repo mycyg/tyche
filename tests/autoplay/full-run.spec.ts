@@ -38,6 +38,7 @@ for (const seed of SEEDS)
         expect(report.stuck, "回归局卡死").toBeNull();
         expect(report.finished, "回归局未到达结局页").toBe(true);
         expect(report.ending?.id, "结局编号缺失").toBeTruthy();
+        expect(report.navigationFailures, "寻路未抵达交互目标").toEqual([]);
       }
     });
   }
